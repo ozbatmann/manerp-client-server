@@ -1,6 +1,6 @@
 package tr.com.manerp.business.main.order
 
-import org.grails.databinding.BindingFormat
+import grails.databinding.BindingFormat
 import tr.com.manerp.auth.AwcCompany
 import tr.com.manerp.business.main.company.Company
 import tr.com.manerp.business.sysref.SysrefRevenueType

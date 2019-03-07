@@ -1,8 +1,8 @@
 package tr.com.manerp.business.main.voyage
 
-import grails.transaction.Transactional
-import org.codehaus.groovy.grails.web.json.JSONArray
-import org.codehaus.groovy.grails.web.json.JSONObject
+import grails.gorm.transactions.Transactional
+import org.grails.web.json.JSONArray
+import org.grails.web.json.JSONObject
 import org.hibernate.sql.JoinType
 import tr.com.manerp.auth.AwcCompany
 import tr.com.manerp.business.main.company.Company

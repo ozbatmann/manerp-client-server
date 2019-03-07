@@ -1,15 +1,14 @@
 package tr.com.manerp.business.main.vehicle
 
-import grails.transaction.Transactional
-import org.codehaus.groovy.grails.web.json.JSONArray
-import org.codehaus.groovy.grails.web.json.JSONObject
+import grails.gorm.transactions.Transactional
+import org.grails.web.json.JSONArray
+import org.grails.web.json.JSONObject
 import org.hibernate.sql.JoinType
 import tr.com.manerp.auth.AwcCompany
 import tr.com.manerp.business.main.voyage.Voyage
 import tr.com.manerp.business.ref.RefWorkingArea
 import tr.com.manerp.business.sysref.SysrefVehicleOwner
 import tr.com.manerp.business.sysref.SysrefVehicleType
-
 import java.text.SimpleDateFormat
 
 @Transactional

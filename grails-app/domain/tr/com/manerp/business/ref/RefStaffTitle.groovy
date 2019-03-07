@@ -1,8 +1,7 @@
 package tr.com.manerp.business.ref
 
-import org.grails.databinding.BindingFormat
+import grails.databinding.BindingFormat
 import tr.com.manerp.auth.AwcCompany
-import tr.com.manerp.business.main.company.Company
 
 class RefStaffTitle {
 

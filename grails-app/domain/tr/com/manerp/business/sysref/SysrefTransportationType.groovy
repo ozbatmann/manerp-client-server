@@ -1,6 +1,7 @@
 package tr.com.manerp.business.sysref
 
-import org.grails.databinding.BindingFormat
+import grails.databinding.BindingFormat
+
 
 class SysrefTransportationType {
 

@@ -1,10 +1,6 @@
 package tr.com.manerp.business.main.company
 
-import org.grails.databinding.BindingFormat
-import tr.com.manerp.auth.AwcCompany
-import tr.com.manerp.business.sysref.SysrefCity
-import tr.com.manerp.business.sysref.SysrefCountry
-import tr.com.manerp.business.sysref.SysrefDistrict
+import grails.databinding.BindingFormat
 
 class Vendor {
 

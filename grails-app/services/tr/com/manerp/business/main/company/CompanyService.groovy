@@ -1,11 +1,10 @@
 package tr.com.manerp.business.main.company
 
-import grails.transaction.Transactional
-import org.codehaus.groovy.grails.web.json.JSONArray
-import org.codehaus.groovy.grails.web.json.JSONObject
+import grails.gorm.transactions.Transactional
+import org.grails.web.json.JSONArray
+import org.grails.web.json.JSONObject
 import org.hibernate.sql.JoinType
 import tr.com.manerp.auth.AwcCompany
-import tr.com.manerp.business.main.company.Company
 import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.resource.Staff
 import tr.com.manerp.business.ref.RefCompanySector

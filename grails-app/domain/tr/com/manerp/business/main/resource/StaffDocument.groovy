@@ -1,6 +1,7 @@
 package tr.com.manerp.business.main.resource
 
-import org.grails.databinding.BindingFormat
+import grails.databinding.BindingFormat
+
 
 class StaffDocument {
 

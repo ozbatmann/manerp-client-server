@@ -1,7 +1,7 @@
 package tr.com.manerp.business.ref
 
-import grails.transaction.Transactional
-import org.codehaus.groovy.grails.web.json.JSONObject
+import grails.gorm.transactions.Transactional
+import org.grails.web.json.JSONObject
 import tr.com.manerp.business.main.vehicle.Vehicle
 
 @Transactional

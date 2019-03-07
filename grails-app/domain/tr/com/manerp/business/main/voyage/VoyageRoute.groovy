@@ -1,6 +1,6 @@
 package tr.com.manerp.business.main.voyage
 
-import org.grails.databinding.BindingFormat
+import grails.databinding.BindingFormat
 
 class VoyageRoute {
 

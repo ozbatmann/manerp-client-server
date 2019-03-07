@@ -1,6 +1,6 @@
 package tr.com.manerp.business.main.vehicle
 
-import org.grails.databinding.BindingFormat
+import grails.databinding.BindingFormat
 
 class VehicleDocument {
 

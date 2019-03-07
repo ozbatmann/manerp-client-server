@@ -1,9 +1,8 @@
 package tr.com.manerp.business.main.resource
 
-import org.grails.databinding.BindingFormat
+import grails.databinding.BindingFormat
 import tr.com.manerp.auth.AwcCompany
 import tr.com.manerp.auth.AwcUser
-import tr.com.manerp.business.main.company.Company
 import tr.com.manerp.business.ref.RefStaffTitle
 import tr.com.manerp.business.sysref.SysrefCity
 import tr.com.manerp.business.sysref.SysrefCountry

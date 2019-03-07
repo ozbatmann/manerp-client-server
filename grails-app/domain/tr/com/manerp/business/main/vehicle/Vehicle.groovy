@@ -1,6 +1,6 @@
 package tr.com.manerp.business.main.vehicle
 
-import org.grails.databinding.BindingFormat
+import grails.databinding.BindingFormat
 import tr.com.manerp.auth.AwcCompany
 import tr.com.manerp.business.ref.RefWorkingArea
 import tr.com.manerp.business.sysref.SysrefVehicleOwner

@@ -1,6 +1,6 @@
 package tr.com.manerp.auth
 
-import org.grails.databinding.BindingFormat
+import grails.databinding.BindingFormat
 import tr.com.manerp.business.sysref.SysrefGender
 
 class Person {

@@ -1,9 +1,9 @@
 package tr.com.manerp.business.main.company
 
 import grails.converters.JSON
-import grails.transaction.Transactional
-import org.codehaus.groovy.grails.web.json.JSONArray
-import org.codehaus.groovy.grails.web.json.JSONObject
+import grails.gorm.transactions.Transactional
+import org.grails.web.json.JSONArray
+import org.grails.web.json.JSONObject
 import org.hibernate.sql.JoinType
 
 @Transactional

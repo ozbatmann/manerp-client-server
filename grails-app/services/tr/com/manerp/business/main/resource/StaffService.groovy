@@ -1,7 +1,6 @@
 package tr.com.manerp.business.main.resource
 
-import grails.transaction.Transactional
-import org.codehaus.groovy.grails.web.json.JSONObject
+import grails.gorm.transactions.Transactional
 import org.hibernate.sql.JoinType
 import tr.com.manerp.auth.AwcCompany
 import tr.com.manerp.business.main.voyage.Voyage
@@ -9,9 +8,7 @@ import tr.com.manerp.business.ref.RefStaffTitle
 import tr.com.manerp.business.sysref.SysrefCity
 import tr.com.manerp.business.sysref.SysrefCountry
 import tr.com.manerp.business.sysref.SysrefDistrict
-import tr.com.manerp.business.sysref.SysrefDrivingType
 import tr.com.manerp.business.sysref.SysrefGender
-
 import java.text.SimpleDateFormat
 
 @Transactional

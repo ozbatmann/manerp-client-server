@@ -1,6 +1,6 @@
 package tr.com.manerp.auth
 
-import org.grails.databinding.BindingFormat
+import grails.databinding.BindingFormat
 import tr.com.manerp.business.main.resource.Staff
 import tr.com.manerp.business.ref.RefCompanySector
 import tr.com.manerp.business.sysref.SysrefCity
