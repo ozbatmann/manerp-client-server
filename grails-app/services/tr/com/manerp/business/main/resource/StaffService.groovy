@@ -2,7 +2,7 @@ package tr.com.manerp.business.main.resource
 
 import grails.gorm.transactions.Transactional
 import org.hibernate.sql.JoinType
-import tr.com.manerp.auth.AwcCompany
+import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.business.main.voyage.Voyage
 import tr.com.manerp.business.ref.RefStaffTitle
 import tr.com.manerp.business.sysref.SysrefCity
@@ -211,7 +211,7 @@ class StaffService {
                 if (uniqueEmail == null) {
 
                     Staff staff = new Staff()
-                    staff.awcCompany = AwcCompany.get(staffJson.awcCompany)
+                    staff.awcCompany = SysCompany.get(staffJson.awcCompany)
                     staff.firstName = staffJson.firstName
                     staff.middleName = staffJson.isNull("middleName") ? null : staffJson.middleName
                     staff.lastName = staffJson.lastName
@@ -287,7 +287,7 @@ class StaffService {
                 if (uniqueEmail == null) {
 
                     Staff staff = Staff.get(staffJson.id)
-                    staff.awcCompany = AwcCompany.get(staffJson.awcCompany)
+                    staff.awcCompany = SysCompany.get(staffJson.awcCompany)
                     staff.firstName = staffJson.firstName
                     staff.middleName = staffJson.isNull("middleName") ? null : staffJson.middleName
                     staff.lastName = staffJson.lastName

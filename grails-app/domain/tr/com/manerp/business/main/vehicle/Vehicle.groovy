@@ -1,17 +1,18 @@
 package tr.com.manerp.business.main.vehicle
 
 import grails.databinding.BindingFormat
-import tr.com.manerp.auth.AwcCompany
+import tr.com.manerp.auth.SysCompany
+import tr.com.manerp.base.domain.BaseDomain
 import tr.com.manerp.business.ref.RefWorkingArea
 import tr.com.manerp.business.sysref.SysrefVehicleOwner
 import tr.com.manerp.business.sysref.SysrefVehicleType
 
-class Vehicle {
+class Vehicle implements BaseDomain {
 
     static auditable = true
 
     String code
-    AwcCompany awcCompany
+    SysCompany sysCompany
     String brand
     String fleetCardNumber
     String plateNumber
@@ -35,23 +36,18 @@ class Vehicle {
     String description
     Boolean operationInsuranceNotification
     Boolean annualInsurance
-    Boolean active // isBlackListed
-    @BindingFormat('dd/MM/yyyy')
-    Date createTime = new Date()
-    @BindingFormat('dd/MM/yyyy')
-    Date opDate = new Date()
 
     static hasMany = [
-            vehicleDocuments: VehicleDocument
+        vehicleDocuments: VehicleDocument
     ]
     static belongsTo = []
 
     static constraints = {
-        code nullable: true, blank: true, unique: true, maxSize: 11
-        awcCompany nullable: false, unique: false
+        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 11
+        sysCompany nullable: false, unique: false
         brand nullable: false, blank: false, unique: false, maxSize: 50
         fleetCardNumber nullable: false, unique: false, maxSize: 50
-        plateNumber nullable: false, blank: false, unique: true, maxSize: 12
+        plateNumber nullable: false, blank: false, unique: ['sysCompany'], maxSize: 12
         purchaseDate nullable: true, unique: false
         numberOfSensors nullable: true, unique: false
         hasLogo nullable: false, unique: false
@@ -69,19 +65,22 @@ class Vehicle {
         description nullable: true, blank: true, unique: false
         operationInsuranceNotification nullable: true, unique: false
         annualInsurance nullable: true, unique: false
-        active nullable: false, unique: false
-        createTime nullable: true, unique: false
-        opDate nullable: false, unique: false
     }
 
     static mapping = {
-        table name: "vehicle", schema: "business"
-        id generator: 'sequence', params: [sequence: 'business.SEQ_VEHICLE']
+//        table name: "vehicle", schema: "business"
+//        id generator: 'sequence', params: [sequence: 'business.SEQ_VEHICLE']
         vehicleDocuments cascade: 'all-delete-orphan'
     }
 
-    def beforeUpdate() {
-        opDate = new Date()
+
+    def beforeValidate() {
+        brand = brand?.trim()
+        fleetCardNumber = fleetCardNumber?.trim()
+        plateNumber = plateNumber?.trim()
+        vehicleOwnerName = vehicleOwnerName?.trim()
+        kgsNo = kgsNo?.trim()
+        ogsNo = ogsNo?.trim()
     }
 
 }

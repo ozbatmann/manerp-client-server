@@ -1,35 +1,31 @@
 package tr.com.manerp.business.main.vehicle
 
-import grails.databinding.BindingFormat
-import tr.com.manerp.auth.AwcCompany
-import tr.com.manerp.business.main.company.Company
+import tr.com.manerp.auth.SysCompany
+import tr.com.manerp.base.domain.BaseDomain
 
-class Dorset {
+class Dorset implements BaseDomain {
 
     static auditable = true
 
     String code
-    AwcCompany awcCompany
+    SysCompany sysCompany
     String plateNumber
     String name
-    @BindingFormat('dd/MM/yyyy')
-    Date opDate = new Date()
 
     static constraints = {
-        code nullable: true, blank: true, unique: true, maxSize: 11
-        awcCompany nullable: false, unique: false
+        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 11
+        sysCompany nullable: false, unique: false
         plateNumber nullable: false, blank: false, unique: false
         name nullable: true, blank: true, unique: false, maxSize: 50
-        opDate nullable: false, unique: false
     }
 
     static mapping = {
-        table name: "dorset", schema: "business"
-        id generator: 'sequence', params: [sequence: 'business.SEQ_DORSET']
+//        table name: "dorset", schema: "business"
+//        id generator: 'sequence', params: [sequence: 'business.SEQ_DORSET']
     }
 
-    def beforeUpdate() {
-        opDate = new Date()
+    def beforeValidate() {
+        name = name?.trim()
     }
 
 }

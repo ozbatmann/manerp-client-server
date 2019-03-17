@@ -1,9 +1,10 @@
 package tr.com.manerp.auth
 
-import grails.databinding.BindingFormat
+import grails.util.Holders
+import tr.com.manerp.base.domain.BaseDomain
 import tr.com.manerp.business.sysref.SysrefGender
 
-class Person {
+class Person implements BaseDomain {
 
     static auditable = true
 
@@ -13,32 +14,32 @@ class Person {
     SysrefGender sysrefGender
     Long tcIdNumber
     Boolean isStaff
-    @BindingFormat('dd/MM/yyyy')
-    Date opDate = new Date()
+    byte[] photo
+    String photoName
+    String photoMimeType
 
     static hasMany = []
     static belongsTo = []
 
     static constraints = {
-        name nullable: false, blank: false, unique: false
-        lastName nullable: false, blank: false, unique: false
-        email email: true, blank: false, nullable: false, unique: true
+        photo shared: "optional", unique: false, maxSize: Holders.config.manerp.postgresql.maxByteSize
+        photoName shared: "optional", unique: false
+        photoMimeType shared: "optional", unique: false
+        name shared: "necessary", unique: false
+        lastName shared: "necessary", unique: false
+        email shared: "necessary", email: true, unique: true
         sysrefGender nullable: true, unique: false
         tcIdNumber nullable: false, unique: false
         isStaff nullable: false, unique: false
-        opDate nullable: false, unique: false
     }
 
     static mapping = {
-        table name: "person", schema: "auth"
-        id generator: 'sequence', params: [sequence: 'auth.SEQ_PERSON']
+//        table name: "person", schema: "auth"
+//        id generator: 'sequence', params: [sequence: 'auth.SEQ_PERSON']
     }
 
     static mappedBy = {
     }
 
-    def beforeUpdate() {
-        opDate = new Date()
-    }
 
 }

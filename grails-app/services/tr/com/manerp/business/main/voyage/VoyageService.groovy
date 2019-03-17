@@ -4,7 +4,7 @@ import grails.gorm.transactions.Transactional
 import org.grails.web.json.JSONArray
 import org.grails.web.json.JSONObject
 import org.hibernate.sql.JoinType
-import tr.com.manerp.auth.AwcCompany
+import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.business.main.company.Company
 import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.resource.Staff
@@ -253,7 +253,7 @@ class VoyageService {
         try {
 
             Voyage voyage = new Voyage()
-            voyage.awcCompany = AwcCompany.get(1)
+            voyage.awcCompany = SysCompany.get(1)
             voyage.company = Company.get(voyageJson.company)
             voyage.vehicle = Vehicle.get(voyageJson.vehicle)
             voyage.driver = Staff.get(voyageJson.driver)
@@ -306,7 +306,7 @@ class VoyageService {
         try {
 
             Voyage voyage = Voyage.get(voyageJson.id)
-            voyage.awcCompany = AwcCompany.get(voyageJson.awcCompany)
+            voyage.awcCompany = SysCompany.get(voyageJson.awcCompany)
             voyage.company = Company.get(voyageJson.company)
             voyage.vehicle = Vehicle.get(voyageJson.vehicle)
             voyage.driver = Staff.get(voyageJson.driver)
@@ -424,7 +424,7 @@ class VoyageService {
         try {
 
             // TODO: Request awcCompanyId
-            AwcCompany awcCompany = AwcCompany.get(1)
+            SysCompany awcCompany = SysCompany.get(1)
 
             RefStaffTitle refStaffTitle = RefStaffTitle.findByCodeAndAwcCompany("DRV", awcCompany)
 

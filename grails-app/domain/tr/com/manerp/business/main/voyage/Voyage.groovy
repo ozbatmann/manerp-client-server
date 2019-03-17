@@ -1,7 +1,7 @@
 package tr.com.manerp.business.main.voyage
 
-import grails.databinding.BindingFormat
-import tr.com.manerp.auth.AwcCompany
+import tr.com.manerp.auth.SysCompany
+import tr.com.manerp.base.domain.BaseDomain
 import tr.com.manerp.business.main.company.Company
 import tr.com.manerp.business.main.vehicle.Dorset
 import tr.com.manerp.business.main.order.Order
@@ -12,12 +12,12 @@ import tr.com.manerp.business.sysref.SysrefDeliveryStatus
 import tr.com.manerp.business.sysref.SysrefTransportationType
 import tr.com.manerp.business.sysref.SysrefVoyageDirection
 
-class Voyage {
+class Voyage implements BaseDomain {
 
     static auditable = true
 
     String code
-    AwcCompany awcCompany
+    SysCompany sysCompany
     Company company
     Vehicle vehicle
     Staff driver
@@ -26,22 +26,19 @@ class Voyage {
     Order order
     SysrefTransportationType sysrefTransportationType
     SysrefVoyageDirection sysrefVoyageDirection
-    //Location loadingLocation
-    //Location dumpingLocation
-    String loadingLocation
-    String dumpingLocation
-    Staff substitudeDriver
+    Location loadingLocation
+    Location dumpingLocation
+    Staff substitudeDriver // yedek sofor
     String transportWaybillNo
     String deliveryNoteNo
     String sasNumber
     SysrefDeliveryStatus sysrefDeliveryStatus
-    Boolean active
-    @BindingFormat('dd/MM/yyyy')
-    Date opDate = new Date()
+
+    static hasMany = [routes: VoyageRoute]
 
     static constraints = {
-        code nullable: true, blank: true, unique: true, maxSize: 11
-        awcCompany nullable: false, unique: false
+        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 11
+        sysCompany nullable: false, unique: false
         company nullable: false, unique: false
         vehicle nullable: false, unique: false
         driver nullable: false, unique: false
@@ -50,24 +47,20 @@ class Voyage {
         order nullable: false, unique: false
         sysrefTransportationType nullable: true, unique: false
         sysrefVoyageDirection nullable: true, unique: false
-        loadingLocation nullable: false, unique: false, maxSize: 255
-        dumpingLocation nullable: false, unique: false, maxSize: 255
+        loadingLocation nullable: false, unique: false
+        dumpingLocation nullable: false, unique: false
         substitudeDriver nullable: true, unique: false
         transportWaybillNo nullable: false, blank: false, unique: false
         deliveryNoteNo nullable: false, blank: false, unique: false
         sasNumber nullable: false, blank: false, unique: false
         sysrefDeliveryStatus nullable: true, unique: false
-        active unique: false
-        opDate nullable: false, unique: false
     }
 
     static mapping = {
-        table name: "voyage", schema: "business"
-        id generator: 'sequence', params: [sequence: 'business.SEQ_VOYAGE']
+//        table name: "voyage", schema: "business"
+//        id generator: 'sequence', params: [sequence: 'business.SEQ_VOYAGE']
+        routes cascade: 'all-delete-orphan'
     }
 
-    def beforeUpdate() {
-        opDate = new Date()
-    }
 
 }

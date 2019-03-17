@@ -1,29 +1,27 @@
 package tr.com.manerp.business.ref
 
 import grails.databinding.BindingFormat
-import tr.com.manerp.auth.AwcCompany
-import tr.com.manerp.business.main.company.Company
+import tr.com.manerp.auth.SysCompany
+import tr.com.manerp.base.domain.BaseDomain
 
-class RefWorkingArea {
+class RefWorkingArea implements BaseDomain {
 
     static auditable = true
 
-    AwcCompany awcCompany
+    SysCompany sysCompany
     String name
-    String code
-    boolean active
-    @BindingFormat('dd/MM/yyyy')
-    Date opDate = new Date()
+    String businessCode
+    String description
 
     static hasMany = []
     static belongsTo = []
 
     static constraints = {
-        awcCompany nullable: true, unique: false
-        name nullable: false, blank: false, unique: false, maxSize: 50
-        code nullable: false, blank: false, unique: true, maxSize: 3
-        active unique: false
-        opDate nullable: false, unique: false
+        code nullable: false, blank: false, unique: ['sysCompany']
+        sysCompany nullable: false, unique: false
+        name nullable: false, blank: false, unique: ['sysCompany'], maxSize: 50
+        businessCode nullable: true, blank: true, unique: ['sysCompany'], maxSize: 10
+        description nullable: true, blank: true, unique: false
     }
 
     static mapping = {
@@ -34,8 +32,5 @@ class RefWorkingArea {
     static mappedBy = {
     }
 
-    def beforeUpdate() {
-        opDate = new Date()
-    }
 
 }

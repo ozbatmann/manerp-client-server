@@ -4,7 +4,7 @@ import grails.gorm.transactions.Transactional
 import org.grails.web.json.JSONArray
 import org.grails.web.json.JSONObject
 import org.hibernate.sql.JoinType
-import tr.com.manerp.auth.AwcCompany
+import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.resource.Staff
 import tr.com.manerp.business.ref.RefCompanySector
@@ -41,7 +41,7 @@ class CompanyService {
         def companyTotalSize
         def companyFilteredSize
         def orderColumnString
-        companyTotalSize = Company.count
+        companyTotalSize = SysCompany.count
         companyFilteredSize = companyTotalSize
 
         try {
@@ -62,7 +62,7 @@ class CompanyService {
             tradeRegistrationNo = tradeRegistrationNo.toLowerCase(new Locale("TR", "tr"))
             refCompanySectorName = refCompanySectorName.toLowerCase(new Locale("TR", "tr"))
 
-            def companyCriteria = Company.createCriteria()
+            def companyCriteria = SysCompany.createCriteria()
             companyList = companyCriteria.list(max: length, offset: start) {
                 createAlias("awcCompany", "_awcCompany", JoinType.LEFT_OUTER_JOIN)
                 createAlias("refCompanySector", "_refCompanySector", JoinType.LEFT_OUTER_JOIN)
@@ -88,7 +88,7 @@ class CompanyService {
                 order(orderColumnString, orderDirection)
             }
 
-            def companyCountCriteria = Company.createCriteria()
+            def companyCountCriteria = SysCompany.createCriteria()
             companyFilteredSize = companyCountCriteria.count {
                 createAlias("awcCompany", "_awcCompany", JoinType.LEFT_OUTER_JOIN)
                 createAlias("refCompanySector", "_refCompanySector", JoinType.LEFT_OUTER_JOIN)
@@ -157,7 +157,7 @@ class CompanyService {
 
         try {
 
-            Company company = Company.get(companyId)
+            SysCompany company = SysCompany.get(companyId)
 
             companyData = [
                     id                        : company.id,
@@ -220,25 +220,25 @@ class CompanyService {
 
         try {
 
-            if (Company.findByTitle(companyJson.title) != null) {
+            if (SysCompany.findByTitle(companyJson.title) != null) {
 
                 status = false
                 errors = "Girdiğiniz İş Yeri Unvanı sistemde mevcut. Lütfen tekrar deneyin."
 
-            } else if (Company.findByTradeRegistrationNo(companyJson.tradeRegistrationNo) != null) {
+            } else if (SysCompany.findByTradeRegistrationNo(companyJson.tradeRegistrationNo) != null) {
 
                 status = false
                 errors = "Girdiğiniz Ticari Sicil Numarası sistemde mevcut. Lütfen tekrar deneyin."
 
-            } else if (Company.findByEmail(companyJson.email) != null) {
+            } else if (SysCompany.findByEmail(companyJson.email) != null) {
 
                 status = false
                 errors = "Girdiğiniz e-mail sistemde mevcut. Lütfen tekrar deneyin."
 
             } else {
 
-                def uniqueEmployerRegistrationNo = companyJson.isNull("employerRegistrationNo") ? null : Company.findByEmployerRegistrationNo(companyJson.employerRegistrationNo)
-                def uniqueTaxNumber = companyJson.isNull("taxNumber") ? null : Company.findByTaxNumber(companyJson.taxNumber)
+                def uniqueEmployerRegistrationNo = companyJson.isNull("employerRegistrationNo") ? null : SysCompany.findByEmployerRegistrationNo(companyJson.employerRegistrationNo)
+                def uniqueTaxNumber = companyJson.isNull("taxNumber") ? null : SysCompany.findByTaxNumber(companyJson.taxNumber)
 
                 if (uniqueEmployerRegistrationNo != null) {
 
@@ -253,9 +253,9 @@ class CompanyService {
 
                 } else {
 
-                    Company company = new Company()
+                    SysCompany company = new SysCompany()
                     company.customerRepresentativeName = companyJson.isNull("customerRepresentativeName") ? null : companyJson.customerRepresentativeName
-                    company.awcCompany = companyJson.isNull("awcCompanyId") ? AwcCompany.get(1) : AwcCompany.get(companyJson.awcCompanyId)
+                    company.awcCompany = companyJson.isNull("awcCompanyId") ? SysCompany.get(1) : SysCompany.get(companyJson.awcCompanyId)
                     company.name = companyJson.name
                     company.title = companyJson.title
                     company.sysrefCountry = companyJson.isNull("sysrefCountry") ? null : SysrefCountry.get(companyJson.sysrefCountry)
@@ -318,25 +318,25 @@ class CompanyService {
 
         try {
 
-            if (Company.findByTitle(companyJson.title) != null) {
+            if (SysCompany.findByTitle(companyJson.title) != null) {
 
                 status = false
                 errors = "Girdiğiniz İş Yeri Unvanı sistemde mevcut. Lütfen tekrar deneyin."
 
-            } else if (Company.findByTradeRegistrationNo(companyJson.tradeRegistrationNo) != null) {
+            } else if (SysCompany.findByTradeRegistrationNo(companyJson.tradeRegistrationNo) != null) {
 
                 status = false
                 errors = "Girdiğiniz Ticari Sicil Numarası sistemde mevcut. Lütfen tekrar deneyin."
 
-            } else if (Company.findByEmail(companyJson.email) != null) {
+            } else if (SysCompany.findByEmail(companyJson.email) != null) {
 
                 status = false
                 errors = "Girdiğiniz e-mail sistemde mevcut. Lütfen tekrar deneyin."
 
             } else {
 
-                def uniqueEmployerRegistrationNo = companyJson.isNull("employerRegistrationNo") ? null : Company.findByEmployerRegistrationNo(companyJson.employerRegistrationNo)
-                def uniqueTaxNumber = companyJson.isNull("taxNumber") ? null : Company.findByTaxNumber(companyJson.taxNumber)
+                def uniqueEmployerRegistrationNo = companyJson.isNull("employerRegistrationNo") ? null : SysCompany.findByEmployerRegistrationNo(companyJson.employerRegistrationNo)
+                def uniqueTaxNumber = companyJson.isNull("taxNumber") ? null : SysCompany.findByTaxNumber(companyJson.taxNumber)
 
                 if (uniqueEmployerRegistrationNo != null) {
 
@@ -351,7 +351,7 @@ class CompanyService {
 
                 } else {
 
-                    Company company = Company.get(companyJson.id)
+                    SysCompany company = SysCompany.get(companyJson.id)
                     company.customerRepresentativeName = companyJson.isNull("customerRepresentativeName") ? null : companyJson.customerRepresentativeName
                     company.name = companyJson.name
                     company.title = companyJson.title
@@ -407,7 +407,7 @@ class CompanyService {
 
             long[] _ids = jsonArrayParserService.jsonArray2LongArray(ids)
 
-            def companyList = Company.createCriteria().list {
+            def companyList = SysCompany.createCriteria().list {
                 inList("id", _ids)
             }
 
@@ -441,7 +441,7 @@ class CompanyService {
 
         try {
 
-            Company company = Company.get(companyId)
+            SysCompany company = SysCompany.get(companyId)
 
             if (Order.findAllByCompany(company).size() > 0) {
 
@@ -527,7 +527,7 @@ class CompanyService {
 
             queryString = queryString.toLowerCase(new Locale("TR", "tr"))
 
-            customerRepresentativesData = Company.createCriteria().list {
+            customerRepresentativesData = SysCompany.createCriteria().list {
                 or {
                     ilike("firstName", "%" + queryString + "%")
                     ilike("middleName", "%" + queryString + "%")

@@ -18,7 +18,7 @@ class LoginService {
 
         try {
 
-            AwcUser awcUser = AwcUser.findByUsername(username)
+            User awcUser = User.findByUsername(username)
 
             if (awcUser != null) {
 

@@ -1,6 +1,6 @@
 package tr.com.manerp.auth
 
-import grails.databinding.BindingFormat
+import tr.com.manerp.base.domain.BaseDomain
 import tr.com.manerp.business.main.resource.Staff
 import tr.com.manerp.business.ref.RefCompanySector
 import tr.com.manerp.business.sysref.SysrefCity
@@ -8,11 +8,10 @@ import tr.com.manerp.business.sysref.SysrefCountry
 import tr.com.manerp.business.sysref.SysrefDistrict
 import tr.com.manerp.business.sysref.SysrefNaceCode
 
-class AwcCompany {
+class SysCompany implements BaseDomain {
 
     static auditable = true
 
-    String code
     String name
     String title
     SysrefCountry sysrefCountry
@@ -33,17 +32,14 @@ class AwcCompany {
     String taxOffice
     String taxNumber
     SysrefNaceCode sysrefNaceCode
-    @BindingFormat('dd/MM/yyyy')
-    Date opDate = new Date()
 
     static constraints = {
-        code nullable: true, blank: true, unique: true, maxSize: 11
         name nullable: false, blank: false, unique: false, maxSize: 50
         title nullable: true, blank: true, unique: false, maxSize: 50
         sysrefCountry nullable: true, unique: false
         sysrefCity nullable: true, unique: false
         sysrefDistrict nullable: true, unique: false
-        address nullable: false, blank: false, unique: false
+        address nullable: false, blank: false, unique: false, maxSize: 500
         phone nullable: false, blank: false, unique: false, maxSize: 20
         phone2 nullable: true, blank: true, unique: false, maxSize: 20
         fax nullable: true, blank: true, unique: false, maxSize: 20
@@ -58,16 +54,12 @@ class AwcCompany {
         taxOffice nullable: true, blank: true, unique: false, maxSize: 255
         taxNumber nullable: true, blank: true, unique: false, maxSize: 50
         sysrefNaceCode nullable: true, unique: false
-        opDate nullable: false, unique: false
     }
 
     static mapping = {
-        table name: "awc_company", schema: "auth"
-        id generator: 'sequence', params: [sequence: 'auth.SEQ_AWC_COMPANY']
+//        table name: "awc_company", schema: "auth"
+//        id generator: 'sequence', params: [sequence: 'auth.SEQ_AWC_COMPANY']
     }
 
-    def beforeUpdate() {
-        opDate = new Date()
-    }
 
 }

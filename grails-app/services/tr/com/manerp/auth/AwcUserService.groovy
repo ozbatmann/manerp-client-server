@@ -16,7 +16,7 @@ class AwcUserService {
 
         try {
 
-            AwcUser username = AwcUser.findByUsername(awcUserJson.username)
+            User username = User.findByUsername(awcUserJson.username)
             Person email = Person.findByEmail(awcUserJson.email)
 
             if (username != null) {
@@ -39,10 +39,10 @@ class AwcUserService {
                 person.isStaff = false
                 person = person.save(flush: true, failOnError: true)
 
-                AwcUser awcUser = new AwcUser()
+                User awcUser = new User()
                 awcUser.username = awcUserJson.username
                 awcUser.password = awcUserJson.password
-                awcUser.awcCompany = AwcCompany.get(awcUserJson.awcCompany)
+                awcUser.awcCompany = SysCompany.get(awcUserJson.awcCompany)
                 // TODO: awcUser.version = awcUserJson.version
                 awcUser.accountExpired = false
                 awcUser.accountLocked = false

@@ -1,5 +1,7 @@
 package tr.com.manerp.business.main.accounting
 
-class Expenditure {
+import tr.com.manerp.base.domain.BaseDomain
+
+class Expenditure implements BaseDomain {
 
 }

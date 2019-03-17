@@ -29,8 +29,8 @@ class AuthController {
             person.isStaff = true
             person.save(flush: true, failOnError: true)
 
-            AwcUser awcUser = new AwcUser()
-            awcUser.awcCompany = AwcCompany.get(1)
+            User awcUser = new User()
+            awcUser.awcCompany = SysCompany.get(1)
             awcUser.username = "admin"
             awcUser.password = "1234"
             awcUser.accountLocked = false
@@ -69,7 +69,7 @@ class AuthController {
 
         try {
 
-            AwcUser awcUser = AwcUser.findByUsername(request.JSON.username)
+            User awcUser = User.findByUsername(request.JSON.username)
 
             if (awcUser != null) {
 

@@ -3,7 +3,7 @@ package tr.com.manerp.business.sysref
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.domain.BaseDomain
 
-class SysrefDrivingType implements BaseDomain {
+class SysrefCompanyType implements BaseDomain {
 
     String name
     SysCompany sysCompany
@@ -22,8 +22,8 @@ class SysrefDrivingType implements BaseDomain {
     }
 
     static mapping = {
-//        table name: "sysref_driving_type", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_SYSREF_DRIVING_TYPE']
+//        table name: "sysref_company_class", schema: "business"
+//        id generator: 'sequence', params: [sequence: 'business.SEQ_SYSREF_COMPANY_CLASS']
     }
 
     static mappedBy = {

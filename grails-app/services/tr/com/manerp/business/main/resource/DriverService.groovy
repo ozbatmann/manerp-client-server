@@ -4,7 +4,7 @@ import grails.gorm.transactions.Transactional
 import org.grails.web.json.JSONArray
 import org.grails.web.json.JSONObject
 import org.hibernate.sql.JoinType
-import tr.com.manerp.auth.AwcCompany
+import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.business.main.voyage.Voyage
 import tr.com.manerp.business.ref.RefStaffTitle
 import tr.com.manerp.business.sysref.SysrefCity
@@ -242,7 +242,7 @@ class DriverService {
 
                     Staff staff = new Staff()
                     staff.createTime = new Date()
-                    staff.awcCompany = driverJson.isNull("awcCompanyId") ? AwcCompany.get(1) : AwcCompany.get(driverJson.awcCompanyId)
+                    staff.awcCompany = driverJson.isNull("awcCompanyId") ? SysCompany.get(1) : SysCompany.get(driverJson.awcCompanyId)
                     staff.firstName = driverJson.firstName
                     staff.middleName = driverJson.isNull("middleName") ? null : driverJson.middleName
                     staff.lastName = driverJson.lastName

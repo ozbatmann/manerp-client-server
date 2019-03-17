@@ -4,7 +4,7 @@ import grails.gorm.transactions.Transactional
 import org.grails.web.json.JSONArray
 import org.grails.web.json.JSONObject
 import org.hibernate.sql.JoinType
-import tr.com.manerp.auth.AwcCompany
+import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.business.main.company.Company
 import tr.com.manerp.business.main.company.Vendor
 import tr.com.manerp.business.main.voyage.Voyage
@@ -215,7 +215,7 @@ class OrderService {
         try {
 
             Order order = new Order()
-            order.awcCompany = orderJson.isNull("awcCompanyId") ? AwcCompany.get(1) : AwcCompany.get(orderJson.awcCompanyId)
+            order.awcCompany = orderJson.isNull("awcCompanyId") ? SysCompany.get(1) : SysCompany.get(orderJson.awcCompanyId)
             order.company = Company.get(orderJson.company)
             order.name = orderJson.name
             order.orderDate = new Date()
@@ -262,7 +262,7 @@ class OrderService {
         try {
 
             Order order = new Order()
-            order.awcCompany = AwcCompany.get(orderJson.awcCompany)
+            order.awcCompany = SysCompany.get(orderJson.awcCompany)
             order.company = Company.get(orderJson.company)
             order.name = orderJson.name
             order.orderDate = sdf.parse(orderJson.orderDate)
@@ -377,7 +377,7 @@ class OrderService {
         try {
 
             // TODO: Request awcCompanyId
-            AwcCompany awcCompany = AwcCompany.get(1)
+            SysCompany awcCompany = SysCompany.get(1)
 
             sysrefRevenueTypes = SysrefRevenueType.findAllByActive(true).collect {
                 return [id: it.id, name: it.name, code: it.code]

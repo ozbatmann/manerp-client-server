@@ -1,40 +1,37 @@
 package tr.com.manerp.business.main.company
 
-import grails.databinding.BindingFormat
+import tr.com.manerp.auth.SysCompany
+import tr.com.manerp.base.domain.BaseDomain
+import tr.com.manerp.business.sysref.SysrefCity
+import tr.com.manerp.business.sysref.SysrefCountry
+import tr.com.manerp.business.sysref.SysrefDistrict
 
-class Vendor {
+class Vendor implements BaseDomain {
 
     static auditable = true
 
     Company company
-    String code
+    SysCompany sysCompany
     String title
-   /* TODO: SysrefCity sysrefCity
+    SysrefCity sysrefCity
     SysrefCountry sysrefCountry
-    SysrefDistrict sysrefDistrict*/
-    String city
-    String district
+    SysrefDistrict sysrefDistrict
     String address
-    @BindingFormat('dd/MM/yyyy')
-    Date opDate = new Date()
 
     static constraints = {
+        sysCompany nullable: false, unique: false
+        sysrefCountry nullable: true, unique: false
+        sysrefCity nullable: true, unique: false
+        sysrefDistrict nullable: true, unique: false
         company nullable: false, unique: false
-        code nullable: true, blank: true, unique: true, maxSize: 11
-        title nullable: true, blank: true, unique: true, maxSize: 150
-        city nullable: true, blank: true, unique: true, maxSize: 150
-        district nullable: true, blank: true, unique: true, maxSize: 150
-        address nullable: true, blank: true, unique: true, maxSize: 255
-        opDate nullable: false, unique: false
+        title nullable: true, blank: true, unique: ['sysCompany'], maxSize: 150
+        address nullable: true, blank: true, unique: false, maxSize: 500
     }
 
     static mapping = {
-        table name: "vendor", schema: "business"
-        id generator: 'sequence', params: [sequence: 'business.SEQ_VENDOR']
+//        table name: "vendor", schema: "business"
+//        id generator: 'sequence', params: [sequence: 'business.SEQ_VENDOR']
     }
 
-    def beforeUpdate() {
-        opDate = new Date()
-    }
 
 }

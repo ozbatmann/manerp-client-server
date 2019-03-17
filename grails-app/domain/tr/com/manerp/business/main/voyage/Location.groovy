@@ -1,33 +1,24 @@
 package tr.com.manerp.business.main.voyage
 
-import grails.databinding.BindingFormat
+import tr.com.manerp.base.domain.BaseDomain
 
-class Location {
+class Location implements BaseDomain {
 
     static auditable = true
 
-    String googleKey
     String locationName
     String latitude
     String longitude
-    @BindingFormat('dd/MM/yyyy')
-    Date opDate = new Date()
 
     static constraints = {
-        googleKey nullable: false, blank: false, unique: false
-        locationName nullable: false, blank: false, unique: false
-        latitude nullable: false, blank: false, unique: false
-        longitude nullable: false, blank: false, unique: false
-        opDate nullable: false, unique: false
+        locationName nullable: false, blank: false, unique: false, maxSize: 100
+        latitude nullable: true, blank: true, unique: false, maxSize: 100
+        longitude nullable: true, blank: true, unique: false
     }
 
     static mapping = {
-        table name: "location", schema: "business"
-        id generator: 'sequence', params: [sequence: 'business.SEQ_LOCATION']
-    }
-
-    def beforeUpdate() {
-        opDate = new Date()
+//        table name: "location", schema: "business"
+//        id generator: 'sequence', params: [sequence: 'business.SEQ_LOCATION']
     }
 
 }

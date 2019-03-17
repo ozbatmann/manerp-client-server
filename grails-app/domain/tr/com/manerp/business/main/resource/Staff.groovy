@@ -1,100 +1,54 @@
 package tr.com.manerp.business.main.resource
 
-import grails.databinding.BindingFormat
-import tr.com.manerp.auth.AwcCompany
-import tr.com.manerp.auth.AwcUser
+import tr.com.manerp.auth.SysCompany
+import tr.com.manerp.auth.User
+import tr.com.manerp.base.domain.BaseDomain
 import tr.com.manerp.business.ref.RefStaffTitle
 import tr.com.manerp.business.sysref.SysrefCity
 import tr.com.manerp.business.sysref.SysrefCountry
 import tr.com.manerp.business.sysref.SysrefDistrict
 import tr.com.manerp.business.sysref.SysrefDrivingType
-import tr.com.manerp.business.sysref.SysrefGender
 import tr.com.manerp.business.sysref.SysrefStaffContractType
+import tr.com.manerp.common.Person
 
-class Staff {
+class Staff implements BaseDomain, Person {
 
     static auditable = true
 
     String code
-    AwcCompany awcCompany
-    AwcUser awcUser
-    String firstName
-    String middleName
-    String lastName
-    byte[] photo
-    String photoName
-    String photoMimeType
-    String gsm
-    String tcIdNumber
+    SysCompany sysCompany
+    User user
     RefStaffTitle refStaffTitle
     SysrefStaffContractType sysrefStaffContractType
     String drivingLicenseNumber
-    Boolean hasFuelAdvance
-    String homePhone
-    SysrefCountry sysrefCountry
-    SysrefCity sysrefCity
-    SysrefDistrict sysrefDistrict
-    SysrefGender sysrefGender
-    String address
-    String email
+    Boolean hasFuelAdvance // yakit avansi var mi?
     SysrefDrivingType sysrefDrivingType
-    Boolean active
-    @BindingFormat('dd/MM/yyyy')
-    Date createTime
-    @BindingFormat('dd/MM/yyyy')
-    Date birthDate
-    @BindingFormat('dd/MM/yyyy')
-    Date opDate = new Date()
 
     static hasMany = [
-            staffDocuments: StaffDocument
+        staffDocuments: StaffDocument
     ]
     static belongsTo = []
 
     static constraints = {
-        code nullable: true, blank: true, unique: true, maxSize: 11
-        awcCompany nullable: false, unique: false
-        awcUser nullable: true, unique: false
-        firstName nullable: false, blank: false, unique: false, maxSize: 50
-        middleName nullable: true, blank: true, unique: false, maxSize: 50
-        lastName nullable: false, blank: false, unique: false, maxSize: 50
-        photo nullable: true, unique: false
-        photoName nullable: true, blank: true, unique: false
-        photoMimeType nullable: true, blank: true, unique: false
-        gsm nullable: false, blank: false, unique: false, maxSize: 50
-        tcIdNumber nullable: false, unique: true, maxSize: 15
+
+        importFrom(User)
+
+        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 11
+        user nullable: true, unique: false
         refStaffTitle nullable: false, unique: false
         sysrefStaffContractType nullable: true, unique: false
         drivingLicenseNumber nullable: true, unique: false, maxSize: 30
         hasFuelAdvance nullable: true, unique: false
-        homePhone nullable: true, blank: true, unique: false, maxSize: 50
-        sysrefCountry nullable: true, unique: false
-        sysrefCity nullable: true, unique: false
-        sysrefDistrict nullable: true, unique: false
-        sysrefGender nullable: false, unique: false
-        address nullable: true, blank: true, unique: false
-        email nullable: true, blank: true, unique: true, maxSize: 50
         sysrefDrivingType nullable: true, unique: false
-        active nullable: false, unique: false
-        birthDate nullable: true, unique: false
-        opDate nullable: false, unique: false
     }
 
     static mapping = {
-        table name: "staff", schema: "business"
-        id generator: 'sequence', params: [sequence: 'business.SEQ_STAFF']
+//        table name: "staff", schema: "business"
+//        id generator: 'sequence', params: [sequence: 'business.SEQ_STAFF']
         staffDocuments cascade: 'all-delete-orphan'
     }
 
     static mappedBy = {
-    }
-
-    def beforeInsert() {
-        createTime = new Date()
-    }
-
-    def beforeUpdate() {
-        opDate = new Date()
     }
 
 }

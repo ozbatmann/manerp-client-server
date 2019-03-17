@@ -219,7 +219,7 @@ class VendorService {
         try {
 
             Vendor vendor = Vendor.get(vendorJson.id)
-            //vendor.company = Company.get(vendorJson.company)
+            //vendor.company = SysCompany.get(vendorJson.company)
             vendor.title = vendorJson.isNull("title") ? null : vendorJson.title
             vendor.address = vendorJson.isNull("address") ? null : vendorJson.address
             vendor.city = vendorJson.isNull("city") ? null : vendorJson.city
