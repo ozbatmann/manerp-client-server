@@ -23,7 +23,7 @@
                         <span class="grey--text"> {{ text }}</span>
                     </div>
                 </v-flex>
-                <v-flex>
+                <v-flex shrink>
 
                     <!-- Trending tooltip -->
                     <v-tooltip bottom>

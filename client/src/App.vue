@@ -44,6 +44,11 @@
         0 5px 15px 0 rgba(0,0,0,0.08) !important;
     }
 
+    .m-active-breadcrumb {
+        cursor: pointer !important;
+        color: #13d893 !important;
+    }
+
     .m-data-table-row {
         cursor: pointer !important;
     }

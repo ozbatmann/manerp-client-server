@@ -1,82 +1,107 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-toolbar
             prominent
             app
-            class="white toolbar-shadow">
+            :extended="tabsEnabled"
+            :tabs="tabsEnabled"
+            class="white toolbar-shadow"
+    >
+        <v-toolbar-side-icon></v-toolbar-side-icon>
+        <v-scroll-y-transition mode="out-in">
+            <v-toolbar-title
+                    class="headline font-weight-light"
+                    key="toolbar-title"
+            >
+                {{ $route.meta.title === undefined ? title : $route.meta.title }}
+            </v-toolbar-title>
+        </v-scroll-y-transition>
+        <!--<v-breadcrumbs :items="$route.meta.breadcrumb" class="py-0">-->
+        <!--<template v-slot:item="props">-->
+        <!--<router-link-->
+        <!--tag="span"-->
+        <!--:to="{ name: props.item.href }"-->
+        <!--:class="[props.item.disabled ? '' : 'm-active-breadcrumb']"-->
+        <!--&gt;-->
+        <!--{{ props.item.text }}-->
+        <!--</router-link>-->
+        <!--</template>-->
+        <!--</v-breadcrumbs>-->
+        <template
+                v-if="tabsEnabled"
+                v-slot:extension
+        >
+            <v-tabs
+                    align-with-title
+                    color="transparent"
+                    slider-color="green accent-2"
+            >
+                <v-tab
+                        :key="`customer-detail-tab-${index}`"
+                        :to="tab.to"
+                        append
+                        exact
+                        ripple
+                        v-for="(tab, index) in $route.meta.tabs"
+                >
+                    {{ tab.text }}
+                </v-tab>
+            </v-tabs>
+        </template>
+        <v-spacer></v-spacer>
+        <v-autocomplete
+                cache-items
+                class="mx-5"
+                flat
+                hide-details
+                hide-no-data
+                label="Bir kişi, plaka, sevkiyat arayın"
+                solo>
+        </v-autocomplete>
+        <v-spacer></v-spacer>
 
-        <v-layout row fill-height wrap align-content-center justify-space-between>
+        <v-spacer></v-spacer>
 
-            <v-flex lg3>
-                <v-btn icon class="mt-0">
+        <v-btn icon>
 
-                    <v-icon>menu</v-icon>
-                </v-btn>
+            <v-icon>apps</v-icon>
+        </v-btn>
 
+        <v-btn icon>
 
-                    <div class="d-inline-flex fill-height align-center">
-                        <v-scroll-y-transition mode="out-in">
+            <v-icon>notifications</v-icon>
+        </v-btn>
 
-                        <span class="custom-font headline font-weight-light"
-                             :key="`toolbar-${$route.name}`">{{$route.name}}</span>
-                        </v-scroll-y-transition>
-                    </div>
+        <v-btn @click="handleFullScreen()" icon>
 
-            </v-flex>
-            <v-flex lg5>
+            <v-icon>fullscreen</v-icon>
+        </v-btn>
 
+        <v-btn color="white" icon>
 
-                <v-autocomplete
-                        v-model="select"
-                        :loading="loading"
-                        :items="items"
-                        :search-input.sync="search"
-                        cache-items
-                        class="mx-5"
-                        flat
-                        hide-no-data
-                        hide-details
-                        label="Bir kişi, plaka, sevkiyat arayın"
-                        solo>
-                </v-autocomplete>
+            <v-avatar size="30">
 
-            </v-flex>
-
-            <v-flex shrink>
-
-                <v-spacer></v-spacer>
-
-                <v-btn icon>
-
-                    <v-icon>apps</v-icon>
-                </v-btn>
-
-                <v-btn icon>
-
-                    <v-icon>notifications</v-icon>
-                </v-btn>
-
-                <v-btn icon @click="handleFullScreen()">
-
-                    <v-icon>fullscreen</v-icon>
-                </v-btn>
-
-                <v-btn icon color="white">
-
-                    <v-avatar size="30">
-
-                        <v-img src="https://randomuser.me/api/portraits/men/85.jpg"/>
-                    </v-avatar>
-                </v-btn>
-
-            </v-flex>
-        </v-layout>
-
+                <v-img src="https://randomuser.me/api/portraits/men/85.jpg"/>
+            </v-avatar>
+        </v-btn>
     </v-toolbar>
 </template>
 
 <script>
     export default {
         name: "AppToolbar",
+
+        data() {
+            return {
+                title: null,
+                tabs: null,
+            }
+        },
+
+        computed: {
+            tabsEnabled() {
+                return this.$route.meta.tabbed
+            }
+        },
 
         methods: {
             handleFullScreen() {
@@ -91,6 +116,11 @@
                 } else {
                     cancelFullScreen.call(doc);
                 }
+            }
+        },
+
+        watch: {
+            '$route'(to, from) {
             }
         }
     }

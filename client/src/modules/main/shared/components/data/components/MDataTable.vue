@@ -7,7 +7,9 @@
             <v-spacer></v-spacer>
 
             <!-- Filter menu -->
+            <!-- Will be shown if filtering mode is on-->
             <m-data-table-filter-menu
+                    v-if="!noFiltering"
                     v-model="filterMenuShowing"
                     attach="#filterButton"
                     :headers="headers"
@@ -15,7 +17,9 @@
             ></m-data-table-filter-menu>
 
             <!-- Filter menu button -->
+            <!-- Will be shown if filtering mode is on -->
             <m-data-table-action
+                    v-if="!noFiltering"
                     @click="filterMenuShowing = !filterMenuShowing"
                     title="FİLTRE"
                     icon="filter_list"
@@ -25,7 +29,11 @@
         </v-layout>
 
         <!-- Filter chips section -->
-        <v-layout align-center>
+        <!-- Will be shown if filtering mode is on -->
+        <v-layout
+                align-center
+                v-if="!noFiltering"
+        >
             <v-flex pa-0>
 
                 <!-- Search in table chip -->
@@ -141,16 +149,15 @@
                                     color="green accent-2"
                             ></v-checkbox>
                         </td>
-                        <router-link
-                                tag="td"
-                                :to="`${to}/${props.item.id}`"
+                        <td
                                 v-for="(key, index) in Object.keys(props.item)"
                                 v-show="shouldColumnShown(key)"
                                 :key="`data-table-row-item-${index}`"
                                 class="text-xs-left m-data-table-row"
+                                @click="goTo(props.item)"
                         >
                             {{ props.item[key] }}
-                        </router-link>
+                        </td>
                         <td>
                             <!-- Row action menu -->
                             <v-menu
@@ -205,6 +212,13 @@
         name: "MDataTable",
         components: {MDataTableFilterMenu, MDataTableAction},
         props: {
+            // A Boolean indicating
+            // whether filter mode is enabled or not
+            noFiltering: {
+                type: Boolean,
+                default: false
+            },
+
             // An Array that contains
             // data table headers
             headers: {
@@ -219,7 +233,7 @@
 
             // Route of the row click
             to: {
-                type: String
+                type: Object
             }
         },
 
@@ -300,6 +314,19 @@
                 return date ? moment(date).locale('tr').format('ddd, Do MMM YYYY') : ''
             },
 
+            // Appends item to route object
+            goTo(item) {
+                let routeObject = this.to
+
+                if (routeObject.params === undefined)
+                    routeObject['params'] = {}
+
+                routeObject.params['id'] = item.id
+                routeObject.params['item'] = item
+
+                this.$router.push(routeObject)
+            },
+
             // Decides whether column should be shown
             // Based on data-table toggleable selections
             shouldColumnShown(key) {
@@ -322,7 +349,7 @@
                     this.pagination.descending = false
                 }
             },
-        }
+        },
     }
 </script>
 
