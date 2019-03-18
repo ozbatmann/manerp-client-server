@@ -6,6 +6,7 @@ import tr.com.manerp.base.domain.BaseDomain
 class SysrefDrivingType implements BaseDomain {
 
     String name
+    String code
     SysCompany sysCompany
     String businessCode
     String description
@@ -15,9 +16,8 @@ class SysrefDrivingType implements BaseDomain {
 
     static constraints = {
         name nullable: false, blank: false, unique: ['sysCompany'], maxSize: 100
-        code nullable: false, blank: false, unique: ['sysCompany']
+        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 10
         sysCompany nullable: false, unique: false
-        businessCode nullable: true, blank: true, unique: ['sysCompany'], maxSize: 10
         description nullable: true, blank: true, unique: false
     }
 

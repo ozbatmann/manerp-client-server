@@ -9,17 +9,16 @@ class RefCompanySector implements BaseDomain {
 
     SysCompany sysCompany
     String name
-    String businessCode
+    String code
     String description
 
     static hasMany = []
     static belongsTo = []
 
     static constraints = {
-        code nullable: false, blank: false, unique: ['sysCompany']
+        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 10
         sysCompany nullable: false, unique: false
         name nullable: false, blank: false, unique: ['sysCompany'], maxSize: 50
-        businessCode nullable: true, blank: true, unique: ['sysCompany'], maxSize: 10
         description nullable: true, blank: true, unique: false
     }
 

@@ -10,23 +10,19 @@ class RefWorkingArea implements BaseDomain {
 
     SysCompany sysCompany
     String name
-    String businessCode
+    String code
     String description
 
     static hasMany = []
     static belongsTo = []
 
     static constraints = {
-        code nullable: false, blank: false, unique: ['sysCompany']
-        sysCompany nullable: false, unique: false
-        name nullable: false, blank: false, unique: ['sysCompany'], maxSize: 50
-        businessCode nullable: true, blank: true, unique: ['sysCompany'], maxSize: 10
-        description nullable: true, blank: true, unique: false
+        importFrom(RefStaffTitle)
     }
 
     static mapping = {
-        table name: "ref_working_area", schema: "business"
-        id generator: 'sequence', params: [sequence: 'business.SEQ_REF_WORKING_AREA']
+//        table name: "ref_working_area", schema: "business"
+//        id generator: 'sequence', params: [sequence: 'business.SEQ_REF_WORKING_AREA']
     }
 
     static mappedBy = {

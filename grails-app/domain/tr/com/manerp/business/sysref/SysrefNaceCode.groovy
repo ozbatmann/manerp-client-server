@@ -5,6 +5,7 @@ import tr.com.manerp.base.domain.BaseDomain
 class SysrefNaceCode implements BaseDomain {
 
     String name
+    String code
 
     static hasMany = []
     static belongsTo = []

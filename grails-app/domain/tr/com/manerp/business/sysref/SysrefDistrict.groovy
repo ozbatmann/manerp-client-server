@@ -6,6 +6,7 @@ import tr.com.manerp.base.domain.BaseDomain
 class SysrefDistrict implements BaseDomain {
 
     String name
+    String code
     SysrefCity sysrefCity
 
     static hasMany = []
@@ -13,8 +14,8 @@ class SysrefDistrict implements BaseDomain {
 
     static constraints = {
         name nullable: false, blank: false, unique: false, maxSize: 100
-        code nullable: false, blank: false, unique: true
-        sysrefCity nullable: false, unique: true
+        code nullable: false, blank: false, unique: true, maxSize: 10
+        sysrefCity nullable: false, unique: false
     }
 
     static mapping = {
