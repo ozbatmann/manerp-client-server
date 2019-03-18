@@ -4,7 +4,10 @@ import grails.converters.JSON
 
 class RefStaffClassController {
 
+    static namespace = "v1"
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static defaultAction = "getAllRefStaffClasss"
+
     def refStaffTitleService
 
     def getAllRefStaffClasss() {

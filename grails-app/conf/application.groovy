@@ -14,7 +14,7 @@ grails.gorm.default.constraints = {
 manerp {
     // custom config variables/constants here...
     postgresql {
-        maxByteSize = 20 * 1000 * 1000 // 20MB
+        maxByteSize = 20 * 1024 * 1024 // 20MB
     }
 }
 

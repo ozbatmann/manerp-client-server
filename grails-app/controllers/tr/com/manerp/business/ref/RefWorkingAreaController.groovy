@@ -4,7 +4,10 @@ import grails.converters.JSON
 
 class RefWorkingAreaController {
 
+    static namespace = "v1"
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static defaultAction = "getAllRefWorkingAreas"
+
     def refWorkingAreaService
 
     def getAllRefWorkingAreas() {

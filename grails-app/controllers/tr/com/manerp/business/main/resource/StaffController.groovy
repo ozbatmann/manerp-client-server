@@ -4,8 +4,9 @@ import grails.converters.JSON
 
 class StaffController {
 
+    static namespace = "v1"
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-    static scaffold = true
+    static defaultAction = "getAllStaffs"
 
     def staffService
 

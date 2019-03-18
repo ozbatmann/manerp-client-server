@@ -5,8 +5,9 @@ import grails.converters.JSON
 
 class VoyageController {
 
+    static namespace = "v1"
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-    static scaffold = true
+    static defaultAction = "getAllVoyages"
 
     def voyageService
 

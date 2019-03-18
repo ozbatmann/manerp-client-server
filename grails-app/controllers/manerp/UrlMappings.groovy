@@ -1,4 +1,4 @@
-package manerp.client.server
+package manerp
 
 class UrlMappings {
 

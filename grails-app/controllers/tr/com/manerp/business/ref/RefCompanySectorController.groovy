@@ -4,7 +4,10 @@ import grails.converters.JSON
 
 class RefCompanySectorController {
 
+    static namespace = "v1"
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static defaultAction = "getAllRefCompanySectors"
+
     def refCompanySectorService
 
     def getAllRefCompanySectors() {

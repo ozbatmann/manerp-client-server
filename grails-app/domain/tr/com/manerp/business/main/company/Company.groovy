@@ -37,11 +37,10 @@ class Company implements BaseDomain {
     String taxNumber
     SysrefNaceCode sysrefNaceCode
 
-    // Company bayileri
     static hasMany = [
-        vendors: Vendor,
-        orders : Order,
-        voyages: Voyage
+            vendors: Vendor,            // Company bayileri
+            orders : Order,
+            voyages: Voyage
     ]
 
     static constraints = {

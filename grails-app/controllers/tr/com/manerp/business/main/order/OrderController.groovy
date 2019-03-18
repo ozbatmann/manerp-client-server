@@ -7,8 +7,9 @@ import grails.transaction.Transactional
 
 class OrderController {
 
+    static namespace = "v1"
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-    static scaffold = true
+    static defaultAction = "getAllOrders"
 
     def orderService
 

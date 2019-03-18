@@ -4,8 +4,9 @@ import grails.converters.JSON
 
 class VehicleController {
 
+    static namespace = "v1"
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-    static scaffold = true
+    static defaultAction = "getAllVehicles"
 
     def vehicleService
 
