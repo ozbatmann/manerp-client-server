@@ -59,6 +59,8 @@ class StaffController extends BaseController {
             maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
+
+        render maneResponse
     }
 
     def update(Staff staff) {
@@ -77,6 +79,8 @@ class StaffController extends BaseController {
             maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
+
+        render maneResponse
     }
 
     def delete(String id) {
@@ -95,6 +99,8 @@ class StaffController extends BaseController {
             maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
+
+        render maneResponse
     }
 
 }
