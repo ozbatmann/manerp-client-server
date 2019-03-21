@@ -1,17 +1,12 @@
 <template>
     <v-app>
-        <section-main></section-main>
+        <router-view></router-view>
     </v-app>
 </template>
 
 <script>
-    import SectionMain from './modules/main/AppMain'
-
     export default {
         name: 'App',
-        components: {
-            SectionMain
-        },
         data () {
             return {
                 //

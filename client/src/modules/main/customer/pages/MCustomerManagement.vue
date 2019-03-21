@@ -100,7 +100,7 @@
                 ],
 
                 to: {
-                    name: 'customer.info',
+                    name: 'customer.information',
                 }
             }
         },
