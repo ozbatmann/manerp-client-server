@@ -10,7 +10,7 @@ import tr.com.manerp.commands.PaginationCommand
 class StaffController extends BaseController {
 
     static namespace = "v1"
-    static allowedMethods = [getStaffList: "POST", save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE"]
 
     def staffService
 
@@ -41,9 +41,8 @@ class StaffController extends BaseController {
         render maneResponse
     }
 
-    def save(PaginationCommand cmd) {
-        println cmd
-        render "ok"
+    def save() {
+
     }
 
     def update() {
