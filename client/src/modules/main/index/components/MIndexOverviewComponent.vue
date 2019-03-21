@@ -139,7 +139,7 @@
 
 <script>
     export default {
-        name: "IndexOverviewComponent",
+        name: "MIndexOverviewComponent",
         props: {
 
             // Title of the overview action button

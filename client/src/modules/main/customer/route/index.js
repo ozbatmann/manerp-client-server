@@ -1,17 +1,21 @@
+let customerInformationRoute = 'customer.information';
+let customerOrdersRoute = 'customer.orders';
+let customerDocumentsRoute = 'customer.documents';
+
 const meta = {
     tabbed: true,
     tabs: [
         {
             text: 'genel',
-            to: {name: 'customer.information'}
+            to: { name: customerInformationRoute }
         },
         {
             text: 'geçmiş siparişler',
-            to: {name: 'customer.orders'}
+            to: { name: customerOrdersRoute }
         },
         {
             text: 'dokümanlar',
-            to: {name: 'customer.documents'}
+            to: { name: customerDocumentsRoute }
         }
     ]
 };
@@ -29,19 +33,19 @@ export default [
         children: [
             {
                 path: '',
-                name: 'customer.information',
+                name: customerInformationRoute,
                 component: () => import('@/modules/main/customer/pages/MCustomerDetailsInformation'),
                 meta: meta
             },
             {
                 path: 'orders',
-                name: 'customer.orders',
+                name: customerOrdersRoute,
                 component: () => import('@/modules/main/customer/pages/MCustomerDetailsOrders'),
                 meta: meta
             },
             {
                 path: 'documents',
-                name: 'customer.documents',
+                name: customerDocumentsRoute,
                 component: () => import('@/modules/main/customer/pages/MCustomerDetailsDocuments'),
                 meta: meta
             }

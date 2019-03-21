@@ -19,9 +19,9 @@ const router = new VueRouter({
             children: [
                 {
                     path: '',
-                    name: 'main',
                     component: () => import('@/modules/main/AppMain'),
                     children: [
+                        ...require('@/modules/main/index/route/index').default,
                         ...require('@/modules/main/customer/route/index').default
                     ]
                 }
