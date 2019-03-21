@@ -26,7 +26,7 @@ repositories {
     maven {
         credentials {
             username "admin"
-            password "admin123"
+            password "628318_ynvkdc.!"
         }
         url "http://157.230.125.223:8081/repository/maven-releases/"
     }
