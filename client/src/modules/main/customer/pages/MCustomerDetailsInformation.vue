@@ -1,12 +1,10 @@
 <template>
-    <div>
-        SELAM!
-    </div>
+    <div>This is company info!</div>
 </template>
 
 <script>
     export default {
-        name: "MCustomerDetails"
+        name: "MCustomerDetailsInformation"
     }
 </script>
 

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
-import base, {store, i18n, http,bus} from "manerp-vue-base"
+import {bus, http, i18n, store} from "manerp-vue-base"
 
 const langFiles = require.context("./../../client/src/modules/", true, /.*\/i18n\/(.*)\.json$/);
 langFiles.keys().forEach(function (fileName) {

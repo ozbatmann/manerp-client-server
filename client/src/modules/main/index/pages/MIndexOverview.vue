@@ -29,19 +29,19 @@
 
             <v-flex pr-2 lg4>
 
-                <index-overview-component
+                <m-index-overview-component
                         number=10
                         title="Siparişleriniz"
                         text="adet bekleyen siparişiniz var"
                         empty-text="Bekleyen sipariş bulunmuyor"
                         action-text="SİPARİŞLERİ GÖRÜNTÜLE"
                         :statistics="value">
-                </index-overview-component>
+                </m-index-overview-component>
             </v-flex>
 
             <v-flex pl-1 pr-1 lg4>
 
-                <index-overview-component
+                <m-index-overview-component
                         number=5
                         title="Sevkiyatlarınız"
                         text="adet devam eden sevkiyatınız var"
@@ -49,7 +49,7 @@
                         action-text="SEVKİYATLARI GÖRÜNTÜLE"
                         :statistics="value2"
                         bar>
-                </index-overview-component>
+                </m-index-overview-component>
             </v-flex>
 
             <v-flex pl-2 lg4>
@@ -110,12 +110,12 @@
 </template>
 
 <script>
-    import IndexOverviewComponent from '../components/IndexOverviewComponent'
+    import MIndexOverviewComponent from '../components/MIndexOverviewComponent'
 
     export default {
-        name: "IndexOverview",
+        name: "MIndexOverview",
         components: {
-            IndexOverviewComponent
+            MIndexOverviewComponent
         },
 
         data() {

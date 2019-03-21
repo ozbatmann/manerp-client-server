@@ -1,17 +1,12 @@
 <template>
     <v-app>
-        <section-main></section-main>
+        <router-view></router-view>
     </v-app>
 </template>
 
 <script>
-    import SectionMain from './modules/main/AppMain'
-
     export default {
         name: 'App',
-        components: {
-            SectionMain
-        },
         data () {
             return {
                 //
@@ -42,6 +37,11 @@
         0 5px 15px 0 rgba(0,0,0,0.08) !important;
         -moz-box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11),
         0 5px 15px 0 rgba(0,0,0,0.08) !important;
+    }
+
+    .m-active-breadcrumb {
+        cursor: pointer !important;
+        color: #13d893 !important;
     }
 
     .m-data-table-row {

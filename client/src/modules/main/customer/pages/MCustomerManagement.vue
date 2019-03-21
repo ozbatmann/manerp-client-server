@@ -3,7 +3,7 @@
         <m-data-table
                 :headers="headers"
                 :items="firms"
-                to="/details/"
+                :to="to"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
@@ -97,7 +97,11 @@
                         type: 'Müşteri',
                         rep: 'Seval Çıtanak'
                     }
-                ]
+                ],
+
+                to: {
+                    name: 'customer.information',
+                }
             }
         },
         mounted() {

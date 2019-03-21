@@ -23,7 +23,7 @@
                         <span class="grey--text"> {{ text }}</span>
                     </div>
                 </v-flex>
-                <v-flex>
+                <v-flex shrink>
 
                     <!-- Trending tooltip -->
                     <v-tooltip bottom>
@@ -139,7 +139,7 @@
 
 <script>
     export default {
-        name: "IndexOverviewComponent",
+        name: "MIndexOverviewComponent",
         props: {
 
             // Title of the overview action button

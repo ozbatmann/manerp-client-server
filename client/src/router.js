@@ -1,11 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// import store from '../store'
 
 Vue.use(VueRouter)
-
-import MCustomerManagement from './modules/main/customer/pages/MCustomerManagement'
-import MIndexOverview from './modules/main/index/pages/IndexOverview'
-import MCustomerDetails from "@/modules/main/customer/pages/MCustomerDetails";
 
 const router = new VueRouter({
     routes: [
@@ -17,19 +14,16 @@ const router = new VueRouter({
         // },
         {
             path: '/',
-            name: 'Genel Bakış',
             // beforeEnter: authenticated,
-            component: MIndexOverview
-        },
-        {
-            path: '/customers',
-            name: 'Müşteri Yönetimi',
-            component: MCustomerManagement,
+            component: () => import('@/App'),
             children: [
                 {
-                    path: '/details/:id',
-                    name: 'Müşteri Detayı',
-                    component: MCustomerDetails
+                    path: '',
+                    component: () => import('@/modules/main/AppMain'),
+                    children: [
+                        ...require('@/modules/main/index/route/index').default,
+                        ...require('@/modules/main/customer/route/index').default
+                    ]
                 }
             ]
         },
@@ -38,7 +32,6 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-
     next()
 })
 
