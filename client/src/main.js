@@ -1,18 +1,16 @@
 import Vue from 'vue'
 import './plugins/vuetify'
 import App from './App.vue'
-import Vuetify from 'vuetify'
 import router from './router'
+import base, {store, i18n, http,bus} from "manerp-vue-base"
 
-// index.js or main.js
-import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
+const langFiles = require.context("./../../client/src/modules/", true, /.*\/i18n\/(.*)\.json$/);
+langFiles.keys().forEach(function (fileName) {
 
-Vue.use(Vuetify, {
-    theme: {
-        'primary-green' : '#13d893'
-    }
-})
+    let lang = fileName.match(/([^/]+)\.json$/)[1];
+    i18n.mergeLocaleMessage(lang, langFiles(fileName));
 
+});
 Vue.config.productionTip = false
 Vue.config.performance = true
 
@@ -42,5 +40,7 @@ Vue.directive('click-outside', {
 
 new Vue({
     render: h => h(App),
-    router
+    router,
+    store,
+    i18n,
 }).$mount('#app')

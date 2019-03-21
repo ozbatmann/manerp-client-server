@@ -99,6 +99,11 @@
                     }
                 ]
             }
+        },
+        mounted() {
+            this.$http.get("/auth").then((result) => {
+                console.log(result)
+            })
         }
     }
 </script>
