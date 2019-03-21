@@ -1,4 +1,6 @@
 package tr.com.manerp.base.controller
 
-class BaseController {
+import manerp.response.plugin.response.ManeResponseController
+
+class BaseController extends ManeResponseController {
 }

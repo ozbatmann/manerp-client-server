@@ -1,53 +1,57 @@
 package tr.com.manerp.business.main.resource
 
-import grails.converters.JSON
+import manerp.response.plugin.pagination.ManePaginatedResult
+import manerp.response.plugin.pagination.ManePaginationProperties
+import manerp.response.plugin.response.ManeResponse
+import manerp.response.plugin.response.StatusCode
+import tr.com.manerp.base.controller.BaseController
+import tr.com.manerp.commands.PaginationCommand
 
-class StaffController {
+class StaffController extends BaseController {
 
     static namespace = "v1"
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-    static defaultAction = "getAllStaffs"
+    static allowedMethods = [getStaffList: "POST", save: "POST", update: "PUT", delete: "DELETE"]
 
     def staffService
 
-    def getAllStaffs() {
-        HashMap jsonMap = staffService.getAllStaffs(
-                request.JSON.orderColumn.toInteger(),
-                request.JSON.orderDirection,
-                request.JSON.length.toInteger(),
-                request.JSON.start.toInteger(),
-                request.JSON.firstName,
-                request.JSON.lastName,
-                request.JSON.tcIdNumber,
-                request.JSON.refStaffTitleName,
-                request.JSON.awcCompanyId
-        )
-        render jsonMap as JSON
+    def index() {
+
+        ManeResponse maneResponse = new ManeResponse()
+
+        try {
+
+            PaginationCommand cmd = new PaginationCommand(params)
+
+            if ( !cmd.validate() ) {
+
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Parameters cannot be validated')
+            }
+
+            ManePaginatedResult result = staffService.getStaffList(new ManePaginationProperties(cmd.max, cmd.offset, cmd.sort))
+            maneResponse.data = result.toMap()
+
+        } catch (Exception ex) {
+
+            if ( maneResponse.statusCode == StatusCode.OK ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
     }
 
-    def getDetailOfStaff() {
-        HashMap jsonMap = staffService.getDetailOfStaff(request.JSON.staffId.toLong())
-        render jsonMap as JSON
+    def save(PaginationCommand cmd) {
+        println cmd
+        render "ok"
     }
 
-    def addStaff() {
-        HashMap jsonMap = staffService.addStaff(request.JSON.staffJson)
-        render jsonMap as JSON
+    def update() {
+
     }
 
-    def updateStaff() {
-        HashMap jsonMap = staffService.updateStaff(request.JSON.staffJson)
-        render jsonMap as JSON
-    }
+    def delete() {
 
-    def deleteStaff() {
-        HashMap jsonMap = staffService.deleteStaff(request.JSON.staffId.toLong())
-        render jsonMap as JSON
-    }
-
-    def getDropDownSources() {
-        HashMap jsonMap = staffService.getDropDownSources()
-        render jsonMap as JSON
     }
 
 }

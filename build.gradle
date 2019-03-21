@@ -62,6 +62,9 @@ dependencies {
     compile 'org.grails.plugins:postgresql-extensions:6.1.0'
     runtime 'org.postgresql:postgresql:42.2.2'
 
+    // manerp response plugin
+//    compile "tr.com.manerp:manerp-response-plugin:0.1.2"
+
 }
 
 bootRun {

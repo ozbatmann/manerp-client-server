@@ -1,4 +1,6 @@
 package tr.com.manerp.base.service
 
-class BaseService {
+import manerp.response.plugin.pagination.ManePaginationService
+
+class BaseService extends ManePaginationService {
 }
