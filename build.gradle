@@ -23,8 +23,15 @@ apply plugin: "org.grails.grails-gsp"
 repositories {
     mavenLocal()
     maven { url "https://repo.grails.org/grails/core" }
+    maven {
+        credentials {
+            username "admin"
+            password "admin123"
+        }
+        url "http://157.230.125.223:8081/repository/maven-releases/"
+    }
+    mavenCentral()
 }
-
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
