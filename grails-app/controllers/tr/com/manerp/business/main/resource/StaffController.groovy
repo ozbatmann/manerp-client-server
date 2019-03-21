@@ -25,7 +25,9 @@ class StaffController extends BaseController {
             if ( !cmd.validate() ) {
 
                 maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Parameters cannot be validated')
+//                throw new Exception('Parameters cannot be validated')
+                throw new Exception('Parametreler doğrulanamadı.')
+
             }
 
             ManePaginatedResult result = staffService.getStaffList(new ManePaginationProperties(cmd.max, cmd.offset, cmd.sort))
@@ -33,7 +35,7 @@ class StaffController extends BaseController {
 
         } catch (Exception ex) {
 
-            if ( maneResponse.statusCode == StatusCode.OK ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            if ( maneResponse.statusCode.code >= StatusCode.OK.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
@@ -41,16 +43,58 @@ class StaffController extends BaseController {
         render maneResponse
     }
 
-    def save() {
+    def save(Staff staff) {
 
+        ManeResponse maneResponse = new ManeResponse()
+
+        try {
+
+            staffService.save(staff)
+            maneResponse.statusCode = StatusCode.CREATED
+            maneResponse.message = 'Personel başarıyla kaydedildi.'
+
+        } catch (Exception ex) {
+
+            if ( maneResponse.statusCode.code >= StatusCode.OK.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = ex.getMessage()
+            ex.printStackTrace()
+        }
     }
 
-    def update() {
+    def update(Staff staff) {
 
+        ManeResponse maneResponse = new ManeResponse()
+
+        try {
+
+            staffService.save(staff)
+            maneResponse.statusCode = StatusCode.NO_CONTENT
+            maneResponse.message = 'Personel başarıyla güncellendi.'
+
+        } catch (Exception ex) {
+
+            if ( maneResponse.statusCode.code >= StatusCode.OK.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = ex.getMessage()
+            ex.printStackTrace()
+        }
     }
 
-    def delete() {
+    def delete(String id) {
 
+        ManeResponse maneResponse = new ManeResponse()
+
+        try {
+
+            staffService.delete(id)
+            maneResponse.statusCode = StatusCode.NO_CONTENT
+            maneResponse.message = 'Personel başarıyla silindi.'
+
+        } catch (Exception ex) {
+
+            if ( maneResponse.statusCode.code >= StatusCode.OK.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = ex.getMessage()
+            ex.printStackTrace()
+        }
     }
 
 }
