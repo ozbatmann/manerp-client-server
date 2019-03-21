@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-// import store from '../store'
 import MCustomerManagement from './modules/main/customer/pages/MCustomerManagement'
 import MIndexOverview from './modules/main/index/pages/IndexOverview'
 import MCustomerDetails from "@/modules/main/customer/pages/MCustomerDetails";

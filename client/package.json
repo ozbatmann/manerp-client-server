@@ -11,7 +11,7 @@
     "moment": "^2.24.0",
     "vue": "^2.6.6",
     "vue-router": "^3.0.2",
-    "vuetify": "^1.3.0"
+    "manerp-vue-base": "0.0.15"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",
