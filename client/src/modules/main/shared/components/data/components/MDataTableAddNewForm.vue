@@ -8,6 +8,7 @@
         v-model="showDialog"
         max-width="600"
         @keydown.enter.prevent="save"
+        @keydown.esc.stop="close"
     >
         <v-card>
 
@@ -43,6 +44,7 @@
                                     :key="`add-edit-checkbox-${index}`"
                                     :data-vv-name="field.value"
                                     :label="prop"
+                                    class="m-input-capitalize"
                                     color="green accent-2"
                                     hide-details
                             ></v-checkbox>
@@ -56,6 +58,7 @@
                                     :label="field.title"
                                     :error-messages="errors.collect(field.key)"
                                     v-validate="'required'"
+                                    class="m-input-capitalize"
                                     flat
                                     required
                             ></v-select>
@@ -71,6 +74,7 @@
                                     :error-messages="errors.collect(field.key)"
                                     :v-validate="validate(field.rules)"
                                     :counter="field.max"
+                                    class="m-input-capitalize"
                                     clearable
                                     flat
                                     required
