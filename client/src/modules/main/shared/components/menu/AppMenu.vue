@@ -42,7 +42,8 @@
                     <v-list-tile
                             v-for="item in menuItem.items"
                             :key="`menu-item-${item.title}`"
-                            :to="item.to">
+                            :to="item.to"
+                            active-class="grey lighten-2">
 
                         <v-list-tile-action class="px-2">
 
@@ -105,12 +106,13 @@
                             },
                             {
                                 title: 'Şoför Yönetimi',
-                                icon: 'person'
+                                icon: 'person',
+                                to: { name: 'drivers' }
                             },
                             {
                                 title: 'Müşteri Yönetimi',
                                 icon: 'business',
-                                to: '/customers'
+                                to: { name: 'customers' }
                             }
                         ]
                     }
