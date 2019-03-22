@@ -13,6 +13,7 @@ const router = new VueRouter({
         //   // beforeEnter: notAuthenticated
         // },
         {
+            // Main route
             path: '/',
             // beforeEnter: authenticated,
             component: () => import('@/App'),
@@ -21,9 +22,20 @@ const router = new VueRouter({
                     path: '',
                     component: () => import('@/modules/main/AppMain'),
                     children: [
+                        // Index overview routes
                         ...require('@/modules/main/index/route/index').default,
-                        ...require('@/modules/main/customer/route/index').default
-                    ]
+
+                        // Customer routes
+                        ...require('@/modules/main/customer/route/index').default,
+
+                        // Driver routes
+                        ...require('@/modules/main/driver/route/index').default
+                    ],
+                },
+                {
+                    path: 'login',
+                    name: 'login',
+                    component: () => import('@/modules/main/customer/pages/MCustomerManagement')
                 }
             ]
         },

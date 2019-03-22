@@ -48,6 +48,57 @@
         cursor: pointer !important;
     }
 
+    .m-data-table table thead {
+        height: 56px !important;
+        line-height: 56px !important;
+    }
+
+    .m-data-table table tbody tr {
+        height: 48px !important;
+        line-height: 48px !important;
+    }
+
+    .m-data-table .v-datatable__actions {
+        margin-left: -48px !important;
+        margin-right: -52px !important;
+    }
+
+    .m-data-table-sticky-col-left {
+        left: 0 !important;
+        position: absolute !important;
+        top: auto !important;
+        width: 48px !important;
+        height: 49px !important;
+        border-right: 1px solid #eee !important;
+        border-bottom: 1px solid #eee !important;
+        background-color: white;
+        padding: 11px !important;
+    }
+
+    th.m-data-table-sticky-col-left {
+        padding-top: 16px !important;
+    }
+
+    th.m-data-table-sticky-col-left,
+    th.m-data-table-sticky-col-right {
+        height: 57px !important;
+        line-height: 57px !important;
+        border-bottom-color: rgba(0, 0, 0, .12) !important;
+    }
+
+    .m-data-table-sticky-col-right {
+        right: 0;
+        position: absolute;
+        top: auto;
+        width: 52px !important;
+        height: 49px !important;
+        line-height: 49px !important;
+        padding: 0 !important;
+        border-left: 1px solid #eee !important;
+        border-bottom: 1px solid #eee !important;
+        background: white;
+    }
+
     .m-picker--dark .v-picker__body.theme--dark,
     .m-picker--dark .v-picker__actions {
         background-color: #673AB7;
@@ -55,6 +106,12 @@
 
     .m-filter-input .v-icon {
         font-size: 16px !important;
+    }
+
+    .m-input-capitalize input,
+    .m-input-capitalize div,
+    .m-input-capitalize label {
+        text-transform: capitalize !important;
     }
 
     .m-filter-date input {

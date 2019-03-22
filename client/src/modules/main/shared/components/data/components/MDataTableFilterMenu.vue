@@ -196,7 +196,7 @@
                                             height="40"
                                             color="green accent-3"
                                             background-color="transparent"
-                                            class="font-weight-regular ma-1 m-filter-input"
+                                            class="font-weight-regular ma-1 m-filter-input m-input-capitalize"
                                             @input="inputColumnSearchField(header.search)"
                                             @click:clear="clearColumnSearchField(header.search)"
                                     ></v-text-field>

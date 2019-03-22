@@ -1,7 +1,7 @@
 export const routes = {
-    information: 'customer.information',
-    orders: 'customer.orders',
-    documents: 'customer.documents'
+    information: 'driver.information',
+    orders: 'driver.routes',
+    documents: 'driver.documents'
 };
 
 const meta = (title) => {
@@ -14,7 +14,7 @@ const meta = (title) => {
                 to: { name: routes.information }
             },
             {
-                text: 'geçmiş siparişler',
+                text: 'geçmiş rotalar',
                 to: { name: routes.orders }
             },
             {
@@ -27,32 +27,32 @@ const meta = (title) => {
 
 export default [
     {
-        path: 'customers',
-        name: 'customers',
-        component: () => import('@/modules/main/customer/pages/MCustomerManagement'),
-        meta: { title: 'Firma Yönetimi' }
+        path: 'drivers',
+        name: 'drivers',
+        component: () => import('@/modules/main/driver/pages/MDriverManagement'),
+        meta: { title: 'Şoför Yönetimi' }
     },
     {
-        path: 'customers/details/:id',
+        path: 'drivers/details/:id',
         component: () => import('@/modules/main/shared/components/core/MCoreDetails'),
         children: [
             {
                 path: '',
                 name: routes.information,
                 component: () => import('@/modules/main/customer/pages/MCustomerDetailsInformation'),
-                meta: meta('Pınar Gıda A.Ş')
+                meta: meta('Ahmet Aliakça')
             },
             {
-                path: 'orders',
+                path: 'routes',
                 name: routes.orders,
                 component: () => import('@/modules/main/customer/pages/MCustomerDetailsOrders'),
-                meta: meta('Pınar Gıda A.Ş')
+                meta: meta('Ahmet Aliakça')
             },
             {
                 path: 'documents',
                 name: routes.documents,
                 component: () => import('@/modules/main/customer/pages/MCustomerDetailsDocuments'),
-                meta: meta('Pınar Gıda A.Ş')
+                meta: meta('Ahmet Aliakça')
             }
         ]
     }
