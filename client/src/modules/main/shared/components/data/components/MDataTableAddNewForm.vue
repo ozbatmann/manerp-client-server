@@ -7,6 +7,7 @@
     <v-dialog
         v-model="showDialog"
         max-width="600"
+        persistent
         @keydown.enter.prevent="save"
         @keydown.esc.stop="close"
     >
@@ -18,6 +19,7 @@
 
                 <v-spacer></v-spacer>
 
+                <!-- Clear all button -->
                 <v-btn
                         flat
                         color="red"
@@ -31,7 +33,7 @@
             <v-form>
                 <v-layout row wrap px-3>
                     <v-flex
-                            v-for="(field, index) in localData"
+                            v-for="(field, index) in fields"
                             :key="`add-edit-field-${index}`"
                             :class="flexSize(index)"
                             px-2
@@ -40,7 +42,7 @@
                         <div v-if="field.type === input__types.checkbox">
                             <v-checkbox
                                     v-for="(prop, index) in field.props"
-                                    v-model="field.value"
+                                    v-model="localData[field.key]"
                                     :key="`add-edit-checkbox-${index}`"
                                     :data-vv-name="field.value"
                                     :label="prop"
@@ -52,7 +54,7 @@
 
                         <div v-else-if="field.type === input__types.select">
                             <v-select
-                                    v-model="field.value"
+                                    v-model="localData[field.key]"
                                     :data-vv-name="field.key"
                                     :items="field.props"
                                     :label="field.title"
@@ -66,7 +68,7 @@
 
                         <div v-else>
                             <v-text-field
-                                    v-model="field.value"
+                                    v-model="localData[field.key]"
                                     :data-vv-name="field.key"
                                     :type="field.type"
                                     :label="field.title"
@@ -122,8 +124,15 @@
 
         props: {
             // Data object
-            // Will define fields and hold their values
+            // Will hold values
             data: {
+                type: Object,
+                default: null
+            },
+
+            // Field object
+            // Will define fields
+            fields: {
                 type: Array,
                 default: null
             },
@@ -136,7 +145,7 @@
 
         data () {
             return {
-                localData: this.data,
+                localData: Object.assign({}, this.data),
                 input__types: {
                     checkbox: 'checkbox',
                     select: 'select',
@@ -150,8 +159,8 @@
         computed: {
 
             clearAllDisabled () {
-                return this.localData.every(item => {
-                    return item.value !== null && item.value.length > 0
+                return Object.values(this.localData).every(value => {
+                    return value === null ? true : value.length < 1
                 });
             }
         },
@@ -166,14 +175,12 @@
                         finalRules += `${rule}|`
                     });
 
-                    console.log(finalRules)
-
                     return finalRules
                 }
             },
 
             flexSize (index) {
-                return index === this.localData.length - 1 && this.localData.length % 2 !== 0 ? 'xs12' : 'xs6'
+                return index === this.fields.length - 1 && this.fields.length % 2 !== 0 ? 'xs12' : 'xs6'
             },
 
             // Open the dialog
@@ -182,7 +189,7 @@
                 this.showDialog = true;
 
                 if (data) {
-                    this.localData = data;
+                    this.localData = Object.assign({}, data);
                     this.isEdit = true;
                 } else {
                     this.clear();
@@ -190,7 +197,7 @@
             },
 
             // Closes the dialog and clears all fields
-            close() {
+            close () {
                 this.showDialog = false;
                 this.clear()
                 this.$validator.reset()
@@ -198,7 +205,7 @@
 
             // Save action
             // Validates all fields then emits data to parent
-            save() {
+            save () {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         this.$emit("save", this.localData);
@@ -209,7 +216,7 @@
 
             // Edit action
             // Validates all fields then emits data to parent
-            edit() {
+            edit () {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         this.$emit("edit", this.localData);
@@ -219,10 +226,11 @@
             },
 
             // Clears data and toggles edit mode
-            clear() {
-                this.localData.forEach(data => {
-                    data.value = null
-                })
+            clear () {
+                Object.keys(this.localData).forEach(key => {
+                    this.localData[key] = null
+                });
+
                 this.isEdit = false;
             }
         }
