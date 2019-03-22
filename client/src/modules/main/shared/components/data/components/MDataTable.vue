@@ -181,9 +181,8 @@
                                     <!-- from parent component -->
                                     <slot
                                             name="action-menu"
-                                            :bind="props"
+                                            :bind="props.item"
                                     ></slot>
-                                    <v-list-tile>Düzenle</v-list-tile>
                                     <v-list-tile>Sil</v-list-tile>
                                     <v-list-tile>Dışa aktar</v-list-tile>
                                 </v-list>
@@ -212,6 +211,7 @@
         name: "MDataTable",
         components: {MDataTableFilterMenu, MDataTableAction},
         props: {
+
             // A Boolean indicating
             // whether filter mode is enabled or not
             noFiltering: {

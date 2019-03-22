@@ -15,11 +15,19 @@
                 ></m-data-table-action>
             </template>
 
+            <!-- Data-table action menu slot -->
+            <template v-slot:action-menu="item">
+
+                <!-- Edit button -->
+                <v-list-tile @click="addDialog(item.bind)">Düzenle</v-list-tile>
+            </template>
         </m-data-table>
 
+        <!-- Data table add-edit form -->
         <m-data-table-add-new-form
                 ref="addEditDialog"
-                :data="addEditFields"
+                :data="addEditData"
+                :fields="addEditFields"
                 title="Yeni Şoför"
         ></m-data-table-add-new-form>
     </div>
@@ -41,6 +49,20 @@
         },
         data () {
             return {
+                // Data-table
+                // add-edit dialog data
+                addEditData: {
+                    [driverModel.name]: null,
+                    [driverModel.surname]: null,
+                    [driverModel.contract]: null,
+                    [driverModel.phone]: null,
+                    [driverModel.ssn]: null,
+                    [driverModel.driversLicense]: null,
+                    [driverModel.address]: null
+                },
+
+                // Data-table
+                // add-edit dialog fields
                 addEditFields: [
                     {
                         key: driverModel.name,
@@ -50,7 +72,6 @@
                         ],
                         title: 'ad',
                         type: 'text',
-                        value: null
                     },
                     {
                         key: driverModel.surname,
@@ -60,7 +81,6 @@
                         ],
                         title: 'soyad',
                         type: 'text',
-                        value: null,
                     },
                     {
                         key: driverModel.contract,
@@ -69,13 +89,13 @@
                         props: [
                             'Kadrolu', 'Sözleşmeli'
                         ],
-                        value: null
                     },
                     {
                         key: driverModel.phone,
+                        mask: 'phone',
                         max: 10,
                         title: 'telefon',
-                        type: 'text',
+                        type: 'tel',
                         rules: [
                             'required', 'max:10'
                         ]
@@ -110,6 +130,7 @@
                     }
                 ],
 
+                // Data-table headers
                 headers: [
                     {
                         text: 'ID',
@@ -176,10 +197,12 @@
                     }
                 ],
 
+                // Drivers array
                 drivers: [],
 
+                // Data table row click route
                 to: {
-                    name: 'driver.information'
+                    name: require('@/modules/main/driver/route/index').routes.information
                 }
             }
         },
@@ -187,9 +210,9 @@
         methods: {
 
             // Activates add new item dialog
-            addDialog () {
-                console.log(this.$refs.addEditDialog)
-                this.$refs.addEditDialog.open()
+            addDialog (data) {
+                console.log(data)
+                this.$refs.addEditDialog.open(data)
             }
         },
 
