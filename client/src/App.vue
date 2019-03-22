@@ -57,6 +57,12 @@
         font-size: 16px !important;
     }
 
+    .m-input-capitalize input,
+    .m-input-capitalize div,
+    .m-input-capitalize label {
+        text-transform: capitalize !important;
+    }
+
     .m-filter-date input {
         cursor: pointer !important;
         -webkit-transition: 0.2s all ease-in-out;
