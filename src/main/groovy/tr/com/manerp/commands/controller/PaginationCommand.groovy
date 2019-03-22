@@ -1,4 +1,4 @@
-package tr.com.manerp.commands
+package tr.com.manerp.commands.controller
 
 import grails.validation.Validateable
 

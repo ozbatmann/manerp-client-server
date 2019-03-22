@@ -6,7 +6,7 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
-import tr.com.manerp.commands.PaginationCommand
+import tr.com.manerp.commands.controller.PaginationCommand
 
 class StaffController extends BaseController {
 
@@ -58,6 +58,7 @@ class StaffController extends BaseController {
 
             maneResponse.statusCode = StatusCode.BAD_REQUEST
             maneResponse.message = parseValidationErrors(ex.errors)
+            ex.printStackTrace()
 
         } catch (Exception ex) {
 
@@ -75,6 +76,10 @@ class StaffController extends BaseController {
 
         try {
 
+            if ( !staff ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Güncellenmek istenen personel sistemde bulunmamaktadır.')
+            }
             staffService.save(staff)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Personel başarıyla güncellendi.'
@@ -83,10 +88,11 @@ class StaffController extends BaseController {
 
             maneResponse.statusCode = StatusCode.BAD_REQUEST
             maneResponse.message = parseValidationErrors(ex.errors)
+            ex.printStackTrace()
 
         } catch (Exception ex) {
 
-            maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
@@ -100,13 +106,19 @@ class StaffController extends BaseController {
 
         try {
 
-            staffService.delete(id)
+            Staff staff = Staff.get(id)
+            if ( !staff ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Silinmek istenen personel sistemde bulunmamaktadır.')
+            }
+
+            staffService.delete(staff)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Personel başarıyla silindi.'
 
         } catch (Exception ex) {
 
-            maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }

@@ -10,14 +10,19 @@ class BaseController extends ManeResponseController {
         String result = ''
         String uniquePattern = 'unique'
         String nullPattern = 'null'
+        String customPattern = 'custom'
 
         if ( defaultMessage.contains(uniquePattern) ) {
 
-            result = 'eşsiz olmadığı için reddedildi.'
+            result = 'sistemde bulunduğu için reddedildi.'
 
-        } else if (defaultMessage.contains(nullPattern)) {
+        } else if ( defaultMessage.contains(nullPattern) ) {
 
-            result = 'değer zorunlu olduğu için reddedildi.'
+            result = 'değer uygun olmadığı için reddedildi.'
+
+        } else if ( defaultMessage.contains(customPattern) ) {
+
+            result = 'değer uygun olmadığı için reddedildi.'
         }
 
         return result
@@ -29,7 +34,7 @@ class BaseController extends ManeResponseController {
 
         errors.allErrors.each { item ->
 
-            stringBuilder.append("${item.field} alanı için sağlanan ${item.rejectedValue} ${parseDefaultMessage(item.defaultMessage)}\n")
+            stringBuilder.append("${item.field} alanı için sağlanan '${item.rejectedValue}' ${parseDefaultMessage(item.defaultMessage)}\n")
         }
 
         return stringBuilder.toString()
