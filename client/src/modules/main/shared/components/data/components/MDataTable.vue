@@ -96,7 +96,6 @@
                         select-all
                         item-key="id"
                         class="m-data-table"
-                        style="border: 1px solid #f4f4f4; white-space: nowrap; position: relative; padding: 0 52px 0 48px;"
                 >
                     <!-- Template for data table header -->
                     <template v-slot:headers="props">

@@ -48,6 +48,13 @@
         cursor: pointer !important;
     }
 
+    .m-data-table {
+        border: 1px solid #f4f4f4;
+        white-space: nowrap;
+        position: relative;
+        padding: 0 52px 0 48px;
+    }
+
     .m-data-table table thead {
         height: 56px !important;
         line-height: 56px !important;

@@ -1,17 +1,15 @@
+<!-- Default application menu component -->
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-navigation-drawer
             app
             light
             floating
             width="240"
-            class="grey lighten-4">
-
+            class="grey lighten-4"
+    >
         <v-layout fill-height>
-
             <v-list class="grow pt-0">
-
                 <v-toolbar class="toolbar-shadow">
-
                     <v-list class="pa-0">
 
                         <v-list-tile avatar>

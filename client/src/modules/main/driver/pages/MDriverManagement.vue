@@ -27,9 +27,27 @@
         <m-data-table-add-new-form
                 ref="addEditDialog"
                 :data="addEditData"
-                :fields="addEditFields"
+                :inputs="addEditFields"
                 title="Yeni Şoför"
+                @save="addNewItem"
         ></m-data-table-add-new-form>
+
+        <v-snackbar
+                v-model="snackbar.active"
+                color="grey darken-4"
+                :class="snackbar.textColor"
+                top
+                right
+        >
+            {{ snackbar.text }}
+            <v-btn
+                    dark
+                    flat
+                    @click="snackbar.active = false"
+            >
+                geri al
+            </v-btn>
+        </v-snackbar>
     </div>
 </template>
 
@@ -192,6 +210,16 @@
                 // Drivers array
                 drivers: [],
 
+                // Object that holds
+                // snackbar information
+                snackbar: {
+                    active: false,
+                    text: null,
+                    textColor: null
+                },
+
+                newItem: null,
+
                 // Data table row click route
                 to: {
                     name: require('@/modules/main/driver/route/index').routes.information
@@ -205,6 +233,17 @@
             addDialog (data) {
                 console.log(data)
                 this.$refs.addEditDialog.open(data)
+            },
+
+            // Adds a new driver
+            // to the system
+            addNewItem (item) {
+                console.log(item)
+
+                this.newItem = item
+                this.snackbar.text = "Başarıyla eklendi."
+                this.snackbar.textColor = 'green--text text--accent-3'
+                this.snackbar.active = true
             }
         },
 
@@ -212,7 +251,7 @@
             for (let i = 0; i < 15; i++) {
                 let driver = {
                     id: `DRV-${i}`,
-                    name: 'Ahmet Ahmet Ahmet Ahmet v Ahmet Ahmet v v v Ahmet',
+                    name: 'Ahmet',
                     surname: 'Aliakça',
                     contract: 'Kadrolu',
                     phone: '(541) 598-4560',

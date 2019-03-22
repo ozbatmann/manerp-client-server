@@ -6,7 +6,7 @@
     <!-- This object will contain all field -->
     <v-dialog
         v-model="showDialog"
-        max-width="600"
+        max-width="750"
         persistent
         @keydown.enter.prevent="save"
         @keydown.esc.stop="close"
@@ -14,31 +14,35 @@
         <v-card>
 
             <!-- Title of the dialog -->
-            <v-card-title class="headline font-weight-light">
+            <v-card-title class="headline font-weight-light py-2">
                 {{ title }}
-
                 <v-spacer></v-spacer>
 
                 <!-- Clear all button -->
                 <v-btn
                         flat
-                        color="red"
+                        color="pink"
                         :disabled="clearAllDisabled"
                         @click="clear"
                 >
+                    <v-slide-x-reverse-transition mode="out-in">
+                        <v-icon v-show="!clearAllDisabled" left>delete</v-icon>
+                    </v-slide-x-reverse-transition>
                     temizle
                 </v-btn>
             </v-card-title>
 
+            <v-divider></v-divider>
+            <!-- Form element -->
             <v-form>
-                <v-layout row wrap px-3>
+                <v-layout row wrap px-3 pt-4>
                     <v-flex
-                            v-for="(field, index) in fields"
+                            v-for="(field, index) in inputs"
                             :key="`add-edit-field-${index}`"
                             :class="flexSize(index)"
                             px-2
-                            py-2
                     >
+                        <!-- Checkbox inputs -->
                         <div v-if="field.type === input__types.checkbox">
                             <v-checkbox
                                     v-for="(prop, index) in field.props"
@@ -52,6 +56,7 @@
                             ></v-checkbox>
                         </div>
 
+                        <!-- Select inputs -->
                         <div v-else-if="field.type === input__types.select">
                             <v-select
                                     v-model="localData[field.key]"
@@ -61,11 +66,15 @@
                                     :error-messages="errors.collect(field.key)"
                                     v-validate="'required'"
                                     class="m-input-capitalize"
+                                    background-color="grey lighten-4"
+                                    color="green accent-2"
+                                    solo
                                     flat
                                     required
                             ></v-select>
                         </div>
 
+                        <!-- Text-field inputs -->
                         <div v-else>
                             <v-text-field
                                     v-model="localData[field.key]"
@@ -76,25 +85,30 @@
                                     :error-messages="errors.collect(field.key)"
                                     :v-validate="validate(field.rules)"
                                     :counter="field.max"
-                                    class="m-input-capitalize"
+                                    class="m-input-capitalize  "
                                     clearable
+                                    background-color="grey lighten-4"
+                                    color="black"
+                                    solo
                                     flat
                                     required
                             ></v-text-field>
                         </div>
-
                     </v-flex>
                 </v-layout>
             </v-form>
 
+            <v-divider></v-divider>
+
             <!-- Action buttons -->
-            <v-card-actions class="mt-3">
+            <v-card-actions class="py-3">
                 <v-spacer></v-spacer>
 
                 <!-- Cancel button -->
                 <v-btn
                         depressed
                         flat="flat"
+                        class="my-0"
                         @click="close"
                 >
                     iptal
@@ -103,8 +117,10 @@
                 <!-- Save button -->
                 <v-btn
                         depressed
+                        :disabled="clearAllDisabled"
                         color="primary"
-                        flat="flat"
+                        class="my-0"
+                        flat
                         @click="save"
                 >
                     kaydet
@@ -130,13 +146,14 @@
                 default: null
             },
 
-            // Field object
+            // Inputs array
             // Will define fields
-            fields: {
+            inputs: {
                 type: Array,
                 default: null
             },
 
+            // Title of the dialog
             title: {
                 type: String,
                 default: null
@@ -145,19 +162,29 @@
 
         data () {
             return {
+                // Copy of the data prop
+                // Object.assign does the shallow copying
                 localData: Object.assign({}, this.data),
+
+                // Input type enumeration
                 input__types: {
                     checkbox: 'checkbox',
                     select: 'select',
                 },
 
+                // A Boolean indicating
+                // whether dialog is active or not
                 showDialog: false,
+
+                // A Boolean indicating
+                // whether dialog is in edit mode or not
                 isEdit: false,
             }
         },
 
         computed: {
-
+            // Toggles clear all
+            // button if inputs are not null
             clearAllDisabled () {
                 return Object.values(this.localData).every(value => {
                     return value === null ? true : value.length < 1
@@ -166,6 +193,7 @@
         },
 
         methods: {
+            // Parses validation rules
             validate (rules) {
                 if (rules === undefined) return null;
                 else {
@@ -179,13 +207,16 @@
                 }
             },
 
+            // Determines flex size
+            // based on field size (odd => xs12, even => xs6)
             flexSize (index) {
-                return index === this.fields.length - 1 && this.fields.length % 2 !== 0 ? 'xs12' : 'xs6'
+                return index === this.inputs.length - 1 && this.inputs.length % 2 !== 0 ? 'xs12' : 'xs6'
             },
 
             // Open the dialog
             // If data is null then in editing mode
             open (data) {
+                this.clear()
                 this.showDialog = true;
 
                 if (data) {
@@ -196,15 +227,14 @@
                 }
             },
 
-            // Closes the dialog and clears all fields
+            // Closes the dialog and clears all inputs
             close () {
                 this.showDialog = false;
-                this.clear()
                 this.$validator.reset()
             },
 
             // Save action
-            // Validates all fields then emits data to parent
+            // Validates all inputs then emits data to parent
             save () {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
@@ -215,7 +245,7 @@
             },
 
             // Edit action
-            // Validates all fields then emits data to parent
+            // Validates all inputs then emits data to parent
             edit () {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
