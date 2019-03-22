@@ -177,7 +177,6 @@
                         show: true,
                         search: {chip: false, value: null}
                     },
-                    {text: '', sortable: false, align: 'end', value: 'action', toggleable: false, show: true}
                 ],
 
                 firms: [

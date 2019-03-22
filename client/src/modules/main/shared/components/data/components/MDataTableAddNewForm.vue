@@ -14,7 +14,7 @@
         <v-card>
 
             <!-- Title of the dialog -->
-            <v-card-title class="headline">
+            <v-card-title class="headline font-weight-light">
                 {{ title }}
 
                 <v-spacer></v-spacer>
@@ -139,7 +139,7 @@
 
             title: {
                 type: String,
-                default: 'Yeni Müşteri'
+                default: null
             }
         },
 

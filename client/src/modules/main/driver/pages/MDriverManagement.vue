@@ -187,14 +187,6 @@
                         show: true,
                         search: { chip: false, value: null }
                     },
-                    {
-                        text: '',
-                        sortable: false,
-                        align: 'end',
-                        value: 'action',
-                        toggleable: false,
-                        show: true
-                    }
                 ],
 
                 // Drivers array
@@ -220,7 +212,7 @@
             for (let i = 0; i < 15; i++) {
                 let driver = {
                     id: `DRV-${i}`,
-                    name: 'Ahmet',
+                    name: 'Ahmet Ahmet Ahmet Ahmet v Ahmet Ahmet v v v Ahmet',
                     surname: 'Aliakça',
                     contract: 'Kadrolu',
                     phone: '(541) 598-4560',

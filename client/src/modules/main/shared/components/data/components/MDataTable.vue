@@ -20,11 +20,11 @@
             <!-- Will be shown if filtering mode is on -->
             <m-data-table-action
                     v-if="!noFiltering"
-                    @click="filterMenuShowing = !filterMenuShowing"
                     title="FİLTRE"
                     icon="filter_list"
                     id="filterButton"
                     :class="filterButtonClass"
+                    @click="filterMenuShowing = !filterMenuShowing"
             ></m-data-table-action>
         </v-layout>
 
@@ -83,7 +83,7 @@
         </v-layout>
 
         <!-- Data table section -->
-        <v-layout mt-2>
+        <v-layout mt-2 white>
             <v-flex>
 
                 <!-- Data table structure -->
@@ -95,12 +95,13 @@
                         :pagination.sync="pagination"
                         select-all
                         item-key="id"
-                        style="border: 1px solid #f4f4f4;"
+                        class="m-data-table"
+                        style="border: 1px solid #f4f4f4; white-space: nowrap; position: relative; padding: 0 52px 0 48px;"
                 >
                     <!-- Template for data table header -->
                     <template v-slot:headers="props">
                         <tr>
-                            <th>
+                            <th class="m-data-table-sticky-col-left">
                                 <!-- Checkbox -->
                                 <!-- Selects all data table rows -->
                                 <v-checkbox
@@ -135,12 +136,16 @@
                                     arrow_upward
                                 </v-icon>
                             </th>
+
+                            <th class="m-data-table-sticky-col-right">
+                                #
+                            </th>
                         </tr>
                     </template>
 
                     <!-- Template for data table rows -->
                     <template v-slot:items="props">
-                        <td>
+                        <td class="m-data-table-sticky-col-left">
                             <!-- Checkbox for row selection -->
                             <v-checkbox
                                     :input-value="props.selected"
@@ -158,7 +163,7 @@
                         >
                             {{ props.item[key] }}
                         </td>
-                        <td class="text-xs-right">
+                        <td class="text-xs-right m-data-table-sticky-col-right">
                             <!-- Row action menu -->
                             <v-menu
                                     left
