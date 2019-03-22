@@ -1,23 +1,28 @@
-let customerInformationRoute = 'customer.information';
-let customerOrdersRoute = 'customer.orders';
-let customerDocumentsRoute = 'customer.documents';
+export const routes = {
+    information: 'customer.information',
+    orders: 'customer.orders',
+    documents: 'customer.documents'
+};
 
-const meta = {
-    tabbed: true,
-    tabs: [
-        {
-            text: 'genel',
-            to: { name: customerInformationRoute }
-        },
-        {
-            text: 'geçmiş siparişler',
-            to: { name: customerOrdersRoute }
-        },
-        {
-            text: 'dokümanlar',
-            to: { name: customerDocumentsRoute }
-        }
-    ]
+const meta = (title) => {
+    return {
+        title: title,
+        tabbed: true,
+        tabs: [
+            {
+                text: 'genel',
+                to: { name: routes.information }
+            },
+            {
+                text: 'geçmiş siparişler',
+                to: { name: routes.orders }
+            },
+            {
+                text: 'dokümanlar',
+                to: { name: routes.documents }
+            }
+        ]
+    }
 };
 
 export default [
@@ -25,7 +30,7 @@ export default [
         path: 'customers',
         name: 'customers',
         component: () => import('@/modules/main/customer/pages/MCustomerManagement'),
-        meta: { title: 'Müşteri Yönetimi' }
+        meta: { title: 'Firma Yönetimi' }
     },
     {
         path: 'customers/details/:id',
@@ -33,21 +38,21 @@ export default [
         children: [
             {
                 path: '',
-                name: customerInformationRoute,
+                name: routes.information,
                 component: () => import('@/modules/main/customer/pages/MCustomerDetailsInformation'),
-                meta: meta
+                meta: meta('Pınar Gıda A.Ş')
             },
             {
                 path: 'orders',
-                name: customerOrdersRoute,
+                name: routes.orders,
                 component: () => import('@/modules/main/customer/pages/MCustomerDetailsOrders'),
-                meta: meta
+                meta: meta('Pınar Gıda A.Ş')
             },
             {
                 path: 'documents',
-                name: customerDocumentsRoute,
+                name: routes.documents,
                 component: () => import('@/modules/main/customer/pages/MCustomerDetailsDocuments'),
-                meta: meta
+                meta: meta('Pınar Gıda A.Ş')
             }
         ]
     }

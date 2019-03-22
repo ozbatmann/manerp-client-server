@@ -158,7 +158,7 @@
                         >
                             {{ props.item[key] }}
                         </td>
-                        <td>
+                        <td class="text-xs-right">
                             <!-- Row action menu -->
                             <v-menu
                                     left

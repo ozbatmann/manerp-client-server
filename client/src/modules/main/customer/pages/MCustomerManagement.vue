@@ -10,7 +10,8 @@
 
                 <!-- Add customer button -->
                 <m-data-table-action
-                        title="MÜŞTERİ EKLE"
+                        title="FİRMA EKLE"
+                        @click="addDialog"
                 ></m-data-table-action>
             </template>
 
@@ -19,22 +20,51 @@
                 <v-list-tile>Bayi ekle</v-list-tile>
             </template>
         </m-data-table>
+
+        <m-data-table-add-new-form
+                ref="addEditDialog"
+                :data="formFields"
+                title="Yeni Firma"
+        ></m-data-table-add-new-form>
     </div>
 </template>
 
 <script>
     import MDataTable from '../../shared/components/data/components/MDataTable'
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction"
+    import MDataTableAddNewForm from "../../shared/components/data/components/MDataTableAddNewForm";
 
     export default {
         name: "MCustomerManagement",
         components: {
+            MDataTableAddNewForm,
             MDataTableAction,
             MDataTable
         },
 
         data () {
             return {
+                formFields: [
+                    { title: 'Firma Ünvanı', key: 'title', type: 'text', value: null,
+                        rules: ['required'] },
+
+                    { title: 'Telefon',key: 'phone', type: 'phone', value: null, mask: 'phone',
+                        rules: ['required', 'max:10'], max: 10 },
+
+                    { title: 'E-posta', key: 'mail', type: 'mail', value: null, rules: ['required', 'email'] },
+
+                    { title: 'Vergi Numarası', key: 'taxNo', type: 'text', value: null, rules: ['required'] },
+
+                    { title: 'Vergi Dairesi', key: 'taxAdmin', type: 'text', value: null, rules: ['required'] },
+
+                    { title: 'Firma İlişkisi', key: 'type', type: 'select', rules: ['required'],
+                        props: [ 'Müşteri', 'Tedarikçi', 'Müşteri/Tedarikçi' ], value: 'Müşteri' },
+
+                    { title: 'Firma Temsilcisi', key: 'rep', type: 'text', value: null, rules: ['required'] },
+
+                    { title: 'Adres', key: 'address', type: 'text', value: null, rules: ['required'] }
+                ],
+
                 datePickerShowing: false,
                 startDate: null,
 
@@ -45,7 +75,7 @@
                     {text: 'E-Posta', sortable: true, value: 'mail', toggleable: true, show: true, search: {chip: false, value: null}},
                     {text: 'Firma İlişkisi', sortable: true, value: 'type', toggleable: true, show: true, search: {chip: false, value: null}},
                     {text: 'Firma Temsilcisi', sortable: true, value: 'rep', toggleable: true, show: true, search: {chip: false, value: null}},
-                    {text: '#', sortable: false, align: 'end', value: 'action', toggleable: false, show: true}
+                    {text: '', sortable: false, align: 'end', value: 'action', toggleable: false, show: true}
                 ],
 
                 firms: [
@@ -100,14 +130,23 @@
                 ],
 
                 to: {
-                    name: 'customer.information',
+                    name: require('@/modules/main/customer/route/index').routes.information,
                 }
             }
         },
+
+        methods: {
+            // Activates add new item dialog
+            addDialog () {
+                console.log(this.$refs.addEditDialog)
+                this.$refs.addEditDialog.open()
+            }
+        },
+
         mounted() {
-            this.$http.get("/auth").then((result) => {
-                console.log(result)
-            })
+            // this.$http.get("/auth").then((result) => {
+            //     console.log(result)
+            // })
         }
     }
 </script>
