@@ -36,4 +36,15 @@ class StaffService extends BaseService {
         Staff.get(id).delete(flush: true, failOnError: true)
     }
 
+    List formatPaginatedResultForDropDown(def data) {
+
+        List formattedData = data.collect {
+            return [
+                    id  : it.id,
+                    name: "$it.firstName${it.middleName != null ? ' ' + it.middleName : ''} $it.lastName"
+            ]
+        }
+
+        return formattedData
+    }
 }

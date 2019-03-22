@@ -1,3 +1,5 @@
+grails.databinding.dateFormats = ["dd/MM/yyyy"]
+
 grails.gorm.default.mapping = {
     version false
     id column: 'id', generator: 'uuid', length: 32

@@ -11,6 +11,8 @@ import tr.com.manerp.business.sysref.SysrefDrivingType
 import tr.com.manerp.business.sysref.SysrefStaffContractType
 import tr.com.manerp.common.Person
 
+import java.text.SimpleDateFormat
+
 class Staff implements BaseDomain, Person {
 
     static auditable = true
@@ -25,7 +27,7 @@ class Staff implements BaseDomain, Person {
     SysrefDrivingType sysrefDrivingType
 
     static hasMany = [
-        staffDocuments: StaffDocument
+            staffDocuments: StaffDocument
     ]
     static belongsTo = []
 
