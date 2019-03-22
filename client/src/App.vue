@@ -58,6 +58,11 @@
         line-height: 48px !important;
     }
 
+    .m-data-table .v-datatable__actions {
+        margin-left: -48px !important;
+        margin-right: -52px !important;
+    }
+
     .m-data-table-sticky-col-left {
         left: 0 !important;
         position: absolute !important;
