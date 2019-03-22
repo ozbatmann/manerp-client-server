@@ -29,7 +29,10 @@ const router = new VueRouter({
                         ...require('@/modules/main/customer/route/index').default,
 
                         // Driver routes
-                        ...require('@/modules/main/driver/route/index').default
+                        ...require('@/modules/main/driver/route/index').default,
+
+                        // Order routes
+                        ...require('@/modules/main/order/route/index').default
                     ],
                 },
                 {
