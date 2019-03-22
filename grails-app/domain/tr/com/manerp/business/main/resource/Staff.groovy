@@ -11,8 +11,6 @@ import tr.com.manerp.business.sysref.SysrefDrivingType
 import tr.com.manerp.business.sysref.SysrefStaffContractType
 import tr.com.manerp.common.Person
 
-import java.text.SimpleDateFormat
-
 class Staff implements BaseDomain, Person {
 
     static auditable = true
@@ -39,8 +37,15 @@ class Staff implements BaseDomain, Person {
         user nullable: true, unique: false
         refStaffTitle nullable: false, unique: false
         sysrefStaffContractType nullable: true, unique: false
-        drivingLicenseNumber nullable: true, unique: false, maxSize: 30
-        hasFuelAdvance nullable: true, unique: false
+
+        drivingLicenseNumber nullable: true, unique: false, maxSize: 30,
+                validator: { val, obj ->
+                    obj.refStaffTitle.code == 'DRV' ? (!val.isEmpty() && val != null) : true
+                }
+        hasFuelAdvance nullable: true, unique: false,
+                validator: { val, obj ->
+                    obj.refStaffTitle.code == 'DRV' ? val != null : true
+                }
         sysrefDrivingType nullable: true, unique: false
     }
 
@@ -50,7 +55,9 @@ class Staff implements BaseDomain, Person {
         staffDocuments cascade: 'all-delete-orphan'
     }
 
-    static mappedBy = {
+    String getFullName() {
+        return "${this.firstName}${this.middleName != null ? ' ' + this.middleName : ''} ${this.lastName}"
     }
+
 
 }

@@ -1,59 +1,163 @@
 package tr.com.manerp.business.main.resource
 
-import grails.converters.JSON
+import grails.validation.ValidationException
+import manerp.response.plugin.pagination.ManePaginatedResult
+import manerp.response.plugin.pagination.ManePaginationProperties
+import manerp.response.plugin.response.ManeResponse
+import manerp.response.plugin.response.StatusCode
+import tr.com.manerp.base.controller.BaseController
+import tr.com.manerp.commands.controller.PaginationCommand
 
-class DriverController {
+class DriverController extends BaseController {
 
     static namespace = "v1"
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-    static defaultAction = "getAllDrivers"
+    static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def driverService
 
-    def getAllDrivers() {
-        HashMap jsonMap = driverService.getAllDrivers(
-                request.JSON.orderColumn.toInteger(),
-                request.JSON.orderDirection,
-                request.JSON.length.toInteger(),
-                request.JSON.start.toInteger(),
-                request.JSON.firstName,
-                request.JSON.lastName,
-                request.JSON.tcIdNumber,
-                request.JSON.drivingLicenseNumber,
-                request.JSON.sysrefStaffContractTypeName,
-                request.JSON.awcCompanyId.toLong()
-        )
-        render jsonMap as JSON
+    def index() {
+
+        ManeResponse maneResponse = new ManeResponse()
+
+        try {
+
+            PaginationCommand cmd = new PaginationCommand(params)
+
+            if ( !cmd.validate() ) {
+
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = parseValidationErrors(cmd.errors)
+                throw new Exception(maneResponse.message)
+            }
+
+            ManePaginatedResult result = driverService.getDriverList(new ManePaginationProperties(cmd.max, cmd.offset, cmd.sort))
+            maneResponse.data = result.toMap()
+
+        } catch (Exception ex) {
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
     }
 
-    def getDetailOfDriver() {
-        HashMap jsonMap = driverService.getDetailOfDriver(request.JSON.driverId.toLong())
-        render jsonMap as JSON
+    def save(Staff driver) {
+
+        ManeResponse maneResponse = new ManeResponse()
+
+        try {
+
+            driverService.save(driver)
+            maneResponse.statusCode = StatusCode.CREATED
+            maneResponse.data = driver.id
+            maneResponse.message = 'Şoför başarıyla kaydedildi.'
+
+        } catch (ValidationException ex) {
+
+            maneResponse.statusCode = StatusCode.BAD_REQUEST
+            maneResponse.message = parseValidationErrors(ex.errors)
+            ex.printStackTrace()
+
+        } catch (Exception ex) {
+
+            maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
     }
 
-    def addDriver() {
-        HashMap jsonMap = driverService.addDriver(request.JSON.driverJson)
-        render jsonMap as JSON
+    def update(Staff driver) {
+
+        ManeResponse maneResponse = new ManeResponse()
+
+        try {
+
+            if ( !driver ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Güncellenmek istenen şoför sistemde bulunmamaktadır.')
+            }
+            driverService.save(driver)
+            maneResponse.statusCode = StatusCode.NO_CONTENT
+            maneResponse.message = 'Şoför başarıyla güncellendi.'
+
+        } catch (ValidationException ex) {
+
+            maneResponse.statusCode = StatusCode.BAD_REQUEST
+            maneResponse.message = parseValidationErrors(ex.errors)
+            ex.printStackTrace()
+
+        } catch (Exception ex) {
+
+            maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
     }
 
-    def updateDriver() {
-        HashMap jsonMap = driverService.updateDriver(request.JSON.driverJson)
-        render jsonMap as JSON
+    def delete(String id) {
+
+        ManeResponse maneResponse = new ManeResponse()
+
+        try {
+
+            Staff driver = Staff.get(id)
+            if ( !driver ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Silinmek istenen personel sistemde bulunmamaktadır.')
+            }
+            if ( driver.refStaffTitle.code != 'DRV' ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception("Silinmek istenen '${driver.getFullName()}' şoför unvanına sahip olmadığı için silinemedi.")
+            }
+
+            driverService.delete(driver)
+            maneResponse.statusCode = StatusCode.NO_CONTENT
+            maneResponse.message = 'Şoför başarıyla silindi.'
+
+        } catch (Exception ex) {
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
     }
 
-    def deleteDrivers() {
-        HashMap jsonMap = driverService.deleteDrivers(request.JSON.ids)
-        render jsonMap as JSON
+    def getListForDropDown() {
+
+        ManeResponse maneResponse = new ManeResponse()
+
+        try {
+
+            PaginationCommand cmd = new PaginationCommand(params)
+
+            if ( !cmd.validate() ) {
+
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = parseValidationErrors(cmd.errors)
+                throw new Exception(maneResponse.message)
+            }
+
+            ManePaginatedResult result = driverService.getDriverList(new ManePaginationProperties(cmd.max, cmd.offset, cmd.sort))
+            result.data = driverService.formatPaginatedResultForDropDown(result.data)
+            maneResponse.data = result.toMap()
+
+        } catch (Exception ex) {
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
     }
 
-    def deleteDriver() {
-        HashMap jsonMap = driverService.deleteDriver(request.JSON.driverId.toLong())
-        render jsonMap as JSON
-    }
-
-    def getDropDownSources() {
-        HashMap jsonMap = driverService.getDropDownSources()
-        render jsonMap as JSON
-    }
 
 }
