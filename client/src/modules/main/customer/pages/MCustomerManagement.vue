@@ -25,7 +25,7 @@
         <m-data-table-add-new-form
                 ref="addEditDialog"
                 :data="addEditData"
-                :fields="addEditFields"
+                :inputs="addEditFields"
                 title="Yeni Firma"
         ></m-data-table-add-new-form>
     </div>
