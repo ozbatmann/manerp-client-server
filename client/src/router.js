@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import store from '../store'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const router = new VueRouter({
     routes: [
@@ -29,7 +29,10 @@ const router = new VueRouter({
                         ...require('@/modules/main/customer/route/index').default,
 
                         // Driver routes
-                        ...require('@/modules/main/driver/route/index').default
+                        ...require('@/modules/main/driver/route/index').default,
+
+                        // Order routes
+                        ...require('@/modules/main/order/route/index').default
                     ],
                 },
                 {
@@ -41,10 +44,10 @@ const router = new VueRouter({
         },
     ],
     mode: 'history'
-})
+});
 
 router.beforeEach((to, from, next) => {
     next()
-})
+});
 
 export default router
