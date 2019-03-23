@@ -205,7 +205,10 @@
                         </v-expansion-panel-content>
 
                         <!-- Filter columns section -->
-                        <v-expansion-panel-content class=" accent-3">
+                        <v-expansion-panel-content
+                                v-if="toggleableHeaders.length > 0"
+                                class=" accent-3"
+                        >
 
                             <!-- Template for ExpansionPanel header -->
                             <template v-slot:header>

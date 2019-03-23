@@ -95,23 +95,24 @@
                         title: 'YÖNETİM',
                         items: [
                             {
-                                title: 'Sipariş Yönetimi',
-                                icon: 'add'
+                                title: 'Müşteri Yönetimi',
+                                icon: 'business',
+                                to: { name: 'customers' }
                             },
                             {
                                 title: 'Sevkiyat Yönetimi',
-                                icon: 'local_shipping'
+                                icon: 'local_shipping',
+                            },
+                            {
+                                title: 'Sipariş Yönetimi',
+                                icon: 'add',
+                                to: { name: 'orders.current' }
                             },
                             {
                                 title: 'Şoför Yönetimi',
                                 icon: 'person',
                                 to: { name: 'drivers' }
                             },
-                            {
-                                title: 'Müşteri Yönetimi',
-                                icon: 'business',
-                                to: { name: 'customers' }
-                            }
                         ]
                     }
                 ],

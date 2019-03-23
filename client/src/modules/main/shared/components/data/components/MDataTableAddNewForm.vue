@@ -25,8 +25,8 @@
                         :disabled="clearAllDisabled"
                         @click="clear"
                 >
-                    <v-slide-x-reverse-transition mode="out-in">
-                        <v-icon v-show="!clearAllDisabled" left>delete</v-icon>
+                    <v-slide-x-reverse-transition>
+                        <v-icon v-if="!clearAllDisabled" left>delete</v-icon>
                     </v-slide-x-reverse-transition>
                     temizle
                 </v-btn>

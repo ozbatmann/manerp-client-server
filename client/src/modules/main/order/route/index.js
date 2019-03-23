@@ -28,13 +28,13 @@ export default [
             {
                 path: '',
                 name: routes.current,
-                component: () => import('@/modules/main/customer/pages/MOrderManagementCurrent'),
+                component: () => import('@/modules/main/order/pages/MOrderManagementCurrent'),
                 meta: meta('Sipariş Yönetimi')
             },
             {
                 path: 'completed',
                 name: routes.completed,
-                component: () => import('@/modules/main/customer/pages/MOrderManagementCompleted'),
+                component: () => import('@/modules/main/order/pages/MOrderManagementCompleted'),
                 meta: meta('Sipariş Yönetimi')
             },
         ]

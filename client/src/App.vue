@@ -45,7 +45,7 @@
     }
 
     .m-data-table-row {
-        cursor: pointer !important;
+        vertical-align: middle;
     }
 
     .m-data-table {
@@ -55,14 +55,18 @@
         padding: 0 52px 0 48px;
     }
 
+    .v-datatable__actions {
+        border: none !important;
+    }
+
+    .m-data-table .v-table__overflow {
+        border-left: 1px solid rgba(0, 0, 0, .12) !important;
+        border-right: 1px solid rgba(0, 0, 0, .12) !important;
+    }
+
     .m-data-table table thead {
         height: 56px !important;
         line-height: 56px !important;
-    }
-
-    .m-data-table table tbody tr {
-        height: 48px !important;
-        line-height: 48px !important;
     }
 
     .m-data-table .v-datatable__actions {
@@ -76,8 +80,7 @@
         top: auto !important;
         width: 48px !important;
         height: 49px !important;
-        border-right: 1px solid #eee !important;
-        border-bottom: 1px solid #eee !important;
+        border-bottom: 1px solid rgba(0, 0, 0, .12) !important;
         background-color: white;
         padding: 11px !important;
     }
@@ -101,8 +104,7 @@
         height: 49px !important;
         line-height: 49px !important;
         padding: 0 !important;
-        border-left: 1px solid #eee !important;
-        border-bottom: 1px solid #eee !important;
+        border-bottom: 1px solid rgba(0, 0, 0, .12) !important;
         background: white;
     }
 
