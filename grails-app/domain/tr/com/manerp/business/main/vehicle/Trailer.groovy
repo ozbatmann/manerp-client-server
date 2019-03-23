@@ -14,7 +14,7 @@ class Trailer implements BaseDomain {
     String name
 
     static constraints = {
-        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 11
+        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 36
         sysCompany nullable: false, unique: false
         plateNumber nullable: false, blank: false, unique: false
         name nullable: true, blank: true, unique: false, maxSize: 50

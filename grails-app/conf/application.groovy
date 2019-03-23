@@ -1,4 +1,4 @@
-grails.databinding.dateFormats = ["dd/MM/yyyy"]
+grails.databinding.dateFormats = ["dd/MM/yyyy", "dd/MM/yyyy HH:mm"]
 
 grails.gorm.default.mapping = {
     version false

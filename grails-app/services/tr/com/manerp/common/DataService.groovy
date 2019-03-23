@@ -4,11 +4,17 @@ import grails.gorm.transactions.Transactional
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.business.main.company.Company
 import tr.com.manerp.business.main.company.Vendor
+import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.resource.Staff
+import tr.com.manerp.business.main.vehicle.Vehicle
 import tr.com.manerp.business.ref.RefCompanySector
 import tr.com.manerp.business.ref.RefStaffTitle
+import tr.com.manerp.business.ref.RefWorkingArea
 import tr.com.manerp.business.sysref.SysrefCompanyType
 import tr.com.manerp.business.sysref.SysrefGender
+import tr.com.manerp.business.sysref.SysrefRevenueType
+import tr.com.manerp.business.sysref.SysrefVehicleOwner
+import tr.com.manerp.business.sysref.SysrefVehicleType
 
 @Transactional
 class DataService {
@@ -235,6 +241,116 @@ class DataService {
 
             vendorPinarKemal.save(failOnError: true)
         }
+
+        RefWorkingArea refWorkingAreaEge = RefWorkingArea.findByName('Ege Bölgesi')
+        if ( refWorkingAreaEge == null ) {
+
+            refWorkingAreaEge = new RefWorkingArea()
+            refWorkingAreaEge.sysCompany = sysCompanyBumerang
+            refWorkingAreaEge.name = 'Ege Bölgesi'
+            refWorkingAreaEge.active = true
+            refWorkingAreaEge.code = 'EGE'
+            refWorkingAreaEge.description = 'Ege Bölgesinde çalışacak olan araçlar'
+
+            refWorkingAreaEge.save(failOnError: true)
+        }
+
+        SysrefVehicleType sysrefVehicleTypeTir = SysrefVehicleType.findByName('Tır')
+        if ( sysrefVehicleTypeTir == null ) {
+
+            sysrefVehicleTypeTir = new SysrefVehicleType()
+            sysrefVehicleTypeTir.sysCompany = sysCompanyBumerang
+            sysrefVehicleTypeTir.name = 'Tır'
+            sysrefVehicleTypeTir.active = true
+            sysrefVehicleTypeTir.code = 'TIR'
+            sysrefVehicleTypeTir.description = 'Tır olan araç tipleri'
+
+            sysrefVehicleTypeTir.save(failOnError: true)
+        }
+
+        SysrefVehicleOwner sysrefVehicleOwnerOzmal = SysrefVehicleOwner.findByName('Özmal')
+        if ( sysrefVehicleOwnerOzmal == null ) {
+
+            sysrefVehicleOwnerOzmal = new SysrefVehicleOwner()
+            sysrefVehicleOwnerOzmal.sysCompany = sysCompanyBumerang
+            sysrefVehicleOwnerOzmal.name = 'Özmal'
+            sysrefVehicleOwnerOzmal.active = true
+            sysrefVehicleOwnerOzmal.code = 'OZM'
+            sysrefVehicleOwnerOzmal.description = "$sysCompanyBumerang.title sahip olduğu araçlar"
+
+            sysrefVehicleOwnerOzmal.save(failOnError: true)
+        }
+
+        SysrefVehicleOwner sysrefVehicleOwnerKiralik = SysrefVehicleOwner.findByName('Kiralık')
+        if ( sysrefVehicleOwnerKiralik == null ) {
+
+            sysrefVehicleOwnerKiralik = new SysrefVehicleOwner()
+            sysrefVehicleOwnerKiralik.sysCompany = sysCompanyBumerang
+            sysrefVehicleOwnerKiralik.name = 'Kiralık'
+            sysrefVehicleOwnerKiralik.active = true
+            sysrefVehicleOwnerKiralik.code = 'KRL'
+            sysrefVehicleOwnerKiralik.description = "$sysCompanyBumerang.title kiraladığı araçlar"
+
+            sysrefVehicleOwnerKiralik.save(failOnError: true)
+        }
+
+        Vehicle vehicle1 = Vehicle.findByPlateNumber('35 123 321')
+        if ( vehicle1 == null ) {
+
+            vehicle1 = new Vehicle()
+            vehicle1.sysCompany = sysCompanyBumerang
+            vehicle1.plateNumber = '35 123 321'
+            vehicle1.brand = 'Volvo'
+            vehicle1.fleetCardNumber = '111222333'
+            vehicle1.hasLogo = true
+            vehicle1.km = 12300
+            vehicle1.isDualRegime = true
+            vehicle1.refWorkingArea = refWorkingAreaEge
+            vehicle1.sysrefVehicleType = sysrefVehicleTypeTir
+            vehicle1.sysrefVehicleOwner = sysrefVehicleOwnerOzmal
+            vehicle1.vehicleOwnerFullName = 'Tunahan Bayındır'
+            vehicle1.insuranceStartDate = new Date('05/06/2011')
+            vehicle1.insuranceEndDate = new Date('05/06/2020')
+            vehicle1.kgsNo = 'KGS-111222'
+            vehicle1.ogsNo = 'OGS-111222'
+            vehicle1.fuelKit = 'FUELKIT'
+            vehicle1.description = 'Özmal Tır'
+            vehicle1.operationInsuranceNotification = true
+            vehicle1.annualInsurance = true
+
+            vehicle1.save(failOnError: true)
+        }
+
+        SysrefRevenueType sysrefRevenueTypeTicari = SysrefRevenueType.findByName('Ticari')
+        if ( sysrefRevenueTypeTicari == null ) {
+
+            sysrefRevenueTypeTicari = new SysrefRevenueType()
+            sysrefRevenueTypeTicari.sysCompany = sysCompanyBumerang
+            sysrefRevenueTypeTicari.name = 'Ticari'
+            sysrefRevenueTypeTicari.active = true
+            sysrefRevenueTypeTicari.description = 'Ticari Gelir Tipi'
+            sysrefRevenueTypeTicari.code = 'TCR'
+
+            sysrefRevenueTypeTicari.save(failOnError: true)
+        }
+
+        Order orderPinar = Order.findByName('Pınar Sipariş')
+        if ( orderPinar == null ) {
+
+            orderPinar = new Order()
+            orderPinar.sysCompany = sysCompanyBumerang
+            orderPinar.name = 'Pınar Sipariş'
+            orderPinar.code = UUID.randomUUID()
+            orderPinar.active = true
+            orderPinar.company = customerCompanyPinar
+            orderPinar.orderDate = new Date()
+            orderPinar.sysrefRevenueType = sysrefRevenueTypeTicari
+            orderPinar.workOrderNo = 'SIPARIS-111222'
+            orderPinar.billingNo = 'FATURA-111222'
+
+            orderPinar.save(failOnError: true)
+        }
+
 
 
     }

@@ -37,7 +37,7 @@ class Voyage implements BaseDomain {
     static hasMany = [routes: VoyageRoute]
 
     static constraints = {
-        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 11
+        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 36
         sysCompany nullable: false, unique: false
         company nullable: false, unique: false
         vehicle nullable: false, unique: false

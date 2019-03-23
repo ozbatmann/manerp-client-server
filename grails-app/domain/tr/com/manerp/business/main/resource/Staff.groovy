@@ -30,7 +30,7 @@ class Staff implements BaseDomain, Person {
 
         importFrom(User)
 
-        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 11
+        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 36
         user nullable: true, unique: false
         refStaffTitle nullable: false, unique: false
         sysrefStaffContractType nullable: true, unique: false

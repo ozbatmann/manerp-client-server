@@ -16,25 +16,19 @@ class Order implements BaseDomain {
     String name
     @BindingFormat('dd/MM/yyyy hh:MM')
     Date orderDate
-    String workOrderNo
+    String workOrderNo // iş emri numarası
     SysrefRevenueType sysrefRevenueType
-    String billingNo
+    String billingNo // fatura numarası
 
     static constraints = {
-        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 11
+        code nullable: false, blank: false, unique: ['sysCompany'], maxSize: 36
         sysCompany nullable: false, unique: false
         company nullable: false, unique: false
         name nullable: false, blank: false, unique: false, maxSize: 50
         orderDate nullable: false, unique: false
         workOrderNo nullable: true, blank: true, unique: false
         sysrefRevenueType nullable: true, unique: false
-        billingNo nullable: true, blank: true, unique: false, maxSize: 50
+        billingNo nullable: false, blank: false, unique: false, maxSize: 50
     }
-
-    static mapping = {
-//        table name: "order", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_ORDER']
-    }
-
 
 }

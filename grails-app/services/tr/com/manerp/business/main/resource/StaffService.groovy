@@ -31,8 +31,8 @@ class StaffService extends BaseService {
 
         List formattedData = data.collect {
             return [
-                    id  : it.id,
-                    name: it.getFullName()
+                id  : it.id,
+                name: it.getFullName()
             ]
         }
 

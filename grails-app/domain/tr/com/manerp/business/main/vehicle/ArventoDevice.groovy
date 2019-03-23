@@ -15,7 +15,7 @@ class ArventoDevice implements BaseDomain {
     Dorset dorset
 
     static constraints = {
-        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 11
+        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 36
         sysCompany nullable: false, unique: false
         deviceId nullable: false, unique: false, maxSize: 100
         name nullable: true, blank: true, unique: false, maxSize: 50
@@ -29,7 +29,6 @@ class ArventoDevice implements BaseDomain {
     }
 
     def beforeValidate() {
-        name = name?.trim()
     }
 
 }

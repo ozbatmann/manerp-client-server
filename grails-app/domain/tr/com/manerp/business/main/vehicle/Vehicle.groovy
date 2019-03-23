@@ -16,7 +16,7 @@ class Vehicle implements BaseDomain {
     String brand
     String fleetCardNumber
     String plateNumber
-    @BindingFormat('yyyy-MM-dd’T’HH:mm:ssZ')
+    @BindingFormat('dd/MM/yyyy HH:mm')
     Date purchaseDate
     Short numberOfSensors
     Boolean hasLogo
@@ -25,10 +25,10 @@ class Vehicle implements BaseDomain {
     RefWorkingArea refWorkingArea
     SysrefVehicleType sysrefVehicleType
     SysrefVehicleOwner sysrefVehicleOwner
-    String vehicleOwnerName
-    @BindingFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    String vehicleOwnerFullName
+    @BindingFormat('dd/MM/yyyy HH:mm')
     Date insuranceStartDate
-    @BindingFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @BindingFormat('dd/MM/yyyy HH:mm')
     Date insuranceEndDate
     String kgsNo
     String ogsNo
@@ -43,7 +43,7 @@ class Vehicle implements BaseDomain {
     static belongsTo = []
 
     static constraints = {
-        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 11
+        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 36
         sysCompany nullable: false, unique: false
         brand nullable: false, blank: false, unique: false, maxSize: 50
         fleetCardNumber nullable: false, unique: false, maxSize: 50
@@ -56,7 +56,7 @@ class Vehicle implements BaseDomain {
         refWorkingArea nullable: true, unique: false
         sysrefVehicleType nullable: false, unique: false
         sysrefVehicleOwner nullable: false, unique: false
-        vehicleOwnerName nullable: true, unique: false, maxSize: 50
+        vehicleOwnerFullName nullable: true, unique: false, maxSize: 50
         insuranceStartDate nullable: true, unique: false
         insuranceEndDate nullable: true, unique: false
         kgsNo nullable: true, blank: true, unique: false, maxSize: 50
@@ -68,8 +68,6 @@ class Vehicle implements BaseDomain {
     }
 
     static mapping = {
-//        table name: "vehicle", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_VEHICLE']
         vehicleDocuments cascade: 'all-delete-orphan'
     }
 
@@ -78,7 +76,6 @@ class Vehicle implements BaseDomain {
         brand = brand?.trim()
         fleetCardNumber = fleetCardNumber?.trim()
         plateNumber = plateNumber?.trim()
-        vehicleOwnerName = vehicleOwnerName?.trim()
         kgsNo = kgsNo?.trim()
         ogsNo = ogsNo?.trim()
     }
