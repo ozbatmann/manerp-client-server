@@ -26,7 +26,6 @@ class Trailer implements BaseDomain {
     }
 
     def beforeValidate() {
-        name = name?.trim()
     }
 
 }

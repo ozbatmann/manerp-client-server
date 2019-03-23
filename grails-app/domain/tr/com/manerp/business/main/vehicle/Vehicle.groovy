@@ -71,11 +71,8 @@ class Vehicle implements BaseDomain {
         vehicleDocuments cascade: 'all-delete-orphan'
     }
 
-
     def beforeValidate() {
-        brand = brand?.trim()
         fleetCardNumber = fleetCardNumber?.trim()
-        plateNumber = plateNumber?.trim()
         kgsNo = kgsNo?.trim()
         ogsNo = ogsNo?.trim()
     }

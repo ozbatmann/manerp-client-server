@@ -25,7 +25,6 @@ class VehicleDocument implements BaseDomain {
     }
 
     def beforeValidate() {
-        documentName = documentName?.trim()
         documentMimeType = documentMimeType?.trim()
     }
 
