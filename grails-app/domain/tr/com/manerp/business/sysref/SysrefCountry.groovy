@@ -13,12 +13,4 @@ class SysrefCountry implements BaseDomain {
         name nullable: false, blank: false, unique: false, maxSize: 100
     }
 
-    static mapping = {
-//        table name: "sysref_country", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_SYSREF_COUNTRY']
-    }
-
-    static mappedBy = {
-    }
-
 }

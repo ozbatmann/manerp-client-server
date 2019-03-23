@@ -6,7 +6,7 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
-import tr.com.manerp.commands.controller.PaginationCommand
+import tr.com.manerp.commands.controller.common.PaginationCommand
 
 class StaffController extends BaseController {
 
@@ -23,14 +23,7 @@ class StaffController extends BaseController {
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            if ( !cmd.validate() ) {
-
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                maneResponse.message = parseValidationErrors(cmd.errors)
-                throw new Exception(maneResponse.message)
-            }
-
-            ManePaginatedResult result = staffService.getStaffList(new ManePaginationProperties(cmd.max, cmd.offset, cmd.sort))
+            ManePaginatedResult result = staffService.getStaffList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -134,14 +127,7 @@ class StaffController extends BaseController {
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            if ( !cmd.validate() ) {
-
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                maneResponse.message = parseValidationErrors(cmd.errors)
-                throw new Exception(maneResponse.message)
-            }
-
-            ManePaginatedResult result = staffService.getStaffList(new ManePaginationProperties(cmd.max, cmd.offset, cmd.sort))
+            ManePaginatedResult result = staffService.getStaffList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
             result.data = staffService.formatPaginatedResultForDropDown(result.data)
             maneResponse.data = result.toMap()
 

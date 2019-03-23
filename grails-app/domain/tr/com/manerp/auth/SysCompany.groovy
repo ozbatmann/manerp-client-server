@@ -1,37 +1,11 @@
 package tr.com.manerp.auth
 
 import tr.com.manerp.base.domain.BaseDomain
-import tr.com.manerp.business.main.resource.Staff
-import tr.com.manerp.business.ref.RefCompanySector
-import tr.com.manerp.business.sysref.SysrefCity
-import tr.com.manerp.business.sysref.SysrefCountry
-import tr.com.manerp.business.sysref.SysrefDistrict
-import tr.com.manerp.business.sysref.SysrefNaceCode
+import tr.com.manerp.common.MCompany
 
-class SysCompany implements BaseDomain {
+class SysCompany implements BaseDomain, MCompany {
 
     static auditable = true
-
-    String name
-    String title
-    SysrefCountry sysrefCountry
-    SysrefCity sysrefCity
-    SysrefDistrict sysrefDistrict
-    String address
-    String phone
-    String phone2
-    String fax
-    String gsm
-    String webAddress
-    String email
-    RefCompanySector refCompanySector
-    Staff customerRepresentative
-    Integer numberOfStaff
-    String employerRegistrationNo
-    String tradeRegistrationNo
-    String taxOffice
-    String taxNumber
-    SysrefNaceCode sysrefNaceCode
 
     static constraints = {
         name nullable: false, blank: false, unique: false, maxSize: 50
@@ -39,7 +13,7 @@ class SysCompany implements BaseDomain {
         sysrefCountry nullable: true, unique: false
         sysrefCity nullable: true, unique: false
         sysrefDistrict nullable: true, unique: false
-        address nullable: false, blank: false, unique: false, maxSize: 500
+        address nullable: false, blank: false, unique: false, maxSize: 255
         phone nullable: false, blank: false, unique: false, maxSize: 20
         phone2 nullable: true, blank: true, unique: false, maxSize: 20
         fax nullable: true, blank: true, unique: false, maxSize: 20
@@ -57,8 +31,6 @@ class SysCompany implements BaseDomain {
     }
 
     static mapping = {
-//        table name: "awc_company", schema: "auth"
-//        id generator: 'sequence', params: [sequence: 'auth.SEQ_AWC_COMPANY']
     }
 
 

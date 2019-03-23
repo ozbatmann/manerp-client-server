@@ -43,7 +43,6 @@ class User implements BaseDomain, Person {
         email email: true, blank: false, nullable: false, unique: ['sysCompany']
         sysrefGender nullable: true, unique: false
         tcIdNumber nullable: false, unique: ['sysCompany']
-        isStaff nullable: false, unique: false
         birthDate nullable: true, unique: false
         sysrefCountry nullable: true, unique: false
         sysrefCity nullable: true, unique: false

@@ -16,12 +16,4 @@ class SysrefDistrict implements BaseDomain {
         sysrefCity nullable: false, unique: false
     }
 
-    static mapping = {
-//        table name: "sysref_city", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_SYSREF_CITY']
-    }
-
-    static mappedBy = {
-    }
-
 }

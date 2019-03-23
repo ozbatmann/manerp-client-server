@@ -20,11 +20,4 @@ class SysrefDeliveryStatus implements BaseDomain {
         description nullable: true, blank: true, unique: false
     }
 
-    static mapping = {
-//        table name: "sysref_delivery_status", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_SYSREF_DELIVERY_STATUS']
-    }
-
-    static mappedBy = {
-    }
 }

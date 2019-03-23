@@ -8,7 +8,6 @@ class SysrefDrivingType implements BaseDomain {
     String name
     String code
     SysCompany sysCompany
-    String businessCode
     String description
 
     static hasMany = []
@@ -21,12 +20,5 @@ class SysrefDrivingType implements BaseDomain {
         description nullable: true, blank: true, unique: false
     }
 
-    static mapping = {
-//        table name: "sysref_driving_type", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_SYSREF_DRIVING_TYPE']
-    }
-
-    static mappedBy = {
-    }
 
 }

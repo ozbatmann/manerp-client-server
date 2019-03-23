@@ -20,12 +20,4 @@ class SysrefVoyageDirection implements BaseDomain {
         description nullable: true, blank: true, unique: false
     }
 
-    static mapping = {
-//        table name: "sysref_voyage_direction", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_SYSREF_VOYAGE_DIRECTION']
-    }
-
-    static mappedBy = {
-    }
-
 }

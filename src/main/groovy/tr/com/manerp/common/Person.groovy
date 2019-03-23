@@ -13,7 +13,6 @@ trait Person {
     String email
     SysrefGender sysrefGender
     Long tcIdNumber
-    Boolean isStaff
     byte[] photo
     String photoName
     String photoMimeType

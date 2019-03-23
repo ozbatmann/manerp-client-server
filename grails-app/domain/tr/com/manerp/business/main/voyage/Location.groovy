@@ -6,12 +6,12 @@ class Location implements BaseDomain {
 
     static auditable = true
 
-    String locationName
+    String name
     String latitude
     String longitude
 
     static constraints = {
-        locationName nullable: false, blank: false, unique: false, maxSize: 100
+        name nullable: true, blank: true, unique: false, maxSize: 100
         latitude nullable: true, blank: true, unique: false, maxSize: 100
         longitude nullable: true, blank: true, unique: false
     }

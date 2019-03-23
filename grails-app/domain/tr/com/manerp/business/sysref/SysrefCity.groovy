@@ -15,11 +15,4 @@ class SysrefCity implements BaseDomain {
         sysrefCountry nullable: false, unique: false
     }
 
-    static mapping = {
-//        table name: "sysref_country", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_SYSREF_COUNTRY']
-    }
-
-    static mappedBy = {
-    }
 }

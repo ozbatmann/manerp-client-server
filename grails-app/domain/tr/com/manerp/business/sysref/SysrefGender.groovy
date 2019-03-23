@@ -15,12 +15,4 @@ class SysrefGender implements BaseDomain {
         code nullable: false, blank: false, unique: true, maxSize: 3
     }
 
-    static mapping = {
-//        table name: "sysref_gender", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_SYSREF_GENDER']
-    }
-
-    static mappedBy = {
-    }
-
 }

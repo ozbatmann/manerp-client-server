@@ -15,12 +15,4 @@ class SysrefNaceCode implements BaseDomain {
         code nullable: false, blank: false, unique: true
     }
 
-    static mapping = {
-//        table name: "sysref_nace_code", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_SYSREF_NACE_CODE']
-    }
-
-    static mappedBy = {
-    }
-
 }

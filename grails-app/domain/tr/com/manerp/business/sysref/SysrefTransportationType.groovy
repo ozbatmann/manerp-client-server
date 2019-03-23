@@ -20,12 +20,4 @@ class SysrefTransportationType implements BaseDomain {
         description nullable: true, blank: true, unique: false
     }
 
-    static mapping = {
-//        table name: "sysref_transportation_type", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_SYSREF_TRANSPORTATION_TYPE']
-    }
-
-    static mappedBy = {
-    }
-
 }
