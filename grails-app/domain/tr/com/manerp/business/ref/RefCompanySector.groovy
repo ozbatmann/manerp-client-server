@@ -16,7 +16,7 @@ class RefCompanySector implements BaseDomain {
     static belongsTo = []
 
     static constraints = {
-        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 10
+        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 36
         sysCompany nullable: false, unique: false
         name nullable: false, blank: false, unique: ['sysCompany'], maxSize: 50
         description nullable: true, blank: true, unique: false

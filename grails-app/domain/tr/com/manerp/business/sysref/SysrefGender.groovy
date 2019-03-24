@@ -11,7 +11,7 @@ class SysrefGender implements BaseDomain {
     static belongsTo = []
 
     static constraints = {
-        name nullable: false, blank: false, unique: false, maxSize: 10
+        name nullable: false, blank: false, unique: false, maxSize: 36
         code nullable: false, blank: false, unique: true, maxSize: 3
     }
 

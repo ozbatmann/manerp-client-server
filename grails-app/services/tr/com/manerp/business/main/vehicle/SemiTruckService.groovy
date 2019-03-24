@@ -6,7 +6,7 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
 
 @Transactional
-class DorsetService extends BaseService {
+class SemiTruckService extends BaseService {
 
     ManePaginatedResult getDorsetList(ManePaginationProperties properties) {
 
@@ -14,15 +14,15 @@ class DorsetService extends BaseService {
             eq('active', true)
         }
 
-        return paginate(Dorset, properties, closure)
+        return paginate(SemiTruck, properties, closure)
     }
 
-    def save(Dorset dorset) {
+    def save(SemiTruck dorset) {
 
         dorset.save(failOnError: true)
     }
 
-    def delete(Dorset dorset) {
+    def delete(SemiTruck dorset) {
 
         dorset.delete(flush: true, failOnError: true)
     }

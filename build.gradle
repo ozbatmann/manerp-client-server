@@ -64,7 +64,7 @@ dependencies {
     runtime 'org.postgresql:postgresql:42.2.2'
 
     // manerp response plugin
-    compile "tr.com.manerp:manerp-response-plugin:0.2.0"
+    compile "tr.com.manerp:manerp-response-plugin:0.2.1"
 
 }
 

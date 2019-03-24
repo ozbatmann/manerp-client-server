@@ -11,7 +11,7 @@ class PaginationCommand implements Validateable {
     PaginationCommand(def params) {
         this.limit = params.limit as Short ?: 10 as Short
         this.offset = params.offset as Integer ?: 0
-        this.sort = params.sort as String ?: ''
+        this.sort = params.sort as String ?: null
     }
 
     static constraints = {

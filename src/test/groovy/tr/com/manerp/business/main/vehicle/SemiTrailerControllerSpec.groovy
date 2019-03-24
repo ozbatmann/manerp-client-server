@@ -1,9 +1,9 @@
 package tr.com.manerp.business.main.vehicle
 
-import grails.testing.services.ServiceUnitTest
+import grails.testing.web.controllers.ControllerUnitTest
 import spock.lang.Specification
 
-class DorsetServiceSpec extends Specification implements ServiceUnitTest<DorsetService>{
+class SemiTrailerControllerSpec extends Specification implements ControllerUnitTest<SemiTrailerController> {
 
     def setup() {
     }

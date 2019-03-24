@@ -15,7 +15,7 @@ class SysrefRevenueType implements BaseDomain {
 
     static constraints = {
         name nullable: false, blank: false, unique: ['sysCompany'], maxSize: 100
-        code nullable: true, blank: true, unique: ['sysCompany']
+        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 36
         sysCompany nullable: false, unique: false
         description nullable: true, blank: true, unique: false
     }

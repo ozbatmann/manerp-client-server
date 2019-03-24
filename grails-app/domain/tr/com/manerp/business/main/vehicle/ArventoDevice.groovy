@@ -12,7 +12,7 @@ class ArventoDevice implements BaseDomain {
     String deviceId
     String name
     Vehicle vehicle
-    Dorset dorset
+    SemiTruck dorset
 
     static constraints = {
         code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 36

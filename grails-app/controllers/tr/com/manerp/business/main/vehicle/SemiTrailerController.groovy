@@ -1,4 +1,4 @@
-package tr.com.manerp.business.main.resource
+package tr.com.manerp.business.main.vehicle
 
 import grails.validation.ValidationException
 import manerp.response.plugin.pagination.ManePaginatedResult
@@ -6,15 +6,14 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
-import tr.com.manerp.business.ref.RefStaffTitle
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
-class DriverController extends BaseController {
+class SemiTrailerController extends BaseController {
 
     static namespace = "v1"
     static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
-    def driverService
+    def semiTrailerService
 
     def index() {
 
@@ -24,7 +23,7 @@ class DriverController extends BaseController {
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            ManePaginatedResult result = driverService.getDriverList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
+            ManePaginatedResult result = semiTrailerService.getSemiTrailerList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -37,17 +36,16 @@ class DriverController extends BaseController {
         render maneResponse
     }
 
-    def save(Staff driver) {
+    def save(SemiTrailer trailer) {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
-            driver.refStaffTitle = RefStaffTitle.findByName()
-            driverService.save(driver)
+            semiTrailerService.save(trailer)
             maneResponse.statusCode = StatusCode.CREATED
-            maneResponse.data = driver.id
-            maneResponse.message = 'Şoför başarıyla kaydedildi.'
+            maneResponse.data = trailer.id
+            maneResponse.message = 'Römork başarıyla kaydedildi.'
 
         } catch (ValidationException ex) {
 
@@ -65,19 +63,19 @@ class DriverController extends BaseController {
         render maneResponse
     }
 
-    def update(Staff driver) {
+    def update(SemiTrailer trailer) {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
-            if ( !driver ) {
+            if ( !trailer ) {
                 maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Güncellenmek istenen şoför sistemde bulunmamaktadır.')
+                throw new Exception('Güncellenmek istenen römork sistemde bulunmamaktadır.')
             }
-            driverService.save(driver)
+            semiTrailerService.save(trailer)
             maneResponse.statusCode = StatusCode.NO_CONTENT
-            maneResponse.message = 'Şoför başarıyla güncellendi.'
+            maneResponse.message = 'Römork başarıyla güncellendi.'
 
         } catch (ValidationException ex) {
 
@@ -87,7 +85,7 @@ class DriverController extends BaseController {
 
         } catch (Exception ex) {
 
-            maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
@@ -101,19 +99,15 @@ class DriverController extends BaseController {
 
         try {
 
-            Staff driver = Staff.get(id)
-            if ( !driver ) {
+            SemiTrailer trailer = SemiTrailer.get(id)
+            if ( !trailer ) {
                 maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Silinmek istenen personel sistemde bulunmamaktadır.')
-            }
-            if ( driver.refStaffTitle.code != 'DRV' ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception("Silinmek istenen '${driver.getFullName()}' şoför unvanına sahip olmadığı için silinemedi.")
+                throw new Exception('Silinmek istenen römork sistemde bulunmamaktadır.')
             }
 
-            driverService.delete(driver)
+            semiTrailerService.delete(trailer)
             maneResponse.statusCode = StatusCode.NO_CONTENT
-            maneResponse.message = 'Şoför başarıyla silindi.'
+            maneResponse.message = 'Römork başarıyla silindi.'
 
         } catch (Exception ex) {
 
@@ -133,8 +127,8 @@ class DriverController extends BaseController {
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            ManePaginatedResult result = driverService.getDriverList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
-            result.data = driverService.formatPaginatedResultForDropDown(result.data)
+            ManePaginatedResult result = semiTrailerService.getTrailerList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
+            result.data = semiTrailerService.formatPaginatedResultForDropDown(result.data)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {

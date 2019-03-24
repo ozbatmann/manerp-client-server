@@ -8,12 +8,12 @@ import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
-class DorsetController extends BaseController {
+class SemiTruckController extends BaseController {
 
     static namespace = "v1"
     static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
-    def dorsetService
+    def semiTruckService
 
     def index() {
 
@@ -23,7 +23,7 @@ class DorsetController extends BaseController {
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            ManePaginatedResult result = dorsetService.getDorsetList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
+            ManePaginatedResult result = semiTruckService.getDorsetList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -36,13 +36,13 @@ class DorsetController extends BaseController {
         render maneResponse
     }
 
-    def save(Dorset dorset) {
+    def save(SemiTruck dorset) {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
-            dorsetService.save(dorset)
+            semiTruckService.save(dorset)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = dorset.id
             maneResponse.message = 'Dorse başarıyla kaydedildi.'
@@ -63,7 +63,7 @@ class DorsetController extends BaseController {
         render maneResponse
     }
 
-    def update(Dorset dorset) {
+    def update(SemiTruck dorset) {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -73,7 +73,7 @@ class DorsetController extends BaseController {
                 maneResponse.statusCode = StatusCode.BAD_REQUEST
                 throw new Exception('Güncellenmek istenen dorse sistemde bulunmamaktadır.')
             }
-            dorsetService.save(dorset)
+            semiTruckService.save(dorset)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Dorse başarıyla güncellendi.'
 
@@ -99,13 +99,13 @@ class DorsetController extends BaseController {
 
         try {
 
-            Dorset dorset = Dorset.get(id)
+            SemiTruck dorset = SemiTruck.get(id)
             if ( !dorset ) {
                 maneResponse.statusCode = StatusCode.BAD_REQUEST
                 throw new Exception('Silinmek istenen dorse sistemde bulunmamaktadır.')
             }
 
-            dorsetService.delete(dorset)
+            semiTruckService.delete(dorset)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Dorse başarıyla silindi.'
 
@@ -127,8 +127,8 @@ class DorsetController extends BaseController {
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            ManePaginatedResult result = dorsetService.getDorsetList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
-            result.data = dorsetService.formatPaginatedResultForDropDown(result.data)
+            ManePaginatedResult result = semiTruckService.getDorsetList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
+            result.data = semiTruckService.formatPaginatedResultForDropDown(result.data)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
