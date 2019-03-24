@@ -104,7 +104,7 @@ class DriverController extends BaseController {
             Staff driver = Staff.get(id)
             if ( !driver ) {
                 maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Silinmek istenen personel sistemde bulunmamaktadır.')
+                throw new Exception('Silinmek istenen şoför sistemde bulunmamaktadır.')
             }
             if ( driver.refStaffTitle.code != 'DRV' ) {
                 maneResponse.statusCode = StatusCode.BAD_REQUEST

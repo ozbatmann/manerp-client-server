@@ -37,11 +37,11 @@ class Staff implements BaseDomain, Person {
 
         drivingLicenseNumber nullable: true, unique: false, maxSize: 30,
                 validator: { val, obj ->
-                    obj.refStaffTitle.code == 'DRV' ? val != null : true
+                    obj?.refStaffTitle?.code == 'DRV' ? val != null : true
                 }
         hasFuelAdvance nullable: true, unique: false,
                 validator: { val, obj ->
-                    obj.refStaffTitle.code == 'DRV' ? val != null : true
+                    obj?.refStaffTitle?.code == 'DRV' ? val != null : true
                 }
         sysrefDrivingType nullable: true, unique: false
     }

@@ -11,6 +11,7 @@ class BaseController extends ManeResponseController {
         String uniquePattern = 'unique'
         String nullPattern = 'null'
         String customPattern = 'custom'
+        String constructorPattern = 'constructor' // id ile ilgili hata
 
         if ( defaultMessage.contains(uniquePattern) ) {
 
@@ -23,6 +24,10 @@ class BaseController extends ManeResponseController {
         } else if ( defaultMessage.contains(customPattern) ) {
 
             result = 'değer uygun olmadığı için reddedildi.'
+
+        } else if ( defaultMessage.contains(constructorPattern) ) {
+
+            result = 'sistemde bulunamadığı için reddedildi.'
         }
 
         return result
