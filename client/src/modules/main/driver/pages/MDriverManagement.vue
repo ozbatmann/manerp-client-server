@@ -76,7 +76,8 @@
                     [driverModel.phone]: null,
                     [driverModel.ssn]: null,
                     [driverModel.driversLicense]: null,
-                    [driverModel.address]: null
+                    [driverModel.address]: null,
+                    [driverModel.sysrefStaffTitle]: null,
                 },
 
                 // Data-table
@@ -237,30 +238,41 @@
 
             // Adds a new driver
             // to the system
+            getAllDrivers () {
+                this.$http.get('api/v1/staff').then((result) => {
+                    this.drivers = result.data.data.items
+                }).catch((error) => {
+                    console.log(error);
+                })
+            },
             addNewItem (item) {
-                console.log(item)
-
                 this.newItem = item
-                this.snackbar.text = "Başarıyla eklendi."
-                this.snackbar.textColor = 'green--text text--accent-3'
-                this.snackbar.active = true
+                this.$http.post('api/v1/staff', this.newItem).then((result) => {
+                    this.snackbar.text = "Başarıyla eklendi."
+                    this.snackbar.textColor = 'green--text text--accent-3'
+                    this.snackbar.active = true
+                    this.getAllDrivers();
+                }).catch((error) => {
+                    console.log(error);
+                })
             }
         },
 
         mounted () {
-            for (let i = 0; i < 15; i++) {
-                let driver = {
-                    id: `DRV-${i}`,
-                    name: 'Ahmet',
-                    surname: 'Aliakça',
-                    contract: 'Kadrolu',
-                    phone: '(541) 598-4560',
-                    ssn: '14786457866',
-                    driversLicense: '58231045620'
-                };
-
-                this.drivers.push(driver)
-            }
+            this.getAllDrivers();
+            // for (let i = 0; i < 15; i++) {
+            //     let driver = {
+            //         id: `DRV-${i}`,
+            //         name: 'Ahmet',
+            //         surname: 'Aliakça',
+            //         contract: 'Kadrolu',
+            //         phone: '(541) 598-4560',
+            //         ssn: '14786457866',
+            //         driversLicense: '58231045620'
+            //     };
+            //
+            //     this.drivers.push(driver)
+            // }
         }
     }
 </script>

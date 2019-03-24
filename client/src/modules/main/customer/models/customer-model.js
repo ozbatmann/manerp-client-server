@@ -1,11 +1,11 @@
 export default {
     id: 'id',
-    title: 'title',
+    name: 'name',
     phone: 'phone',
-    mail: 'mail',
+    email: 'email',
     type: 'type',
     rep: 'rep',
-    taxNo: 'taxNo',
+    taxNumber: 'taxNumber',
     taxAdministration: 'taxAdministration',
     address: 'address'
 }

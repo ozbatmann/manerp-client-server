@@ -32,8 +32,8 @@ COPY [ "grails-app", "./grails-app" ]
 RUN set -v \
     && cd grails-app \
     && echo "Grails build started" \
-    && chmod +x ./grailsw \
-    && ./grailsw package
+    && chmod +x ../grailsw \
+    && ../grailsw package
 
 
 

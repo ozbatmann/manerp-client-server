@@ -49,12 +49,12 @@
         data() {
             return {
                 addEditData: {
-                    [customerModel.title]: null,
+                    [customerModel.name]: null,
                     [customerModel.phone]: null,
-                    [customerModel.mail]: null,
+                    [customerModel.email]: null,
                     [customerModel.type]: null,
                     [customerModel.rep]: null,
-                    [customerModel.taxNo]: null,
+                    [customerModel.taxNumber]: null,
                     [customerModel.taxAdministration]: null,
                     [customerModel.address]: null,
                 },
@@ -62,7 +62,7 @@
                 addEditFields: [
                     {
                         title: 'Firma Ünvanı',
-                        key: customerModel.title,
+                        key: customerModel.name,
                         type: 'text',
                         value: null,
                         rules: ['required']
@@ -80,7 +80,7 @@
 
                     {
                         title: 'E-posta',
-                        key: customerModel.mail,
+                        key: customerModel.email,
                         type: 'mail',
                         value: null,
                         rules: ['required', 'email']
@@ -88,7 +88,7 @@
 
                     {
                         title: 'Vergi Numarası',
-                        key: customerModel.taxNo,
+                        key: customerModel.taxNumber,
                         type: 'text',
                         value: null,
                         rules: ['required']
@@ -140,7 +140,7 @@
                     {
                         text: 'Ünvan',
                         sortable: true,
-                        value: 'title',
+                        value: 'name',
                         toggleable: false,
                         show: true,
                         search: {chip: false, value: null}
@@ -156,7 +156,7 @@
                     {
                         text: 'E-Posta',
                         sortable: true,
-                        value: 'mail',
+                        value: 'email',
                         toggleable: true,
                         show: true,
                         search: {chip: false, value: null}
@@ -180,54 +180,54 @@
                 ],
 
                 firms: [
-                    {
-                        id: 'FIRM-01',
-                        title: 'Pınar Gıda A.Ş',
-                        phone: '0 232 545 6320',
-                        mail: 'info@pinar.com.tr',
-                        type: 'Müşteri',
-                        rep: 'Seval Çıtanak'
-                    },
-                    {
-                        id: 'FIRM-02',
-                        title: 'Pınar Gıda A.Ş',
-                        phone: '0 232 545 6320',
-                        mail: 'info@pinar.com.tr',
-                        type: 'Müşteri',
-                        rep: 'Seval Çıtanak'
-                    },
-                    {
-                        id: 'FIRM-03',
-                        title: 'Pınar Gıda A.Ş',
-                        phone: '0 232 545 6320',
-                        mail: 'info@pinar.com.tr',
-                        type: 'Müşteri',
-                        rep: 'Seval Çıtanak'
-                    },
-                    {
-                        id: 'FIRM-04',
-                        title: 'Pınar Gıda A.Ş',
-                        phone: '0 232 545 6320',
-                        mail: 'info@pinar.com.tr',
-                        type: 'Müşteri',
-                        rep: 'Seval Çıtanak'
-                    },
-                    {
-                        id: 'FIRM-05',
-                        title: 'Pınar Gıda A.Ş',
-                        phone: '0 232 545 6320',
-                        mail: 'info@pinar.com.tr',
-                        type: 'Müşteri',
-                        rep: 'Seval Çıtanak'
-                    },
-                    {
-                        id: 'FIRM-06',
-                        title: 'Pınar Gıda A.Ş',
-                        phone: '0 232 545 6320',
-                        mail: 'info@pinar.com.tr',
-                        type: 'Müşteri',
-                        rep: 'Seval Çıtanak'
-                    }
+                    // {
+                    //     id: 'FIRM-01',
+                    //     title: 'Pınar Gıda A.Ş',
+                    //     phone: '0 232 545 6320',
+                    //     mail: 'info@pinar.com.tr',
+                    //     type: 'Müşteri',
+                    //     rep: 'Seval Çıtanak'
+                    // },
+                    // {
+                    //     id: 'FIRM-02',
+                    //     title: 'Pınar Gıda A.Ş',
+                    //     phone: '0 232 545 6320',
+                    //     mail: 'info@pinar.com.tr',
+                    //     type: 'Müşteri',
+                    //     rep: 'Seval Çıtanak'
+                    // },
+                    // {
+                    //     id: 'FIRM-03',
+                    //     title: 'Pınar Gıda A.Ş',
+                    //     phone: '0 232 545 6320',
+                    //     mail: 'info@pinar.com.tr',
+                    //     type: 'Müşteri',
+                    //     rep: 'Seval Çıtanak'
+                    // },
+                    // {
+                    //     id: 'FIRM-04',
+                    //     title: 'Pınar Gıda A.Ş',
+                    //     phone: '0 232 545 6320',
+                    //     mail: 'info@pinar.com.tr',
+                    //     type: 'Müşteri',
+                    //     rep: 'Seval Çıtanak'
+                    // },
+                    // {
+                    //     id: 'FIRM-05',
+                    //     title: 'Pınar Gıda A.Ş',
+                    //     phone: '0 232 545 6320',
+                    //     mail: 'info@pinar.com.tr',
+                    //     type: 'Müşteri',
+                    //     rep: 'Seval Çıtanak'
+                    // },
+                    // {
+                    //     id: 'FIRM-06',
+                    //     title: 'Pınar Gıda A.Ş',
+                    //     phone: '0 232 545 6320',
+                    //     mail: 'info@pinar.com.tr',
+                    //     type: 'Müşteri',
+                    //     rep: 'Seval Çıtanak'
+                    // }
                 ],
 
                 to: {
@@ -240,13 +240,29 @@
             // Activates add new item dialog
             addDialog(data) {
                 this.$refs.addEditDialog.open(data)
+            },
+            getAllCustomers () {
+                this.$http.get('api/v1/customerCompany').then((result) => {
+                    this.firms = result.data.data.items
+                }).catch((error) => {
+                    console.log(error);
+                })
+            },
+            addNewItem (item) {
+                this.newItem = item
+                this.$http.post('api/v1/customerCompany', this.newItem).then((result) => {
+                    this.snackbar.text = "Başarıyla eklendi."
+                    this.snackbar.textColor = 'green--text text--accent-3'
+                    this.snackbar.active = true
+                    this.getAllCustomers();
+                }).catch((error) => {
+                    console.log(error);
+                })
             }
         },
 
         mounted() {
-            // this.$http.get("/auth").then((result) => {
-            //     console.log(result)
-            // })
+            this.getAllCustomers();
         }
     }
 </script>
