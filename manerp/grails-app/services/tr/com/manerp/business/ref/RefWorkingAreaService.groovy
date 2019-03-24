@@ -3,10 +3,7 @@ package tr.com.manerp.business.ref
 import grails.gorm.transactions.Transactional
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
-import org.grails.web.json.JSONObject
 import tr.com.manerp.base.service.BaseService
-import tr.com.manerp.business.main.company.Company
-import tr.com.manerp.business.main.vehicle.Vehicle
 
 @Transactional
 class RefWorkingAreaService extends BaseService {

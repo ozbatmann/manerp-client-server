@@ -1,3 +1,4 @@
+package application
 
 json {
 	message "Welcome to MANERP"

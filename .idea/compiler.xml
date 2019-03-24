@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="manerp.client.server.Manerp.main" target="1.8" />
+      <module name="manerp.client.server.Manerp.test" target="1.8" />
+      <module name="manerp.manerp.integrationTest" target="1.8" />
+      <module name="manerp.manerp.main" target="1.8" />
+      <module name="manerp.manerp.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

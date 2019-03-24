@@ -1,6 +1,6 @@
 package tr.com.manerp.business.main.vehicle
 
-import grails.databinding.BindingFormat
+
 import tr.com.manerp.base.domain.BaseDomain
 
 class VehicleDocument implements BaseDomain
