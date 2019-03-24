@@ -299,6 +299,7 @@ class DataService {
 
             vehicle1 = new Vehicle()
             vehicle1.sysCompany = sysCompanyBumerang
+            vehicle1.active = true
             vehicle1.plateNumber = '35 123 321'
             vehicle1.brand = 'Volvo'
             vehicle1.fleetCardNumber = '111222333'
