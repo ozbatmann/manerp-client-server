@@ -41,7 +41,7 @@ class DataService {
             sysCompanyBumerang.address = 'İzmir'
             sysCompanyBumerang.phone = '05343023283'
 
-            sysCompanyBumerang.save(failOnError: true)
+            sysCompanyBumerang.save(flush: true, failOnError: true)
         }
 
         SysrefCompanyType sysrefCompanyTypeCst = SysrefCompanyType.findByName('Müşteri')

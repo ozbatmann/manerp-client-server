@@ -24,7 +24,9 @@ class SemiTruck implements BaseDomain {
     static mapping = {
     }
 
+    // TODO: change
     def beforeValidate() {
+        this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
     }
 
 }

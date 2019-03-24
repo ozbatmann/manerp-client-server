@@ -15,8 +15,6 @@ class VoyageRoute implements BaseDomain {
     }
 
     static mapping = {
-//        table name: "voyage_route", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_VOYAGE_ROUTE']
     }
 
 }

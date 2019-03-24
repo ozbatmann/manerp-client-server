@@ -75,6 +75,8 @@ class Vehicle implements BaseDomain {
         fleetCardNumber = fleetCardNumber?.trim()
         kgsNo = kgsNo?.trim()
         ogsNo = ogsNo?.trim()
+        // TODO: change
+            this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
     }
 
 }

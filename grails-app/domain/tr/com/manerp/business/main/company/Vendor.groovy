@@ -27,14 +27,17 @@ class Vendor implements BaseDomain {
         sysrefCity nullable: true, unique: false
         sysrefDistrict nullable: true, unique: false
         company nullable: false, unique: false
-        title nullable: true, blank: true, unique: ['sysCompany'], maxSize: 150
+        title nullable: false, blank: false, unique: ['sysCompany'], maxSize: 150
         address nullable: true, blank: true, unique: false, maxSize: 255
         phone nullable: true, blank: true, unique: false, maxSize: 20
-        location nullable: true, unique: false
+        location nullable: false, unique: false
     }
 
     static mapping = {
     }
 
-
+// TODO: change
+    def beforeValidate() {
+        this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
+    }
 }

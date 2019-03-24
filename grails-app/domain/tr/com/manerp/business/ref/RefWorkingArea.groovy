@@ -1,6 +1,5 @@
 package tr.com.manerp.business.ref
 
-import grails.databinding.BindingFormat
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.domain.BaseDomain
 
@@ -28,5 +27,8 @@ class RefWorkingArea implements BaseDomain {
     static mappedBy = {
     }
 
-
+//TODO:change
+    def beforeValidate() {
+        this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
+    }
 }

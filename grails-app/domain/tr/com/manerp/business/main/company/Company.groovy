@@ -21,13 +21,14 @@ class Company implements BaseDomain, MCompany {
     SysrefCompanyType sysrefCompanyType
 
     static hasMany = [
-            vendors: Vendor,            // Company bayileri
-            orders : Order,
-            voyages: Voyage
+        vendors: Vendor,            // Company bayileri
+        orders : Order,
+        voyages: Voyage
     ]
 
     static constraints = {
         importFrom(SysCompany)
+        title nullable: false, blank: false, unique: ['sysCompany', 'sysrefCompanyType'], maxSize: 50
         sysCompany nullable: false, unique: false
         sysrefCompanyType nullable: false, blank: false, unique: false
     }
@@ -38,5 +39,7 @@ class Company implements BaseDomain, MCompany {
         voyages cascade: 'all-delete-orphan'
     }
 
-
+    def beforeValidate() {
+        this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
+    }
 }

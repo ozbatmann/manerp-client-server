@@ -27,5 +27,8 @@ class RefStaffTitle implements BaseDomain {
     static mappedBy = {
     }
 
-
+//TODO:change
+    def beforeValidate() {
+        this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
+    }
 }

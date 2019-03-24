@@ -22,7 +22,7 @@ class Staff implements BaseDomain, Person {
     SysrefDrivingType sysrefDrivingType
 
     static hasMany = [
-            staffDocuments: StaffDocument
+        staffDocuments: StaffDocument
     ]
     static belongsTo = []
 
@@ -30,19 +30,20 @@ class Staff implements BaseDomain, Person {
 
         importFrom(User)
 
+        sysCompany nullable: false, unique: false
         code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 36
         user nullable: true, unique: false
         refStaffTitle nullable: false, unique: false
         sysrefStaffContractType nullable: true, unique: false
 
         drivingLicenseNumber nullable: true, unique: false, maxSize: 30,
-                validator: { val, obj ->
-                    obj?.refStaffTitle?.code == 'DRV' ? val != null : true
-                }
+            validator: { val, obj ->
+                obj?.refStaffTitle?.code == 'DRV' ? val != null : true
+            }
         hasFuelAdvance nullable: true, unique: false,
-                validator: { val, obj ->
-                    obj?.refStaffTitle?.code == 'DRV' ? val != null : true
-                }
+            validator: { val, obj ->
+                obj?.refStaffTitle?.code == 'DRV' ? val != null : true
+            }
         sysrefDrivingType nullable: true, unique: false
     }
 
@@ -52,6 +53,11 @@ class Staff implements BaseDomain, Person {
 
     String getFullName() {
         return "${this.firstName}${this.middleName != null ? ' ' + this.middleName : ''} ${this.lastName}"
+    }
+
+    // TODO: change
+    def beforeValidate() {
+        this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
     }
 
 

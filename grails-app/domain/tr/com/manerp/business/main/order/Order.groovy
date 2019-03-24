@@ -30,5 +30,8 @@ class Order implements BaseDomain {
         sysrefRevenueType nullable: true, unique: false
         billingNo nullable: false, blank: false, unique: false, maxSize: 50
     }
-
+// TODO: change
+    def beforeValidate() {
+        this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
+    }
 }

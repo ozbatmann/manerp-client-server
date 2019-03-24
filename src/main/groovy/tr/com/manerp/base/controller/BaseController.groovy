@@ -27,7 +27,7 @@ class BaseController extends ManeResponseController {
 
         } else if ( defaultMessage.contains(constructorPattern) ) {
 
-            result = 'sistemde bulunamadığı için reddedildi.'
+            result = 'değeri sistemde bulunmadığı için reddedildi.'
         }
 
         return result

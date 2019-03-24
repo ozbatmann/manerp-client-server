@@ -26,8 +26,8 @@ class Voyage implements BaseDomain {
     Order order
     SysrefTransportationType sysrefTransportationType
     SysrefVoyageDirection sysrefVoyageDirection
-    Location loadingLocation
-    Location dumpingLocation
+    Location loadingLocation // TODO: route'un ilk lokasyonu zaten?
+    Location dumpingLocation // TODO: route'un son lokasyonu zaten?
     Staff substitudeDriver // yedek sofor
     String transportWaybillNo
     String deliveryNoteNo
@@ -61,5 +61,8 @@ class Voyage implements BaseDomain {
         routes cascade: 'all-delete-orphan'
     }
 
-
+    //TODO:change
+    def beforeValidate() {
+        this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
+    }
 }

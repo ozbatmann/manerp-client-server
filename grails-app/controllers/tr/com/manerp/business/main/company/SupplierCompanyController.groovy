@@ -6,6 +6,7 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
+import tr.com.manerp.business.sysref.SysrefCompanyType
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
 class SupplierCompanyController extends BaseController {
@@ -42,6 +43,7 @@ class SupplierCompanyController extends BaseController {
 
         try {
 
+            company.sysrefCompanyType = SysrefCompanyType.findByCode('SPL')
             companyService.save(company)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = company.id
@@ -100,6 +102,11 @@ class SupplierCompanyController extends BaseController {
         Company company = Company.get(id)
 
         try {
+
+            if ( company.sysrefCompanyType.code != 'SPL' ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception("Silinmek istenen '${company.title}' müşteri tipinde olmadığı için silinemedi.")
+            }
 
             companyService.delete(company)
             maneResponse.statusCode = StatusCode.NO_CONTENT

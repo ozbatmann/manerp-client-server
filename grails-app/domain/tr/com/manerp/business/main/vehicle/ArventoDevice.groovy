@@ -28,7 +28,9 @@ class ArventoDevice implements BaseDomain {
 //        id generator: 'sequence', params: [sequence: 'business.SEQ_ARVENTO_DEVICE']
     }
 
+    // TODO: change
     def beforeValidate() {
+        this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
     }
 
 }
