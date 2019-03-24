@@ -7,6 +7,7 @@ import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.vendor.VendorPaginationCommand
+import tr.com.manerp.commands.controller.vendor.VendorSaveCommand
 
 class VendorController extends BaseController {
 
@@ -23,7 +24,7 @@ class VendorController extends BaseController {
 
             VendorPaginationCommand cmd = new VendorPaginationCommand(params)
 
-            ManePaginatedResult result = vendorService.getVendorList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort), cmd.companyId)
+            ManePaginatedResult result = vendorService.getVendorList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort), cmd.company)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -36,11 +37,20 @@ class VendorController extends BaseController {
         render maneResponse
     }
 
-    def save(Vendor vendor) {
+    def save(VendorSaveCommand cmd) {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
+
+            if ( !cmd.validate() ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = parseValidationErrors(cmd.errors)
+                throw new Exception(maneResponse.message)
+            }
+
+            Vendor vendor = new Vendor()
+            cmd >> vendor
 
             vendorService.save(vendor)
             maneResponse.statusCode = StatusCode.CREATED
@@ -55,7 +65,7 @@ class VendorController extends BaseController {
 
         } catch (Exception ex) {
 
-            maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
@@ -63,12 +73,20 @@ class VendorController extends BaseController {
         render maneResponse
     }
 
-    def update(Vendor vendor) {
+    def update(VendorSaveCommand cmd) {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
+            if ( !cmd.validate() ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = parseValidationErrors(cmd.errors)
+                throw new Exception(maneResponse.message)
+            }
+
+            Vendor vendor = new Vendor()
+            cmd >> vendor
 
             vendorService.save(vendor)
             maneResponse.statusCode = StatusCode.NO_CONTENT
@@ -82,10 +100,11 @@ class VendorController extends BaseController {
 
         } catch (Exception ex) {
 
-            if ( !vendor ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                maneResponse.message = 'Güncellenmek istenen bayi sistemde bulunmamaktadır.'
-            }
+            //TODO
+//            if ( !vendor ) {
+//                maneResponse.statusCode = StatusCode.BAD_REQUEST
+//                maneResponse.message = 'Güncellenmek istenen bayi sistemde bulunmamaktadır.'
+//            }
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
@@ -129,7 +148,7 @@ class VendorController extends BaseController {
 
             VendorPaginationCommand cmd = new VendorPaginationCommand(params)
 
-            ManePaginatedResult result = vendorService.getVendorList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort), cmd.companyId)
+            ManePaginatedResult result = vendorService.getVendorList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort), cmd.company)
             result.data = vendorService.formatPaginatedResultForDropDown(result.data)
             maneResponse.data = result.toMap()
 

@@ -26,8 +26,8 @@ class Voyage implements BaseDomain {
     Order order
     SysrefTransportationType sysrefTransportationType
     SysrefVoyageDirection sysrefVoyageDirection
-    Location loadingLocation // TODO: route'un ilk lokasyonu zaten?
-    Location dumpingLocation // TODO: route'un son lokasyonu zaten?
+    Location loadingLocation
+    Location dumpingLocation
     Staff substitudeDriver // yedek sofor
     String transportWaybillNo
     String deliveryNoteNo
@@ -47,14 +47,14 @@ class Voyage implements BaseDomain {
         trailer nullable: true, unique: false
         order nullable: false, unique: false
         sysrefTransportationType nullable: true, unique: false
-        sysrefVoyageDirection nullable: true, unique: false
+        sysrefVoyageDirection nullable: false, unique: false
         loadingLocation nullable: false, unique: false
         dumpingLocation nullable: false, unique: false
         substitudeDriver nullable: true, unique: false
         transportWaybillNo nullable: false, blank: false, unique: false
         deliveryNoteNo nullable: false, blank: false, unique: false
         sasNumber nullable: false, blank: false, unique: false
-        sysrefDeliveryStatus nullable: true, unique: false
+        sysrefDeliveryStatus nullable: false, unique: false
     }
 
     static mapping = {

@@ -30,7 +30,7 @@ class Vendor implements BaseDomain {
         title nullable: false, blank: false, unique: ['sysCompany'], maxSize: 150
         address nullable: true, blank: true, unique: false, maxSize: 255
         phone nullable: true, blank: true, unique: false, maxSize: 20
-        location nullable: false, unique: false
+        location nullable: true, unique: false
     }
 
     static mapping = {

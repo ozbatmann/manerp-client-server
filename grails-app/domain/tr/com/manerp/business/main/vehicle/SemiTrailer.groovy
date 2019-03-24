@@ -12,6 +12,7 @@ class SemiTrailer implements BaseDomain {
     String plateNumber
     String brand
     String name
+    // TODO: sysrefVehicleOwner gerekli mi??? Ozmal, kiralik
 
     static constraints = {
         code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 36

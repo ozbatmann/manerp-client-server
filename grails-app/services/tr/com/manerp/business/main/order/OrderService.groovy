@@ -32,7 +32,7 @@ class OrderService extends BaseService {
         List formattedData = data.collect {
             return [
                 id  : it.id,
-                code: it.code
+                name: it.name
             ]
         }
 

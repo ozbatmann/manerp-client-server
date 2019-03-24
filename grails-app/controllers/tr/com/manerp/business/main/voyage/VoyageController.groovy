@@ -7,6 +7,7 @@ import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
+import tr.com.manerp.commands.controller.voyage.VoyageSaveCommand
 
 class VoyageController extends BaseController {
 
@@ -36,11 +37,20 @@ class VoyageController extends BaseController {
         render maneResponse
     }
 
-    def save(Voyage voyage) {
+    def save(VoyageSaveCommand cmd) {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
+
+            if ( !cmd.validate() ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = parseValidationErrors(cmd.errors)
+                throw new Exception(maneResponse.message)
+            }
+
+            Voyage voyage = new Voyage()
+            cmd >> voyage
 
             voyageService.save(voyage)
             maneResponse.statusCode = StatusCode.CREATED
@@ -63,11 +73,20 @@ class VoyageController extends BaseController {
         render maneResponse
     }
 
-    def update(Voyage voyage) {
+    def update(VoyageSaveCommand cmd) {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
+
+            if ( !cmd.validate() ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = parseValidationErrors(cmd.errors)
+                throw new Exception(maneResponse.message)
+            }
+
+            Voyage voyage = new Voyage()
+            cmd >> voyage
 
             voyageService.save(voyage)
             maneResponse.statusCode = StatusCode.NO_CONTENT
@@ -81,10 +100,11 @@ class VoyageController extends BaseController {
 
         } catch (Exception ex) {
 
-            if ( !voyage ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                maneResponse.message = 'Güncellenmek istenen sevkiyat sistemde bulunmamaktadır.'
-            }
+            //TODO
+//            if ( !voyage ) {
+//                maneResponse.statusCode = StatusCode.BAD_REQUEST
+//                maneResponse.message = 'Güncellenmek istenen sevkiyat sistemde bulunmamaktadır.'
+//            }
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             if ( !maneResponse.message ) maneResponse.message = ex.getMessage()

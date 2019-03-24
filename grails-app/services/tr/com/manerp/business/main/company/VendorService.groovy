@@ -15,6 +15,7 @@ class VendorService extends BaseService {
             eq('active', true)
 
             company {
+                eq('active', true)
                 eq('id', companyId)
             }
 

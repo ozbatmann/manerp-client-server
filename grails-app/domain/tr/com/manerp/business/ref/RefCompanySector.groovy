@@ -23,8 +23,6 @@ class RefCompanySector implements BaseDomain {
     }
 
     static mapping = {
-//        table name: "ref_company_sector", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_REF_COMPANY_SECTOR']
     }
 
     static mappedBy = {

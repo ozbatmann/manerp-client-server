@@ -33,5 +33,6 @@ class Order implements BaseDomain {
 // TODO: change
     def beforeValidate() {
         this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
+        this.code = UUID.randomUUID().toString()
     }
 }

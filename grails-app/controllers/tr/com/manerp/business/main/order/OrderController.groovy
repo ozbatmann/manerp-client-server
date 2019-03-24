@@ -112,6 +112,11 @@ class OrderController extends BaseController {
                 maneResponse.message = 'Silinmek istenen sipariş sistemde bulunmamaktadır.'
             }
 
+            if ( ex.getMessage().contains('foreign') ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Silinmek istenen sipariş sistemde bulunan bir sevkiyat tarafından kullanılmaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
