@@ -6,7 +6,6 @@ import tr.com.manerp.business.main.company.Company
 import tr.com.manerp.business.main.company.Vendor
 import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.resource.Staff
-import tr.com.manerp.business.main.vehicle.SemiTruck
 import tr.com.manerp.business.main.vehicle.SemiTrailer
 import tr.com.manerp.business.main.vehicle.Vehicle
 import tr.com.manerp.business.main.voyage.Location
@@ -242,6 +241,7 @@ class DataService {
             customerCompanyPinar.name = 'Pınar'
             customerCompanyPinar.sysCompany = sysCompanyBumerang
             customerCompanyPinar.sysrefCompanyType = sysrefCompanyTypeCst
+            customerCompanyPinar.refCompanySector = refCompanySectorGida
             customerCompanyPinar.title = 'Pınar Süt Mamülleri San. A.Ş.'
             customerCompanyPinar.address = 'Kemalpaşa Caddesi No:317 35060 Pınarbaşı/İzmir P.K. 904 35214 İzmir'
             customerCompanyPinar.phone = '(0232) 436 15 15'

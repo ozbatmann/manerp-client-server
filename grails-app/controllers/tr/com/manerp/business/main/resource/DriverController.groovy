@@ -43,7 +43,7 @@ class DriverController extends BaseController {
 
         try {
 
-            driver.refStaffTitle = RefStaffTitle.findByName()
+            driver.refStaffTitle = RefStaffTitle.findByCode('DRV')
             driverService.save(driver)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = driver.id
