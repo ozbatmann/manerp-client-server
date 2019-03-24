@@ -85,7 +85,7 @@ class VendorController extends BaseController {
                 throw new Exception(maneResponse.message)
             }
 
-            Vendor vendor = new Vendor()
+            Vendor vendor = Vendor.get(cmd.id)
             cmd >> vendor
 
             vendorService.save(vendor)

@@ -11,6 +11,7 @@ import tr.com.manerp.business.sysref.SysrefDistrict
 
 class VendorSaveCommand implements Validateable {
 
+    String id
     Company company
     SysCompany sysCompany
     String title
@@ -27,6 +28,7 @@ class VendorSaveCommand implements Validateable {
     static constraints = {
         importFrom(Vendor)
 
+        id maxSize: 32
         locationName nullable: false, maxSize: 100
         locationLatitude nullable: true, maxSize: 100
         locationLongitude nullable: true, maxSize: 100

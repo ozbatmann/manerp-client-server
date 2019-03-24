@@ -15,6 +15,7 @@ import tr.com.manerp.business.sysref.SysrefVoyageDirection
 
 class VoyageSaveCommand implements Validateable {
 
+    String id
     String code
     SysCompany sysCompany
     Company company
@@ -40,6 +41,7 @@ class VoyageSaveCommand implements Validateable {
     static constraints = {
         importFrom(Voyage)
 
+        id maxSize: 32
         loadingLocationName nullable: false, maxSize: 100
         loadingLocationLatitude nullable: false, maxSize: 100
         loadingLocationLongitude nullable: false, maxSize: 100
