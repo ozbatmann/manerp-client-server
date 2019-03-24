@@ -74,3 +74,12 @@ bootRun {
     String springProfilesActive = 'spring.profiles.active'
     systemProperty springProfilesActive, System.getProperty(springProfilesActive)
 }
+springBoot {
+    executable = true
+}
+configurations {
+    jar.archiveName = 'manerp.jar'
+    jar.into('static') {
+        from('src/main/webapp')
+    }
+}
