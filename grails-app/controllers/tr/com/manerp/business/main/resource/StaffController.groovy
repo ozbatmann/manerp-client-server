@@ -69,10 +69,6 @@ class StaffController extends BaseController {
 
         try {
 
-            if ( !staff ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Güncellenmek istenen personel sistemde bulunmamaktadır.')
-            }
             staffService.save(staff)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Personel başarıyla güncellendi.'
@@ -85,8 +81,13 @@ class StaffController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !staff ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Güncellenmek istenen personel sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 
@@ -96,14 +97,9 @@ class StaffController extends BaseController {
     def delete(String id) {
 
         ManeResponse maneResponse = new ManeResponse()
+        Staff staff = Staff.get(id)
 
         try {
-
-            Staff staff = Staff.get(id)
-            if ( !staff ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Silinmek istenen personel sistemde bulunmamaktadır.')
-            }
 
             staffService.delete(staff)
             maneResponse.statusCode = StatusCode.NO_CONTENT
@@ -111,8 +107,13 @@ class StaffController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !staff ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Silinmek istenen personel sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 

@@ -71,10 +71,6 @@ class DriverController extends BaseController {
 
         try {
 
-            if ( !driver ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Güncellenmek istenen şoför sistemde bulunmamaktadır.')
-            }
             driverService.save(driver)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Şoför başarıyla güncellendi.'
@@ -87,8 +83,13 @@ class DriverController extends BaseController {
 
         } catch (Exception ex) {
 
-            maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !driver ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Güncellenmek istenen şoför sistemde bulunmamaktadır.'
+            }
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 
@@ -98,14 +99,10 @@ class DriverController extends BaseController {
     def delete(String id) {
 
         ManeResponse maneResponse = new ManeResponse()
+        Staff driver = Staff.get(id)
 
         try {
 
-            Staff driver = Staff.get(id)
-            if ( !driver ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Silinmek istenen şoför sistemde bulunmamaktadır.')
-            }
             if ( driver.refStaffTitle.code != 'DRV' ) {
                 maneResponse.statusCode = StatusCode.BAD_REQUEST
                 throw new Exception("Silinmek istenen '${driver.getFullName()}' şoför unvanına sahip olmadığı için silinemedi.")
@@ -117,8 +114,13 @@ class DriverController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !driver ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Silinmek istenen şoför sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 

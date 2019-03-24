@@ -69,10 +69,6 @@ class RefWorkingAreaController extends BaseController {
 
         try {
 
-            if ( !refWorkingArea ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Güncellenmek istenen çalışma alanı sistemde bulunmamaktadır.')
-            }
             refWorkingAreaService.save(refWorkingArea)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Çalışma alanı başarıyla güncellendi.'
@@ -85,8 +81,13 @@ class RefWorkingAreaController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !refWorkingArea ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Güncellenmek istenen çalışma alanı sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 
@@ -96,14 +97,9 @@ class RefWorkingAreaController extends BaseController {
     def delete(String id) {
 
         ManeResponse maneResponse = new ManeResponse()
+        RefWorkingArea refWorkingArea = RefWorkingArea.get(id)
 
         try {
-
-            RefWorkingArea refWorkingArea = RefWorkingArea.get(id)
-            if ( !refWorkingArea ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Silinmek istenen çalışma alanı sistemde bulunmamaktadır.')
-            }
 
             refWorkingAreaService.delete(refWorkingArea)
             maneResponse.statusCode = StatusCode.NO_CONTENT
@@ -111,8 +107,13 @@ class RefWorkingAreaController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !refWorkingArea ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Silinmek istenen çalışma alanı sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 

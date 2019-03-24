@@ -69,10 +69,6 @@ class RefStaffTitleController extends BaseController {
 
         try {
 
-            if ( !refStaffTitle ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Güncellenmek istenen personal unvanı sistemde bulunmamaktadır.')
-            }
             refStaffTitleService.save(refStaffTitle)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Personal unvanı başarıyla güncellendi.'
@@ -85,8 +81,13 @@ class RefStaffTitleController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !refStaffTitle ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Güncellenmek istenen personal unvanı sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 
@@ -96,14 +97,9 @@ class RefStaffTitleController extends BaseController {
     def delete(String id) {
 
         ManeResponse maneResponse = new ManeResponse()
+        RefStaffTitle refStaffTitle = RefStaffTitle.get(id)
 
         try {
-
-            RefStaffTitle refStaffTitle = RefStaffTitle.get(id)
-            if ( !refStaffTitle ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Silinmek istenen personal unvanı sistemde bulunmamaktadır.')
-            }
 
             refStaffTitleService.delete(refStaffTitle)
             maneResponse.statusCode = StatusCode.NO_CONTENT
@@ -111,8 +107,13 @@ class RefStaffTitleController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !refStaffTitle ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Silinmek istenen personal unvanı sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 

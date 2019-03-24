@@ -69,10 +69,6 @@ class CustomerCompanyController extends BaseController {
 
         try {
 
-            if ( !company ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Güncellenmek istenen müşteri iş yeri sistemde bulunmamaktadır.')
-            }
             companyService.save(company)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Müşteri iş yeri başarıyla güncellendi.'
@@ -85,8 +81,13 @@ class CustomerCompanyController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !company ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Güncellenmek istenen müşteri iş yeri sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 
@@ -96,14 +97,9 @@ class CustomerCompanyController extends BaseController {
     def delete(String id) {
 
         ManeResponse maneResponse = new ManeResponse()
+        Company company = Company.get(id)
 
         try {
-
-            Company company = Company.get(id)
-            if ( !company ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Silinmek istenen müşteri iş yeri sistemde bulunmamaktadır.')
-            }
 
             companyService.delete(company)
             maneResponse.statusCode = StatusCode.NO_CONTENT
@@ -111,8 +107,13 @@ class CustomerCompanyController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !company ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Silinmek istenen müşteri iş yeri sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 

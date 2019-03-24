@@ -11,7 +11,7 @@ class BaseController extends ManeResponseController {
         String uniquePattern = 'unique'
         String nullPattern = 'null'
         String customPattern = 'custom'
-        String constructorPattern = 'constructor' // id ile ilgili hata
+        String constructorPattern = 'constructor' // id ile ilgili hata TODO: id expose edilmezse iyi olur
 
         if ( defaultMessage.contains(uniquePattern) ) {
 

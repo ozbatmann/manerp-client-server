@@ -69,10 +69,7 @@ class RefCompanySectorController extends BaseController {
 
         try {
 
-            if ( !refCompanySector ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Güncellenmek istenen iş yeri sektörü sistemde bulunmamaktadır.')
-            }
+
             refCompanySectorService.save(refCompanySector)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'İş yeri sektörü başarıyla güncellendi.'
@@ -85,8 +82,13 @@ class RefCompanySectorController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !refCompanySector ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Güncellenmek istenen iş yeri sektörü sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 
@@ -96,14 +98,9 @@ class RefCompanySectorController extends BaseController {
     def delete(String id) {
 
         ManeResponse maneResponse = new ManeResponse()
+        RefCompanySector refCompanySector = RefCompanySector.get(id)
 
         try {
-
-            RefCompanySector refCompanySector = RefCompanySector.get(id)
-            if ( !refCompanySector ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Silinmek istenen iş yeri sektörü sistemde bulunmamaktadır.')
-            }
 
             refCompanySectorService.delete(refCompanySector)
             maneResponse.statusCode = StatusCode.NO_CONTENT
@@ -111,8 +108,13 @@ class RefCompanySectorController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !refCompanySector ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Silinmek istenen iş yeri sektörü sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 

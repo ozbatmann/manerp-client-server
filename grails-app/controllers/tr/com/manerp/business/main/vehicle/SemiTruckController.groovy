@@ -63,17 +63,14 @@ class SemiTruckController extends BaseController {
         render maneResponse
     }
 
-    def update(SemiTruck dorset) {
+    def update(SemiTruck truck) {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
-            if ( !dorset ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Güncellenmek istenen dorse sistemde bulunmamaktadır.')
-            }
-            semiTruckService.save(dorset)
+
+            semiTruckService.save(truck)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Dorse başarıyla güncellendi.'
 
@@ -85,8 +82,13 @@ class SemiTruckController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !truck ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Güncellenmek istenen dorse sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 
@@ -96,23 +98,23 @@ class SemiTruckController extends BaseController {
     def delete(String id) {
 
         ManeResponse maneResponse = new ManeResponse()
+        SemiTruck truck = SemiTruck.get(id)
 
         try {
 
-            SemiTruck dorset = SemiTruck.get(id)
-            if ( !dorset ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Silinmek istenen dorse sistemde bulunmamaktadır.')
-            }
-
-            semiTruckService.delete(dorset)
+            semiTruckService.delete(truck)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Dorse başarıyla silindi.'
 
         } catch (Exception ex) {
 
+            if ( !truck ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Silinmek istenen dorse sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 

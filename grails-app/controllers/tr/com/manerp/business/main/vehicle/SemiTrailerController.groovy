@@ -69,10 +69,7 @@ class SemiTrailerController extends BaseController {
 
         try {
 
-            if ( !trailer ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Güncellenmek istenen römork sistemde bulunmamaktadır.')
-            }
+
             semiTrailerService.save(trailer)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Römork başarıyla güncellendi.'
@@ -85,8 +82,13 @@ class SemiTrailerController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !trailer ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Güncellenmek istenen römork sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 
@@ -96,14 +98,10 @@ class SemiTrailerController extends BaseController {
     def delete(String id) {
 
         ManeResponse maneResponse = new ManeResponse()
+        SemiTrailer trailer = SemiTrailer.get(id)
 
         try {
 
-            SemiTrailer trailer = SemiTrailer.get(id)
-            if ( !trailer ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Silinmek istenen römork sistemde bulunmamaktadır.')
-            }
 
             semiTrailerService.delete(trailer)
             maneResponse.statusCode = StatusCode.NO_CONTENT
@@ -111,8 +109,13 @@ class SemiTrailerController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !trailer ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Silinmek istenen römork sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 
@@ -127,7 +130,7 @@ class SemiTrailerController extends BaseController {
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            ManePaginatedResult result = semiTrailerService.getTrailerList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
+            ManePaginatedResult result = semiTrailerService.getSemiTrailerList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
             result.data = semiTrailerService.formatPaginatedResultForDropDown(result.data)
             maneResponse.data = result.toMap()
 

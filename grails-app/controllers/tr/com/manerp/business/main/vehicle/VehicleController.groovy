@@ -69,10 +69,6 @@ class VehicleController extends BaseController {
 
         try {
 
-            if ( !vehicle ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Güncellenmek istenen araç sistemde bulunmamaktadır.')
-            }
             vehicleService.save(vehicle)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Araç başarıyla güncellendi.'
@@ -85,8 +81,13 @@ class VehicleController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !vehicle ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Güncellenmek istenen araç sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 
@@ -96,14 +97,9 @@ class VehicleController extends BaseController {
     def delete(String id) {
 
         ManeResponse maneResponse = new ManeResponse()
+        Vehicle vehicle = Vehicle.get(id)
 
         try {
-
-            Vehicle vehicle = Vehicle.get(id)
-            if ( !vehicle ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Silinmek istenen araç sistemde bulunmamaktadır.')
-            }
 
             vehicleService.delete(vehicle)
             maneResponse.statusCode = StatusCode.NO_CONTENT
@@ -111,8 +107,13 @@ class VehicleController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !vehicle ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Silinmek istenen araç sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 

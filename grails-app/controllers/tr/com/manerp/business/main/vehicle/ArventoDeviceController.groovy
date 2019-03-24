@@ -69,10 +69,7 @@ class ArventoDeviceController extends BaseController {
 
         try {
 
-            if ( !arventoDevice ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Güncellenmek istenen arvento cihazı sistemde bulunmamaktadır.')
-            }
+
             arventoDeviceService.save(arventoDevice)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Arvento cihazı başarıyla güncellendi.'
@@ -85,8 +82,13 @@ class ArventoDeviceController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !arventoDevice ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Güncellenmek istenen arvento cihazı sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 
@@ -96,14 +98,10 @@ class ArventoDeviceController extends BaseController {
     def delete(String id) {
 
         ManeResponse maneResponse = new ManeResponse()
+        ArventoDevice arventoDevice = ArventoDevice.get(id)
 
         try {
 
-            ArventoDevice arventoDevice = ArventoDevice.get(id)
-            if ( !arventoDevice ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Silinmek istenen arvento cihazı sistemde bulunmamaktadır.')
-            }
 
             arventoDeviceService.delete(arventoDevice)
             maneResponse.statusCode = StatusCode.NO_CONTENT
@@ -111,8 +109,13 @@ class ArventoDeviceController extends BaseController {
 
         } catch (Exception ex) {
 
+            if ( !arventoDevice ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Silinmek istenen arvento cihazı sistemde bulunmamaktadır.'
+            }
+
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
+            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 
