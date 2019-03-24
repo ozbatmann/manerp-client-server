@@ -17,7 +17,7 @@ class RefStaffTitleService extends BaseService {
             eq('active', true)
         }
 
-        return paginate(Company, properties, closure)
+        return paginate(RefStaffTitle, properties, closure)
     }
 
     def save(RefStaffTitle refStaffTitle) {

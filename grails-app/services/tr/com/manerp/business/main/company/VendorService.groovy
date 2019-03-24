@@ -3,9 +3,10 @@ package tr.com.manerp.business.main.company
 import grails.gorm.transactions.Transactional
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
+import tr.com.manerp.base.service.BaseService
 
 @Transactional
-class VendorService {
+class VendorService extends BaseService {
 
     ManePaginatedResult getVendorList(ManePaginationProperties properties, String companyId) {
 
@@ -36,8 +37,8 @@ class VendorService {
 
         List formattedData = data.collect {
             return [
-                    id   : it.id,
-                    title: it.title
+                id   : it.id,
+                title: it.title
             ]
         }
 

@@ -10,14 +10,14 @@ import tr.com.manerp.business.main.vehicle.Vehicle
 
 @Transactional
 class RefWorkingAreaService extends BaseService {
-    
+
     ManePaginatedResult getRefWorkingAreaList(ManePaginationProperties properties) {
 
         def closure = {
             eq('active', true)
         }
 
-        return paginate(Company, properties, closure)
+        return paginate(RefWorkingArea, properties, closure)
     }
 
     def save(RefWorkingArea refWorkingArea) {

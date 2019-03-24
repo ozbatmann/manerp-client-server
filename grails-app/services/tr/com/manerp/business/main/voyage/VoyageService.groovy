@@ -4,7 +4,6 @@ import grails.gorm.transactions.Transactional
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
-import tr.com.manerp.business.main.company.Company
 
 @Transactional
 class VoyageService extends BaseService {
@@ -15,7 +14,7 @@ class VoyageService extends BaseService {
             eq('active', true)
         }
 
-        return paginate(Company, properties, closure)
+        return paginate(Voyage, properties, closure)
     }
 
     def save(Voyage voyage) {

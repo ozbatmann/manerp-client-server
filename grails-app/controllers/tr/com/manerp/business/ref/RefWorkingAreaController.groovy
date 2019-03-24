@@ -13,7 +13,7 @@ class RefWorkingAreaController extends BaseController {
     static namespace = "v1"
     static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
-    def refStaffTitleService
+    def refWorkingAreaService
 
     def index() {
 
@@ -23,7 +23,7 @@ class RefWorkingAreaController extends BaseController {
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            ManePaginatedResult result = refStaffTitleService.getRefStaffTitleList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
+            ManePaginatedResult result = refWorkingAreaService.getRefWorkingAreaList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -36,15 +36,15 @@ class RefWorkingAreaController extends BaseController {
         render maneResponse
     }
 
-    def save(RefStaffTitle refStaffTitle) {
+    def save(RefWorkingArea refWorkingArea) {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
-            refStaffTitleService.save(refStaffTitle)
+            refWorkingAreaService.save(refWorkingArea)
             maneResponse.statusCode = StatusCode.CREATED
-            maneResponse.data = refStaffTitle.id
+            maneResponse.data = refWorkingArea.id
             maneResponse.message = 'Çalışma alanı başarıyla kaydedildi.'
 
         } catch (ValidationException ex) {
@@ -63,17 +63,17 @@ class RefWorkingAreaController extends BaseController {
         render maneResponse
     }
 
-    def update(RefStaffTitle refStaffTitle) {
+    def update(RefWorkingArea refWorkingArea) {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
-            if ( !refStaffTitle ) {
+            if ( !refWorkingArea ) {
                 maneResponse.statusCode = StatusCode.BAD_REQUEST
                 throw new Exception('Güncellenmek istenen çalışma alanı sistemde bulunmamaktadır.')
             }
-            refStaffTitleService.save(refStaffTitle)
+            refWorkingAreaService.save(refWorkingArea)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Çalışma alanı başarıyla güncellendi.'
 
@@ -99,13 +99,13 @@ class RefWorkingAreaController extends BaseController {
 
         try {
 
-            RefStaffTitle refStaffTitle = RefStaffTitle.get(id)
-            if ( !refStaffTitle ) {
+            RefWorkingArea refWorkingArea = RefWorkingArea.get(id)
+            if ( !refWorkingArea ) {
                 maneResponse.statusCode = StatusCode.BAD_REQUEST
                 throw new Exception('Silinmek istenen çalışma alanı sistemde bulunmamaktadır.')
             }
 
-            refStaffTitleService.delete(refStaffTitle)
+            refWorkingAreaService.delete(refWorkingArea)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Çalışma alanı başarıyla silindi.'
 
@@ -127,8 +127,8 @@ class RefWorkingAreaController extends BaseController {
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            ManePaginatedResult result = refStaffTitleService.getRefStaffTitleList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
-            result.data = refStaffTitleService.formatPaginatedResultForDropDown(result.data)
+            ManePaginatedResult result = refWorkingAreaService.getRefWorkingAreaList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
+            result.data = refWorkingAreaService.formatPaginatedResultForDropDown(result.data)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {

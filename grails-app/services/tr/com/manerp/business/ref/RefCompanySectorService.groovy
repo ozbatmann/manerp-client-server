@@ -4,11 +4,9 @@ import grails.gorm.transactions.Transactional
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
-import tr.com.manerp.business.main.company.Company
 
 @Transactional
 class RefCompanySectorService extends BaseService {
-
 
     ManePaginatedResult getRefCompanySectorList(ManePaginationProperties properties) {
 
@@ -16,7 +14,7 @@ class RefCompanySectorService extends BaseService {
             eq('active', true)
         }
 
-        return paginate(Company, properties, closure)
+        return paginate(RefCompanySector, properties, closure)
     }
 
     def save(RefCompanySector refCompanySector) {
