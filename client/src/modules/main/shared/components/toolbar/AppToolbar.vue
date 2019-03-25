@@ -87,9 +87,10 @@
 </template>
 
 <script>
+    import MDataTableAction from "../data/components/MDataTableAction";
     export default {
         name: "AppToolbar",
-
+        components: {MDataTableAction},
         data() {
             return {
                 title: null,

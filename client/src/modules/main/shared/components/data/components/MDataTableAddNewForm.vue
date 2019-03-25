@@ -21,12 +21,19 @@
                 <!-- Clear all button -->
                 <v-btn
                         flat
-                        color="pink"
+                        color="error"
                         :disabled="clearAllDisabled"
                         @click="clear"
                 >
                     <v-slide-x-reverse-transition>
-                        <v-icon v-if="!clearAllDisabled" left>delete</v-icon>
+                        <v-icon
+                                v-if="!clearAllDisabled"
+                                left
+                                size="20"
+                                class="mr-2"
+                        >
+                            delete
+                        </v-icon>
                     </v-slide-x-reverse-transition>
                     temizle
                 </v-btn>

@@ -4,11 +4,17 @@
                 :headers="headers"
                 :items="orders"
                 expand
-                no-filtering
         >
+            <template v-slot:header>
+                <m-data-table-action
+                        title="yeni sipariş"
+                        disabled
+                ></m-data-table-action>
+            </template>
+
             <!-- Template for expandable row -->
             <template v-slot:expand="props">
-                <v-card flat class="py-2 px-3 text-xs-center transition"
+                <v-card flat class="py-2 px-2 text-xs-center transition"
                         style="border-bottom: 1px solid rgba(0, 0, 0, .12); margin: -1px;
                                 border-top: 1px solid rgba(0, 0, 0, .12);">
                     <table style="width: 100%;">
@@ -140,7 +146,7 @@
                     direction: 'Gidiş/Dönüş',
                     route: `Sevenler Gıda
                             <i class="v-icon material-icons green--text text--accent-3"
-                                style="font-size: 16px;">keyboard_arrow_right</i> Akmerler Bim`,
+                                style="font-size: 16px;">arrow_forward</i> Akmerler Bim`,
                     routes: [
                         {
                             name: 'Sevenler Gıda',
