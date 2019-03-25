@@ -1,6 +1,7 @@
 <template>
     <v-btn
             depressed
+            :disabled="disabled"
             class="mx-0"
             @click="onClick"
             @hover="onHover"
@@ -34,6 +35,11 @@
             color: {
                 type: String,
                 default: 'green accent-3'
+            },
+
+            disabled: {
+                type: Boolean,
+                default: false
             }
         },
 
