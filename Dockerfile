@@ -32,8 +32,8 @@ COPY [ "manerp", "./manerp" ]
 RUN set -v \
     && cd manerp \
     && echo "Grails build started" \
-    && chmod +x ../grailsw \
-    && ../grailsw package
+    && chmod +x ./grailsw \
+    && ./grailsw package
 
 
 

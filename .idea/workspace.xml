@@ -2,130 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="378490ff-a3f4-4ff9-ac8a-10421ec3a415" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/3.5/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/3.5/fileContent/fileContent.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/3.5/taskHistory/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/3.5/taskHistory/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/3.5/taskHistory/fileSnapshots.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/3.5/taskHistory/fileSnapshots.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/3.5/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/3.5/taskHistory/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/3.5/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/3.5/taskHistory/taskHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/conf/application.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/conf/application.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/conf/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/conf/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/conf/logback.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/conf/logback.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/conf/spring/resources.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/conf/spring/resources.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/manerp/UrlMappings.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/manerp/UrlMappings.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/auth/AuthController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/auth/AuthController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/auth/AwcUserController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/auth/AwcUserController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/auth/LoginController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/auth/LoginController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/business/main/company/CustomerCompanyController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/business/main/company/CustomerCompanyController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/business/main/company/SupplierCompanyController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/business/main/company/SupplierCompanyController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/business/main/company/VendorController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/business/main/company/VendorController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/business/main/order/OrderController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/business/main/order/OrderController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/business/main/resource/DriverController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/business/main/resource/DriverController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/business/main/resource/StaffController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/business/main/resource/StaffController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/business/main/vehicle/ArventoDeviceController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/business/main/vehicle/ArventoDeviceController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/business/main/vehicle/SemiTrailerController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/business/main/vehicle/SemiTrailerController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/business/main/vehicle/SemiTruckController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/business/main/vehicle/SemiTruckController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/business/main/vehicle/VehicleController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/business/main/vehicle/VehicleController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/business/main/voyage/VoyageController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/business/main/voyage/VoyageController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/business/ref/RefCompanySectorController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/business/ref/RefCompanySectorController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/business/ref/RefStaffTitleController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/business/ref/RefStaffTitleController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/controllers/tr/com/manerp/business/ref/RefWorkingAreaController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/controllers/tr/com/manerp/business/ref/RefWorkingAreaController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/auth/SysCompany.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/auth/SysCompany.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/auth/User.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/auth/User.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/main/accounting/Expenditure.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/main/accounting/Expenditure.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/main/accounting/Revenue.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/main/accounting/Revenue.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/main/company/Company.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/main/company/Company.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/main/company/Vendor.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/main/company/Vendor.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/main/order/Order.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/main/order/Order.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/main/resource/Staff.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/main/resource/Staff.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/main/resource/StaffDocument.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/main/resource/StaffDocument.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/main/vehicle/ArventoDevice.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/main/vehicle/ArventoDevice.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/main/vehicle/SemiTrailer.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/main/vehicle/SemiTrailer.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/main/vehicle/SemiTruck.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/main/vehicle/SemiTruck.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/main/vehicle/Vehicle.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/main/vehicle/Vehicle.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/main/vehicle/VehicleDocument.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/main/vehicle/VehicleDocument.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/main/voyage/Location.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/main/voyage/Location.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/main/voyage/Voyage.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/main/voyage/Voyage.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/main/voyage/VoyageRoute.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/main/voyage/VoyageRoute.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/ref/RefCompanySector.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/ref/RefCompanySector.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/ref/RefStaffTitle.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/ref/RefStaffTitle.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/ref/RefWorkingArea.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/ref/RefWorkingArea.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/sysref/SysrefCity.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/sysref/SysrefCity.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/sysref/SysrefCompanyType.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/sysref/SysrefCompanyType.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/sysref/SysrefCountry.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/sysref/SysrefCountry.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/sysref/SysrefDeliveryStatus.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/sysref/SysrefDeliveryStatus.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/sysref/SysrefDistrict.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/sysref/SysrefDistrict.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/sysref/SysrefDrivingType.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/sysref/SysrefDrivingType.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/sysref/SysrefGender.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/sysref/SysrefGender.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/sysref/SysrefNaceCode.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/sysref/SysrefNaceCode.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/sysref/SysrefRevenueType.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/sysref/SysrefRevenueType.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/sysref/SysrefStaffContractType.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/sysref/SysrefStaffContractType.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/sysref/SysrefTransportationType.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/sysref/SysrefTransportationType.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/sysref/SysrefVehicleOwner.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/sysref/SysrefVehicleOwner.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/sysref/SysrefVehicleType.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/sysref/SysrefVehicleType.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/business/sysref/SysrefVoyageDirection.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/business/sysref/SysrefVoyageDirection.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/domain/tr/com/manerp/log/AuditLogEvent.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/domain/tr/com/manerp/log/AuditLogEvent.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_cs.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_cs.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_da.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_da.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_de.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_de.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_es.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_es.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_fr.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_fr.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_it.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_it.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_ja.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_ja.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_nb.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_nb.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_nl.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_nl.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_pl.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_pl.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_pt_BR.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_pt_BR.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_pt_PT.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_pt_PT.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_ru.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_sk.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_sk.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_sv.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_sv.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_th.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_th.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/i18n/messages_zh_CN.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/i18n/messages_zh_CN.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/init/manerp/client/server/Application.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/init/manerp/client/server/Application.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/init/manerp/client/server/BootStrap.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/init/manerp/client/server/BootStrap.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/auth/LoginService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/auth/LoginService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/business/main/company/CompanyService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/business/main/company/CompanyService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/business/main/company/VendorService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/business/main/company/VendorService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/business/main/order/OrderService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/business/main/order/OrderService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/business/main/resource/DriverService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/business/main/resource/DriverService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/business/main/resource/StaffService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/business/main/resource/StaffService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/business/main/vehicle/ArventoDeviceService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/business/main/vehicle/ArventoDeviceService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/business/main/vehicle/SemiTrailerService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/business/main/vehicle/SemiTrailerService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/business/main/vehicle/SemiTruckService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/business/main/vehicle/SemiTruckService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/business/main/vehicle/VehicleService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/business/main/vehicle/VehicleService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/business/main/voyage/VoyageService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/business/main/voyage/VoyageService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/business/ref/RefCompanySectorService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/business/ref/RefCompanySectorService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/business/ref/RefStaffTitleService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/business/ref/RefStaffTitleService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/business/ref/RefWorkingAreaService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/business/ref/RefWorkingAreaService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/common/DataService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/common/DataService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/common/JsonArrayParserService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/common/JsonArrayParserService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/services/tr/com/manerp/common/UniqueCodeGeneratorService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/services/tr/com/manerp/common/UniqueCodeGeneratorService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/views/application/index.gson" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/views/application/index.gson" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/views/error.gson" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/views/error.gson" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/views/errors/_errors.gson" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/views/errors/_errors.gson" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/views/notFound.gson" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/views/notFound.gson" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-app/views/object/_object.gson" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-app/views/object/_object.gson" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grails-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grails-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grailsw" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grailsw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grailsw.bat" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/grailsw.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/tr/com/manerp/base/controller/BaseController.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/src/main/groovy/tr/com/manerp/base/controller/BaseController.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/tr/com/manerp/base/domain/BaseDomain.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/src/main/groovy/tr/com/manerp/base/domain/BaseDomain.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/tr/com/manerp/base/service/BaseService.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/src/main/groovy/tr/com/manerp/base/service/BaseService.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/tr/com/manerp/commands/controller/common/PaginationCommand.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/src/main/groovy/tr/com/manerp/commands/controller/common/PaginationCommand.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/tr/com/manerp/commands/controller/vendor/VendorPaginationCommand.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/src/main/groovy/tr/com/manerp/commands/controller/vendor/VendorPaginationCommand.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/tr/com/manerp/commands/controller/vendor/VendorSaveCommand.groovy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/tr/com/manerp/commands/controller/voyage/VoyageSaveCommand.groovy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/tr/com/manerp/common/MCompany.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/src/main/groovy/tr/com/manerp/common/MCompany.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/groovy/tr/com/manerp/common/Person.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/src/main/groovy/tr/com/manerp/common/Person.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/tr/com/manerp/business/main/company/CustomerCompanyControllerSpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/src/test/groovy/tr/com/manerp/business/main/company/CustomerCompanyControllerSpec.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/tr/com/manerp/business/main/company/SupplierCompanyControllerSpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/src/test/groovy/tr/com/manerp/business/main/company/SupplierCompanyControllerSpec.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/tr/com/manerp/business/main/company/VendorControllerSpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/src/test/groovy/tr/com/manerp/business/main/company/VendorControllerSpec.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/tr/com/manerp/business/main/vehicle/SemiTrailerControllerSpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/src/test/groovy/tr/com/manerp/business/main/vehicle/SemiTrailerControllerSpec.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/tr/com/manerp/business/main/vehicle/SemiTrailerServiceSpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/src/test/groovy/tr/com/manerp/business/main/vehicle/SemiTrailerServiceSpec.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/tr/com/manerp/business/main/vehicle/SemiTruckControllerSpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/src/test/groovy/tr/com/manerp/business/main/vehicle/SemiTruckControllerSpec.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/tr/com/manerp/business/main/vehicle/SemiTruckServiceSpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/src/test/groovy/tr/com/manerp/business/main/vehicle/SemiTruckServiceSpec.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/groovy/tr/com/manerp/common/DataServiceSpec.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/src/test/groovy/tr/com/manerp/common/DataServiceSpec.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manerp/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manerp/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/manerp/gradle.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -150,6 +36,9 @@
         <task path="$PROJECT_DIR$/manerp">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand />
@@ -161,25 +50,81 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/manerp/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+            <state relative-caret-position="315">
+              <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/manerp/gradle.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="28" lean-forward="true" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/settings.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/manerp/grailsw.bat">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-17" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/manerp/grails-app/conf/application.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/manerp/grailsw">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-709" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Dockerfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="524">
-              <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
+            <state relative-caret-position="60">
+              <caret line="4" column="9" lean-forward="true" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>runtimeO</find>
+      <find>runTimeOn</find>
+      <find>8081</find>
+      <find>port</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -195,14 +140,14 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Dockerfile" />
+        <option value="$PROJECT_DIR$/manerp/gradle.properties" />
+        <option value="$PROJECT_DIR$/manerp/build.gradle" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="43" />
-    <option name="y" value="23" />
-    <option name="width" value="1637" />
-    <option name="height" value="1027" />
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+    <option name="width" value="1013" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -216,6 +161,40 @@
               <item name="Manerp" type="b2602c69:ProjectViewProjectNode" />
               <item name="manerp-client-server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
+            <path>
+              <item name="Manerp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="manerp-client-server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name=".gradle" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Manerp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="manerp-client-server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="gradle" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Manerp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="manerp-client-server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="gradle" type="462c0819:PsiDirectoryNode" />
+              <item name="wrapper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Manerp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="manerp-client-server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="manerp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="Manerp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="manerp-client-server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="manerp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="grails-app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="Manerp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="manerp-client-server" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="manerp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="grails-app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="conf" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -228,13 +207,14 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553461468274" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553475040735" />
     <property name="editor.config.ad.shown" value="true" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/manerp" />
     </key>
   </component>
@@ -280,15 +260,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1553461053399</updated>
-      <workItem from="1553461054637" duration="286000" />
+      <workItem from="1553461054637" duration="5688000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="286000" />
+    <option name="totallyTimeSpent" value="5688000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="43" y="23" width="1637" height="1027" extended-state="0" />
+    <frame x="0" y="0" width="1013" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Designer" />
@@ -297,11 +277,11 @@
       <window_info id="UI Designer" />
       <window_info id="Favorites" side_tool="true" />
       <window_info id="Web" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24952978" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23892894" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Build" visible="true" weight="0.32941177" />
+      <window_info anchor="bottom" id="Build" visible="true" weight="0.32857144" />
       <window_info anchor="bottom" id="Spring" />
-      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Terminal" weight="0.32857144" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Grails Console" weight="0.32941177" />
@@ -311,14 +291,14 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.38163266" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Maven" />
       <window_info anchor="right" id="Palette" />
       <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Gradle" visible="true" weight="0.32978058" />
+      <window_info anchor="right" id="Gradle" weight="0.32880098" />
       <window_info anchor="right" id="Database" />
       <window_info anchor="right" id="Palette&#9;" />
       <window_info anchor="right" id="Theme Preview" />
@@ -490,17 +470,53 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
+    <entry file="file://$PROJECT_DIR$/manerp/grails-app/conf/application.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        <state relative-caret-position="-4" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Dockerfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="524">
-          <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
+        <state relative-caret-position="60">
+          <caret line="4" column="9" lean-forward="true" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manerp/gradle.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="28" lean-forward="true" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manerp/grailsw">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-709" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manerp/grailsw.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-17" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manerp/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
         </state>
       </provider>
     </entry>
