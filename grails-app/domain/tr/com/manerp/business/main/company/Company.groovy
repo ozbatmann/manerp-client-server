@@ -40,8 +40,8 @@ class Company implements BusinessDomain, MCompany
         numberOfStaff nullable: true, unique: false
         employerRegistrationNo nullable: true, blank: true, unique: false, maxSize: 30
         tradeRegistrationNo nullable: true, blank: true, unique: false, maxSize: 30
-        taxOffice nullable: true, blank: true, unique: false, maxSize: 255
-        taxNumber nullable: true, blank: true, unique: false, maxSize: 50
+        taxOffice nullable: false, blank: false, unique: false, maxSize: 255
+        taxNumber nullable: false, blank: false, unique: false, maxSize: 50
         sysrefNaceCode nullable: true, unique: false
 
         title nullable: false, blank: false, unique: ['sysCompany', 'sysrefCompanyType'], maxSize: 50

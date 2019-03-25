@@ -159,18 +159,18 @@
                                 ></v-checkbox>
                             </td>
                             <td
-                                    v-for="(key, index) in Object.keys(props.item)"
-                                    v-show="shouldColumnShown(key)"
+                                    v-for="(header, index) in headers"
+                                    v-show="header.show"
                                     :key="`data-table-row-item-${index}`"
                                     class="text-xs-left m-data-table-row"
                                     @click="goTo(props.item)"
                             >
-                                <span v-html="props.item[key]"></span>
+                                <span v-html="props.item[header.value]"></span>
 
                                 <!-- Expand button -->
                                 <!-- Will be shown only if cell is expandable -->
                                 <v-btn
-                                        v-if="isExpandable(key)"
+                                        v-if="header.expandable"
                                         icon
                                         @click="props.expanded = !props.expanded"
                                 >
@@ -366,29 +366,6 @@
                 routeObject.params['item'] = item;
 
                 this.$router.push(routeObject)
-            },
-
-            // Checks whether
-            // cell is expandable or not
-            isExpandable (key) {
-                return this.headers.find(header => {
-                    return header.value === key
-                }).expandable
-            },
-
-            // Checks whether
-            // cell source is html or not
-            isHtml (key) {
-                return this.headers.find(header => {
-                    return header.value === key
-                }).htmlSource
-            },
-
-            // Decides whether column should be shown
-            // Based on data-table toggleable selections
-            shouldColumnShown(key) {
-                let header = this.headers.find(item => item.value === key)
-                return header.show
             },
 
             // Toggles all rows in the data-table

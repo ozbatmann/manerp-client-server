@@ -20,17 +20,17 @@
 
                 <!-- Clear all button -->
                 <v-btn
-                        flat
-                        color="error"
-                        :disabled="clearAllDisabled"
-                        @click="clear"
+                    flat
+                    color="error"
+                    :disabled="clearAllDisabled"
+                    @click="clear"
                 >
                     <v-slide-x-reverse-transition>
                         <v-icon
-                                v-if="!clearAllDisabled"
-                                left
-                                size="20"
-                                class="mr-2"
+                            v-if="!clearAllDisabled"
+                            left
+                            size="20"
+                            class="mr-2"
                         >
                             delete
                         </v-icon>
@@ -44,61 +44,61 @@
             <v-form>
                 <v-layout row wrap px-3 pt-4>
                     <v-flex
-                            v-for="(field, index) in inputs"
-                            :key="`add-edit-field-${index}`"
-                            :class="flexSize(index)"
-                            px-2
+                        v-for="(field, index) in inputs"
+                        :key="`add-edit-field-${index}`"
+                        :class="flexSize(index)"
+                        px-2
                     >
                         <!-- Checkbox inputs -->
                         <div v-if="field.type === input__types.checkbox">
                             <v-checkbox
-                                    v-for="(prop, index) in field.props"
-                                    v-model="localData[field.key]"
-                                    :key="`add-edit-checkbox-${index}`"
-                                    :data-vv-name="field.value"
-                                    :label="prop"
-                                    class="m-input-capitalize"
-                                    color="green accent-2"
-                                    hide-details
+                                v-for="(prop, index) in field.props"
+                                v-model="localData[field.key]"
+                                :key="`add-edit-checkbox-${index}`"
+                                :data-vv-name="field.value"
+                                :label="prop"
+                                class="m-input-capitalize"
+                                color="green accent-2"
+                                hide-details
                             ></v-checkbox>
                         </div>
 
                         <!-- Select inputs -->
                         <div v-else-if="field.type === input__types.select">
                             <v-select
-                                    v-model="localData[field.key]"
-                                    :data-vv-name="field.key"
-                                    :items="field.props"
-                                    :label="field.title"
-                                    :error-messages="errors.collect(field.key)"
-                                    v-validate="'required'"
-                                    class="m-input-capitalize"
-                                    background-color="grey lighten-4"
-                                    color="green accent-2"
-                                    solo
-                                    flat
-                                    required
+                                v-model="localData[field.key]"
+                                :data-vv-name="field.key"
+                                :items="field.props"
+                                :label="field.title"
+                                :error-messages="errors.collect(field.key)"
+                                v-validate="'required'"
+                                class="m-input-capitalize"
+                                background-color="grey lighten-4"
+                                color="green accent-2"
+                                solo
+                                flat
+                                required
                             ></v-select>
                         </div>
 
                         <!-- Text-field inputs -->
                         <div v-else>
                             <v-text-field
-                                    v-model="localData[field.key]"
-                                    :data-vv-name="field.key"
-                                    :type="field.type"
-                                    :label="field.title"
-                                    :mask="field.mask"
-                                    :error-messages="errors.collect(field.key)"
-                                    :v-validate="validate(field.rules)"
-                                    :counter="field.max"
-                                    class="m-input-capitalize  "
-                                    clearable
-                                    background-color="grey lighten-4"
-                                    color="black"
-                                    solo
-                                    flat
-                                    required
+                                v-model="localData[field.key]"
+                                :data-vv-name="field.key"
+                                :type="field.type"
+                                :label="field.title"
+                                :mask="field.mask"
+                                :error-messages="errors.collect(field.key)"
+                                :v-validate="validate(field.rules)"
+                                :counter="field.max"
+                                class="m-input-capitalize  "
+                                clearable
+                                background-color="grey lighten-4"
+                                color="black"
+                                solo
+                                flat
+                                required
                             ></v-text-field>
                         </div>
                     </v-flex>
@@ -113,22 +113,22 @@
 
                 <!-- Cancel button -->
                 <v-btn
-                        depressed
-                        flat="flat"
-                        class="my-0"
-                        @click="close"
+                    depressed
+                    flat="flat"
+                    class="my-0"
+                    @click="close"
                 >
                     iptal
                 </v-btn>
 
                 <!-- Save button -->
                 <v-btn
-                        depressed
-                        :disabled="clearAllDisabled"
-                        color="primary"
-                        class="my-0"
-                        flat
-                        @click="save"
+                    depressed
+                    :disabled="clearAllDisabled"
+                    color="primary"
+                    class="my-0"
+                    flat
+                    @click="save"
                 >
                     kaydet
                 </v-btn>
@@ -167,7 +167,7 @@
             }
         },
 
-        data () {
+        data() {
             return {
                 // Copy of the data prop
                 // Object.assign does the shallow copying
@@ -192,7 +192,7 @@
         computed: {
             // Toggles clear all
             // button if inputs are not null
-            clearAllDisabled () {
+            clearAllDisabled() {
                 return Object.values(this.localData).every(value => {
                     return value === null ? true : value.length < 1
                 });
@@ -201,7 +201,7 @@
 
         methods: {
             // Parses validation rules
-            validate (rules) {
+            validate(rules) {
                 if (rules === undefined) return null;
                 else {
                     let finalRules = '';
@@ -216,13 +216,13 @@
 
             // Determines flex size
             // based on field size (odd => xs12, even => xs6)
-            flexSize (index) {
+            flexSize(index) {
                 return index === this.inputs.length - 1 && this.inputs.length % 2 !== 0 ? 'xs12' : 'xs6'
             },
 
             // Open the dialog
             // If data is null then in editing mode
-            open (data) {
+            open(data) {
                 this.clear()
                 this.showDialog = true;
 
@@ -235,14 +235,14 @@
             },
 
             // Closes the dialog and clears all inputs
-            close () {
+            close() {
                 this.showDialog = false;
                 this.$validator.reset()
             },
 
             // Save action
             // Validates all inputs then emits data to parent
-            save () {
+            save() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         this.$emit("save", this.localData);
@@ -253,7 +253,7 @@
 
             // Edit action
             // Validates all inputs then emits data to parent
-            edit () {
+            edit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         this.$emit("edit", this.localData);
@@ -263,11 +263,10 @@
             },
 
             // Clears data and toggles edit mode
-            clear () {
+            clear() {
                 Object.keys(this.localData).forEach(key => {
                     this.localData[key] = null
                 });
-
                 this.isEdit = false;
             }
         }

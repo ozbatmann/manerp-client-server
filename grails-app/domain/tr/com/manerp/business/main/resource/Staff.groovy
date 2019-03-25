@@ -52,7 +52,7 @@ class Staff implements BusinessDomain, Person
 
         user nullable: true, unique: false
         refStaffTitle nullable: false, unique: false
-        sysrefStaffContractType nullable: true, unique: false
+        sysrefStaffContractType nullable: false, unique: false
 
         drivingLicenseNumber nullable: true, unique: false, maxSize: 30,
             validator: { val, obj ->
@@ -72,6 +72,11 @@ class Staff implements BusinessDomain, Person
     String getFullName()
     {
         return "${this.firstName}${this.middleName != null ? ' ' + this.middleName : ''} ${this.lastName}"
+    }
+
+    String getFirstAndMiddleName()
+    {
+        return "${this.firstName}${this.middleName != null ? ' ' + this.middleName : ''}"
     }
 
     //TODO:change

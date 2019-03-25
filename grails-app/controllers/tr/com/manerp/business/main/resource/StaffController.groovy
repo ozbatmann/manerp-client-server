@@ -26,6 +26,7 @@ class StaffController extends BaseController
             PaginationCommand cmd = new PaginationCommand(params)
 
             ManePaginatedResult result = staffService.getStaffList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
+            result.data = staffService.formatPaginatedResultForList(result.data)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {

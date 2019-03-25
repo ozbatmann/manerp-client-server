@@ -1,10 +1,10 @@
 export default {
-    id: 'id',
-    name: 'name',
-    surname: 'surname',
-    contract: 'contract',
-    phone: 'phone',
-    ssn: 'ssn',
-    driversLicense: 'driversLicense',
-    address: 'address'
+    id: 'code',
+    firstName: 'firstName',
+    middleName: 'middleName',
+    lastName: 'lastName',
+    sysrefStaffContractType: 'sysrefStaffContractType',
+    gsmNo: 'gsmNo',
+    tcIdNumber: 'tcIdNumber',
+    drivingLicenseNumber: 'drivingLicenseNumber'
 }

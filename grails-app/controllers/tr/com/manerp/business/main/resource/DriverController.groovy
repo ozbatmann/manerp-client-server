@@ -27,6 +27,7 @@ class DriverController extends BaseController
             PaginationCommand cmd = new PaginationCommand(params)
 
             ManePaginatedResult result = driverService.getDriverList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
+            result.data = driverService.formatPaginatedResultForList(result.data)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {

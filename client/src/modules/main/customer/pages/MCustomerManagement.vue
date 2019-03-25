@@ -1,17 +1,17 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <m-data-table
-                :headers="headers"
-                :items="firms"
-                :to="to"
+            :headers="headers"
+            :items="firms"
+            :to="to"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
 
                 <!-- Add customer button -->
                 <m-data-table-action
-                        title="FİRMA EKLE"
-                        @click="addDialog"
+                    title="FİRMA EKLE"
+                    @click="addDialog"
                 ></m-data-table-action>
             </template>
 
@@ -23,10 +23,10 @@
         </m-data-table>
 
         <m-data-table-add-new-form
-                ref="addEditDialog"
-                :data="addEditData"
-                :inputs="addEditFields"
-                title="Yeni Firma"
+            ref="addEditDialog"
+            :data="addEditData"
+            :inputs="addEditFields"
+            title="Yeni Firma"
         ></m-data-table-add-new-form>
     </div>
 </template>
@@ -52,10 +52,8 @@
                     [customerModel.name]: null,
                     [customerModel.phone]: null,
                     [customerModel.email]: null,
-                    [customerModel.type]: null,
-                    [customerModel.rep]: null,
                     [customerModel.taxNumber]: null,
-                    [customerModel.taxAdministration]: null,
+                    [customerModel.taxOffice]: null,
                     [customerModel.address]: null,
                 },
 
@@ -96,24 +94,7 @@
 
                     {
                         title: 'Vergi Dairesi',
-                        key: customerModel.taxAdministration,
-                        type: 'text',
-                        value: null,
-                        rules: ['required']
-                    },
-
-                    {
-                        title: 'Firma İlişkisi',
-                        key: customerModel.type,
-                        type: 'select',
-                        rules: ['required'],
-                        props: ['Müşteri', 'Tedarikçi', 'Müşteri/Tedarikçi'],
-                        value: 'Müşteri'
-                    },
-
-                    {
-                        title: 'Firma Temsilcisi',
-                        key: customerModel.rep,
+                        key: customerModel.taxOffice,
                         type: 'text',
                         value: null,
                         rules: ['required']
@@ -132,7 +113,7 @@
                     {
                         text: 'ID',
                         sortable: true,
-                        value: 'id',
+                        value: 'code',
                         toggleable: false,
                         show: true,
                         search: {chip: false, value: null}
@@ -140,7 +121,7 @@
                     {
                         text: 'Ünvan',
                         sortable: true,
-                        value: 'name',
+                        value: 'title',
                         toggleable: false,
                         show: true,
                         search: {chip: false, value: null}
@@ -148,7 +129,7 @@
                     {
                         text: 'Telefon',
                         sortable: true,
-                        value: 'phone',
+                        value: customerModel.phone,
                         toggleable: true,
                         show: true,
                         search: {chip: false, value: null}
@@ -156,27 +137,27 @@
                     {
                         text: 'E-Posta',
                         sortable: true,
-                        value: 'email',
+                        value: customerModel.email,
                         toggleable: true,
                         show: true,
                         search: {chip: false, value: null}
                     },
                     {
-                        text: 'Firma İlişkisi',
+                        text: 'Vergi Numarası',
                         sortable: true,
-                        value: 'type',
+                        value: 'taxNumber',
                         toggleable: true,
                         show: true,
                         search: {chip: false, value: null}
                     },
                     {
-                        text: 'Firma Temsilcisi',
+                        text: 'Vergi Dairesi',
                         sortable: true,
-                        value: 'rep',
+                        value: 'taxOffice',
                         toggleable: true,
                         show: true,
                         search: {chip: false, value: null}
-                    },
+                    }
                 ],
 
                 firms: [
@@ -241,14 +222,14 @@
             addDialog(data) {
                 this.$refs.addEditDialog.open(data)
             },
-            getAllCustomers () {
+            getAllCustomers() {
                 this.$http.get('api/v1/customerCompany').then((result) => {
                     this.firms = result.data.data.items
                 }).catch((error) => {
                     console.log(error);
                 })
             },
-            addNewItem (item) {
+            addNewItem(item) {
                 this.newItem = item
                 this.$http.post('api/v1/customerCompany', this.newItem).then((result) => {
                     this.snackbar.text = "Başarıyla eklendi."

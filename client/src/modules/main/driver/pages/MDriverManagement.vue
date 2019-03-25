@@ -1,17 +1,17 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <m-data-table
-                :headers="headers"
-                :items="drivers"
-                :to="to"
+            :headers="headers"
+            :items="drivers"
+            :to="to"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
 
                 <!-- Add customer button -->
                 <m-data-table-action
-                        title="şoför ekle"
-                        @click="addDialog"
+                    title="şoför ekle"
+                    @click="addDialog"
                 ></m-data-table-action>
             </template>
 
@@ -25,25 +25,25 @@
 
         <!-- Data table add-edit form -->
         <m-data-table-add-new-form
-                ref="addEditDialog"
-                :data="addEditData"
-                :inputs="addEditFields"
-                title="Yeni Şoför"
-                @save="addNewItem"
+            ref="addEditDialog"
+            :data="addEditData"
+            :inputs="addEditFields"
+            title="Yeni Şoför"
+            @save="addNewItem"
         ></m-data-table-add-new-form>
 
         <v-snackbar
-                v-model="snackbar.active"
-                color="grey darken-4"
-                :class="snackbar.textColor"
-                top
-                right
+            v-model="snackbar.active"
+            color="grey darken-4"
+            :class="snackbar.textColor"
+            top
+            right
         >
             {{ snackbar.text }}
             <v-btn
-                    dark
-                    flat
-                    @click="snackbar.active = false"
+                dark
+                flat
+                @click="snackbar.active = false"
             >
                 geri al
             </v-btn>
@@ -65,44 +65,52 @@
             MDataTableAction,
             MDataTableAddNewForm
         },
-        data () {
+        data() {
             return {
                 // Data-table
                 // add-edit dialog data
                 addEditData: {
-                    [driverModel.name]: null,
-                    [driverModel.surname]: null,
-                    [driverModel.contract]: null,
-                    [driverModel.phone]: null,
-                    [driverModel.ssn]: null,
-                    [driverModel.driversLicense]: null,
-                    [driverModel.address]: null,
-                    [driverModel.sysrefStaffTitle]: null,
+                    [driverModel.firstName]: null,
+                    [driverModel.lastName]: null,
+                    [driverModel.sysrefStaffContractType]: null,
+                    [driverModel.gsmNo]: null,
+                    [driverModel.tcIdNumber]: null,
+                    [driverModel.drivingLicenseNumber]: null,
+                    [driverModel.address]: null
                 },
 
                 // Data-table
                 // add-edit dialog fields
                 addEditFields: [
                     {
-                        key: driverModel.name,
+                        key: driverModel.firstName,
                         max: 20,
                         rules: [
-                            'required', 'max:20'
+                            'required', 'max:30'
                         ],
                         title: 'ad',
                         type: 'text',
                     },
                     {
-                        key: driverModel.surname,
+                        key: driverModel.middleName,
                         max: 20,
                         rules: [
-                            'required', 'max:20'
+                            'required', 'max:30'
+                        ],
+                        title: 'İkinci ad',
+                        type: 'text',
+                    },
+                    {
+                        key: driverModel.lastName,
+                        max: 20,
+                        rules: [
+                            'required', 'max:30'
                         ],
                         title: 'soyad',
                         type: 'text',
                     },
                     {
-                        key: driverModel.contract,
+                        key: driverModel.sysrefStaffContractType,
                         title: 'sözleşme tipi',
                         type: 'select',
                         props: [
@@ -110,7 +118,7 @@
                         ],
                     },
                     {
-                        key: driverModel.phone,
+                        key: driverModel.gsmNo,
                         mask: 'phone',
                         max: 10,
                         title: 'telefon',
@@ -120,7 +128,7 @@
                         ]
                     },
                     {
-                        key: driverModel.ssn,
+                        key: driverModel.tcIdNumber,
                         mask: '###########',
                         max: 11,
                         title: 't.c. kimlik numarası',
@@ -130,21 +138,12 @@
                         ]
                     },
                     {
-                        key: driverModel.driversLicense,
+                        key: driverModel.drivingLicenseNumber,
                         max: null,
                         title: 'ehliyet numarası',
                         type: 'tel',
                         rules: [
-                            'required'
-                        ]
-                    },
-                    {
-                        key: driverModel.address,
-                        max: null,
-                        title: 'adres',
-                        type: 'text',
-                        rules: [
-                            'required'
+                            'required', 'max:30'
                         ]
                     }
                 ],
@@ -157,55 +156,55 @@
                         value: driverModel.id,
                         toggleable: false,
                         show: true,
-                        search: { chip: false, value: null }
+                        search: {chip: false, value: null}
                     },
                     {
                         text: 'ad',
                         sortable: true,
-                        value: driverModel.name,
+                        value: driverModel.firstName,
                         toggleable: false,
                         show: true,
-                        search: { chip: false, value: null }
+                        search: {chip: false, value: null}
                     },
                     {
                         text: 'soyad',
                         sortable: true,
-                        value: driverModel.surname,
+                        value: driverModel.lastName,
                         toggleable: false,
                         show: true,
-                        search: { chip: false, value: null }
+                        search: {chip: false, value: null}
                     },
                     {
                         text: 'sözleşme tipi',
                         sortable: true,
-                        value: driverModel.contract,
+                        value: driverModel.sysrefStaffContractType,
                         toggleable: true,
                         show: true
                     },
                     {
                         text: 'telefon',
                         sortable: true,
-                        value: driverModel.phone,
+                        value: driverModel.gsmNo,
                         toggleable: true,
                         show: true,
-                        search: { chip: false, value: null }
+                        search: {chip: false, value: null}
                     },
                     {
                         text: 't.c. kimlik numarası',
                         sortable: true,
-                        value: driverModel.ssn,
+                        value: driverModel.tcIdNumber,
                         toggleable: true,
                         show: true,
-                        search: { chip: false, value: null }
+                        search: {chip: false, value: null}
                     },
                     {
                         text: 'ehliyet numarası',
                         sortable: true,
-                        value: driverModel.driversLicense,
+                        value: driverModel.drivingLicenseNumber,
                         toggleable: true,
                         show: true,
-                        search: { chip: false, value: null }
-                    },
+                        search: {chip: false, value: null}
+                    }
                 ],
 
                 // Drivers array
@@ -231,23 +230,22 @@
         methods: {
 
             // Activates add new item dialog
-            addDialog (data) {
-                console.log(data)
+            addDialog(data) {
                 this.$refs.addEditDialog.open(data)
             },
 
             // Adds a new driver
             // to the system
-            getAllDrivers () {
-                this.$http.get('api/v1/staff').then((result) => {
+            getAllDrivers() {
+                this.$http.get('api/v1/driver').then((result) => {
                     this.drivers = result.data.data.items
                 }).catch((error) => {
                     console.log(error);
                 })
             },
-            addNewItem (item) {
+            addNewItem(item) {
                 this.newItem = item
-                this.$http.post('api/v1/staff', this.newItem).then((result) => {
+                this.$http.post('api/v1/driver', this.newItem).then((result) => {
                     this.snackbar.text = "Başarıyla eklendi."
                     this.snackbar.textColor = 'green--text text--accent-3'
                     this.snackbar.active = true
@@ -258,21 +256,8 @@
             }
         },
 
-        mounted () {
+        mounted() {
             this.getAllDrivers();
-            // for (let i = 0; i < 15; i++) {
-            //     let driver = {
-            //         id: `DRV-${i}`,
-            //         name: 'Ahmet',
-            //         surname: 'Aliakça',
-            //         contract: 'Kadrolu',
-            //         phone: '(541) 598-4560',
-            //         ssn: '14786457866',
-            //         driversLicense: '58231045620'
-            //     };
-            //
-            //     this.drivers.push(driver)
-            // }
         }
     }
 </script>
