@@ -26,7 +26,7 @@ environments {
     development {
 
         server {
-            port = System.getenv('MANERP_SERVER_PORT') ?: 8081
+            port = System.getenv('MANERP_SERVER_PORT') ?: 8082
         }
         dataSource {
             dbCreate = 'update'
@@ -36,7 +36,7 @@ environments {
     production {
 
         server {
-            port = System.getenv('MANERP_SERVER_PORT') ?: 8081
+            port = System.getenv('MANERP_SERVER_PORT') ?: 8082
         }
         dataSource {
             dbCreate = 'update'
