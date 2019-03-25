@@ -8,14 +8,16 @@ import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
-class VehicleController extends BaseController {
+class VehicleController extends BaseController
+{
 
     static namespace = "v1"
     static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def vehicleService
 
-    def index() {
+    def index()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -36,12 +38,14 @@ class VehicleController extends BaseController {
         render maneResponse
     }
 
-    def save(Vehicle vehicle) {
+    def save(Vehicle vehicle)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
+            vehicle.setRandomCode()
             vehicleService.save(vehicle)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = vehicle.id
@@ -63,7 +67,8 @@ class VehicleController extends BaseController {
         render maneResponse
     }
 
-    def update(Vehicle vehicle) {
+    def update(Vehicle vehicle)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -94,7 +99,8 @@ class VehicleController extends BaseController {
         render maneResponse
     }
 
-    def delete(String id) {
+    def delete(String id)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
         Vehicle vehicle = Vehicle.get(id)
@@ -125,7 +131,8 @@ class VehicleController extends BaseController {
         render maneResponse
     }
 
-    def getListForDropDown() {
+    def getListForDropDown()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 

@@ -12,7 +12,7 @@ class SysrefNaceCode implements BaseDomain {
 
     static constraints = {
         name nullable: false, blank: false, unique: false, maxSize: 50
-        code nullable: false, blank: false, unique: true
+        code nullable: true, blank: true, unique: true, maxSize: 8
     }
 
 }

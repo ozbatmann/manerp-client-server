@@ -8,14 +8,16 @@ import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
-class OrderController extends BaseController {
+class OrderController extends BaseController
+{
 
     static namespace = "v1"
     static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def orderService
 
-    def index() {
+    def index()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -36,12 +38,14 @@ class OrderController extends BaseController {
         render maneResponse
     }
 
-    def save(Order order) {
+    def save(Order order)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
+            order.setRandomCode()
             orderService.save(order)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = order.id
@@ -63,7 +67,8 @@ class OrderController extends BaseController {
         render maneResponse
     }
 
-    def update(Order order) {
+    def update(Order order)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -94,7 +99,8 @@ class OrderController extends BaseController {
         render maneResponse
     }
 
-    def delete(String id) {
+    def delete(String id)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
         Order order = Order.get(id)
@@ -125,7 +131,8 @@ class OrderController extends BaseController {
         render maneResponse
     }
 
-    def getListForDropDown() {
+    def getListForDropDown()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 

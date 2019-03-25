@@ -9,14 +9,16 @@ import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
 import tr.com.manerp.commands.controller.voyage.VoyageSaveCommand
 
-class VoyageController extends BaseController {
+class VoyageController extends BaseController
+{
 
     static namespace = "v1"
     static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def voyageService
 
-    def index() {
+    def index()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -37,7 +39,8 @@ class VoyageController extends BaseController {
         render maneResponse
     }
 
-    def save(VoyageSaveCommand cmd) {
+    def save(VoyageSaveCommand cmd)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -52,6 +55,7 @@ class VoyageController extends BaseController {
             Voyage voyage = new Voyage()
             cmd >> voyage
 
+            voyage.setRandomCode()
             voyageService.save(voyage)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = voyage.id
@@ -73,7 +77,8 @@ class VoyageController extends BaseController {
         render maneResponse
     }
 
-    def update(VoyageSaveCommand cmd) {
+    def update(VoyageSaveCommand cmd)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -114,7 +119,8 @@ class VoyageController extends BaseController {
         render maneResponse
     }
 
-    def delete(String id) {
+    def delete(String id)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
         Voyage voyage = Voyage.get(id)
@@ -141,7 +147,8 @@ class VoyageController extends BaseController {
         render maneResponse
     }
 
-    def getListForDropDown() {
+    def getListForDropDown()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 

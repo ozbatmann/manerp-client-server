@@ -1,9 +1,10 @@
 package tr.com.manerp.business.main.voyage
 
+import grails.util.Holders
+import org.apache.commons.lang.RandomStringUtils
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.domain.BaseDomain
 import tr.com.manerp.business.main.company.Company
-import tr.com.manerp.business.main.vehicle.SemiTruck
 import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.resource.Staff
 import tr.com.manerp.business.main.vehicle.SemiTrailer
@@ -38,7 +39,7 @@ class Voyage implements BaseDomain {
     static hasMany = [routes: VoyageRoute]
 
     static constraints = {
-        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 36
+        code nullable: false, blank: false, unique: ['sysCompany'], maxSize: 8
         sysCompany nullable: false, unique: false
         company nullable: false, unique: false
         vehicle nullable: false, unique: false
@@ -62,7 +63,24 @@ class Voyage implements BaseDomain {
     }
 
     //TODO:change
-    def beforeValidate() {
+    def beforeValidate()
+    {
         this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
+    }
+
+    def setRandomCode()
+    {
+        int length = Holders.config.manerp.randomCode.length
+        String charset = Holders.config.manerp.randomCode.charset
+
+        String randomCode = RandomStringUtils.random(length, charset).toString()
+        Voyage voyage = Voyage.findByCode(randomCode)
+
+        while ( voyage ) {
+            randomCode = RandomStringUtils.random(length, charset).toString()
+            voyage = Voyage.findByCode(randomCode)
+        }
+
+        this.code = randomCode
     }
 }

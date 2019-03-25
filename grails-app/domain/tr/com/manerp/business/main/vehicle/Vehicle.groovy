@@ -1,13 +1,16 @@
 package tr.com.manerp.business.main.vehicle
 
 import grails.databinding.BindingFormat
+import grails.util.Holders
+import org.apache.commons.lang.RandomStringUtils
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.domain.BaseDomain
 import tr.com.manerp.business.ref.RefWorkingArea
 import tr.com.manerp.business.sysref.SysrefVehicleOwner
 import tr.com.manerp.business.sysref.SysrefVehicleType
 
-class Vehicle implements BaseDomain {
+class Vehicle implements BaseDomain
+{
 
     static auditable = true
 
@@ -43,7 +46,7 @@ class Vehicle implements BaseDomain {
     static belongsTo = []
 
     static constraints = {
-        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 36
+        code nullable: false, blank: false, unique: ['sysCompany'], maxSize: 8
         sysCompany nullable: false, unique: false
         brand nullable: false, blank: false, unique: false, maxSize: 50
         fleetCardNumber nullable: false, unique: false, maxSize: 50
@@ -71,12 +74,28 @@ class Vehicle implements BaseDomain {
         vehicleDocuments cascade: 'all-delete-orphan'
     }
 
-    def beforeValidate() {
+    def setRandomCode()
+    {
+        int length = Holders.config.manerp.randomCode.length
+        String charset = Holders.config.manerp.randomCode.charset
+
+        String randomCode = RandomStringUtils.random(length, charset).toString()
+        Vehicle vehicle = Vehicle.findByCode(randomCode)
+
+        while ( vehicle ) {
+            randomCode = RandomStringUtils.random(length, charset).toString()
+            vehicle = Vehicle.findByCode(randomCode)
+        }
+
+        this.code = randomCode
+    }
+
+    def beforeValidate()
+    {
+        this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
         fleetCardNumber = fleetCardNumber?.trim()
         kgsNo = kgsNo?.trim()
         ogsNo = ogsNo?.trim()
-        // TODO: change
-            this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
     }
 
 }

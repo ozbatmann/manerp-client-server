@@ -2,7 +2,8 @@ package tr.com.manerp.base.domain
 
 import grails.databinding.BindingFormat
 
-trait BaseDomain {
+trait BaseDomain
+{
     String id
     @BindingFormat('dd/MM/yyyy')
     Date dateCreated
@@ -10,11 +11,13 @@ trait BaseDomain {
     Date lastUpdated
     boolean active
 
-    def beforeInsert() {
+    def beforeInsert()
+    {
         dateCreated = new Date()
     }
 
-    def beforeUpdate() {
+    def beforeUpdate()
+    {
         lastUpdated = new Date()
     }
 }

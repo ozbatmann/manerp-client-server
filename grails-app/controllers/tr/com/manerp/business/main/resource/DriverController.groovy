@@ -9,14 +9,16 @@ import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.business.ref.RefStaffTitle
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
-class DriverController extends BaseController {
+class DriverController extends BaseController
+{
 
     static namespace = "v1"
     static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def driverService
 
-    def index() {
+    def index()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -37,13 +39,15 @@ class DriverController extends BaseController {
         render maneResponse
     }
 
-    def save(Staff driver) {
+    def save(Staff driver)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
             driver.refStaffTitle = RefStaffTitle.findByCode('DRV')
+            driver.setRandomCode()
             driverService.save(driver)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = driver.id
@@ -65,7 +69,8 @@ class DriverController extends BaseController {
         render maneResponse
     }
 
-    def update(Staff driver) {
+    def update(Staff driver)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -96,7 +101,8 @@ class DriverController extends BaseController {
         render maneResponse
     }
 
-    def delete(String id) {
+    def delete(String id)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
         Staff driver = Staff.get(id)
@@ -127,7 +133,8 @@ class DriverController extends BaseController {
         render maneResponse
     }
 
-    def getListForDropDown() {
+    def getListForDropDown()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 

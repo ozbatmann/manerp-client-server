@@ -8,14 +8,16 @@ import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
-class SemiTruckController extends BaseController {
+class SemiTruckController extends BaseController
+{
 
     static namespace = "v1"
     static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def semiTruckService
 
-    def index() {
+    def index()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -36,12 +38,14 @@ class SemiTruckController extends BaseController {
         render maneResponse
     }
 
-    def save(SemiTruck dorset) {
+    def save(SemiTruck dorset)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
+            dorset.setRandomCode()
             semiTruckService.save(dorset)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = dorset.id
@@ -63,7 +67,8 @@ class SemiTruckController extends BaseController {
         render maneResponse
     }
 
-    def update(SemiTruck truck) {
+    def update(SemiTruck truck)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -95,7 +100,8 @@ class SemiTruckController extends BaseController {
         render maneResponse
     }
 
-    def delete(String id) {
+    def delete(String id)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
         SemiTruck truck = SemiTruck.get(id)
@@ -121,7 +127,8 @@ class SemiTruckController extends BaseController {
         render maneResponse
     }
 
-    def getListForDropDown() {
+    def getListForDropDown()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 

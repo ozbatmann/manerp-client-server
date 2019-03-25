@@ -24,9 +24,11 @@ import tr.com.manerp.business.sysref.SysrefVehicleType
 import tr.com.manerp.business.sysref.SysrefVoyageDirection
 
 @Transactional
-class DataService {
+class DataService
+{
 
-    def initApplicationData() {
+    def initApplicationData()
+    {
 
         SysCompany sysCompanyBumerang = SysCompany.findByName('Bumerang Lojistik')
         if ( sysCompanyBumerang == null ) {
@@ -126,7 +128,7 @@ class DataService {
             sysrefStaffContractTypeSozlesmeli.name = 'Sözleşmeli'
             sysrefStaffContractTypeSozlesmeli.active = true
             sysrefStaffContractTypeSozlesmeli.description = 'Sözleşmeli personeller'
-            sysrefStaffContractTypeSozlesmeli.code = UUID.randomUUID().toString()
+            sysrefStaffContractTypeSozlesmeli.code = 'SOZ'
 
             sysrefStaffContractTypeSozlesmeli.save(failOnError: true)
         }
@@ -139,7 +141,7 @@ class DataService {
             sysrefStaffContractTypeKadrolu.name = 'Kadrolu'
             sysrefStaffContractTypeKadrolu.active = true
             sysrefStaffContractTypeKadrolu.description = 'Kadrolu personeller'
-            sysrefStaffContractTypeKadrolu.code = UUID.randomUUID().toString()
+            sysrefStaffContractTypeKadrolu.code = 'KAD'
 
             sysrefStaffContractTypeKadrolu.save(failOnError: true)
         }
@@ -148,6 +150,7 @@ class DataService {
         if ( staffBerat == null ) {
 
             staffBerat = new Staff()
+            staffBerat.setRandomCode()
             staffBerat.sysCompany = sysCompanyBumerang
             staffBerat.firstName = 'Berat'
             staffBerat.lastName = 'Postalcıoğlu'
@@ -168,6 +171,7 @@ class DataService {
         if ( staffMurat == null ) {
 
             staffMurat = new Staff()
+            staffMurat.setRandomCode()
             staffMurat.sysCompany = sysCompanyBumerang
             staffMurat.firstName = 'Muratcan'
             staffMurat.lastName = 'Balık'
@@ -188,6 +192,7 @@ class DataService {
         if ( staffTuna == null ) {
 
             staffTuna = new Staff()
+            staffTuna.setRandomCode()
             staffTuna.sysCompany = sysCompanyBumerang
             staffTuna.firstName = 'Tunahan'
             staffTuna.lastName = 'Bayındır'
@@ -206,6 +211,7 @@ class DataService {
         if ( staffAli == null ) {
 
             staffAli = new Staff()
+            staffAli.setRandomCode()
             staffAli.sysCompany = sysCompanyBumerang
             staffAli.firstName = 'Ali'
             staffAli.middleName = 'İmran'
@@ -238,6 +244,7 @@ class DataService {
         if ( customerCompanyPinar == null ) {
 
             customerCompanyPinar = new Company()
+            customerCompanyPinar.setRandomCode()
             customerCompanyPinar.name = 'Pınar'
             customerCompanyPinar.sysCompany = sysCompanyBumerang
             customerCompanyPinar.sysrefCompanyType = sysrefCompanyTypeCst
@@ -256,6 +263,7 @@ class DataService {
         if ( vendorPinarEsk == null ) {
 
             vendorPinarEsk = new Vendor()
+            vendorPinarEsk.setRandomCode()
             vendorPinarEsk.sysCompany = sysCompanyBumerang
             vendorPinarEsk.title = 'Pınar Eskişehir Bayi'
             vendorPinarEsk.active = true
@@ -270,6 +278,7 @@ class DataService {
         if ( vendorPinarKemal == null ) {
 
             vendorPinarKemal = new Vendor()
+            vendorPinarKemal.setRandomCode()
             vendorPinarKemal.sysCompany = sysCompanyBumerang
             vendorPinarKemal.title = 'Pınar Kemalpaşa Bayi'
             vendorPinarKemal.active = true
@@ -336,6 +345,7 @@ class DataService {
         if ( vehicle1 == null ) {
 
             vehicle1 = new Vehicle()
+            vehicle1.setRandomCode()
             vehicle1.sysCompany = sysCompanyBumerang
             vehicle1.active = true
             vehicle1.plateNumber = '35 123 321'
@@ -364,10 +374,10 @@ class DataService {
         if ( trailer1 == null ) {
 
             trailer1 = new SemiTrailer()
+            trailer1.setRandomCode()
             trailer1.sysCompany = sysCompanyBumerang
             trailer1.plateNumber = '35 963 852'
             trailer1.active = true
-            trailer1.code = UUID.randomUUID().toString()
             trailer1.name = 'Çekici römorku'
             trailer1.brand = 'Volvo'
 
@@ -391,9 +401,9 @@ class DataService {
         if ( orderPinar == null ) {
 
             orderPinar = new Order()
+            orderPinar.setRandomCode()
             orderPinar.sysCompany = sysCompanyBumerang
             orderPinar.name = 'Pınar Sipariş'
-            orderPinar.code = UUID.randomUUID().toString()
             orderPinar.active = true
             orderPinar.company = customerCompanyPinar
             orderPinar.orderDate = new Date()
@@ -410,7 +420,6 @@ class DataService {
             sysrefTransportationTypeGidis = new SysrefTransportationType()
             sysrefTransportationTypeGidis.sysCompany = sysCompanyBumerang
             sysrefTransportationTypeGidis.name = 'Komple'
-            sysrefTransportationTypeGidis.code = UUID.randomUUID().toString()
             sysrefTransportationTypeGidis.active = true
             sysrefTransportationTypeGidis.description = 'Komple taşıma'
         }
@@ -423,7 +432,7 @@ class DataService {
             sysrefVoyageDirectionGidis.name = 'Gidiş'
             sysrefVoyageDirectionGidis.active = true
             sysrefVoyageDirectionGidis.description = 'Gidiş sevkiyat yönü'
-            sysrefVoyageDirectionGidis.code = UUID.randomUUID().toString()
+            sysrefVoyageDirectionGidis.code = 'GID'
 
             sysrefVoyageDirectionGidis.save(failOnError: true)
         }
@@ -436,7 +445,7 @@ class DataService {
             sysrefVoyageDirectionGidisDonus.name = 'Gidiş-Dönüş'
             sysrefVoyageDirectionGidisDonus.active = true
             sysrefVoyageDirectionGidisDonus.description = 'Gidiş-Dönüş sevkiyat yönü'
-            sysrefVoyageDirectionGidisDonus.code = UUID.randomUUID().toString()
+            sysrefVoyageDirectionGidisDonus.code = 'GDN'
 
             sysrefVoyageDirectionGidisDonus.save(failOnError: true)
         }
@@ -449,7 +458,7 @@ class DataService {
             sysrefDeliveryStatusRezervasyon.name = 'Rezervasyon'
             sysrefDeliveryStatusRezervasyon.active = true
             sysrefDeliveryStatusRezervasyon.description = 'Rezervasyon taşıma durumu'
-            sysrefDeliveryStatusRezervasyon.code = UUID.randomUUID().toString()
+            sysrefDeliveryStatusRezervasyon.code = 'REZ'
 
             sysrefDeliveryStatusRezervasyon.save(failOnError: true)
         }
@@ -462,7 +471,7 @@ class DataService {
             sysrefDeliveryStatusYuklendi.name = 'Yüklendi'
             sysrefDeliveryStatusYuklendi.active = true
             sysrefDeliveryStatusYuklendi.description = 'Yüklendi taşıma durumu'
-            sysrefDeliveryStatusYuklendi.code = UUID.randomUUID().toString()
+            sysrefDeliveryStatusYuklendi.code = 'YUK'
 
             sysrefDeliveryStatusYuklendi.save(failOnError: true)
         }
@@ -475,7 +484,7 @@ class DataService {
             sysrefDeliveryStatusBosaltti.name = 'Boşalttı'
             sysrefDeliveryStatusBosaltti.active = true
             sysrefDeliveryStatusBosaltti.description = 'Boşalttı taşıma durumu'
-            sysrefDeliveryStatusBosaltti.code = UUID.randomUUID().toString()
+            sysrefDeliveryStatusBosaltti.code = 'BOS'
 
             sysrefDeliveryStatusBosaltti.save(failOnError: true)
         }
@@ -504,6 +513,7 @@ class DataService {
         if ( voyagePinar == null ) {
 
             voyagePinar = new Voyage()
+            voyagePinar.setRandomCode()
             voyagePinar.sysCompany = sysCompanyBumerang
             voyagePinar.active = true
             voyagePinar.order = orderPinar

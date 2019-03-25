@@ -3,7 +3,8 @@ package tr.com.manerp.business.ref
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.domain.BaseDomain
 
-class RefStaffTitle implements BaseDomain {
+class RefStaffTitle implements BaseDomain
+{
 
     static auditable = true
 
@@ -20,15 +21,14 @@ class RefStaffTitle implements BaseDomain {
     }
 
     static mapping = {
-//        table name: "ref_staff_class", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_REF_STAFF_CLASS']
     }
 
     static mappedBy = {
     }
 
 //TODO:change
-    def beforeValidate() {
+    def beforeValidate()
+    {
         this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
     }
 }

@@ -1,5 +1,7 @@
 package tr.com.manerp.business.main.resource
 
+import grails.util.Holders
+import org.apache.commons.lang.RandomStringUtils
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.auth.User
 import tr.com.manerp.base.domain.BaseDomain
@@ -8,7 +10,8 @@ import tr.com.manerp.business.sysref.SysrefDrivingType
 import tr.com.manerp.business.sysref.SysrefStaffContractType
 import tr.com.manerp.common.Person
 
-class Staff implements BaseDomain, Person {
+class Staff implements BaseDomain, Person
+{
 
     static auditable = true
 
@@ -31,7 +34,7 @@ class Staff implements BaseDomain, Person {
         importFrom(User)
 
         sysCompany nullable: false, unique: false
-        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 36
+        code nullable: false, blank: false, unique: ['sysCompany'], maxSize: 8
         user nullable: true, unique: false
         refStaffTitle nullable: false, unique: false
         sysrefStaffContractType nullable: true, unique: false
@@ -51,13 +54,31 @@ class Staff implements BaseDomain, Person {
         staffDocuments cascade: 'all-delete-orphan'
     }
 
-    String getFullName() {
+    String getFullName()
+    {
         return "${this.firstName}${this.middleName != null ? ' ' + this.middleName : ''} ${this.lastName}"
     }
 
-    // TODO: change
-    def beforeValidate() {
+    //TODO:change
+    def beforeValidate()
+    {
         this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
+    }
+
+    def setRandomCode()
+    {
+        int length = Holders.config.manerp.randomCode.length
+        String charset = Holders.config.manerp.randomCode.charset
+
+        String randomCode = RandomStringUtils.random(length, charset).toString()
+        Staff staff = Staff.findByCode(randomCode)
+
+        while ( staff ) {
+            randomCode = RandomStringUtils.random(length, charset).toString()
+            staff = Staff.findByCode(randomCode)
+        }
+
+        this.code = randomCode
     }
 
 

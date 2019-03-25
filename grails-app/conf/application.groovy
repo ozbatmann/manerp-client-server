@@ -14,6 +14,10 @@ grails.gorm.default.constraints = {
 }
 
 manerp {
+    randomCode {
+        length = 8
+        charset = '0123456789abcdef'
+    }
     // custom config variables/constants here...
     postgresql {
         maxByteSize = 20 * 1024 * 1024 // 20MB

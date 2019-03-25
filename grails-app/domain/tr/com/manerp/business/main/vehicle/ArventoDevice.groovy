@@ -1,5 +1,7 @@
 package tr.com.manerp.business.main.vehicle
 
+import grails.util.Holders
+import org.apache.commons.lang.RandomStringUtils
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.domain.BaseDomain
 
@@ -15,7 +17,7 @@ class ArventoDevice implements BaseDomain {
     SemiTruck dorset
 
     static constraints = {
-        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 36
+        code nullable: false, blank: false, unique: ['sysCompany'], maxSize: 8
         sysCompany nullable: false, unique: false
         deviceId nullable: false, unique: false, maxSize: 100
         name nullable: true, blank: true, unique: false, maxSize: 50
@@ -23,14 +25,26 @@ class ArventoDevice implements BaseDomain {
         dorset nullable: true, unique: false
     }
 
-    static mapping = {
-//        table name: "arvento_device", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_ARVENTO_DEVICE']
+    //TODO:change
+    def beforeValidate()
+    {
+        this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
     }
 
-    // TODO: change
-    def beforeValidate() {
-        this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
+    def setRandomCode()
+    {
+        int length = Holders.config.manerp.randomCode.length
+        String charset = Holders.config.manerp.randomCode.charset
+
+        String randomCode = RandomStringUtils.random(length, charset).toString()
+        ArventoDevice device = ArventoDevice.findByCode(randomCode)
+
+        while ( device ) {
+            randomCode = RandomStringUtils.random(length, charset).toString()
+            device = ArventoDevice.findByCode(randomCode)
+        }
+
+        this.code = randomCode
     }
 
 }

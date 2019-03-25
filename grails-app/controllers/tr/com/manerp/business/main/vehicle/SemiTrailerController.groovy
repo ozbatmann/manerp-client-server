@@ -42,6 +42,7 @@ class SemiTrailerController extends BaseController {
 
         try {
 
+            trailer.setRandomCode()
             semiTrailerService.save(trailer)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = trailer.id

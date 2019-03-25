@@ -52,6 +52,7 @@ class VendorController extends BaseController {
             Vendor vendor = new Vendor()
             cmd >> vendor
 
+            vendor.setRandomCode()
             vendorService.save(vendor)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = vendor.id

@@ -43,6 +43,7 @@ class CustomerCompanyController extends BaseController {
 
         try {
 
+            company.setRandomCode()
             company.sysrefCompanyType = SysrefCompanyType.findByCode('CST')
             companyService.save(company)
             maneResponse.statusCode = StatusCode.CREATED

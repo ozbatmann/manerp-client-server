@@ -14,7 +14,4 @@ class VoyageRoute implements BaseDomain {
         voyage nullable: false, unique: false
     }
 
-    static mapping = {
-    }
-
 }

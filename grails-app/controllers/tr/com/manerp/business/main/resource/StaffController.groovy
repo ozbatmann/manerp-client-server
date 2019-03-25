@@ -8,14 +8,16 @@ import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
-class StaffController extends BaseController {
+class StaffController extends BaseController
+{
 
     static namespace = "v1"
     static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def staffService
 
-    def index() {
+    def index()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -36,12 +38,14 @@ class StaffController extends BaseController {
         render maneResponse
     }
 
-    def save(Staff staff) {
+    def save(Staff staff)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
+            staff.setRandomCode()
             staffService.save(staff)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = staff.id
@@ -63,7 +67,8 @@ class StaffController extends BaseController {
         render maneResponse
     }
 
-    def update(Staff staff) {
+    def update(Staff staff)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -94,7 +99,8 @@ class StaffController extends BaseController {
         render maneResponse
     }
 
-    def delete(String id) {
+    def delete(String id)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
         Staff staff = Staff.get(id)
@@ -120,7 +126,8 @@ class StaffController extends BaseController {
         render maneResponse
     }
 
-    def getListForDropDown() {
+    def getListForDropDown()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 

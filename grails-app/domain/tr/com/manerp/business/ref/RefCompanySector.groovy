@@ -3,7 +3,8 @@ package tr.com.manerp.business.ref
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.domain.BaseDomain
 
-class RefCompanySector implements BaseDomain {
+class RefCompanySector implements BaseDomain
+{
 
     static auditable = true
 
@@ -16,7 +17,7 @@ class RefCompanySector implements BaseDomain {
     static belongsTo = []
 
     static constraints = {
-        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 36
+        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 8
         sysCompany nullable: false, unique: false
         name nullable: false, blank: false, unique: ['sysCompany'], maxSize: 50
         description nullable: true, blank: true, unique: false
@@ -29,7 +30,8 @@ class RefCompanySector implements BaseDomain {
     }
 
 //TODO:change
-    def beforeValidate() {
+    def beforeValidate()
+    {
         this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
     }
 }

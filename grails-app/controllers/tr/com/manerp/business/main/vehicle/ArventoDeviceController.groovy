@@ -8,14 +8,16 @@ import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
-class ArventoDeviceController extends BaseController {
+class ArventoDeviceController extends BaseController
+{
 
     static namespace = "v1"
     static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def arventoDeviceService
 
-    def index() {
+    def index()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -36,12 +38,14 @@ class ArventoDeviceController extends BaseController {
         render maneResponse
     }
 
-    def save(ArventoDevice arventoDevice) {
+    def save(ArventoDevice arventoDevice)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
+            arventoDevice.setRandomCode()
             arventoDeviceService.save(arventoDevice)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = arventoDevice.id
@@ -63,7 +67,8 @@ class ArventoDeviceController extends BaseController {
         render maneResponse
     }
 
-    def update(ArventoDevice arventoDevice) {
+    def update(ArventoDevice arventoDevice)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -95,7 +100,8 @@ class ArventoDeviceController extends BaseController {
         render maneResponse
     }
 
-    def delete(String id) {
+    def delete(String id)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
         ArventoDevice arventoDevice = ArventoDevice.get(id)
@@ -122,7 +128,8 @@ class ArventoDeviceController extends BaseController {
         render maneResponse
     }
 
-    def getListForDropDown() {
+    def getListForDropDown()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 

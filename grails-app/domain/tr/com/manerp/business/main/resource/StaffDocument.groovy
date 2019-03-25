@@ -1,6 +1,5 @@
 package tr.com.manerp.business.main.resource
 
-import grails.databinding.BindingFormat
 import tr.com.manerp.base.domain.BaseDomain
 
 class StaffDocument implements BaseDomain {
