@@ -2,31 +2,21 @@ package tr.com.manerp.business.ref
 
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.domain.BaseDomain
+import tr.com.manerp.base.domain.RefDomain
 
-class RefStaffTitle implements BaseDomain
+class RefStaffTitle implements RefDomain
 {
 
     static auditable = true
 
-    SysCompany sysCompany
-    String name
-    String code
-    String description
-
-    static hasMany = []
-    static belongsTo = []
-
     static constraints = {
-        importFrom(RefCompanySector)
+        code nullable: true, blank: true, unique: ['sysCompany'], maxSize: 8
+        sysCompany nullable: false, unique: false
+        name nullable: false, blank: false, unique: ['sysCompany'], maxSize: 50
+        description nullable: true, blank: true, unique: false
     }
 
-    static mapping = {
-    }
-
-    static mappedBy = {
-    }
-
-//TODO:change
+    // TODO: change
     def beforeValidate()
     {
         this.sysCompany = SysCompany.findByName('Bumerang Lojistik')

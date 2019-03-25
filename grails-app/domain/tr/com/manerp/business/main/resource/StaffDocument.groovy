@@ -2,9 +2,8 @@ package tr.com.manerp.business.main.resource
 
 import tr.com.manerp.base.domain.BaseDomain
 
-class StaffDocument implements BaseDomain {
-
-    static auditable = true
+class StaffDocument implements BaseDomain
+{
 
     Staff staff
     byte[] document
@@ -18,10 +17,9 @@ class StaffDocument implements BaseDomain {
         documentMimeType nullable: false, blank: false, unique: false
     }
 
-    static mapping = {
-//        table name: "staff_document", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_STAFF_DOCUMENT']
+    def beforeValidate()
+    {
+        documentMimeType = documentMimeType?.trim()
     }
-
 
 }

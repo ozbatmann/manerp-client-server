@@ -5,16 +5,15 @@ import grails.util.Holders
 import org.apache.commons.lang.RandomStringUtils
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.domain.BaseDomain
+import tr.com.manerp.base.domain.BusinessDomain
 import tr.com.manerp.business.main.company.Company
 import tr.com.manerp.business.sysref.SysrefRevenueType
 
-class Order implements BaseDomain
+class Order implements BusinessDomain
 {
 
     static auditable = true
 
-    String code
-    SysCompany sysCompany
     Company company
     String name
     @BindingFormat('dd/MM/yyyy hh:MM')
@@ -33,7 +32,8 @@ class Order implements BaseDomain
         sysrefRevenueType nullable: true, unique: false
         billingNo nullable: false, blank: false, unique: false, maxSize: 50
     }
-//TODO:change
+
+    // TODO: change
     def beforeValidate()
     {
         this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
@@ -41,17 +41,6 @@ class Order implements BaseDomain
 
     def setRandomCode()
     {
-        int length = Holders.config.manerp.randomCode.length
-        String charset = Holders.config.manerp.randomCode.charset
-
-        String randomCode = RandomStringUtils.random(length, charset).toString()
-        Order order = Order.findByCode(randomCode)
-
-        while ( order ) {
-            randomCode = RandomStringUtils.random(length, charset).toString()
-            order = Order.findByCode(randomCode)
-        }
-
-        this.code = randomCode
+        setRandomCode(Order)
     }
 }

@@ -1,21 +1,16 @@
 package tr.com.manerp.business.main.vehicle
 
 import grails.databinding.BindingFormat
-import grails.util.Holders
-import org.apache.commons.lang.RandomStringUtils
 import tr.com.manerp.auth.SysCompany
-import tr.com.manerp.base.domain.BaseDomain
+import tr.com.manerp.base.domain.BusinessDomain
 import tr.com.manerp.business.ref.RefWorkingArea
 import tr.com.manerp.business.sysref.SysrefVehicleOwner
 import tr.com.manerp.business.sysref.SysrefVehicleType
 
-class Vehicle implements BaseDomain
+class Vehicle implements BusinessDomain
 {
-
     static auditable = true
 
-    String code
-    SysCompany sysCompany
     String brand
     String fleetCardNumber
     String plateNumber
@@ -76,18 +71,7 @@ class Vehicle implements BaseDomain
 
     def setRandomCode()
     {
-        int length = Holders.config.manerp.randomCode.length
-        String charset = Holders.config.manerp.randomCode.charset
-
-        String randomCode = RandomStringUtils.random(length, charset).toString()
-        Vehicle vehicle = Vehicle.findByCode(randomCode)
-
-        while ( vehicle ) {
-            randomCode = RandomStringUtils.random(length, charset).toString()
-            vehicle = Vehicle.findByCode(randomCode)
-        }
-
-        this.code = randomCode
+        setRandomCode(Vehicle)
     }
 
     def beforeValidate()

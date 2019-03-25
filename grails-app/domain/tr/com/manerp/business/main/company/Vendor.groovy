@@ -1,22 +1,18 @@
 package tr.com.manerp.business.main.company
 
-import grails.util.Holders
-import org.apache.commons.lang.RandomStringUtils
 import tr.com.manerp.auth.SysCompany
-import tr.com.manerp.base.domain.BaseDomain
+import tr.com.manerp.base.domain.BusinessDomain
 import tr.com.manerp.business.main.voyage.Location
 import tr.com.manerp.business.sysref.SysrefCity
 import tr.com.manerp.business.sysref.SysrefCountry
 import tr.com.manerp.business.sysref.SysrefDistrict
 
-class Vendor implements BaseDomain
+class Vendor implements BusinessDomain
 {
 
     static auditable = true
 
-    String code
     Company company
-    SysCompany sysCompany
     String title
     SysrefCity sysrefCity
     SysrefCountry sysrefCountry
@@ -26,7 +22,6 @@ class Vendor implements BaseDomain
     Location location
 
     static constraints = {
-        sysCompany nullable: false, unique: false
         sysrefCountry nullable: true, unique: false
         sysrefCity nullable: true, unique: false
         sysrefDistrict nullable: true, unique: false
@@ -49,17 +44,6 @@ class Vendor implements BaseDomain
 
     def setRandomCode()
     {
-        int length = Holders.config.manerp.randomCode.length
-        String charset = Holders.config.manerp.randomCode.charset
-
-        String randomCode = RandomStringUtils.random(length, charset).toString()
-        Vendor vendor = Vendor.findByCode(randomCode)
-
-        while ( vendor ) {
-            randomCode = RandomStringUtils.random(length, charset).toString()
-            vendor = Vendor.findByCode(randomCode)
-        }
-
-        this.code = randomCode
+        setRandomCode(Vendor)
     }
 }

@@ -9,8 +9,6 @@ grails.gorm.default.mapping = {
 grails.gorm.default.constraints = {
     // default global constraints here...
     '*'(nullable: true)
-    necessary(nullable: false, blank: false)
-    optional(nullable: true, blank: true)
 }
 
 manerp {

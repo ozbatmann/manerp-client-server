@@ -1,20 +1,17 @@
 package tr.com.manerp.business.main.company
 
-import grails.util.Holders
-import org.apache.commons.lang.RandomStringUtils
 import tr.com.manerp.auth.SysCompany
-import tr.com.manerp.base.domain.BaseDomain
+import tr.com.manerp.base.domain.BusinessDomain
 import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.voyage.Voyage
 import tr.com.manerp.business.sysref.SysrefCompanyType
 import tr.com.manerp.common.MCompany
 
-class Company implements BaseDomain, MCompany
+class Company implements BusinessDomain, MCompany
 {
 
     static auditable = true
 
-    SysCompany sysCompany
     SysrefCompanyType sysrefCompanyType
 
     static hasMany = [
@@ -24,11 +21,32 @@ class Company implements BaseDomain, MCompany
     ]
 
     static constraints = {
-        importFrom(SysCompany)
+
+        // MCompany constraints
+        name nullable: false, blank: false, unique: false, maxSize: 50
+        title nullable: true, blank: true, unique: false, maxSize: 50
+        sysrefCountry nullable: true, unique: false
+        sysrefCity nullable: true, unique: false
+        sysrefDistrict nullable: true, unique: false
+        address nullable: false, blank: false, unique: false, maxSize: 255
+        phone nullable: false, blank: false, unique: false, maxSize: 20
+        phone2 nullable: true, blank: true, unique: false, maxSize: 20
+        fax nullable: true, blank: true, unique: false, maxSize: 20
+        gsm nullable: true, blank: true, unique: false, maxSize: 20
+        webAddress nullable: true, blank: true, unique: false, maxSize: 50
+        email email: true, nullable: true, blank: true, unique: true, maxSize: 50
+        refCompanySector nullable: true, unique: false
+        customerRepresentative nullable: true, unique: false
+        numberOfStaff nullable: true, unique: false
+        employerRegistrationNo nullable: true, blank: true, unique: false, maxSize: 30
+        tradeRegistrationNo nullable: true, blank: true, unique: false, maxSize: 30
+        taxOffice nullable: true, blank: true, unique: false, maxSize: 255
+        taxNumber nullable: true, blank: true, unique: false, maxSize: 50
+        sysrefNaceCode nullable: true, unique: false
+
         title nullable: false, blank: false, unique: ['sysCompany', 'sysrefCompanyType'], maxSize: 50
         sysCompany nullable: false, unique: false
         sysrefCompanyType nullable: false, blank: false, unique: false
-        code nullable: false, blank: false, unique: ['sysCompany'], maxSize: 8
     }
 
     static mapping = {
@@ -44,18 +62,7 @@ class Company implements BaseDomain, MCompany
 
     def setRandomCode()
     {
-        int length = Holders.config.manerp.randomCode.length
-        String charset = Holders.config.manerp.randomCode.charset
-
-        String randomCode = RandomStringUtils.random(length, charset).toString()
-        Company company = Company.findByCode(randomCode)
-
-        while ( company ) {
-            randomCode = RandomStringUtils.random(length, charset).toString()
-            company = Company.findByCode(randomCode)
-        }
-
-        this.code = randomCode
+        setRandomCode(Company)
     }
 
 }

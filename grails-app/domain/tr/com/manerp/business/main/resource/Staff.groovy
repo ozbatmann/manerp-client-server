@@ -1,22 +1,19 @@
 package tr.com.manerp.business.main.resource
 
 import grails.util.Holders
-import org.apache.commons.lang.RandomStringUtils
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.auth.User
-import tr.com.manerp.base.domain.BaseDomain
+import tr.com.manerp.base.domain.BusinessDomain
 import tr.com.manerp.business.ref.RefStaffTitle
 import tr.com.manerp.business.sysref.SysrefDrivingType
 import tr.com.manerp.business.sysref.SysrefStaffContractType
 import tr.com.manerp.common.Person
 
-class Staff implements BaseDomain, Person
+class Staff implements BusinessDomain, Person
 {
 
     static auditable = true
 
-    String code
-    SysCompany sysCompany
     User user
     RefStaffTitle refStaffTitle
     SysrefStaffContractType sysrefStaffContractType
@@ -31,10 +28,28 @@ class Staff implements BaseDomain, Person
 
     static constraints = {
 
-        importFrom(User)
+        // Person constraints, these constraints shared with Staff class
+        photo nullable: true, blank: true, unique: false, maxSize: Holders.config.manerp.postgresql.maxByteSize
+        photoName nullable: true, blank: true, unique: false
+        photoMimeType nullable: true, blank: true, unique: false
+        firstName nullable: false, blank: false, unique: false, maxSize: 30
+        middleName nullable: true, blank: true, unique: false, maxSize: 30
+        lastName nullable: false, blank: false, unique: false, maxSize: 50
+        email email: true, blank: false, nullable: false, unique: ['sysCompany']
+        sysrefGender nullable: true, unique: false
+        tcIdNumber nullable: false, unique: ['sysCompany']
+        birthDate nullable: true, unique: false
+        sysrefCountry nullable: true, unique: false
+        sysrefCity nullable: true, unique: false
+        sysrefDistrict nullable: true, unique: false
+        address nullable: true, blank: true, unique: false, maxSize: 255
+        homePhone nullable: true, blank: true, unique: false, maxSize: 15
+        gsmNo nullable: false, blank: false, unique: false, maxSize: 15
 
+        // BusinessDomain constraints
         sysCompany nullable: false, unique: false
         code nullable: false, blank: false, unique: ['sysCompany'], maxSize: 8
+
         user nullable: true, unique: false
         refStaffTitle nullable: false, unique: false
         sysrefStaffContractType nullable: true, unique: false
@@ -67,18 +82,7 @@ class Staff implements BaseDomain, Person
 
     def setRandomCode()
     {
-        int length = Holders.config.manerp.randomCode.length
-        String charset = Holders.config.manerp.randomCode.charset
-
-        String randomCode = RandomStringUtils.random(length, charset).toString()
-        Staff staff = Staff.findByCode(randomCode)
-
-        while ( staff ) {
-            randomCode = RandomStringUtils.random(length, charset).toString()
-            staff = Staff.findByCode(randomCode)
-        }
-
-        this.code = randomCode
+        setRandomCode(Staff)
     }
 
 

@@ -8,6 +8,7 @@ class SysCompany implements BaseDomain, MCompany {
     static auditable = true
 
     static constraints = {
+        // MCompany constraints
         name nullable: false, blank: false, unique: false, maxSize: 50
         title nullable: true, blank: true, unique: false, maxSize: 50
         sysrefCountry nullable: true, unique: false

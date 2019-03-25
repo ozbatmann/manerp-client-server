@@ -3,9 +3,8 @@ package tr.com.manerp.business.main.vehicle
 import grails.databinding.BindingFormat
 import tr.com.manerp.base.domain.BaseDomain
 
-class VehicleDocument implements BaseDomain {
-
-    static auditable = true
+class VehicleDocument implements BaseDomain
+{
 
     Vehicle vehicle
     byte[] document
@@ -19,12 +18,8 @@ class VehicleDocument implements BaseDomain {
         documentMimeType nullable: false, blank: false, unique: false
     }
 
-    static mapping = {
-//        table name: "vehicle_document", schema: "business"
-//        id generator: 'sequence', params: [sequence: 'business.SEQ_VEHICLE_DOCUMENT']
-    }
-
-    def beforeValidate() {
+    def beforeValidate()
+    {
         documentMimeType = documentMimeType?.trim()
     }
 

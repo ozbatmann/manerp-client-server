@@ -1,17 +1,12 @@
 package tr.com.manerp.business.main.vehicle
 
-import grails.util.Holders
-import org.apache.commons.lang.RandomStringUtils
 import tr.com.manerp.auth.SysCompany
-import tr.com.manerp.base.domain.BaseDomain
+import tr.com.manerp.base.domain.BusinessDomain
 
-class SemiTrailer implements BaseDomain
+class SemiTrailer implements BusinessDomain
 {
-
     static auditable = true
 
-    String code
-    SysCompany sysCompany
     String plateNumber
     String brand
     String name
@@ -25,7 +20,7 @@ class SemiTrailer implements BaseDomain
         brand nullable: true, blank: true, unique: false, maxSize: 50
     }
 
-    //TODO:change
+    // TODO: change
     def beforeValidate()
     {
         this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
@@ -33,17 +28,6 @@ class SemiTrailer implements BaseDomain
 
     def setRandomCode()
     {
-        int length = Holders.config.manerp.randomCode.length
-        String charset = Holders.config.manerp.randomCode.charset
-
-        String randomCode = RandomStringUtils.random(length, charset).toString()
-        SemiTrailer trailer = SemiTrailer.findByCode(randomCode)
-
-        while ( trailer ) {
-            randomCode = RandomStringUtils.random(length, charset).toString()
-            trailer = SemiTrailer.findByCode(randomCode)
-        }
-
-        this.code = randomCode
+        setRandomCode(SemiTrailer)
     }
 }

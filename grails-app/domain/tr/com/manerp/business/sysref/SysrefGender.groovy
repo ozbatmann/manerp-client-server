@@ -1,14 +1,9 @@
 package tr.com.manerp.business.sysref
 
-import tr.com.manerp.base.domain.BaseDomain
+import tr.com.manerp.base.domain.SysrefDomain
 
-class SysrefGender implements BaseDomain {
-
-    String name
-    String code
-
-    static hasMany = []
-    static belongsTo = []
+class SysrefGender implements SysrefDomain
+{
 
     static constraints = {
         name nullable: false, blank: false, unique: false, maxSize: 10

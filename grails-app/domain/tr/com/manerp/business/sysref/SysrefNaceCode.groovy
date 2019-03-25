@@ -1,18 +1,13 @@
 package tr.com.manerp.business.sysref
 
-import tr.com.manerp.base.domain.BaseDomain
+import tr.com.manerp.base.domain.SysrefDomain
 
-class SysrefNaceCode implements BaseDomain {
-
-    String name
-    String code
-
-    static hasMany = []
-    static belongsTo = []
+class SysrefNaceCode implements SysrefDomain
+{
 
     static constraints = {
-        name nullable: false, blank: false, unique: false, maxSize: 50
-        code nullable: true, blank: true, unique: true, maxSize: 8
+        code nullable: true, blank: true, unique: true, maxSize: 50
+        name nullable: false, blank: false, unique: false, maxSize: 100
     }
 
 }

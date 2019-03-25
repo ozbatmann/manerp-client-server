@@ -1,9 +1,7 @@
 package tr.com.manerp.business.main.voyage
 
-import grails.util.Holders
-import org.apache.commons.lang.RandomStringUtils
 import tr.com.manerp.auth.SysCompany
-import tr.com.manerp.base.domain.BaseDomain
+import tr.com.manerp.base.domain.BusinessDomain
 import tr.com.manerp.business.main.company.Company
 import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.resource.Staff
@@ -13,12 +11,10 @@ import tr.com.manerp.business.sysref.SysrefDeliveryStatus
 import tr.com.manerp.business.sysref.SysrefTransportationType
 import tr.com.manerp.business.sysref.SysrefVoyageDirection
 
-class Voyage implements BaseDomain {
-
+class Voyage implements BusinessDomain
+{
     static auditable = true
 
-    String code
-    SysCompany sysCompany
     Company company
     Vehicle vehicle
     Staff driver
@@ -62,7 +58,7 @@ class Voyage implements BaseDomain {
         routes cascade: 'all-delete-orphan'
     }
 
-    //TODO:change
+    // TODO: change
     def beforeValidate()
     {
         this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
@@ -70,17 +66,6 @@ class Voyage implements BaseDomain {
 
     def setRandomCode()
     {
-        int length = Holders.config.manerp.randomCode.length
-        String charset = Holders.config.manerp.randomCode.charset
-
-        String randomCode = RandomStringUtils.random(length, charset).toString()
-        Voyage voyage = Voyage.findByCode(randomCode)
-
-        while ( voyage ) {
-            randomCode = RandomStringUtils.random(length, charset).toString()
-            voyage = Voyage.findByCode(randomCode)
-        }
-
-        this.code = randomCode
+        setRandomCode(Voyage)
     }
 }

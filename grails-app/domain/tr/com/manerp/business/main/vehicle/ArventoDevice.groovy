@@ -1,16 +1,12 @@
 package tr.com.manerp.business.main.vehicle
 
-import grails.util.Holders
-import org.apache.commons.lang.RandomStringUtils
 import tr.com.manerp.auth.SysCompany
-import tr.com.manerp.base.domain.BaseDomain
+import tr.com.manerp.base.domain.BusinessDomain
 
-class ArventoDevice implements BaseDomain {
-
+class ArventoDevice implements BusinessDomain
+{
     static auditable = true
 
-    String code
-    SysCompany sysCompany
     String deviceId
     String name
     Vehicle vehicle
@@ -33,18 +29,7 @@ class ArventoDevice implements BaseDomain {
 
     def setRandomCode()
     {
-        int length = Holders.config.manerp.randomCode.length
-        String charset = Holders.config.manerp.randomCode.charset
-
-        String randomCode = RandomStringUtils.random(length, charset).toString()
-        ArventoDevice device = ArventoDevice.findByCode(randomCode)
-
-        while ( device ) {
-            randomCode = RandomStringUtils.random(length, charset).toString()
-            device = ArventoDevice.findByCode(randomCode)
-        }
-
-        this.code = randomCode
+        setRandomCode(ArventoDevice)
     }
 
 }

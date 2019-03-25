@@ -9,7 +9,6 @@ import tr.com.manerp.business.sysref.SysrefNaceCode
 
 trait MCompany {
     String name
-    String code
     String title
     SysrefCountry sysrefCountry
     SysrefCity sysrefCity

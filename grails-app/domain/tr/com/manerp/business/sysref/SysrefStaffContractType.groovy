@@ -2,16 +2,13 @@ package tr.com.manerp.business.sysref
 
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.domain.BaseDomain
+import tr.com.manerp.base.domain.SysrefDomain
 
-class SysrefStaffContractType implements BaseDomain {
+class SysrefStaffContractType implements SysrefDomain
+{
 
-    String name
-    String code
     SysCompany sysCompany
     String description
-
-    static hasMany = []
-    static belongsTo = []
 
     static constraints = {
         name nullable: false, blank: false, unique: ['sysCompany'], maxSize: 100

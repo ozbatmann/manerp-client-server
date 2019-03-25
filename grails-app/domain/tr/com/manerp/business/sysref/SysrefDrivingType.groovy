@@ -1,17 +1,12 @@
 package tr.com.manerp.business.sysref
 
 import tr.com.manerp.auth.SysCompany
-import tr.com.manerp.base.domain.BaseDomain
+import tr.com.manerp.base.domain.SysrefDomain
 
-class SysrefDrivingType implements BaseDomain {
-
-    String name
-    String code
+class SysrefDrivingType implements SysrefDomain
+{
     SysCompany sysCompany
     String description
-
-    static hasMany = []
-    static belongsTo = []
 
     static constraints = {
         name nullable: false, blank: false, unique: ['sysCompany'], maxSize: 100
@@ -19,6 +14,5 @@ class SysrefDrivingType implements BaseDomain {
         sysCompany nullable: false, unique: false
         description nullable: true, blank: true, unique: false
     }
-
-
+    
 }

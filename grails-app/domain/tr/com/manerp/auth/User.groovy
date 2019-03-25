@@ -22,7 +22,7 @@ class User implements BaseDomain, Person {
     static belongsTo = []
 
     static constraints = {
-        sysCompany nullable: false, unique: false
+        sysCompany nullable: true, unique: false
         username nullable: false, blank: false, unique: ['sysCompany'], maxSize: 50
         passwordHash nullable: false, blank: false, unique: false, maxSize: 255
         version nullable: true, unique: false
@@ -33,7 +33,7 @@ class User implements BaseDomain, Person {
         salt nullable: true, blank: true, unique: false
         isDeletable nullable: false, unique: false
 
-        // Person constraints, these constraints shared with Staff class
+        // Person constraints
         photo nullable: true, blank: true, unique: false, maxSize: Holders.config.manerp.postgresql.maxByteSize
         photoName nullable: true, blank: true, unique: false
         photoMimeType nullable: true, blank: true, unique: false
@@ -54,8 +54,6 @@ class User implements BaseDomain, Person {
     }
 
     static mapping = {
-//        table name: "awc_user", schema: "auth"
-//        id generator: 'sequence', params: [sequence: 'auth.SEQ_AWC_USER']
     }
 
     static mappedBy = {
