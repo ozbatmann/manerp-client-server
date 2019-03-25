@@ -1,11 +1,11 @@
 <!-- Default application menu component -->
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-navigation-drawer
-            app
-            light
-            floating
-            width="240"
-            class="grey lighten-4"
+        app
+        light
+        floating
+        width="240"
+        class="grey lighten-4"
     >
         <v-layout fill-height>
             <v-list class="grow pt-0">
@@ -38,10 +38,10 @@
                     <v-subheader class="px-4">{{ menuItem.title }}</v-subheader>
 
                     <v-list-tile
-                            v-for="item in menuItem.items"
-                            :key="`menu-item-${item.title}`"
-                            :to="item.to"
-                            active-class="grey lighten-2">
+                        v-for="item in menuItem.items"
+                        :key="`menu-item-${item.title}`"
+                        :to="item.to"
+                        active-class="grey lighten-2">
 
                         <v-list-tile-action class="px-2">
 
@@ -49,8 +49,8 @@
                         </v-list-tile-action>
 
                         <v-list-tile-title
-                                v-text="item.title"
-                                class="body-1 text--secondary px-2">
+                            v-text="item.title"
+                            class="body-1 text--secondary px-2">
 
                         </v-list-tile-title>
                     </v-list-tile>
@@ -83,10 +83,6 @@
                             {
                                 title: 'İnsan Kaynakları',
                                 icon: 'group'
-                            },
-                            {
-                                title: 'Firma Yönetimi',
-                                icon: 'business'
                             }
                         ]
                     },
@@ -95,9 +91,9 @@
                         title: 'YÖNETİM',
                         items: [
                             {
-                                title: 'Müşteri Yönetimi',
+                                title: 'Firma Yönetimi',
                                 icon: 'business',
-                                to: { name: 'customers' }
+                                to: {name: 'firms.customers'}
                             },
                             {
                                 title: 'Sevkiyat Yönetimi',
@@ -106,13 +102,23 @@
                             {
                                 title: 'Sipariş Yönetimi',
                                 icon: 'add',
-                                to: { name: 'orders.current' }
+                                to: {name: 'orders.current'}
                             },
                             {
                                 title: 'Şoför Yönetimi',
                                 icon: 'person',
-                                to: { name: 'drivers' }
+                                to: {name: 'drivers'}
                             },
+                            {
+                                title: 'Araç Yönetimi',
+                                icon: 'person',
+                                to: {name: 'vehicles.onVoyage'}
+                            },
+                            {
+                                title: 'Parametre Yönetimi',
+                                icon: 'person',
+                                to: {name: 'parameters'}
+                            }
                         ]
                     }
                 ],

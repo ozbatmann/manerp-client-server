@@ -32,7 +32,13 @@ const router = new VueRouter({
                         ...require('@/modules/main/driver/route/index').default,
 
                         // Order routes
-                        ...require('@/modules/main/order/route/index').default
+                        ...require('@/modules/main/order/route/index').default,
+
+                        // Vehicle routes
+                        ...require('@/modules/main/vehicle/route/index').default,
+
+                        // Parameter routes
+                        ...require('@/modules/main/parameter/route/index').default
                     ],
                 },
                 {

@@ -1,5 +1,5 @@
 export default {
-    id: 'id',
+    id: 'code',
     name: 'name',
     title: 'title',
     phone: 'phone',

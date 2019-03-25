@@ -6,9 +6,11 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
 
 @Transactional
-class CompanyService extends BaseService {
+class CompanyService extends BaseService
+{
 
-    ManePaginatedResult getCompanyList(ManePaginationProperties properties, String sysrefCompanyTypeCode) {
+    ManePaginatedResult getCompanyList(ManePaginationProperties properties, String sysrefCompanyTypeCode)
+    {
 
         def closure = {
 
@@ -23,22 +25,43 @@ class CompanyService extends BaseService {
         return paginate(Company, properties, closure)
     }
 
-    def save(Company company) {
+    def save(Company company)
+    {
 
         company.save(failOnError: true)
     }
 
-    def delete(Company company) {
+    def delete(Company company)
+    {
 
         company.delete(flush: true, failOnError: true)
     }
 
-    List formatPaginatedResultForDropDown(def data) {
+    List formatPaginatedResultForList(def data)
+    {
 
         List formattedData = data.collect {
             return [
-                    id   : it.id,
-                    title: it.title
+                id       : it.id,
+                code     : it.code,
+                title    : it.title,
+                phone    : it.phone,
+                email    : it.email,
+                taxNumber: it.taxNumber,
+                taxOffice: it.taxOffice
+            ]
+        }
+
+        return formattedData
+    }
+
+    List formatPaginatedResultForDropDown(def data)
+    {
+
+        List formattedData = data.collect {
+            return [
+                id   : it.id,
+                title: it.title
             ]
         }
 

@@ -9,14 +9,16 @@ import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.business.sysref.SysrefCompanyType
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
-class CustomerCompanyController extends BaseController {
+class CustomerCompanyController extends BaseController
+{
 
     static namespace = "v1"
     static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def companyService
 
-    def index() {
+    def index()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -25,6 +27,7 @@ class CustomerCompanyController extends BaseController {
             PaginationCommand cmd = new PaginationCommand(params)
 
             ManePaginatedResult result = companyService.getCompanyList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort), 'CST')
+            result.data = companyService.formatPaginatedResultForList(result.data)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -37,7 +40,8 @@ class CustomerCompanyController extends BaseController {
         render maneResponse
     }
 
-    def save(Company company) {
+    def save(Company company)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -66,7 +70,8 @@ class CustomerCompanyController extends BaseController {
         render maneResponse
     }
 
-    def update(Company company) {
+    def update(Company company)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -97,7 +102,8 @@ class CustomerCompanyController extends BaseController {
         render maneResponse
     }
 
-    def delete(String id) {
+    def delete(String id)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
         Company company = Company.get(id)
@@ -133,7 +139,8 @@ class CustomerCompanyController extends BaseController {
         render maneResponse
     }
 
-    def getListForDropDown() {
+    def getListForDropDown()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 

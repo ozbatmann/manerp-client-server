@@ -255,6 +255,8 @@ class DataService
             customerCompanyPinar.active = true
             customerCompanyPinar.email = 'pinargida@pinar.com'
             customerCompanyPinar.tradeRegistrationNo = '111222333'
+            customerCompanyPinar.taxNumber = 'VERGI-333222111'
+            customerCompanyPinar.taxOffice = 'İzmir Ödemiş Vergi Dairesi'
 
             customerCompanyPinar.save(failOnError: true)
         }
