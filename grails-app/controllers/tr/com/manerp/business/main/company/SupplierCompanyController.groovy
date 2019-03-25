@@ -42,7 +42,8 @@ class SupplierCompanyController extends BaseController {
         ManeResponse maneResponse = new ManeResponse()
 
         try {
-
+            
+            company.setRandomCode()
             company.sysrefCompanyType = SysrefCompanyType.findByCode('SPL')
             companyService.save(company)
             maneResponse.statusCode = StatusCode.CREATED
