@@ -286,7 +286,6 @@ class DataService
             staffBerat.gsmNo = '05343023283'
             staffBerat.email = 'beratpostalci@gmail.com'
             staffBerat.drivingLicenseNumber = '314159'
-            staffBerat.hasFuelAdvance = true
             staffBerat.refStaffTitle = refStaffTitleDriver
             staffBerat.sysrefStaffContractType = sysrefStaffContractTypeKadrolu
             staffBerat.save(failOnError: true)
@@ -306,7 +305,6 @@ class DataService
             staffMurat.gsmNo = '05306400660'
             staffMurat.email = 'muratcanbalikk@gmail.com'
             staffMurat.drivingLicenseNumber = '987654'
-            staffMurat.hasFuelAdvance = true
             staffMurat.refStaffTitle = refStaffTitleDriver
             staffMurat.sysrefStaffContractType = sysrefStaffContractTypeSozlesmeli
 
