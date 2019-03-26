@@ -271,7 +271,7 @@ class DataService
             vendorPinarEsk.active = true
             vendorPinarEsk.address = 'Eskişehir Fabrika: Org. San. Bölgesi Mümtaz Zeytinoğlu Bulvarı P.K. 55 26001'
             vendorPinarEsk.company = customerCompanyPinar
-            vendorPinarEsk.phone = '(0222) 236 08 89'
+            vendorPinarEsk.phone = '0 (222) 236 08 89'
 
             vendorPinarEsk.save(failOnError: true)
         }
@@ -286,9 +286,60 @@ class DataService
             vendorPinarKemal.active = true
             vendorPinarKemal.address = 'Kemalpaşa Asfaltı No: 4 35060 Pınarbaşı / İZMİR'
             vendorPinarKemal.company = customerCompanyPinar
-            vendorPinarKemal.phone = '(0232) 436 52 50'
+            vendorPinarKemal.phone = '0 (232) 436 52 50'
 
             vendorPinarKemal.save(failOnError: true)
+        }
+
+        Company customerCompanyKerevitas = Company.findByName('Kerevitaş')
+        if ( customerCompanyKerevitas == null ) {
+
+            customerCompanyKerevitas = new Company()
+            customerCompanyKerevitas.setRandomCode()
+            customerCompanyKerevitas.name = 'Kerevitaş'
+            customerCompanyKerevitas.sysCompany = sysCompanyBumerang
+            customerCompanyKerevitas.sysrefCompanyType = sysrefCompanyTypeCst
+            customerCompanyKerevitas.refCompanySector = refCompanySectorGida
+            customerCompanyKerevitas.title = 'Kerevitaş Unlu Mamülleri San. A.Ş.'
+            customerCompanyKerevitas.address = 'Üniversite Mah. Bağlariçi cad. No:29 Avcılar İstanbul.'
+            customerCompanyKerevitas.phone = '(0850) 209 16 16 '
+            customerCompanyKerevitas.active = true
+            customerCompanyKerevitas.email = 'info@kerevitas.com.tr'
+            customerCompanyKerevitas.tradeRegistrationNo = '333222111'
+            customerCompanyKerevitas.taxNumber = 'VERGI-KRV112233'
+            customerCompanyKerevitas.taxOffice = 'İstanbul Bağlariçi Vergi Dairesi'
+
+            customerCompanyKerevitas.save(failOnError: true)
+        }
+
+        Vendor vendorKerevitasAdana = Vendor.findByTitle('Kerevitaş Adana Bölge Müdürlüğü')
+        if ( vendorKerevitasAdana == null ) {
+
+            vendorKerevitasAdana = new Vendor()
+            vendorKerevitasAdana.setRandomCode()
+            vendorKerevitasAdana.sysCompany = sysCompanyBumerang
+            vendorKerevitasAdana.title = 'Kerevitaş Adana Bölge Müdürlüğü'
+            vendorKerevitasAdana.active = true
+            vendorKerevitasAdana.address = 'Adana Tarsus Karayolu 14. Km. Büyük Dikili Kavşağı No: 800/A Kıvanç Tekstil Karşısı Seyhan / ADANA'
+            vendorKerevitasAdana.company = customerCompanyKerevitas
+            vendorKerevitasAdana.phone = '0 (322) 428 11 56 '
+
+            vendorKerevitasAdana.save(failOnError: true)
+        }
+
+        Vendor vendorKerevitasAnkara = Vendor.findByTitle('Kerevitaş Ankara Bölge Müdürlüğü')
+        if ( vendorKerevitasAnkara == null ) {
+
+            vendorKerevitasAnkara = new Vendor()
+            vendorKerevitasAnkara.setRandomCode()
+            vendorKerevitasAnkara.sysCompany = sysCompanyBumerang
+            vendorKerevitasAnkara.title = 'Kerevitaş Ankara Bölge Müdürlüğü'
+            vendorKerevitasAnkara.active = true
+            vendorKerevitasAnkara.address = 'Ostim Organize Sanayi Bölgesi Serhat Mah. 1271.Sok. No:36-38 Ostim - ANKARA'
+            vendorKerevitasAnkara.company = customerCompanyKerevitas
+            vendorKerevitasAnkara.phone = '0 (312) 387 08 01'
+
+            vendorKerevitasAnkara.save(failOnError: true)
         }
 
         RefWorkingArea refWorkingAreaEge = RefWorkingArea.findByName('Ege Bölgesi')

@@ -88,7 +88,7 @@ class RefCompanySectorController extends BaseController {
             }
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
+            maneResponse.message = maneResponse.message ?: ex.getMessage()
             ex.printStackTrace()
         }
 
@@ -114,7 +114,7 @@ class RefCompanySectorController extends BaseController {
             }
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
+            maneResponse.message = maneResponse.message ?: ex.getMessage()
             ex.printStackTrace()
         }
 

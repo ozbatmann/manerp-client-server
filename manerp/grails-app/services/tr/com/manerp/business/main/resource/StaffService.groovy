@@ -19,6 +19,17 @@ class StaffService extends BaseService
         return paginate(Staff, properties, closure)
     }
 
+    Staff getStaff(String id)
+    {
+        Staff staff = Staff.createCriteria().get {
+
+            eq('id', id)
+
+        } as Staff
+
+        return staff
+    }
+
     def save(Staff staff)
     {
 

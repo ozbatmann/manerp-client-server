@@ -12,7 +12,7 @@ class StaffController extends BaseController
 {
 
     static namespace = "v1"
-    static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
+    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def staffService
 
@@ -37,6 +37,32 @@ class StaffController extends BaseController
         }
 
         render maneResponse
+    }
+
+    def show(String id)
+    {
+
+        ManeResponse maneResponse = new ManeResponse()
+        Staff staff = staffService.getStaff(id)
+
+        try {
+
+            if ( !staff ) throw new Exception()
+
+            maneResponse.data = staff
+            maneResponse.statusCode = StatusCode.OK
+
+        } catch (Exception ex) {
+
+            if ( !staff ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Görüntülenmek istenen personel sistemde bulunmamaktadır.'
+            }
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = maneResponse.message ?: ex.getMessage()
+            ex.printStackTrace()
+        }
     }
 
     def save(Staff staff)
@@ -93,7 +119,7 @@ class StaffController extends BaseController
             }
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
+            maneResponse.message = maneResponse.message ?: ex.getMessage()
             ex.printStackTrace()
         }
 
@@ -120,7 +146,7 @@ class StaffController extends BaseController
             }
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
+            maneResponse.message = maneResponse.message ?: ex.getMessage()
             ex.printStackTrace()
         }
 

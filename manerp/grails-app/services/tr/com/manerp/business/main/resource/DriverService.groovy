@@ -25,6 +25,21 @@ class DriverService extends BaseService
         return paginate(Staff, properties, closure)
     }
 
+    Staff getDriver(String id)
+    {
+        Staff driver = Staff.createCriteria().get {
+
+            refStaffTitle {
+                eq('code', 'DRV')
+            }
+
+            eq('id', id)
+
+        } as Staff
+
+        return driver
+    }
+
     def save(Staff driver)
     {
 

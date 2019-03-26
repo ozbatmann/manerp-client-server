@@ -40,6 +40,32 @@ class DriverController extends BaseController
         render maneResponse
     }
 
+    def show(String id)
+    {
+
+        ManeResponse maneResponse = new ManeResponse()
+        Staff driver = driverService.getDriver(id)
+
+        try {
+
+            if ( !driver ) throw new Exception()
+
+            maneResponse.data = driver
+            maneResponse.statusCode = StatusCode.OK
+
+        } catch (Exception ex) {
+
+            if ( !driver ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Görüntülenmek istenen şoför sistemde bulunmamaktadır.'
+            }
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = maneResponse.message ?: ex.getMessage()
+            ex.printStackTrace()
+        }
+    }
+
     def save(Staff driver)
     {
 
@@ -95,7 +121,7 @@ class DriverController extends BaseController
             }
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
+            maneResponse.message = maneResponse.message ?: ex.getMessage()
             ex.printStackTrace()
         }
 
@@ -127,7 +153,7 @@ class DriverController extends BaseController
             }
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            if ( !maneResponse.message ) maneResponse.message = ex.getMessage()
+            maneResponse.message = maneResponse.message ?: ex.getMessage()
             ex.printStackTrace()
         }
 
