@@ -1,61 +1,49 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <m-data-table
-                :headers="headers"
-                :items="orders"
-                expand
+            :headers="headers"
+            :items="orders"
+            :to="to"
         >
+            <!-- Data table header slot -->
             <template v-slot:header>
+
+                <!-- Add customer button -->
                 <m-data-table-action
-                        title="yeni sipariş"
-                        disabled
+                    title="sipariş ekle"
+                    @click="addDialog"
                 ></m-data-table-action>
             </template>
 
-            <!-- Template for expandable row -->
-            <template v-slot:expand="props">
-                <v-card flat class="py-2 px-2 text-xs-center transition"
-                        style="border-bottom: 1px solid rgba(0, 0, 0, .12); margin: -1px;
-                                border-top: 1px solid rgba(0, 0, 0, .12);">
-                    <table style="width: 100%;">
-                        <thead>
-                        <tr style="height: 48px !important; line-height: 48px !important;">
-                            <th colspan="1">#</th>
-                            <th colspan="2">Bayi</th>
-                            <th colspan="2">İl</th>
-                            <th colspan="2">İlçe</th>
-                            <th colspan="3">Açık Adres</th>
-                        </tr>
-                        </thead>
-                        <tbody class="text-xs-center">
-                        <tr
-                                v-for="(route, index) in props.bind.item.routes"
-                                :key="`data-table-route-item-${index}`"
-                        >
-                            <td colspan="1">{{index + 1}}.</td>
-                            <td colspan="2" class="green--text text--accent-3">{{route.name}}</td>
-                            <td colspan="2">{{route.city}}</td>
-                            <td colspan="2">{{route.district}}</td>
-                            <td colspan="3">{{route.address}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </v-card>
+            <!-- Data-table action menu slot -->
+            <template v-slot:action-menu="item">
+
+                <!-- Edit button -->
+                <v-list-tile @click="addDialog(item.bind)">Düzenle</v-list-tile>
             </template>
         </m-data-table>
 
+        <!-- Data table add-edit form -->
+        <m-data-table-add-new-form
+            ref="addEditDialog"
+            :data="addEditData"
+            :inputs="addEditFields"
+            title="Yeni Sipariş"
+            @save="addNewItem"
+        ></m-data-table-add-new-form>
+
         <v-snackbar
-                v-model="snackbar.active"
-                color="grey darken-4"
-                :class="snackbar.textColor"
-                top
-                right
+            v-model="snackbar.active"
+            color="grey darken-4"
+            :class="snackbar.textColor"
+            top
+            right
         >
             {{ snackbar.text }}
             <v-btn
-                    dark
-                    flat
-                    @click="snackbar.active = false"
+                dark
+                flat
+                @click="snackbar.active = false"
             >
                 geri al
             </v-btn>
@@ -64,8 +52,9 @@
 </template>
 
 <script>
-    import MDataTable from '@/modules/main/shared/components/data/components/MDataTable'
+    import MDataTable from '../../shared/components/data/components/MDataTable'
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction"
+    import MDataTableAddNewForm from "../../shared/components/data/components/MDataTableAddNewForm"
 
     const orderModel = require('@/modules/main/order/models/order-model').default;
 
@@ -75,10 +64,26 @@
         components: {
             MDataTable,
             MDataTableAction,
+            MDataTableAddNewForm
         },
 
         data() {
             return {
+                // Data-table
+                // add-edit dialog data
+                addEditData: {
+                    [orderModel.sysrefRevenueType]: null,
+                    [orderModel.orderDate]: null,
+                    [orderModel.billingNo]: null,
+                    [orderModel.customer]: null
+                },
+
+                // Data-table
+                // add-edit dialog fields
+                addEditFields: [
+
+                ],
+
                 headers: [
                     {
                         text: 'ıd',
@@ -89,9 +94,9 @@
                         search: {chip: false, value: null}
                     },
                     {
-                        text: 'tipi',
+                        text: 'gelir tipi',
                         sortable: true,
-                        value: orderModel.type,
+                        value: orderModel.sysrefRevenueType,
                         toggleable: false,
                         show: true,
                         search: {chip: false, value: null}
@@ -105,29 +110,20 @@
                         search: {chip: false, value: null}
                     },
                     {
-                        text: 'yön',
+                        text: 'fatura numarası',
                         sortable: true,
-                        value: orderModel.direction,
+                        value: orderModel.billingNo,
                         toggleable: false,
                         show: true,
                         search: {chip: false, value: null}
                     },
                     {
-                        text: 'rota',
+                        text: 'sipariş tarihi',
                         sortable: true,
-                        value: 'route',
+                        value: orderModel.orderDate,
                         toggleable: false,
-                        expandable: true,
-                        htmlSource: true,
                         show: true,
                         search: {chip: false, value: null}
-                    },
-                    {
-                        text: '',
-                        sortable: true,
-                        value: orderModel.contractual.routes,
-                        toggleable: false,
-                        show: false
                     }
                 ],
 
@@ -137,49 +133,79 @@
             }
         },
 
-        mounted() {
-            for (let i = 0; i < 15; i++) {
-                let order = {
-                    id: `ORD-${i}`,
-                    type: 'Sözleşmeli',
-                    customer: 'Pinar Gida A.Ş',
-                    direction: 'Gidiş/Dönüş',
-                    route: `Sevenler Gıda
-                            <i class="v-icon material-icons green--text text--accent-3"
-                                style="font-size: 16px;">arrow_forward</i> Akmerler Bim`,
-                    routes: [
-                        {
-                            name: 'Sevenler Gıda',
-                            city: 'Ankara',
-                            district: 'Çankaya',
-                            address: 'Beytepe Mah., 1800.cd, No: 6, D: 6'
-                        },
+        methods: {
 
-                        {
-                            name: 'Akmerler Bim',
-                            city: 'Trabzon',
-                            district: 'Çobanlı',
-                            address: 'Talatdere Mah., 2.cd, No: 12'
-                        },
+            // Activates add new item dialog
+            addDialog(data) {
+                this.$refs.addEditDialog.open(data)
+            },
 
-                        {
-                            name: 'Akmerler Bim',
-                            city: 'Trabzon',
-                            district: 'Çobanlı',
-                            address: 'Talatdere Mah., 2.cd, No: 12'
-                        },
-
-                        {
-                            name: 'Akmerler Bim',
-                            city: 'Trabzon',
-                            district: 'Çobanlı',
-                            address: 'Talatdere Mah., 2.cd, No: 12'
-                        }
-                    ]
-                };
-
-                this.orders.push(order)
+            // Adds a new driver
+            // to the system
+            getAllOrders() {
+                this.$http.get('api/v1/order').then((result) => {
+                    this.orders = result.data.data.items
+                }).catch((error) => {
+                    console.log(error);
+                })
+            },
+            addNewItem(item) {
+                this.newItem = item
+                this.$http.post('api/v1/order', this.newItem).then((result) => {
+                    this.snackbar.text = "Başarıyla eklendi."
+                    this.snackbar.textColor = 'green--text text--accent-3'
+                    this.snackbar.active = true
+                    this.getAllDrivers();
+                }).catch((error) => {
+                    console.log(error);
+                })
             }
+        },
+
+        mounted() {
+            this.getAllOrders();
+            // for (let i = 0; i < 15; i++) {
+            //     let order = {
+            //         id: `ORD-${i}`,
+            //         type: 'Sözleşmeli',
+            //         customer: 'Pinar Gida A.Ş',
+            //         direction: 'Gidiş/Dönüş',
+            //         route: `Sevenler Gıda
+            //                 <i class="v-icon material-icons green--text text--accent-3"
+            //                     style="font-size: 16px;">arrow_forward</i> Akmerler Bim`,
+            //         routes: [
+            //             {
+            //                 name: 'Sevenler Gıda',
+            //                 city: 'Ankara',
+            //                 district: 'Çankaya',
+            //                 address: 'Beytepe Mah., 1800.cd, No: 6, D: 6'
+            //             },
+            //
+            //             {
+            //                 name: 'Akmerler Bim',
+            //                 city: 'Trabzon',
+            //                 district: 'Çobanlı',
+            //                 address: 'Talatdere Mah., 2.cd, No: 12'
+            //             },
+            //
+            //             {
+            //                 name: 'Akmerler Bim',
+            //                 city: 'Trabzon',
+            //                 district: 'Çobanlı',
+            //                 address: 'Talatdere Mah., 2.cd, No: 12'
+            //             },
+            //
+            //             {
+            //                 name: 'Akmerler Bim',
+            //                 city: 'Trabzon',
+            //                 district: 'Çobanlı',
+            //                 address: 'Talatdere Mah., 2.cd, No: 12'
+            //             }
+            //         ]
+            //     };
+            //
+            //     this.orders.push(order)
+            // }
         }
     }
 </script>

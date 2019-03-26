@@ -28,12 +28,12 @@ RUN apk add --no-cache bash
 # Include project which contains client application
 # builded at the first stage
 COPY [ "gradle*", "settings.gradle", "VERSION", "./" ]
-COPY [ "grails-app", "./grails-app" ]
+COPY [ "manerp", "./manerp" ]
 RUN set -v \
-    && cd grails-app \
+    && cd manerp \
     && echo "Grails build started" \
-    && chmod +x ../grailsw \
-    && ../grailsw package
+    && chmod +x ./grailsw \
+    && ./grailsw package
 
 
 
