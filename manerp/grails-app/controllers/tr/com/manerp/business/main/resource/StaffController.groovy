@@ -63,6 +63,8 @@ class StaffController extends BaseController
             maneResponse.message = maneResponse.message ?: ex.getMessage()
             ex.printStackTrace()
         }
+
+        render maneResponse
     }
 
     def save(Staff staff)
