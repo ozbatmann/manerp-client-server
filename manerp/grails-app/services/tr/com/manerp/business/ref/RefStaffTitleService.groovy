@@ -12,6 +12,10 @@ class RefStaffTitleService extends BaseService {
 
         def closure = {
             eq('active', true)
+
+            if ( !properties.sortPairList ) {
+                order('dateCreated', 'desc')
+            }
         }
 
         return paginate(RefStaffTitle, properties, closure)

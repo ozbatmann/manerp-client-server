@@ -14,6 +14,10 @@ class RefWorkingAreaService extends BaseService
 
         def closure = {
             eq('active', true)
+
+            if ( !properties.sortPairList ) {
+                order('dateCreated', 'desc')
+            }
         }
 
         return paginate(RefWorkingArea, properties, closure)

@@ -11,14 +11,12 @@ class AuthService extends BaseService{
 
     def signIn(String username, String password) {
 
-        boolean validationStatus = isValidUser(username, password)
+        def validationStatus = isValidUser(username, password)
 
         if(validationStatus){
             User user = User.findByUsername(username)
             return user
         }
-
-        return validationStatus
 
     }
 

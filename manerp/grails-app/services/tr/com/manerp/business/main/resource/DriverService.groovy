@@ -20,6 +20,10 @@ class DriverService extends BaseService
                 eq('active', true)
                 eq('code', 'DRV')
             }
+
+            if ( !properties.sortPairList ) {
+                order('dateCreated', 'desc')
+            }
         }
 
         return paginate(Staff, properties, closure)

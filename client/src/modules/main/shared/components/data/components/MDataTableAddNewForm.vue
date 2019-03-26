@@ -11,95 +11,133 @@
         @keydown.enter.prevent="save"
         @keydown.esc.stop="close"
         lazy
+        class="overflow-hidden"
     >
-        <v-card>
+        <v-card class="overflow-hidden">
 
-            <!-- Title of the dialog -->
-            <v-card-title class="headline font-weight-light py-2">
-                {{ title }}
-                <v-spacer></v-spacer>
+            <v-layout column>
+                <v-flex>
 
-                <!-- Clear all button -->
-                <v-btn
-                    flat
-                    color="error"
-                    :disabled="clearAllDisabled"
-                    @click="clear"
-                >
-                    <v-slide-x-reverse-transition>
-                        <v-icon
-                            v-if="!clearAllDisabled"
-                            left
-                            size="20"
-                            class="mr-2"
+                    <!-- Title of the dialog -->
+                    <v-card-title class="headline font-weight-light py-2">
+                        {{ title }}
+                        <v-spacer></v-spacer>
+
+                        <!-- Clear all button -->
+                        <v-btn
+                            flat
+                            color="error"
+                            :disabled="clearAllDisabled"
+                            @click="clear"
                         >
-                            delete
-                        </v-icon>
-                    </v-slide-x-reverse-transition>
-                    temizle
-                </v-btn>
-            </v-card-title>
+                            <v-slide-x-reverse-transition>
+                                <v-icon
+                                    v-if="!clearAllDisabled"
+                                    left
+                                    size="20"
+                                    class="mr-2"
+                                >
+                                    delete
+                                </v-icon>
+                            </v-slide-x-reverse-transition>
+                            temizle
+                        </v-btn>
+                    </v-card-title>
+                </v-flex>
 
-            <v-divider></v-divider>
-            <!-- Form element -->
-            <v-form>
-                <v-layout row wrap px-3 pt-4>
-                    <v-flex
-                        v-for="(field, index) in localInputs"
-                        :key="`add-edit-field-${index}`"
-                        :class="flexSize(index)"
-                        px-2
-                    >
-                        <!-- Checkbox inputs -->
-                        <div v-if="field.type === input__types.checkbox">
-                            <v-checkbox
-                                v-for="(prop, index) in field.props"
-                                v-model="localData[field.key]"
-                                :key="`add-edit-checkbox-${index}`"
-                                :data-vv-name="field.value"
-                                :label="prop"
-                                class="m-input-capitalize"
-                                color="green accent-2"
-                                hide-details
-                            ></v-checkbox>
-                        </div>
+                <v-divider></v-divider>
+                <v-flex grow>
 
-                        <!-- Select inputs -->
-                        <div v-else-if="field.type === input__types.select">
-                            <v-select
-                                v-model="localData[field.key]"
-                                :data-vv-name="field.key"
-                                :items="field.props"
-                                item-value="id"
-                                item-text="name"
-                                :label="field.title"
-                                :error-messages="errors.collect(field.key)"
-                                v-validate="'required'"
-                                class="m-input-capitalize"
-                                background-color="grey lighten-4"
-                                color="green accent-2"
-                                solo
-                                flat
-                                required
-                            ></v-select>
-                        </div>
-
-                        <!--select date-->
-                        <div v-else-if="field.type === input__types.date">
-                            <v-menu
-                                :attach="attach"
-                                left
-                                light
-                                z-index=5
-                                nudge-left=10
-                                :nudge-width="300"
-                                :close-on-content-click="false"
-                                transition="slide-x-reverse-transition"
+                    <!-- Form element -->
+                    <v-form>
+                        <v-layout row wrap px-3 pt-4 overflow-hidden-x>
+                            <v-flex
+                                v-for="(field, index) in localInputs"
+                                :key="`add-edit-field-${index}`"
+                                :class="flexSize(index)"
+                                px-2
                             >
-                                <template v-slot:activator="{ on }">
+                                <!-- Checkbox inputs -->
+                                <div v-if="field.type === input__types.checkbox">
+                                    <v-checkbox
+                                        v-for="(prop, index) in field.props"
+                                        v-model="localData[field.key]"
+                                        :key="`add-edit-checkbox-${index}`"
+                                        :data-vv-name="field.value"
+                                        :label="prop"
+                                        class="m-input-capitalize"
+                                        color="green accent-2"
+                                        hide-details
+                                    ></v-checkbox>
+                                </div>
+
+                                <!-- Select inputs -->
+                                <div v-else-if="field.type === input__types.select">
+                                    <v-select
+                                        v-model="localData[field.key]"
+                                        :data-vv-name="field.key"
+                                        :items="field.props"
+                                        item-value="id"
+                                        item-text="name"
+                                        :label="field.title"
+                                        :error-messages="errors.collect(field.key)"
+                                        v-validate="'required'"
+                                        class="m-input-capitalize"
+                                        background-color="grey lighten-4"
+                                        color="green accent-2"
+                                        solo
+                                        flat
+                                        required
+                                    ></v-select>
+                                </div>
+
+                                <!--select date-->
+                                <div v-else-if="field.type === input__types.date">
+                                    <v-menu
+                                        :attach="attach"
+                                        left
+                                        light
+                                        z-index=5
+                                        nudge-left=10
+                                        :nudge-width="300"
+                                        :close-on-content-click="false"
+                                        transition="slide-x-reverse-transition"
+                                    >
+                                        <template v-slot:activator="{ on }">
+                                            <v-text-field
+                                                v-model="localData[field.key]"
+                                                v-on="on"
+                                                :data-vv-name="field.key"
+                                                :type="field.type"
+                                                :label="field.title"
+                                                :mask="field.mask"
+                                                :error-messages="errors.collect(field.key)"
+                                                :v-validate="validate(field.rules)"
+                                                :counter="field.max"
+                                                class="m-input-capitalize"
+                                                clearable
+                                                background-color="grey lighten-4"
+                                            ></v-text-field>
+                                        </template>
+                                        <v-date-picker
+                                            v-model="localData[field.key]"
+                                            scrollable
+                                            actions
+                                            header-color="deep-purple darken-1"
+                                            color="primary-green"
+                                            class="m-picker--dark"
+                                            :first-day-of-week="1"
+                                            :min="minDateValue"
+                                            :max="maxDateValue"
+                                            locale="tr-tr"
+                                        ></v-date-picker>
+                                    </v-menu>
+                                </div>
+
+                                <!-- Text-field inputs -->
+                                <div v-else>
                                     <v-text-field
                                         v-model="localData[field.key]"
-                                        v-on="on"
                                         :data-vv-name="field.key"
                                         :type="field.type"
                                         :label="field.title"
@@ -110,75 +148,48 @@
                                         class="m-input-capitalize"
                                         clearable
                                         background-color="grey lighten-4"
+                                        color="black"
+                                        solo
+                                        flat
+                                        required
                                     ></v-text-field>
-                                </template>
-                                <v-date-picker
-                                    v-model="localData[field.key]"
-                                    scrollable
-                                    actions
-                                    header-color="deep-purple darken-1"
-                                    color="primary-green"
-                                    class="m-picker--dark"
-                                    :first-day-of-week="1"
-                                    :min="minDateValue"
-                                    :max="maxDateValue"
-                                    locale="tr-tr"
-                                ></v-date-picker>
-                            </v-menu>
-                        </div>
+                                </div>
+                            </v-flex>
+                        </v-layout>
+                    </v-form>
+                </v-flex>
 
-                        <!-- Text-field inputs -->
-                        <div v-else>
-                            <v-text-field
-                                v-model="localData[field.key]"
-                                :data-vv-name="field.key"
-                                :type="field.type"
-                                :label="field.title"
-                                :mask="field.mask"
-                                :error-messages="errors.collect(field.key)"
-                                :v-validate="validate(field.rules)"
-                                :counter="field.max"
-                                class="m-input-capitalize"
-                                clearable
-                                background-color="grey lighten-4"
-                                color="black"
-                                solo
-                                flat
-                                required
-                            ></v-text-field>
-                        </div>
-                    </v-flex>
-                </v-layout>
-            </v-form>
+                <v-divider></v-divider>
+                <v-flex>
 
-            <v-divider></v-divider>
+                    <!-- Action buttons -->
+                    <v-card-actions class="py-3">
+                        <v-spacer></v-spacer>
 
-            <!-- Action buttons -->
-            <v-card-actions class="py-3">
-                <v-spacer></v-spacer>
+                        <!-- Cancel button -->
+                        <v-btn
+                            depressed
+                            flat="flat"
+                            class="my-0"
+                            @click="close"
+                        >
+                            iptal
+                        </v-btn>
 
-                <!-- Cancel button -->
-                <v-btn
-                    depressed
-                    flat="flat"
-                    class="my-0"
-                    @click="close"
-                >
-                    iptal
-                </v-btn>
-
-                <!-- Save button -->
-                <v-btn
-                    depressed
-                    :disabled="clearAllDisabled"
-                    color="primary"
-                    class="my-0"
-                    flat
-                    @click="save"
-                >
-                    kaydet
-                </v-btn>
-            </v-card-actions>
+                        <!-- Save button -->
+                        <v-btn
+                            depressed
+                            :disabled="clearAllDisabled"
+                            color="primary"
+                            class="my-0"
+                            flat
+                            @click="save"
+                        >
+                            kaydet
+                        </v-btn>
+                    </v-card-actions>
+                </v-flex>
+            </v-layout>
         </v-card>
     </v-dialog>
 </template>

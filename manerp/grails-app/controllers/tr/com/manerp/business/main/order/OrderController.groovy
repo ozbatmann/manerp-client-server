@@ -26,6 +26,7 @@ class OrderController extends BaseController
             PaginationCommand cmd = new PaginationCommand(params)
 
             ManePaginatedResult result = orderService.getOrderList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
+            result.data = orderService.formatPaginatedResultForList(result.data)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {

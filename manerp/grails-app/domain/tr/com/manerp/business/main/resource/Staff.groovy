@@ -18,7 +18,6 @@ class Staff implements BusinessDomain, Person
     RefStaffTitle refStaffTitle
     SysrefStaffContractType sysrefStaffContractType
     String drivingLicenseNumber
-    Boolean hasFuelAdvance // yakit avansi var mi?
     SysrefDrivingType sysrefDrivingType
 
     static hasMany = [
@@ -35,7 +34,7 @@ class Staff implements BusinessDomain, Person
         firstName nullable: false, blank: false, unique: false, maxSize: 30
         middleName nullable: true, blank: true, unique: false, maxSize: 30
         lastName nullable: false, blank: false, unique: false, maxSize: 50
-        email email: true, blank: false, nullable: false, unique: ['sysCompany']
+        email email: true, blank: false, nullable: false, unique: ['sysCompany'], maxSize: 50
         sysrefGender nullable: true, unique: false
         tcIdNumber nullable: false, unique: ['sysCompany']
         birthDate nullable: true, unique: false
@@ -55,10 +54,6 @@ class Staff implements BusinessDomain, Person
         sysrefStaffContractType nullable: false, unique: false
 
         drivingLicenseNumber nullable: true, unique: false, maxSize: 30,
-            validator: { val, obj ->
-                obj?.refStaffTitle?.code == 'DRV' ? val != null : true
-            }
-        hasFuelAdvance nullable: true, unique: false,
             validator: { val, obj ->
                 obj?.refStaffTitle?.code == 'DRV' ? val != null : true
             }

@@ -15,8 +15,11 @@ import tr.com.manerp.business.main.voyage.Voyage
 import tr.com.manerp.business.ref.RefCompanySector
 import tr.com.manerp.business.ref.RefStaffTitle
 import tr.com.manerp.business.ref.RefWorkingArea
+import tr.com.manerp.business.sysref.SysrefCity
 import tr.com.manerp.business.sysref.SysrefCompanyType
+import tr.com.manerp.business.sysref.SysrefCountry
 import tr.com.manerp.business.sysref.SysrefDeliveryStatus
+import tr.com.manerp.business.sysref.SysrefDistrict
 import tr.com.manerp.business.sysref.SysrefGender
 import tr.com.manerp.business.sysref.SysrefRevenueType
 import tr.com.manerp.business.sysref.SysrefStaffContractType
@@ -34,85 +37,89 @@ class DataService
 
     def initApplicationData()
     {
-        User userBerat = new User()
-        userBerat.username = 'instantcrush'
-        String beratPassword = '1234'
-        byte[] beratSalt = SaltGenerator.generateSalt()
-        byte[] beratPasswordHash = BCrypt.withDefaults().hash(6, beratSalt, beratPassword.getBytes(StandardCharsets.UTF_8))
-        userBerat.salt = beratSalt
-        userBerat.passwordHash = beratPasswordHash
-        userBerat.passwordExpired = false
-        userBerat.accountExpired = false
-        userBerat.accountLocked = false
-        userBerat.isDeletable = false
-        userBerat.firstName = 'Bilal'
-        userBerat.middleName = 'Berat'
-        userBerat.lastName = 'Postalcıoğlu'
-        userBerat.email = 'beratpostalci@gmail.com'
-        userBerat.tcIdNumber = 12212222222
-        userBerat.gsmNo = '05343023283'
-        userBerat.active = true
-        userBerat.save(flush:true, failOnError: true)
+        List<User> userList = User.list()
 
-        User userAli = new User()
-        userAli.username = 'ozbatman'
-        String aliPassword = '12345'
-        byte[] aliSalt = SaltGenerator.generateSalt()
-        byte[] aliPasswordHash = BCrypt.withDefaults().hash(6, aliSalt,aliPassword.getBytes(StandardCharsets.UTF_8))
-        userAli.passwordHash = aliPasswordHash
-        userAli.salt = aliSalt
-        userAli.passwordExpired = false
-        userAli.accountExpired = false
-        userAli.accountLocked = false
-        userAli.isDeletable = false
-        userAli.firstName = 'Ali'
-        userAli.middleName = 'İmran'
-        userAli.lastName = 'Özbatman'
-        userAli.email = 'aliimranozbatman@gmail.com'
-        userAli.tcIdNumber = 12212222223
-        userAli.gsmNo = '5051403166'
-        userAli.active = true
-        userAli.save(flush:true, failOnError: true)
+        if ( userList.size() == 0 ) {
+
+            User userBerat = new User()
+            userBerat.username = 'instantcrush'
+            String beratPassword = '1234'
+            byte[] beratSalt = SaltGenerator.generateSalt()
+            byte[] beratPasswordHash = BCrypt.withDefaults().hash(6, beratSalt, beratPassword.getBytes(StandardCharsets.UTF_8))
+            userBerat.salt = beratSalt
+            userBerat.passwordHash = beratPasswordHash
+            userBerat.passwordExpired = false
+            userBerat.accountExpired = false
+            userBerat.accountLocked = false
+            userBerat.isDeletable = false
+            userBerat.firstName = 'Bilal'
+            userBerat.middleName = 'Berat'
+            userBerat.lastName = 'Postalcıoğlu'
+            userBerat.email = 'beratpostalci@gmail.com'
+            userBerat.tcIdNumber = 12212222222
+            userBerat.gsmNo = '05343023283'
+            userBerat.active = true
+            userBerat.save(flush: true, failOnError: true)
+
+            User userAli = new User()
+            userAli.username = 'ozbatman'
+            String aliPassword = '12345'
+            byte[] aliSalt = SaltGenerator.generateSalt()
+            byte[] aliPasswordHash = BCrypt.withDefaults().hash(6, aliSalt, aliPassword.getBytes(StandardCharsets.UTF_8))
+            userAli.passwordHash = aliPasswordHash
+            userAli.salt = aliSalt
+            userAli.passwordExpired = false
+            userAli.accountExpired = false
+            userAli.accountLocked = false
+            userAli.isDeletable = false
+            userAli.firstName = 'Ali'
+            userAli.middleName = 'İmran'
+            userAli.lastName = 'Özbatman'
+            userAli.email = 'aliimranozbatman@gmail.com'
+            userAli.tcIdNumber = 12212222223
+            userAli.gsmNo = '5051403166'
+            userAli.active = true
+            userAli.save(flush: true, failOnError: true)
 
 
-        User userTuna = new User()
-        userTuna.username = 'tuna'
-        String tunaPassword = '123456'
-        byte[] tunaSalt = SaltGenerator.generateSalt()
-        byte[] tunaPasswordHash = BCrypt.withDefaults().hash(6, tunaSalt,tunaPassword.getBytes(StandardCharsets.UTF_8))
-        userTuna.passwordHash = tunaPasswordHash
-        userTuna.salt = tunaSalt
-        userTuna.passwordExpired = false
-        userTuna.accountExpired = false
-        userTuna.accountLocked = false
-        userTuna.isDeletable = false
-        userTuna.firstName = 'Tunahan'
-        userTuna.lastName = 'Bayındır'
-        userTuna.email = 'tunahanbayindir@gmail.com'
-        userTuna.tcIdNumber = 12212222224
-        userTuna.gsmNo = '5051403166'
-        userTuna.active = true
-        userTuna.save(flush:true, failOnError: true)
+            User userTuna = new User()
+            userTuna.username = 'tuna'
+            String tunaPassword = '123456'
+            byte[] tunaSalt = SaltGenerator.generateSalt()
+            byte[] tunaPasswordHash = BCrypt.withDefaults().hash(6, tunaSalt, tunaPassword.getBytes(StandardCharsets.UTF_8))
+            userTuna.passwordHash = tunaPasswordHash
+            userTuna.salt = tunaSalt
+            userTuna.passwordExpired = false
+            userTuna.accountExpired = false
+            userTuna.accountLocked = false
+            userTuna.isDeletable = false
+            userTuna.firstName = 'Tunahan'
+            userTuna.lastName = 'Bayındır'
+            userTuna.email = 'tunahanbayindir@gmail.com'
+            userTuna.tcIdNumber = 12212222224
+            userTuna.gsmNo = '5051403166'
+            userTuna.active = true
+            userTuna.save(flush: true, failOnError: true)
 
-        User userMuratcan = new User()
-        userMuratcan.username = 'muratcan'
-        String muratcanPassword = '123456'
-        byte[] muratcanSalt = SaltGenerator.generateSalt()
-        byte[] muratcanPasswordHash = BCrypt.withDefaults().hash(6, muratcanSalt,muratcanPassword.getBytes(StandardCharsets.UTF_8))
-        userMuratcan.passwordHash = muratcanPasswordHash
-        userMuratcan.salt = muratcanSalt
-        userMuratcan.passwordExpired = false
-        userMuratcan.accountExpired = false
-        userMuratcan.accountLocked = false
-        userMuratcan.isDeletable = false
-        userMuratcan.firstName = 'Muratcan'
-        userMuratcan.lastName = 'Balık'
-        userMuratcan.email = 'muratcanbalikk@gmail.com'
-        userMuratcan.tcIdNumber = 12212222225
-        userMuratcan.gsmNo = '5051403166'
-        userMuratcan.active = true
-        userMuratcan.save(flush:true, failOnError: true)
-
+            User userMuratcan = new User()
+            userMuratcan.username = 'muratcan'
+            String muratcanPassword = '123456'
+            byte[] muratcanSalt = SaltGenerator.generateSalt()
+            byte[] muratcanPasswordHash = BCrypt.withDefaults().hash(6, muratcanSalt, muratcanPassword.getBytes(StandardCharsets.UTF_8))
+            userMuratcan.passwordHash = muratcanPasswordHash
+            userMuratcan.salt = muratcanSalt
+            userMuratcan.passwordExpired = false
+            userMuratcan.accountExpired = false
+            userMuratcan.accountLocked = false
+            userMuratcan.isDeletable = false
+            userMuratcan.firstName = 'Muratcan'
+            userMuratcan.lastName = 'Balık'
+            userMuratcan.email = 'muratcanbalikk@gmail.com'
+            userMuratcan.tcIdNumber = 12212222225
+            userMuratcan.gsmNo = '5051403166'
+            userMuratcan.active = true
+            userMuratcan.save(flush: true, failOnError: true)
+        }
 
         SysCompany sysCompanyBumerang = SysCompany.findByName('Bumerang Lojistik')
         if ( sysCompanyBumerang == null ) {
@@ -156,6 +163,41 @@ class DataService
             sysrefCompanyTypeSup.description = 'Tedarikçi iş yerleri'
 
             sysrefCompanyTypeSup.save(failOnError: true)
+        }
+
+        SysrefCountry sysrefCountryTr = SysrefCountry.findByName('Türkiye')
+        if ( sysrefCountryTr == null ) {
+
+            sysrefCountryTr = new SysrefCountry()
+            sysrefCountryTr.name = 'Türkiye'
+            sysrefCountryTr.code = 'TR'
+            sysrefCountryTr.active = true
+
+            sysrefCountryTr.save(failOnError: true)
+        }
+
+        SysrefCity sysrefCountryIzmir = SysrefCity.findByName('İzmir')
+        if ( sysrefCountryIzmir == null ) {
+
+            sysrefCountryIzmir = new SysrefCity()
+            sysrefCountryIzmir.sysrefCountry = sysrefCountryTr
+            sysrefCountryIzmir.name = 'İzmir'
+            sysrefCountryIzmir.code = 'IZM'
+            sysrefCountryIzmir.active = true
+
+            sysrefCountryIzmir.save(failOnError: true)
+        }
+
+        SysrefDistrict sysrefDistrictOdemis = SysrefDistrict.findByName('Ödemiş')
+        if ( sysrefDistrictOdemis == null ) {
+
+            sysrefDistrictOdemis = new SysrefDistrict()
+            sysrefDistrictOdemis.sysrefCity = sysrefCountryIzmir
+            sysrefDistrictOdemis.name = 'Ödemiş'
+            sysrefDistrictOdemis.code = 'ODM'
+            sysrefDistrictOdemis.active = true
+
+            sysrefDistrictOdemis.save(failOnError: true)
         }
 
         RefStaffTitle refStaffTitleDriver = RefStaffTitle.findByName('Şoför')
@@ -244,7 +286,6 @@ class DataService
             staffBerat.gsmNo = '05343023283'
             staffBerat.email = 'beratpostalci@gmail.com'
             staffBerat.drivingLicenseNumber = '314159'
-            staffBerat.hasFuelAdvance = true
             staffBerat.refStaffTitle = refStaffTitleDriver
             staffBerat.sysrefStaffContractType = sysrefStaffContractTypeKadrolu
             staffBerat.save(failOnError: true)
@@ -264,7 +305,6 @@ class DataService
             staffMurat.gsmNo = '05306400660'
             staffMurat.email = 'muratcanbalikk@gmail.com'
             staffMurat.drivingLicenseNumber = '987654'
-            staffMurat.hasFuelAdvance = true
             staffMurat.refStaffTitle = refStaffTitleDriver
             staffMurat.sysrefStaffContractType = sysrefStaffContractTypeSozlesmeli
 
@@ -670,5 +710,4 @@ class DataService
         }
 
     }
-
 }
