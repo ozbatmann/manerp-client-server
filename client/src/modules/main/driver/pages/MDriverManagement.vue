@@ -71,10 +71,17 @@
                 // add-edit dialog data
                 addEditData: {
                     [driverModel.firstName]: null,
+                    [driverModel.middleName]: null,
                     [driverModel.lastName]: null,
-                    [driverModel.sysrefStaffContractType]: null,
-                    [driverModel.gsmNo]: null,
                     [driverModel.tcIdNumber]: null,
+                    [driverModel.birthDate]: null,
+                    [driverModel.gsmNo]: null,
+                    [driverModel.homePhone]: null,
+                    [driverModel.email]: null,
+                    [driverModel.sysrefCountry]: null,
+                    [driverModel.sysrefCity]: null,
+                    [driverModel.sysrefDistrict]: null,
+                    [driverModel.sysrefStaffContractType]: null,
                     [driverModel.drivingLicenseNumber]: null,
                     [driverModel.address]: null
                 },
@@ -110,32 +117,88 @@
                         type: 'text',
                     },
                     {
+                        key: driverModel.tcIdNumber,
+                        mask: '###########',
+                        max: 11,
+                        title: 't.c. kimlik numarası',
+                        rules: [
+                            'required', 'max:11'
+                        ]
+                    },
+                    {
+                        key: driverModel.birthDate,
+                        mask: 'date',
+                        title: 'doğum tarihi',
+                        type: 'date',
+                        rules: []
+                    },
+                    {
+                        key: driverModel.gsmNo,
+                        mask: 'phone',
+                        max: 10,
+                        title: 'gsm numarası',
+                        type: 'tel',
+                        rules: [
+                            'required', 'max:11'
+                        ]
+                    },
+                    {
+                        key: driverModel.homePhone,
+                        mask: 'phone',
+                        max: 10,
+                        title: 'ev telefonu',
+                        type: 'tel',
+                        rules: [
+                            'required', 'max:11'
+                        ]
+                    },
+                    {
+                        key: driverModel.email,
+                        mask: 'email',
+                        max: 10,
+                        title: 'eposta',
+                        rules: [
+                            'required', 'max:11'
+                        ]
+                    },
+                    {
+                        key: driverModel.sysrefCountry,
+                        title: 'ülke',
+                        type: 'select',
+                        props: this.sysrefCountryList
+                    },
+                    {
+                        key: driverModel.sysrefCity,
+                        title: 'İl',
+                        type: 'select',
+                        props: [
+                            'İzmir', 'Ankara'
+                        ],
+                    },
+                    {
+                        key: driverModel.sysrefDistrict,
+                        title: 'ilçe',
+                        type: 'select',
+                        props: [
+                            'Ödemiş'
+                        ],
+                    },
+                    {
+                        key: driverModel.address,
+                        max: 255,
+                        rules: [
+                            'required', 'max:255'
+                        ],
+                        title: 'adres',
+                        type: 'text',
+                    },
+                    {
                         key: driverModel.sysrefStaffContractType,
                         title: 'sözleşme tipi',
                         type: 'select',
                         props: [
                             'Kadrolu', 'Sözleşmeli'
                         ],
-                    },
-                    {
-                        key: driverModel.gsmNo,
-                        mask: 'phone',
-                        max: 10,
-                        title: 'telefon',
-                        type: 'tel',
-                        rules: [
-                            'required', 'max:10'
-                        ]
-                    },
-                    {
-                        key: driverModel.tcIdNumber,
-                        mask: '###########',
-                        max: 11,
-                        title: 't.c. kimlik numarası',
-                        type: 'tel',
-                        rules: [
-                            'required', 'max:11'
-                        ]
                     },
                     {
                         key: driverModel.drivingLicenseNumber,
@@ -209,6 +272,9 @@
 
                 // Drivers array
                 drivers: [],
+                sysrefCountryList: [],
+                sysrefCityList: [],
+                sysrefDistrictList: [],
 
                 // Object that holds
                 // snackbar information
@@ -244,20 +310,57 @@
                 })
             },
             addNewItem(item) {
+                console.log(item)
                 this.newItem = item
-                this.$http.post('api/v1/driver', this.newItem).then((result) => {
-                    this.snackbar.text = "Başarıyla eklendi."
-                    this.snackbar.textColor = 'green--text text--accent-3'
-                    this.snackbar.active = true
-                    this.getAllDrivers();
+                // this.$http.post('api/v1/driver', this.newItem).then((result) => {
+                //     this.snackbar.text = "Başarıyla eklendi."
+                //     this.snackbar.textColor = 'green--text text--accent-3'
+                //     this.snackbar.active = true
+                //     this.getAllDrivers();
+                // }).catch((error) => {
+                //     console.log(error);
+                // })
+            },
+            getSysrefCountryList() {
+                this.$http.get("api/v1/sysrefCountry").then((result) => {
+
+                    this.addEditFields.find(item => {
+                        return item.key === driverModel.sysrefCountry
+                    }).props = this.sysrefCountryList
+
                 }).catch((error) => {
-                    console.log(error);
+                    console.error(error);
+                })
+            },
+            getSysrefCityList() {
+                this.$http.get("api/v1/sysrefCity").then((result) => {
+
+                    this.addEditFields.find(item => {
+                        return item.key === driverModel.sysrefCity
+                    }).props = this.sysrefCityList
+
+                }).catch((error) => {
+                    console.error(error);
+                })
+            },
+            getSysrefDistrictList() {
+                this.$http.get("api/v1/sysrefDistrict").then((result) => {
+
+                    this.addEditFields.find(item => {
+                        return item.key === driverModel.sysrefDistrict
+                    }).props = this.sysrefDistrictList
+
+                }).catch((error) => {
+                    console.error(error);
                 })
             }
         },
 
         mounted() {
             this.getAllDrivers();
+            this.getSysrefCountryList();
+            this.getSysrefCityList();
+            this.getSysrefDistrictList();
         }
     }
 </script>

@@ -10,6 +10,7 @@
         persistent
         @keydown.enter.prevent="save"
         @keydown.esc.stop="close"
+        lazy
     >
         <v-card>
 
@@ -44,7 +45,7 @@
             <v-form>
                 <v-layout row wrap px-3 pt-4>
                     <v-flex
-                        v-for="(field, index) in inputs"
+                        v-for="(field, index) in localInputs"
                         :key="`add-edit-field-${index}`"
                         :class="flexSize(index)"
                         px-2
@@ -69,6 +70,8 @@
                                 v-model="localData[field.key]"
                                 :data-vv-name="field.key"
                                 :items="field.props"
+                                item-value="id"
+                                item-text="name"
                                 :label="field.title"
                                 :error-messages="errors.collect(field.key)"
                                 v-validate="'required'"
@@ -79,6 +82,49 @@
                                 flat
                                 required
                             ></v-select>
+                        </div>
+
+                        <!--select date-->
+                        <div v-else-if="field.type === input__types.date">
+                            <v-menu
+                                :attach="attach"
+                                left
+                                light
+                                z-index=5
+                                nudge-left=10
+                                :nudge-width="300"
+                                :close-on-content-click="false"
+                                transition="slide-x-reverse-transition"
+                            >
+                                <template v-slot:activator="{ on }">
+                                    <v-text-field
+                                        v-model="localData[field.key]"
+                                        v-on="on"
+                                        :data-vv-name="field.key"
+                                        :type="field.type"
+                                        :label="field.title"
+                                        :mask="field.mask"
+                                        :error-messages="errors.collect(field.key)"
+                                        :v-validate="validate(field.rules)"
+                                        :counter="field.max"
+                                        class="m-input-capitalize"
+                                        clearable
+                                        background-color="grey lighten-4"
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker
+                                    v-model="localData[field.key]"
+                                    scrollable
+                                    actions
+                                    header-color="deep-purple darken-1"
+                                    color="primary-green"
+                                    class="m-picker--dark"
+                                    :first-day-of-week="1"
+                                    :min="minDateValue"
+                                    :max="maxDateValue"
+                                    locale="tr-tr"
+                                ></v-date-picker>
+                            </v-menu>
                         </div>
 
                         <!-- Text-field inputs -->
@@ -92,7 +138,7 @@
                                 :error-messages="errors.collect(field.key)"
                                 :v-validate="validate(field.rules)"
                                 :counter="field.max"
-                                class="m-input-capitalize  "
+                                class="m-input-capitalize"
                                 clearable
                                 background-color="grey lighten-4"
                                 color="black"
@@ -153,6 +199,10 @@
                 default: null
             },
 
+            // A Boolean indicating
+            // whether date-picker is active or not
+            datePickerActive: false,
+
             // Inputs array
             // Will define fields
             inputs: {
@@ -173,10 +223,13 @@
                 // Object.assign does the shallow copying
                 localData: Object.assign({}, this.data),
 
+                localInputs: this.inputs,
+
                 // Input type enumeration
                 input__types: {
                     checkbox: 'checkbox',
                     select: 'select',
+                    date: 'date'
                 },
 
                 // A Boolean indicating
@@ -268,6 +321,17 @@
                     this.localData[key] = null
                 });
                 this.isEdit = false;
+            }
+        },
+
+        watch: {
+            inputs: {
+                handler(newVal) {
+                    this.localInputs = this.inputs
+                    console.log(this.inputs)
+                },
+
+                deep: true
             }
         }
     }
