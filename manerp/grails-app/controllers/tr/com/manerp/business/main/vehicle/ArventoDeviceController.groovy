@@ -12,7 +12,7 @@ class ArventoDeviceController extends BaseController
 {
 
     static namespace = "v1"
-    static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
+    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def arventoDeviceService
 
@@ -32,6 +32,34 @@ class ArventoDeviceController extends BaseController
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             maneResponse.message = ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
+    }
+
+    def show(String id)
+    {
+
+        ManeResponse maneResponse = new ManeResponse()
+        ArventoDevice arventoDevice = arventoDeviceService.getArventoDevice(id)
+
+        try {
+
+            if ( !arventoDevice ) throw new Exception()
+
+            maneResponse.data = arventoDevice
+            maneResponse.statusCode = StatusCode.OK
+
+        } catch (Exception ex) {
+
+            if ( !arventoDevice ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Görüntülenmek istenen arvento cihazı sistemde bulunmamaktadır.'
+            }
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = maneResponse.message ?: ex.getMessage()
             ex.printStackTrace()
         }
 

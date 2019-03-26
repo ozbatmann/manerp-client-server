@@ -13,7 +13,7 @@ class VendorController extends BaseController
 {
 
     static namespace = "v1"
-    static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
+    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def vendorService
 
@@ -33,6 +33,34 @@ class VendorController extends BaseController
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             maneResponse.message = ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
+    }
+
+    def show(String id)
+    {
+
+        ManeResponse maneResponse = new ManeResponse()
+        Vendor vendor = vendorService.getVendor(id)
+
+        try {
+
+            if ( !vendor ) throw new Exception()
+
+            maneResponse.data = vendor
+            maneResponse.statusCode = StatusCode.OK
+
+        } catch (Exception ex) {
+
+            if ( !vendor ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Görüntülenmek istenen bayi sistemde bulunmamaktadır.'
+            }
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = maneResponse.message ?: ex.getMessage()
             ex.printStackTrace()
         }
 

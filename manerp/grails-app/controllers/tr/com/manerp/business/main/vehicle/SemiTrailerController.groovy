@@ -8,14 +8,16 @@ import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
-class SemiTrailerController extends BaseController {
+class SemiTrailerController extends BaseController
+{
 
     static namespace = "v1"
-    static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
+    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def semiTrailerService
 
-    def index() {
+    def index()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -36,7 +38,36 @@ class SemiTrailerController extends BaseController {
         render maneResponse
     }
 
-    def save(SemiTrailer trailer) {
+    def show(String id)
+    {
+
+        ManeResponse maneResponse = new ManeResponse()
+        SemiTrailer semiTrailer = semiTrailerService.getSemiTrailer(id)
+
+        try {
+
+            if ( !semiTrailer ) throw new Exception()
+
+            maneResponse.data = semiTrailer
+            maneResponse.statusCode = StatusCode.OK
+
+        } catch (Exception ex) {
+
+            if ( !semiTrailer ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Görüntülenmek istenen römork sistemde bulunmamaktadır.'
+            }
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = maneResponse.message ?: ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
+    }
+
+    def save(SemiTrailer trailer)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -64,7 +95,8 @@ class SemiTrailerController extends BaseController {
         render maneResponse
     }
 
-    def update(SemiTrailer trailer) {
+    def update(SemiTrailer trailer)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -96,7 +128,8 @@ class SemiTrailerController extends BaseController {
         render maneResponse
     }
 
-    def delete(String id) {
+    def delete(String id)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
         SemiTrailer trailer = SemiTrailer.get(id)
@@ -128,7 +161,8 @@ class SemiTrailerController extends BaseController {
         render maneResponse
     }
 
-    def getListForDropDown() {
+    def getListForDropDown()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 

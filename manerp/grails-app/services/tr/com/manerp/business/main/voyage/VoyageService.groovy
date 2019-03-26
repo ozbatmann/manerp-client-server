@@ -17,6 +17,17 @@ class VoyageService extends BaseService {
         return paginate(Voyage, properties, closure)
     }
 
+    Voyage getVoyage(String id)
+    {
+        Voyage voyage = Voyage.createCriteria().get {
+
+            eq('id', id)
+
+        } as Voyage
+
+        return voyage
+    }
+
     def save(Voyage voyage) {
 
         voyage.save(failOnError: true)

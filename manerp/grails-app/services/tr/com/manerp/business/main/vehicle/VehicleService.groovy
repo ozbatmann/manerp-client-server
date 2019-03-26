@@ -4,6 +4,7 @@ import grails.gorm.transactions.Transactional
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
+import tr.com.manerp.business.main.resource.Staff
 
 @Transactional
 class VehicleService extends BaseService {
@@ -15,6 +16,17 @@ class VehicleService extends BaseService {
         }
 
         return paginate(Vehicle, properties, closure)
+    }
+
+    Vehicle getVehicle(String id)
+    {
+        Vehicle vehicle = Vehicle.createCriteria().get {
+
+            eq('id', id)
+
+        } as Vehicle
+
+        return vehicle
     }
 
     def save(Vehicle vehicle) {

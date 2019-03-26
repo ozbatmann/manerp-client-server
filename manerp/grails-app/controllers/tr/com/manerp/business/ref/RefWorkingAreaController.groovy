@@ -8,14 +8,16 @@ import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
-class RefWorkingAreaController extends BaseController {
+class RefWorkingAreaController extends BaseController
+{
 
     static namespace = "v1"
-    static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
+    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def refWorkingAreaService
 
-    def index() {
+    def index()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -36,7 +38,36 @@ class RefWorkingAreaController extends BaseController {
         render maneResponse
     }
 
-    def save(RefWorkingArea refWorkingArea) {
+    def show(String id)
+    {
+
+        ManeResponse maneResponse = new ManeResponse()
+        RefWorkingArea refWorkingArea = refWorkingAreaService.getRefWorkingArea(id)
+
+        try {
+
+            if ( !refWorkingArea ) throw new Exception()
+
+            maneResponse.data = refWorkingArea
+            maneResponse.statusCode = StatusCode.OK
+
+        } catch (Exception ex) {
+
+            if ( !refWorkingArea ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Görüntülenmek istenen iş yeri çalışma alanı parametresi sistemde bulunmamaktadır.'
+            }
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = maneResponse.message ?: ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
+    }
+
+    def save(RefWorkingArea refWorkingArea)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -63,7 +94,8 @@ class RefWorkingAreaController extends BaseController {
         render maneResponse
     }
 
-    def update(RefWorkingArea refWorkingArea) {
+    def update(RefWorkingArea refWorkingArea)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -94,7 +126,8 @@ class RefWorkingAreaController extends BaseController {
         render maneResponse
     }
 
-    def delete(String id) {
+    def delete(String id)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
         RefWorkingArea refWorkingArea = RefWorkingArea.get(id)
@@ -120,7 +153,8 @@ class RefWorkingAreaController extends BaseController {
         render maneResponse
     }
 
-    def getListForDropDown() {
+    def getListForDropDown()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 

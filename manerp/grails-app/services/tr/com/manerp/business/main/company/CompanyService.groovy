@@ -4,6 +4,7 @@ import grails.gorm.transactions.Transactional
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
+import tr.com.manerp.business.main.resource.Staff
 
 @Transactional
 class CompanyService extends BaseService
@@ -23,6 +24,21 @@ class CompanyService extends BaseService
         }
 
         return paginate(Company, properties, closure)
+    }
+
+    Company getCompany(String id, String sysrefCompanyTypeCode)
+    {
+        Company company = Company.createCriteria().get {
+
+            sysrefCompanyType {
+                eq('code', sysrefCompanyTypeCode)
+            }
+
+            eq('id', id)
+
+        } as Company
+
+        return company
     }
 
     def save(Company company)

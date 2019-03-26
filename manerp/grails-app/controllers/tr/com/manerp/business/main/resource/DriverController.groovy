@@ -13,7 +13,7 @@ class DriverController extends BaseController
 {
 
     static namespace = "v1"
-    static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
+    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def driverService
 
@@ -64,6 +64,8 @@ class DriverController extends BaseController
             maneResponse.message = maneResponse.message ?: ex.getMessage()
             ex.printStackTrace()
         }
+
+        render maneResponse
     }
 
     def save(Staff driver)

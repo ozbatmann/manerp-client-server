@@ -8,14 +8,16 @@ import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
-class RefStaffTitleController extends BaseController {
+class RefStaffTitleController extends BaseController
+{
 
     static namespace = "v1"
-    static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
+    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def refStaffTitleService
 
-    def index() {
+    def index()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -36,7 +38,36 @@ class RefStaffTitleController extends BaseController {
         render maneResponse
     }
 
-    def save(RefStaffTitle refStaffTitle) {
+    def show(String id)
+    {
+
+        ManeResponse maneResponse = new ManeResponse()
+        RefStaffTitle refStaffTitle = refStaffTitleService.getRefStaffTitle(id)
+
+        try {
+
+            if ( !refStaffTitle ) throw new Exception()
+
+            maneResponse.data = refStaffTitle
+            maneResponse.statusCode = StatusCode.OK
+
+        } catch (Exception ex) {
+
+            if ( !refStaffTitle ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Görüntülenmek istenen personel unvan parametresi sistemde bulunmamaktadır.'
+            }
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = maneResponse.message ?: ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
+    }
+
+    def save(RefStaffTitle refStaffTitle)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -63,7 +94,8 @@ class RefStaffTitleController extends BaseController {
         render maneResponse
     }
 
-    def update(RefStaffTitle refStaffTitle) {
+    def update(RefStaffTitle refStaffTitle)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -94,7 +126,8 @@ class RefStaffTitleController extends BaseController {
         render maneResponse
     }
 
-    def delete(String id) {
+    def delete(String id)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
         RefStaffTitle refStaffTitle = RefStaffTitle.get(id)
@@ -120,7 +153,8 @@ class RefStaffTitleController extends BaseController {
         render maneResponse
     }
 
-    def getListForDropDown() {
+    def getListForDropDown()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 

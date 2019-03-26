@@ -6,9 +6,11 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
 
 @Transactional
-class OrderService extends BaseService {
+class OrderService extends BaseService
+{
 
-    ManePaginatedResult getOrderList(ManePaginationProperties properties) {
+    ManePaginatedResult getOrderList(ManePaginationProperties properties)
+    {
 
         def closure = {
             eq('active', true)
@@ -17,17 +19,31 @@ class OrderService extends BaseService {
         return paginate(Order, properties, closure)
     }
 
-    def save(Order order) {
+    Order getOrder(String id)
+    {
+        Order order = Order.createCriteria().get {
+
+            eq('id', id)
+
+        } as Order
+
+        return order
+    }
+
+    def save(Order order)
+    {
 
         order.save(failOnError: true)
     }
 
-    def delete(Order order) {
+    def delete(Order order)
+    {
 
         order.delete(flush: true, failOnError: true)
     }
 
-    List formatPaginatedResultForDropDown(def data) {
+    List formatPaginatedResultForDropDown(def data)
+    {
 
         List formattedData = data.collect {
             return [

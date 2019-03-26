@@ -17,6 +17,17 @@ class ArventoDeviceService extends BaseService {
         return paginate(ArventoDevice, properties, closure)
     }
 
+    ArventoDevice getArventoDevice(String id)
+    {
+        ArventoDevice arventoDevice = ArventoDevice.createCriteria().get {
+
+            eq('id', id)
+
+        } as ArventoDevice
+
+        return arventoDevice
+    }
+
     def save(ArventoDevice arventoDevice) {
 
         arventoDevice.save(failOnError: true)

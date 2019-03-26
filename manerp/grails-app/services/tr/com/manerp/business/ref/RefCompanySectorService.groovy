@@ -17,6 +17,17 @@ class RefCompanySectorService extends BaseService {
         return paginate(RefCompanySector, properties, closure)
     }
 
+    RefCompanySector getRefCompanySector(String id)
+    {
+        RefCompanySector refCompanySector = RefCompanySector.createCriteria().get {
+
+            eq('id', id)
+
+        } as RefCompanySector
+
+        return refCompanySector
+    }
+
     def save(RefCompanySector refCompanySector) {
 
         refCompanySector.save(failOnError: true)

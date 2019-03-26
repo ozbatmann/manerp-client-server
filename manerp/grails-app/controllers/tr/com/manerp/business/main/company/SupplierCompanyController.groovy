@@ -9,14 +9,16 @@ import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.business.sysref.SysrefCompanyType
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
-class SupplierCompanyController extends BaseController {
+class SupplierCompanyController extends BaseController
+{
 
     static namespace = "v1"
-    static allowedMethods = [index: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
+    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
 
     def companyService
 
-    def index() {
+    def index()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -37,12 +39,41 @@ class SupplierCompanyController extends BaseController {
         render maneResponse
     }
 
-    def save(Company company) {
+    def show(String id)
+    {
+
+        ManeResponse maneResponse = new ManeResponse()
+        Company company = companyService.getCompany(id, 'SPL')
+
+        try {
+
+            if ( !company ) throw new Exception()
+
+            maneResponse.data = company
+            maneResponse.statusCode = StatusCode.OK
+
+        } catch (Exception ex) {
+
+            if ( !company ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Görüntülenmek istenen tedarikçi iş yeri sistemde bulunmamaktadır.'
+            }
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = maneResponse.message ?: ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
+    }
+
+    def save(Company company)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
         try {
-            
+
             company.setRandomCode()
             company.sysrefCompanyType = SysrefCompanyType.findByCode('SPL')
             companyService.save(company)
@@ -66,7 +97,8 @@ class SupplierCompanyController extends BaseController {
         render maneResponse
     }
 
-    def update(Company company) {
+    def update(Company company)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 
@@ -97,7 +129,8 @@ class SupplierCompanyController extends BaseController {
         render maneResponse
     }
 
-    def delete(String id) {
+    def delete(String id)
+    {
 
         ManeResponse maneResponse = new ManeResponse()
         Company company = Company.get(id)
@@ -128,7 +161,8 @@ class SupplierCompanyController extends BaseController {
         render maneResponse
     }
 
-    def getListForDropDown() {
+    def getListForDropDown()
+    {
 
         ManeResponse maneResponse = new ManeResponse()
 

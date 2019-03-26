@@ -2,13 +2,15 @@ package tr.com.manerp.commands.controller.common
 
 import grails.validation.Validateable
 
-class PaginationCommand implements Validateable {
+class PaginationCommand implements Validateable
+{
 
     Short limit
     Integer offset
     String sort
 
-    PaginationCommand(def params) {
+    PaginationCommand(def params)
+    {
         this.limit = params.limit as Short ?: 10 as Short
         this.offset = params.offset as Integer ?: 0
         this.sort = params.sort as String ?: null

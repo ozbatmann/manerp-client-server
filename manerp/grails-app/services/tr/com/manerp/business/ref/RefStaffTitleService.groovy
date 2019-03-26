@@ -16,7 +16,18 @@ class RefStaffTitleService extends BaseService {
 
         return paginate(RefStaffTitle, properties, closure)
     }
+    
+    RefStaffTitle getRefStaffTitle(String id)
+    {
+        RefStaffTitle refStaffTitle = RefStaffTitle.createCriteria().get {
 
+            eq('id', id)
+
+        } as RefStaffTitle
+
+        return refStaffTitle
+    }
+    
     def save(RefStaffTitle refStaffTitle) {
 
         refStaffTitle.save(failOnError: true)
