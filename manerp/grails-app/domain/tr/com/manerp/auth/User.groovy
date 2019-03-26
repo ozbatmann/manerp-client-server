@@ -10,12 +10,12 @@ class User implements BaseDomain, Person {
 
     SysCompany sysCompany
     String username
-    String passwordHash
+    byte[] passwordHash
     Long version
     Boolean accountExpired
     Boolean accountLocked
     Boolean passwordExpired
-    String salt
+    byte[] salt
     Boolean isDeletable
 
     static hasMany = []
