@@ -4,7 +4,7 @@ export default {
     middleName: 'middleName',
     lastName: 'lastName',
     tcIdNumber: 'tcIdNumber',
-    birthDate: 'birthDate',
+    // birthDate: 'birthDate',
     gsmNo: 'gsmNo',
     homePhone: 'homePhone',
     email: 'email',
@@ -14,6 +14,5 @@ export default {
     address: 'address',
     sysrefStaffContractType: 'sysrefStaffContractType',
     drivingLicenseNumber: 'drivingLicenseNumber',
-    hasFuelAdvance: 'hasFuelAdvance',
     sysrefDrivingType: 'sysrefDrivingType'
 }

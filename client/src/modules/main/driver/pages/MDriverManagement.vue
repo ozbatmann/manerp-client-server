@@ -74,7 +74,7 @@
                     [driverModel.middleName]: null,
                     [driverModel.lastName]: null,
                     [driverModel.tcIdNumber]: null,
-                    [driverModel.birthDate]: null,
+                    // [driverModel.birthDate]: null,
                     [driverModel.gsmNo]: null,
                     [driverModel.homePhone]: null,
                     [driverModel.email]: null,
@@ -125,13 +125,13 @@
                             'required', 'max:11'
                         ]
                     },
-                    {
-                        key: driverModel.birthDate,
-                        mask: 'date',
-                        title: 'doğum tarihi',
-                        type: 'date',
-                        rules: []
-                    },
+                    // {
+                    //     key: driverModel.birthDate,
+                    //     mask: 'date',
+                    //     title: 'doğum tarihi',
+                    //     type: 'date',
+                    //     rules: []
+                    // },
                     {
                         key: driverModel.gsmNo,
                         mask: 'phone',
@@ -154,9 +154,9 @@
                     },
                     {
                         key: driverModel.email,
-                        mask: 'email',
-                        max: 10,
+                        max: 50,
                         title: 'eposta',
+                        type: 'email',
                         rules: [
                             'required', 'max:11'
                         ]
@@ -171,17 +171,13 @@
                         key: driverModel.sysrefCity,
                         title: 'İl',
                         type: 'select',
-                        props: [
-                            'İzmir', 'Ankara'
-                        ],
+                        props: this.sysrefCityList
                     },
                     {
                         key: driverModel.sysrefDistrict,
                         title: 'ilçe',
                         type: 'select',
-                        props: [
-                            'Ödemiş'
-                        ],
+                        props: this.getSysrefDistrictList
                     },
                     {
                         key: driverModel.address,
@@ -196,9 +192,7 @@
                         key: driverModel.sysrefStaffContractType,
                         title: 'sözleşme tipi',
                         type: 'select',
-                        props: [
-                            'Kadrolu', 'Sözleşmeli'
-                        ],
+                        props: this.sysrefStaffContractTypeList
                     },
                     {
                         key: driverModel.drivingLicenseNumber,
@@ -275,6 +269,7 @@
                 sysrefCountryList: [],
                 sysrefCityList: [],
                 sysrefDistrictList: [],
+                sysrefStaffContractTypeList: [],
 
                 // Object that holds
                 // snackbar information
@@ -310,20 +305,21 @@
                 })
             },
             addNewItem(item) {
-                console.log(item)
-                this.newItem = item
-                // this.$http.post('api/v1/driver', this.newItem).then((result) => {
-                //     this.snackbar.text = "Başarıyla eklendi."
-                //     this.snackbar.textColor = 'green--text text--accent-3'
-                //     this.snackbar.active = true
-                //     this.getAllDrivers();
-                // }).catch((error) => {
-                //     console.log(error);
-                // })
+                this.newItem = item;
+                this.newItem.hasFuelAdvance = true;
+
+                this.$http.post('api/v1/driver', this.newItem).then((result) => {
+                    this.snackbar.text = "Başarıyla eklendi."
+                    this.snackbar.textColor = 'green--text text--accent-3'
+                    this.snackbar.active = true
+                    this.getAllDrivers();
+                }).catch((error) => {
+                    console.log(error);
+                })
             },
             getSysrefCountryList() {
                 this.$http.get("api/v1/sysrefCountry").then((result) => {
-
+                    this.sysrefCountryList = result.data.data.items
                     this.addEditFields.find(item => {
                         return item.key === driverModel.sysrefCountry
                     }).props = this.sysrefCountryList
@@ -334,7 +330,7 @@
             },
             getSysrefCityList() {
                 this.$http.get("api/v1/sysrefCity").then((result) => {
-
+                    this.sysrefCityList = result.data.data.items
                     this.addEditFields.find(item => {
                         return item.key === driverModel.sysrefCity
                     }).props = this.sysrefCityList
@@ -345,9 +341,20 @@
             },
             getSysrefDistrictList() {
                 this.$http.get("api/v1/sysrefDistrict").then((result) => {
-
+                    this.sysrefDistrictList = result.data.data.items
                     this.addEditFields.find(item => {
                         return item.key === driverModel.sysrefDistrict
+                    }).props = this.sysrefDistrictList
+
+                }).catch((error) => {
+                    console.error(error);
+                })
+            },
+            getSysrefStaffContractType() {
+                this.$http.get("api/v1/sysrefStaffContractType").then((result) => {
+                    this.sysrefStaffContractTypeList = result.data.data.items
+                    this.addEditFields.find(item => {
+                        return item.key === driverModel.sysrefStaffContractType
                     }).props = this.sysrefDistrictList
 
                 }).catch((error) => {
