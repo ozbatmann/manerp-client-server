@@ -195,6 +195,12 @@
                         props: this.sysrefStaffContractTypeList
                     },
                     {
+                        key: driverModel.active,
+                        max: null,
+                        type: 'checkbox',
+                        props: ['aktif']
+                    },
+                    {
                         key: driverModel.drivingLicenseNumber,
                         max: null,
                         title: 'ehliyet numarası',
@@ -306,9 +312,9 @@
             },
             addNewItem(item) {
                 this.newItem = item;
-                this.newItem.hasFuelAdvance = true;
 
                 this.$http.post('api/v1/driver', this.newItem).then((result) => {
+                    console.log('result: ', result)
                     this.snackbar.text = "Başarıyla eklendi."
                     this.snackbar.textColor = 'green--text text--accent-3'
                     this.snackbar.active = true
@@ -355,7 +361,7 @@
                     this.sysrefStaffContractTypeList = result.data.data.items
                     this.addEditFields.find(item => {
                         return item.key === driverModel.sysrefStaffContractType
-                    }).props = this.sysrefDistrictList
+                    }).props = this.sysrefStaffContractTypeList
 
                 }).catch((error) => {
                     console.error(error);
@@ -368,6 +374,7 @@
             this.getSysrefCountryList();
             this.getSysrefCityList();
             this.getSysrefDistrictList();
+            this.getSysrefStaffContractType();
         }
     }
 </script>

@@ -21,6 +21,10 @@ class VendorService extends BaseService
                 eq('id', companyId)
             }
 
+            if ( !properties.sortPairList ) {
+                order('dateCreated', 'desc')
+            }
+
         }
 
         return paginate(Vendor, properties, closure)

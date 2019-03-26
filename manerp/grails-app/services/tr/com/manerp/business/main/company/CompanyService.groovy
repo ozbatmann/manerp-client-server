@@ -21,6 +21,10 @@ class CompanyService extends BaseService
                 eq('code', sysrefCompanyTypeCode)
             }
 
+            if ( !properties.sortPairList ) {
+                order('dateCreated', 'desc')
+            }
+
         }
 
         return paginate(Company, properties, closure)

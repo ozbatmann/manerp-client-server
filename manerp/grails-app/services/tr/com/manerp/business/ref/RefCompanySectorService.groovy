@@ -12,6 +12,10 @@ class RefCompanySectorService extends BaseService {
 
         def closure = {
             eq('active', true)
+
+            if ( !properties.sortPairList ) {
+                order('dateCreated', 'desc')
+            }
         }
 
         return paginate(RefCompanySector, properties, closure)

@@ -13,6 +13,10 @@ class VehicleService extends BaseService {
 
         def closure = {
             eq('active', true)
+
+            if ( !properties.sortPairList ) {
+                order('dateCreated', 'desc')
+            }
         }
 
         return paginate(Vehicle, properties, closure)

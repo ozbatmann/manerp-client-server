@@ -15,6 +15,10 @@ class SemiTrailerService extends BaseService
 
         def closure = {
             eq('active', true)
+
+            if ( !properties.sortPairList ) {
+                order('dateCreated', 'desc')
+            }
         }
 
         return paginate(SemiTrailer, properties, closure)

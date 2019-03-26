@@ -14,5 +14,6 @@ export default {
     address: 'address',
     sysrefStaffContractType: 'sysrefStaffContractType',
     drivingLicenseNumber: 'drivingLicenseNumber',
-    sysrefDrivingType: 'sysrefDrivingType'
+    sysrefDrivingType: 'sysrefDrivingType',
+    active: 'active'
 }
