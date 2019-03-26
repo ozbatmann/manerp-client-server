@@ -6,12 +6,14 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
     routes: [
-        // {
-        //   path: '/login',
-        //   name: 'Login',
-        //   component: Login
-        //   // beforeEnter: notAuthenticated
-        // },
+        {
+            path: '/404',
+            component: () => import('@/modules/main/AppNotFound')
+        },
+        {
+            path: '*',
+            redirect: '/404'
+        },
         {
             // Main route
             path: '/',
@@ -41,11 +43,9 @@ const router = new VueRouter({
                         ...require('@/modules/main/parameter/route/index').default
                     ],
                 },
-                {
-                    path: 'login',
-                    name: 'login',
-                    component: () => import('@/modules/main/customer/pages/MCustomerManagement')
-                }
+
+                // Authentication routes
+                ...require('@/modules/main/authentication/route/index').default,
             ]
         },
     ],

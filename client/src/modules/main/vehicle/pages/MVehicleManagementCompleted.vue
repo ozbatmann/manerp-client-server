@@ -7,7 +7,7 @@
         >
             <template v-slot:header>
                 <m-data-table-action
-                        title="yeni sipariş"
+                        title="yeni araç"
                         disabled
                 ></m-data-table-action>
             </template>

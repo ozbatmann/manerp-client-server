@@ -11,8 +11,9 @@ langFiles.keys().forEach(function (fileName) {
     i18n.mergeLocaleMessage(lang, langFiles(fileName));
 
 });
-Vue.config.productionTip = false
-Vue.config.performance = true
+Vue.config.productionTip = false;
+Vue.config.performance = true;
+Vue.prototype.$vuetify.theme["primary-green"] = "#13d893";
 
 window.onerror = function(message, source, lineno, colno, error) {
     console.log('Exception: ', error)

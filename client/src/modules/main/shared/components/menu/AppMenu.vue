@@ -41,6 +41,7 @@
                         v-for="item in menuItem.items"
                         :key="`menu-item-${item.title}`"
                         :to="item.to"
+                        outline
                         active-class="grey lighten-2">
 
                         <v-list-tile-action class="px-2">
@@ -101,22 +102,22 @@
                             },
                             {
                                 title: 'Sipariş Yönetimi',
-                                icon: 'add',
+                                icon: 'work',
                                 to: {name: 'orders.current'}
                             },
                             {
                                 title: 'Şoför Yönetimi',
-                                icon: 'person',
+                                icon: 'account_circle',
                                 to: {name: 'drivers'}
                             },
                             {
                                 title: 'Araç Yönetimi',
-                                icon: 'person',
+                                icon: 'directions_bus',
                                 to: {name: 'vehicles.onVoyage'}
                             },
                             {
                                 title: 'Parametre Yönetimi',
-                                icon: 'person',
+                                icon: 'tune',
                                 to: {name: 'parameters'}
                             }
                         ]

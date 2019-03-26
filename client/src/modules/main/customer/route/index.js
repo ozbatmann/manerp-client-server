@@ -16,7 +16,7 @@ const meta = (title) => {
                 to: { name: routes.customer }
             },
             {
-                text: 'Tedarikci Firmalar',
+                text: 'Tedarikçi Firmalar',
                 to: { name: routes.supplier }
             }
         ]

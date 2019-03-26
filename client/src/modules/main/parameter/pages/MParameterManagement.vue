@@ -8,7 +8,7 @@
             <!-- Template for data-table header -->
             <template v-slot:header>
                 <m-data-table-action
-                        title="yeni sipariş"
+                        title="yeni parametre"
                         @click="addDialog"
                 ></m-data-table-action>
             </template>
