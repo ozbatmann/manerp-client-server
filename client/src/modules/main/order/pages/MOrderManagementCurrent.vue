@@ -137,9 +137,9 @@
             addNewItem(item) {
                 this.newItem = item
                 this.$http.post('api/v1/order', this.newItem).then((result) => {
-                    this.snackbar.text = "Başarıyla eklendi."
-                    this.snackbar.textColor = 'green--text text--accent-3'
-                    this.snackbar.active = true
+                    this.snackbar.text = "Başarıyla eklendi.";
+                    this.snackbar.textColor = 'green--text text--accent-3';
+                    this.snackbar.active = true;
                     this.getAllDrivers();
                 }).catch((error) => {
                     console.log(error);
@@ -149,48 +149,6 @@
 
         mounted() {
             this.getAllOrders();
-            // for (let i = 0; i < 15; i++) {
-            //     let order = {
-            //         id: `ORD-${i}`,
-            //         type: 'Sözleşmeli',
-            //         customer: 'Pinar Gida A.Ş',
-            //         direction: 'Gidiş/Dönüş',
-            //         route: `Sevenler Gıda
-            //                 <i class="v-icon material-icons green--text text--accent-3"
-            //                     style="font-size: 16px;">arrow_forward</i> Akmerler Bim`,
-            //         routes: [
-            //             {
-            //                 name: 'Sevenler Gıda',
-            //                 city: 'Ankara',
-            //                 district: 'Çankaya',
-            //                 address: 'Beytepe Mah., 1800.cd, No: 6, D: 6'
-            //             },
-            //
-            //             {
-            //                 name: 'Akmerler Bim',
-            //                 city: 'Trabzon',
-            //                 district: 'Çobanlı',
-            //                 address: 'Talatdere Mah., 2.cd, No: 12'
-            //             },
-            //
-            //             {
-            //                 name: 'Akmerler Bim',
-            //                 city: 'Trabzon',
-            //                 district: 'Çobanlı',
-            //                 address: 'Talatdere Mah., 2.cd, No: 12'
-            //             },
-            //
-            //             {
-            //                 name: 'Akmerler Bim',
-            //                 city: 'Trabzon',
-            //                 district: 'Çobanlı',
-            //                 address: 'Talatdere Mah., 2.cd, No: 12'
-            //             }
-            //         ]
-            //     };
-            //
-            //     this.orders.push(order)
-            // }
         }
     }
 </script>

@@ -17,7 +17,6 @@
 
             <!-- Data-table action menu slot -->
             <template v-slot:action-menu="item">
-
                 <!-- Edit button -->
                 <v-list-tile @click="addDialog(item.bind)">Düzenle</v-list-tile>
             </template>

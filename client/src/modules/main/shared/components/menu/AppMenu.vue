@@ -42,7 +42,6 @@
 
                     <v-list-tile
                             v-for="item in menuItem.items"
-                            v-on="on"
                             :key="`menu-item-${item.title}`"
                             :to="item.to"
                             outline

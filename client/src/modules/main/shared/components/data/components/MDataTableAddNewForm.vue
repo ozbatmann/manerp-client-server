@@ -65,6 +65,7 @@
                                         :key="`add-edit-checkbox-${index}`"
                                         :data-vv-name="field.value"
                                         :label="prop"
+                                        :disabled="field.disabled"
                                         class="m-input-capitalize"
                                         color="green accent-2"
                                         hide-details
@@ -81,6 +82,7 @@
                                         item-text="name"
                                         :label="field.title"
                                         :error-messages="errors.collect(field.key)"
+                                        :disabled="field.disabled"
                                         v-validate="'required'"
                                         class="m-input-capitalize"
                                         background-color="grey lighten-4"
@@ -145,6 +147,7 @@
                                         :error-messages="errors.collect(field.key)"
                                         :v-validate="validate(field.rules)"
                                         :counter="field.max"
+                                        :disabled="field.disabled"
                                         class="m-input-capitalize"
                                         clearable
                                         background-color="grey lighten-4"
@@ -331,6 +334,7 @@
                 Object.keys(this.localData).forEach(key => {
                     this.localData[key] = null
                 });
+
                 this.isEdit = false;
             }
         },

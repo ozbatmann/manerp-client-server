@@ -165,7 +165,7 @@
                                     class="text-xs-left m-data-table-row"
                                     @click="goTo(props.item)"
                             >
-                                <span v-html="props.item[header.value]"></span>
+                                <span v-html="field(props.item[header.value])"></span>
 
                                 <!-- Expand button -->
                                 <!-- Will be shown only if cell is expandable -->
@@ -255,13 +255,15 @@
             // An Array that contains
             // data table headers
             headers: {
-                type: Array
+                type: Array,
+                default: null
             },
 
             // An Array that contains
             // data table items
             items: {
-                type: Array
+                type: Array,
+                default: null
             },
 
             // Route of the row click
@@ -299,6 +301,8 @@
             // Filters headers and returns
             // the ones with search.value
             columnWiseSearchChips() {
+                if (this.headers === null) return null;
+
                 return this.headers.filter(item => {
                     return item.search !== undefined && item.search.chip
                 })
@@ -343,6 +347,12 @@
                 return expanded ? 'arrow_drop_up' : 'arrow_drop_down'
             },
 
+            // Checks whether item has name prop or not
+            // Used for differentiating sysRefs and regular text props
+            field (item) {
+                return item.name ? item.name : item
+            },
+
             // Welcomes filter emit
             filterTable(newValue) {
                 this.filterOptions = newValue
@@ -370,7 +380,7 @@
 
             // Toggles all rows in the data-table
             toggleAll() {
-                if (this.selected.length) this.selected = []
+                if (this.selected.length) this.selected = [];
                 else this.selected = this.items.slice()
             },
 
@@ -379,7 +389,7 @@
                 if (this.pagination.sortBy === column) {
                     this.pagination.descending = !this.pagination.descending
                 } else {
-                    this.pagination.sortBy = column
+                    this.pagination.sortBy = column;
                     this.pagination.descending = false
                 }
             },
