@@ -29,93 +29,95 @@ import tr.com.manerp.helper.SaltGenerator
 import java.nio.charset.StandardCharsets
 
 @Transactional
-class DataService
-{
+class DataService {
 
-    def initApplicationData()
-    {
-        User userBerat = new User()
-        userBerat.username = 'instantcrush'
-        String beratPassword = '1234'
-        byte[] beratSalt = SaltGenerator.generateSalt()
-        byte[] beratPasswordHash = BCrypt.withDefaults().hash(6, beratSalt, beratPassword.getBytes(StandardCharsets.UTF_8))
-        userBerat.salt = beratSalt
-        userBerat.passwordHash = beratPasswordHash
-        userBerat.passwordExpired = false
-        userBerat.accountExpired = false
-        userBerat.accountLocked = false
-        userBerat.isDeletable = false
-        userBerat.firstName = 'Bilal'
-        userBerat.middleName = 'Berat'
-        userBerat.lastName = 'Postalcıoğlu'
-        userBerat.email = 'beratpostalci@gmail.com'
-        userBerat.tcIdNumber = 12212222222
-        userBerat.gsmNo = '05343023283'
-        userBerat.active = true
-        userBerat.save(flush:true, failOnError: true)
+    def initApplicationData() {
+        List<User> userList = User.list()
 
-        User userAli = new User()
-        userAli.username = 'ozbatman'
-        String aliPassword = '12345'
-        byte[] aliSalt = SaltGenerator.generateSalt()
-        byte[] aliPasswordHash = BCrypt.withDefaults().hash(6, aliSalt,aliPassword.getBytes(StandardCharsets.UTF_8))
-        userAli.passwordHash = aliPasswordHash
-        userAli.salt = aliSalt
-        userAli.passwordExpired = false
-        userAli.accountExpired = false
-        userAli.accountLocked = false
-        userAli.isDeletable = false
-        userAli.firstName = 'Ali'
-        userAli.middleName = 'İmran'
-        userAli.lastName = 'Özbatman'
-        userAli.email = 'aliimranozbatman@gmail.com'
-        userAli.tcIdNumber = 12212222223
-        userAli.gsmNo = '5051403166'
-        userAli.active = true
-        userAli.save(flush:true, failOnError: true)
+        if (userList.size() == 0) {
+
+            User userBerat = new User()
+            userBerat.username = 'instantcrush'
+            String beratPassword = '1234'
+            byte[] beratSalt = SaltGenerator.generateSalt()
+            byte[] beratPasswordHash = BCrypt.withDefaults().hash(6, beratSalt, beratPassword.getBytes(StandardCharsets.UTF_8))
+            userBerat.salt = beratSalt
+            userBerat.passwordHash = beratPasswordHash
+            userBerat.passwordExpired = false
+            userBerat.accountExpired = false
+            userBerat.accountLocked = false
+            userBerat.isDeletable = false
+            userBerat.firstName = 'Bilal'
+            userBerat.middleName = 'Berat'
+            userBerat.lastName = 'Postalcıoğlu'
+            userBerat.email = 'beratpostalci@gmail.com'
+            userBerat.tcIdNumber = 12212222222
+            userBerat.gsmNo = '05343023283'
+            userBerat.active = true
+            userBerat.save(flush: true, failOnError: true)
+
+            User userAli = new User()
+            userAli.username = 'ozbatman'
+            String aliPassword = '12345'
+            byte[] aliSalt = SaltGenerator.generateSalt()
+            byte[] aliPasswordHash = BCrypt.withDefaults().hash(6, aliSalt, aliPassword.getBytes(StandardCharsets.UTF_8))
+            userAli.passwordHash = aliPasswordHash
+            userAli.salt = aliSalt
+            userAli.passwordExpired = false
+            userAli.accountExpired = false
+            userAli.accountLocked = false
+            userAli.isDeletable = false
+            userAli.firstName = 'Ali'
+            userAli.middleName = 'İmran'
+            userAli.lastName = 'Özbatman'
+            userAli.email = 'aliimranozbatman@gmail.com'
+            userAli.tcIdNumber = 12212222223
+            userAli.gsmNo = '5051403166'
+            userAli.active = true
+            userAli.save(flush: true, failOnError: true)
 
 
-        User userTuna = new User()
-        userTuna.username = 'tuna'
-        String tunaPassword = '123456'
-        byte[] tunaSalt = SaltGenerator.generateSalt()
-        byte[] tunaPasswordHash = BCrypt.withDefaults().hash(6, tunaSalt,tunaPassword.getBytes(StandardCharsets.UTF_8))
-        userTuna.passwordHash = tunaPasswordHash
-        userTuna.salt = tunaSalt
-        userTuna.passwordExpired = false
-        userTuna.accountExpired = false
-        userTuna.accountLocked = false
-        userTuna.isDeletable = false
-        userTuna.firstName = 'Tunahan'
-        userTuna.lastName = 'Bayındır'
-        userTuna.email = 'tunahanbayindir@gmail.com'
-        userTuna.tcIdNumber = 12212222224
-        userTuna.gsmNo = '5051403166'
-        userTuna.active = true
-        userTuna.save(flush:true, failOnError: true)
+            User userTuna = new User()
+            userTuna.username = 'tuna'
+            String tunaPassword = '123456'
+            byte[] tunaSalt = SaltGenerator.generateSalt()
+            byte[] tunaPasswordHash = BCrypt.withDefaults().hash(6, tunaSalt, tunaPassword.getBytes(StandardCharsets.UTF_8))
+            userTuna.passwordHash = tunaPasswordHash
+            userTuna.salt = tunaSalt
+            userTuna.passwordExpired = false
+            userTuna.accountExpired = false
+            userTuna.accountLocked = false
+            userTuna.isDeletable = false
+            userTuna.firstName = 'Tunahan'
+            userTuna.lastName = 'Bayındır'
+            userTuna.email = 'tunahanbayindir@gmail.com'
+            userTuna.tcIdNumber = 12212222224
+            userTuna.gsmNo = '5051403166'
+            userTuna.active = true
+            userTuna.save(flush: true, failOnError: true)
 
-        User userMuratcan = new User()
-        userMuratcan.username = 'muratcan'
-        String muratcanPassword = '123456'
-        byte[] muratcanSalt = SaltGenerator.generateSalt()
-        byte[] muratcanPasswordHash = BCrypt.withDefaults().hash(6, muratcanSalt,muratcanPassword.getBytes(StandardCharsets.UTF_8))
-        userMuratcan.passwordHash = muratcanPasswordHash
-        userMuratcan.salt = muratcanSalt
-        userMuratcan.passwordExpired = false
-        userMuratcan.accountExpired = false
-        userMuratcan.accountLocked = false
-        userMuratcan.isDeletable = false
-        userMuratcan.firstName = 'Muratcan'
-        userMuratcan.lastName = 'Balık'
-        userMuratcan.email = 'muratcanbalikk@gmail.com'
-        userMuratcan.tcIdNumber = 12212222225
-        userMuratcan.gsmNo = '5051403166'
-        userMuratcan.active = true
-        userMuratcan.save(flush:true, failOnError: true)
-
+            User userMuratcan = new User()
+            userMuratcan.username = 'muratcan'
+            String muratcanPassword = '123456'
+            byte[] muratcanSalt = SaltGenerator.generateSalt()
+            byte[] muratcanPasswordHash = BCrypt.withDefaults().hash(6, muratcanSalt, muratcanPassword.getBytes(StandardCharsets.UTF_8))
+            userMuratcan.passwordHash = muratcanPasswordHash
+            userMuratcan.salt = muratcanSalt
+            userMuratcan.passwordExpired = false
+            userMuratcan.accountExpired = false
+            userMuratcan.accountLocked = false
+            userMuratcan.isDeletable = false
+            userMuratcan.firstName = 'Muratcan'
+            userMuratcan.lastName = 'Balık'
+            userMuratcan.email = 'muratcanbalikk@gmail.com'
+            userMuratcan.tcIdNumber = 12212222225
+            userMuratcan.gsmNo = '5051403166'
+            userMuratcan.active = true
+            userMuratcan.save(flush: true, failOnError: true)
+        }
 
         SysCompany sysCompanyBumerang = SysCompany.findByName('Bumerang Lojistik')
-        if ( sysCompanyBumerang == null ) {
+        if (sysCompanyBumerang == null) {
 
             sysCompanyBumerang = new SysCompany()
             sysCompanyBumerang.name = 'Bumerang Lojistik'
@@ -131,7 +133,7 @@ class DataService
         }
 
         SysrefCompanyType sysrefCompanyTypeCst = SysrefCompanyType.findByName('Müşteri')
-        if ( sysrefCompanyTypeCst == null ) {
+        if (sysrefCompanyTypeCst == null) {
 
             sysrefCompanyTypeCst = new SysrefCompanyType()
 
@@ -145,7 +147,7 @@ class DataService
         }
 
         SysrefCompanyType sysrefCompanyTypeSup = SysrefCompanyType.findByName('Tedarikçi')
-        if ( sysrefCompanyTypeSup == null ) {
+        if (sysrefCompanyTypeSup == null) {
 
             sysrefCompanyTypeSup = new SysrefCompanyType()
 
@@ -159,7 +161,7 @@ class DataService
         }
 
         RefStaffTitle refStaffTitleDriver = RefStaffTitle.findByName('Şoför')
-        if ( refStaffTitleDriver == null ) {
+        if (refStaffTitleDriver == null) {
 
             refStaffTitleDriver = new RefStaffTitle()
             refStaffTitleDriver.name = 'Şoför'
@@ -172,7 +174,7 @@ class DataService
         }
 
         RefStaffTitle refStaffTitleOp = RefStaffTitle.findByName('Operasyoncu')
-        if ( refStaffTitleOp == null ) {
+        if (refStaffTitleOp == null) {
 
             refStaffTitleOp = new RefStaffTitle()
             refStaffTitleOp.name = 'Operasyoncu'
@@ -185,7 +187,7 @@ class DataService
         }
 
         SysrefGender sysrefGenderMale = SysrefGender.findByName('Erkek')
-        if ( sysrefGenderMale == null ) {
+        if (sysrefGenderMale == null) {
 
             sysrefGenderMale = new SysrefGender()
             sysrefGenderMale.name = 'Erkek'
@@ -195,7 +197,7 @@ class DataService
         }
 
         SysrefGender sysrefGenderFemale = SysrefGender.findByName('Kadın')
-        if ( sysrefGenderFemale == null ) {
+        if (sysrefGenderFemale == null) {
 
             sysrefGenderFemale = new SysrefGender()
             sysrefGenderFemale.name = 'Kadın'
@@ -205,7 +207,7 @@ class DataService
         }
 
         SysrefStaffContractType sysrefStaffContractTypeSozlesmeli = SysrefStaffContractType.findByName('Sözleşmeli')
-        if ( sysrefStaffContractTypeSozlesmeli == null ) {
+        if (sysrefStaffContractTypeSozlesmeli == null) {
 
             sysrefStaffContractTypeSozlesmeli = new SysrefStaffContractType()
             sysrefStaffContractTypeSozlesmeli.sysCompany = sysCompanyBumerang
@@ -218,7 +220,7 @@ class DataService
         }
 
         SysrefStaffContractType sysrefStaffContractTypeKadrolu = SysrefStaffContractType.findByName('Kadrolu')
-        if ( sysrefStaffContractTypeKadrolu == null ) {
+        if (sysrefStaffContractTypeKadrolu == null) {
 
             sysrefStaffContractTypeKadrolu = new SysrefStaffContractType()
             sysrefStaffContractTypeKadrolu.sysCompany = sysCompanyBumerang
@@ -231,7 +233,7 @@ class DataService
         }
 
         Staff staffBerat = Staff.findByFirstName('Berat')
-        if ( staffBerat == null ) {
+        if (staffBerat == null) {
 
             staffBerat = new Staff()
             staffBerat.setRandomCode()
@@ -251,7 +253,7 @@ class DataService
         }
 
         Staff staffMurat = Staff.findByFirstName('Muratcan')
-        if ( staffMurat == null ) {
+        if (staffMurat == null) {
 
             staffMurat = new Staff()
             staffMurat.setRandomCode()
@@ -272,7 +274,7 @@ class DataService
         }
 
         Staff staffTuna = Staff.findByFirstName('Tunahan')
-        if ( staffTuna == null ) {
+        if (staffTuna == null) {
 
             staffTuna = new Staff()
             staffTuna.setRandomCode()
@@ -291,7 +293,7 @@ class DataService
         }
 
         Staff staffAli = Staff.findByFirstName('Ali')
-        if ( staffAli == null ) {
+        if (staffAli == null) {
 
             staffAli = new Staff()
             staffAli.setRandomCode()
@@ -311,7 +313,7 @@ class DataService
         }
 
         RefCompanySector refCompanySectorGida = RefCompanySector.findByName('Gıda')
-        if ( refCompanySectorGida == null ) {
+        if (refCompanySectorGida == null) {
 
             refCompanySectorGida = new RefCompanySector()
             refCompanySectorGida.name = 'Gıda'
@@ -324,7 +326,7 @@ class DataService
         }
 
         Company customerCompanyPinar = Company.findByName('Pınar')
-        if ( customerCompanyPinar == null ) {
+        if (customerCompanyPinar == null) {
 
             customerCompanyPinar = new Company()
             customerCompanyPinar.setRandomCode()
@@ -345,7 +347,7 @@ class DataService
         }
 
         Vendor vendorPinarEsk = Vendor.findByTitle('Pınar Eskişehir Bayi')
-        if ( vendorPinarEsk == null ) {
+        if (vendorPinarEsk == null) {
 
             vendorPinarEsk = new Vendor()
             vendorPinarEsk.setRandomCode()
@@ -360,7 +362,7 @@ class DataService
         }
 
         Vendor vendorPinarKemal = Vendor.findByTitle('Pınar Kemalpaşa Bayi')
-        if ( vendorPinarKemal == null ) {
+        if (vendorPinarKemal == null) {
 
             vendorPinarKemal = new Vendor()
             vendorPinarKemal.setRandomCode()
@@ -375,7 +377,7 @@ class DataService
         }
 
         Company customerCompanyKerevitas = Company.findByName('Kerevitaş')
-        if ( customerCompanyKerevitas == null ) {
+        if (customerCompanyKerevitas == null) {
 
             customerCompanyKerevitas = new Company()
             customerCompanyKerevitas.setRandomCode()
@@ -396,7 +398,7 @@ class DataService
         }
 
         Vendor vendorKerevitasAdana = Vendor.findByTitle('Kerevitaş Adana Bölge Müdürlüğü')
-        if ( vendorKerevitasAdana == null ) {
+        if (vendorKerevitasAdana == null) {
 
             vendorKerevitasAdana = new Vendor()
             vendorKerevitasAdana.setRandomCode()
@@ -411,7 +413,7 @@ class DataService
         }
 
         Vendor vendorKerevitasAnkara = Vendor.findByTitle('Kerevitaş Ankara Bölge Müdürlüğü')
-        if ( vendorKerevitasAnkara == null ) {
+        if (vendorKerevitasAnkara == null) {
 
             vendorKerevitasAnkara = new Vendor()
             vendorKerevitasAnkara.setRandomCode()
@@ -426,7 +428,7 @@ class DataService
         }
 
         RefWorkingArea refWorkingAreaEge = RefWorkingArea.findByName('Ege Bölgesi')
-        if ( refWorkingAreaEge == null ) {
+        if (refWorkingAreaEge == null) {
 
             refWorkingAreaEge = new RefWorkingArea()
             refWorkingAreaEge.sysCompany = sysCompanyBumerang
@@ -439,7 +441,7 @@ class DataService
         }
 
         SysrefVehicleType sysrefVehicleTypeCekici = SysrefVehicleType.findByName('Çekici')
-        if ( sysrefVehicleTypeCekici == null ) {
+        if (sysrefVehicleTypeCekici == null) {
 
             sysrefVehicleTypeCekici = new SysrefVehicleType()
             sysrefVehicleTypeCekici.sysCompany = sysCompanyBumerang
@@ -452,7 +454,7 @@ class DataService
         }
 
         SysrefVehicleOwner sysrefVehicleOwnerOzmal = SysrefVehicleOwner.findByName('Özmal')
-        if ( sysrefVehicleOwnerOzmal == null ) {
+        if (sysrefVehicleOwnerOzmal == null) {
 
             sysrefVehicleOwnerOzmal = new SysrefVehicleOwner()
             sysrefVehicleOwnerOzmal.sysCompany = sysCompanyBumerang
@@ -465,7 +467,7 @@ class DataService
         }
 
         SysrefVehicleOwner sysrefVehicleOwnerKiralik = SysrefVehicleOwner.findByName('Kiralık')
-        if ( sysrefVehicleOwnerKiralik == null ) {
+        if (sysrefVehicleOwnerKiralik == null) {
 
             sysrefVehicleOwnerKiralik = new SysrefVehicleOwner()
             sysrefVehicleOwnerKiralik.sysCompany = sysCompanyBumerang
@@ -478,7 +480,7 @@ class DataService
         }
 
         Vehicle vehicle1 = Vehicle.findByPlateNumber('35 123 321')
-        if ( vehicle1 == null ) {
+        if (vehicle1 == null) {
 
             vehicle1 = new Vehicle()
             vehicle1.setRandomCode()
@@ -507,7 +509,7 @@ class DataService
         }
 
         SemiTrailer trailer1 = SemiTrailer.findByPlateNumber('35 963 852')
-        if ( trailer1 == null ) {
+        if (trailer1 == null) {
 
             trailer1 = new SemiTrailer()
             trailer1.setRandomCode()
@@ -521,7 +523,7 @@ class DataService
         }
 
         SysrefRevenueType sysrefRevenueTypeTicari = SysrefRevenueType.findByName('Ticari')
-        if ( sysrefRevenueTypeTicari == null ) {
+        if (sysrefRevenueTypeTicari == null) {
 
             sysrefRevenueTypeTicari = new SysrefRevenueType()
             sysrefRevenueTypeTicari.sysCompany = sysCompanyBumerang
@@ -534,7 +536,7 @@ class DataService
         }
 
         Order orderPinar = Order.findByName('Pınar Sipariş')
-        if ( orderPinar == null ) {
+        if (orderPinar == null) {
 
             orderPinar = new Order()
             orderPinar.setRandomCode()
@@ -551,7 +553,7 @@ class DataService
         }
 
         SysrefTransportationType sysrefTransportationTypeGidis = SysrefTransportationType.findByName('Komple')
-        if ( sysrefTransportationTypeGidis == null ) {
+        if (sysrefTransportationTypeGidis == null) {
 
             sysrefTransportationTypeGidis = new SysrefTransportationType()
             sysrefTransportationTypeGidis.sysCompany = sysCompanyBumerang
@@ -561,7 +563,7 @@ class DataService
         }
 
         SysrefVoyageDirection sysrefVoyageDirectionGidis = SysrefVoyageDirection.findByName('Gidiş')
-        if ( sysrefVoyageDirectionGidis == null ) {
+        if (sysrefVoyageDirectionGidis == null) {
 
             sysrefVoyageDirectionGidis = new SysrefVoyageDirection()
             sysrefVoyageDirectionGidis.sysCompany = sysCompanyBumerang
@@ -574,7 +576,7 @@ class DataService
         }
 
         SysrefVoyageDirection sysrefVoyageDirectionGidisDonus = SysrefVoyageDirection.findByName('Gidiş-Dönüş')
-        if ( sysrefVoyageDirectionGidisDonus == null ) {
+        if (sysrefVoyageDirectionGidisDonus == null) {
 
             sysrefVoyageDirectionGidisDonus = new SysrefVoyageDirection()
             sysrefVoyageDirectionGidisDonus.sysCompany = sysCompanyBumerang
@@ -587,7 +589,7 @@ class DataService
         }
 
         SysrefDeliveryStatus sysrefDeliveryStatusRezervasyon = SysrefDeliveryStatus.findByName('Rezervasyon')
-        if ( sysrefDeliveryStatusRezervasyon == null ) {
+        if (sysrefDeliveryStatusRezervasyon == null) {
 
             sysrefDeliveryStatusRezervasyon = new SysrefDeliveryStatus()
             sysrefDeliveryStatusRezervasyon.sysCompany = sysCompanyBumerang
@@ -600,7 +602,7 @@ class DataService
         }
 
         SysrefDeliveryStatus sysrefDeliveryStatusYuklendi = SysrefDeliveryStatus.findByName('Yüklendi')
-        if ( sysrefDeliveryStatusYuklendi == null ) {
+        if (sysrefDeliveryStatusYuklendi == null) {
 
             sysrefDeliveryStatusYuklendi = new SysrefDeliveryStatus()
             sysrefDeliveryStatusYuklendi.sysCompany = sysCompanyBumerang
@@ -613,7 +615,7 @@ class DataService
         }
 
         SysrefDeliveryStatus sysrefDeliveryStatusBosaltti = SysrefDeliveryStatus.findByName('Boşalttı')
-        if ( sysrefDeliveryStatusBosaltti == null ) {
+        if (sysrefDeliveryStatusBosaltti == null) {
 
             sysrefDeliveryStatusBosaltti = new SysrefDeliveryStatus()
             sysrefDeliveryStatusBosaltti.sysCompany = sysCompanyBumerang
@@ -626,7 +628,7 @@ class DataService
         }
 
         Location loadingLocationPinar = Location.findByName('Karşıyaka')
-        if ( loadingLocationPinar == null ) {
+        if (loadingLocationPinar == null) {
 
             loadingLocationPinar = new Location()
             loadingLocationPinar.sysCompany = sysCompanyBumerang
@@ -636,7 +638,7 @@ class DataService
         }
 
         Location dumpingLocationPinar = Location.findByName('Eskişehir')
-        if ( dumpingLocationPinar == null ) {
+        if (dumpingLocationPinar == null) {
 
             dumpingLocationPinar = new Location()
             dumpingLocationPinar.sysCompany = sysCompanyBumerang
@@ -646,7 +648,7 @@ class DataService
         }
 
         Voyage voyagePinar = Voyage.findByOrder(orderPinar)
-        if ( voyagePinar == null ) {
+        if (voyagePinar == null) {
 
             voyagePinar = new Voyage()
             voyagePinar.setRandomCode()
