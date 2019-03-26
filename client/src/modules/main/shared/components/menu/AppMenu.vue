@@ -1,11 +1,12 @@
 <!-- Default application menu component -->
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-navigation-drawer
-        app
-        light
-        floating
-        width="240"
-        class="grey lighten-4"
+            app
+            light
+            :mini-variant="localDrawer"
+            floating
+            width="240"
+            class="grey lighten-4"
     >
         <v-layout fill-height>
             <v-list class="grow pt-0">
@@ -21,39 +22,55 @@
 
                             <v-list-tile-content>
 
-                                <v-list-tile-title class="font-weight-light black--text text--accent-5">
+                                <v-slide-x-transition>
+                                    <v-list-tile-title class="font-weight-light black--text text--accent-5">
 
-                                    Bumerang Lojistik
-                                </v-list-tile-title>
+                                        Bumerang Lojistik
+                                    </v-list-tile-title>
+                                </v-slide-x-transition>
                             </v-list-tile-content>
                         </v-list-tile>
                     </v-list>
                 </v-toolbar>
 
                 <div
-                    v-for="menuItem in menuItems"
-                    :key="`menu-` + menuItem.title"
-                    class="mt-2">
-
+                        v-for="menuItem in menuItems"
+                        :key="`menu-` + menuItem.title"
+                        class="mt-2"
+                >
                     <v-subheader class="px-4">{{ menuItem.title }}</v-subheader>
 
                     <v-list-tile
-                        v-for="item in menuItem.items"
-                        :key="`menu-item-${item.title}`"
-                        :to="item.to"
-                        outline
-                        active-class="grey lighten-2">
+                            v-for="item in menuItem.items"
+                            v-on="on"
+                            :key="`menu-item-${item.title}`"
+                            :to="item.to"
+                            outline
+                            active-class="grey lighten-2">
 
-                        <v-list-tile-action class="px-2">
+                        <v-tooltip
+                                right
+                                :disabled="!localDrawer"
+                        >
+                            <template v-slot:activator="{ on }">
+                                <v-list-tile-action
+                                        v-on="on"
+                                        class="px-2"
+                                >
+                                    <v-icon color="grey darken-3">{{ item.icon }}</v-icon>
+                                </v-list-tile-action>
+                            </template>
+                            <span>{{ item.title }}</span>
+                        </v-tooltip>
 
-                            <v-icon color="grey darken-3">{{ item.icon }}</v-icon>
-                        </v-list-tile-action>
+                        <v-slide-x-transition>
+                            <v-list-tile-title
+                                    v-if="!localDrawer"
+                                    v-text="item.title"
+                                    class="body-1 text--secondary px-2">
 
-                        <v-list-tile-title
-                            v-text="item.title"
-                            class="body-1 text--secondary px-2">
-
-                        </v-list-tile-title>
+                            </v-list-tile-title>
+                        </v-slide-x-transition>
                     </v-list-tile>
 
                     <v-divider class="my-3"></v-divider>
@@ -66,8 +83,18 @@
 <script>
     export default {
         name: "AppMenu",
+
+        props: {
+            value: {
+                type: Boolean,
+                default: false,
+            }
+        },
+
         data() {
             return {
+                localDrawer: this.value,
+
                 menuItems: [
                     {
                         title: 'GENEL',
@@ -127,9 +154,13 @@
                 mini: true
             }
         },
-        props: {
-            drawer: Boolean
+
+        watch: {
+            value() {
+                this.localDrawer = this.value
+            }
         }
+
     }
 </script>
 

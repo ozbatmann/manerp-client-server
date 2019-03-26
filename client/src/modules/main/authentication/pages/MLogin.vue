@@ -1,3 +1,6 @@
+
+<!-- Login component -->
+<!-- Handles authentication and login system -->
 <template>
     <v-container
             fluid
@@ -6,6 +9,7 @@
     >
         <v-layout
                 align-center
+                fill-height
                 wrap
         >
             <v-flex
@@ -17,7 +21,7 @@
                             :src="require('@/assets/logo_w.png')"
                             class="mx-auto m-login__background"
                             height="125"
-                            width="150"
+                            width="200"
                             contain
                     ></v-img>
                     <p class="brand mx-auto">M A N E R P</p>
@@ -25,12 +29,12 @@
                 <div id="m-login__overlay"></div>
                 <v-img
                         :src="require('@/assets/login_background.jpeg')"
-                        max-height="100vh"
+                        height="100vh"
                 ></v-img>
             </v-flex>
             <v-flex
                     xs5
-                    pa-5
+                    px-5
                     style="position: relative;"
             >
                 <div class="m-login__clip-path"></div>
@@ -41,17 +45,20 @@
                             Bumerang Lojistik.
                         </span>
                     </h4>
-                    <h2 class="mt-4 font-weight-light">İşinizi uzaya taşıyın 🚀</h2>
+                    <h2 class="mt-5 font-weight-light">İşinizi uzaya taşıyın 🚀</h2>
                 </div>
                 <v-text-field
+                        v-model="username"
                         solo
                         flat
-                        placeholder="E-posta"
+                        placeholder="Kullanıcı Adı"
                         background-color="grey lighten-4"
                         color="black"
+                        required
                 ></v-text-field>
 
                 <v-text-field
+                        v-model="password"
                         solo
                         flat
                         hide-details
@@ -59,8 +66,9 @@
                         background-color="grey lighten-4"
                         color="black"
                         type="password"
+                        required
                 ></v-text-field>
-                <v-layout py-3>
+                <v-layout pt-3>
                     <v-flex xs4>
                         <v-checkbox
                                 hide-details
@@ -71,7 +79,8 @@
                         <v-btn
                                 depressed
                                 color="primary-green"
-                                class="white--text mx-0 my-3"
+                                class="white--text mx-0 mt-3"
+                                @click="login"
                         >
                             GİRİŞ YAP
                         </v-btn>
@@ -91,7 +100,35 @@
 
 <script>
     export default {
-        name: "MLogin"
+        name: "MLogin",
+
+        data () {
+            return {
+                // An Object that holds
+                // username information of the user
+                username: null,
+
+                // An Object that holds
+                // password information of the user
+                password: null
+            }
+        },
+
+        methods: {
+            login () {
+                let loginData = {
+                    username: this.username,
+                    password: this.password
+                };
+
+                this.$http.post('v1/auth/signIn', loginData)
+                    .then(result => {
+                        console.log(result)
+                    }).catch(error => {
+                        console.log(`Error is here: ${error}`)
+                })
+            }
+        }
     }
 </script>
 
@@ -104,7 +141,7 @@
         font-size: 14px !important;
     }
 
-    .m-login__background {
+    .m-login__background img {
         -webkit-clip-path: circle(53.7% at 38% 31%);
         clip-path: circle(53.7% at 38% 31%);
     }

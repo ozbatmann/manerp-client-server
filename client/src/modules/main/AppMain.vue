@@ -1,9 +1,9 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-app>
         <main>
-            <app-menu drawer="drawer"></app-menu>
+            <app-menu v-model="menu"></app-menu>
 
-            <app-toolbar></app-toolbar>
+            <app-toolbar v-model="menu"></app-toolbar>
 
             <app-chat-drawer    v-model="drawer"
                                 :temporary=true>
@@ -65,7 +65,9 @@
 
         data () {
             return {
-                drawer: null
+                drawer: null,
+
+                menu: true
             }
         }
     }

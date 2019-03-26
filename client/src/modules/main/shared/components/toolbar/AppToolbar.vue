@@ -6,7 +6,7 @@
             :tabs="tabsEnabled"
             class="white toolbar-shadow"
     >
-        <v-toolbar-side-icon></v-toolbar-side-icon>
+        <v-toolbar-side-icon @click="localDrawerState = !localDrawerState"></v-toolbar-side-icon>
         <v-scroll-y-transition mode="out-in">
             <v-toolbar-title
                     class="headline font-weight-light"
@@ -15,17 +15,6 @@
                 {{ $route.meta.title === undefined ? title : $route.meta.title }}
             </v-toolbar-title>
         </v-scroll-y-transition>
-        <!--<v-breadcrumbs :items="$route.meta.breadcrumb" class="py-0">-->
-        <!--<template v-slot:item="props">-->
-        <!--<router-link-->
-        <!--tag="span"-->
-        <!--:to="{ name: props.item.href }"-->
-        <!--:class="[props.item.disabled ? '' : 'm-active-breadcrumb']"-->
-        <!--&gt;-->
-        <!--{{ props.item.text }}-->
-        <!--</router-link>-->
-        <!--</template>-->
-        <!--</v-breadcrumbs>-->
         <template
                 v-if="tabsEnabled"
                 v-slot:extension
@@ -87,14 +76,22 @@
 </template>
 
 <script>
-    import MDataTableAction from "../data/components/MDataTableAction";
     export default {
         name: "AppToolbar",
-        components: {MDataTableAction},
+
+        props: {
+            value: {
+                type: Boolean,
+                default: true
+            }
+        },
+
         data() {
             return {
                 title: null,
                 tabs: null,
+
+                localDrawerState: this.value
             }
         },
 
@@ -109,10 +106,20 @@
                 let doc = window.document;
                 let docEl = doc.documentElement;
 
-                let requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-                let cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+                let requestFullScreen = docEl.requestFullscreen
+                    || docEl.mozRequestFullScreen
+                    || docEl.webkitRequestFullScreen
+                    || docEl.msRequestFullscreen;
 
-                if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+                let cancelFullScreen = doc.exitFullscreen
+                    || doc.mozCancelFullScreen
+                    || doc.webkitExitFullscreen
+                    || doc.msExitFullscreen;
+
+                if (!doc.fullscreenElement
+                    && !doc.mozFullScreenElement
+                    && !doc.webkitFullscreenElement
+                    && !doc.msFullscreenElement) {
                     requestFullScreen.call(docEl);
                 } else {
                     cancelFullScreen.call(doc);
@@ -121,7 +128,12 @@
         },
 
         watch: {
-            '$route'(to, from) {
+            localDrawerState () {
+                this.$emit('input', this.localDrawerState)
+            },
+
+            value () {
+                this.localDrawerState = this.value
             }
         }
     }
