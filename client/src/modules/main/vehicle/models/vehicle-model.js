@@ -1,5 +1,5 @@
 export default {
-    id: 'id',
+    id: 'code',
     plateNumber: 'plateNumber',
     fleetCardNumber: 'fleetCardNumber',
     km: 'km',
