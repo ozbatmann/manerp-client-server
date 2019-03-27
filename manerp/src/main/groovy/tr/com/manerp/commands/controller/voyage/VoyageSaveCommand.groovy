@@ -42,12 +42,12 @@ class VoyageSaveCommand implements Validateable {
         importFrom(Voyage)
 
         id maxSize: 32
-        loadingLocationName nullable: false, maxSize: 100
-        loadingLocationLatitude nullable: false, maxSize: 100
-        loadingLocationLongitude nullable: false, maxSize: 100
-        dumpingLocationName nullable: false, maxSize: 100
-        dumpingLocationLatitude nullable: false, maxSize: 100
-        dumpingLocationLongitude nullable: false, maxSize: 100
+        loadingLocationName nullable: true, maxSize: 100
+        loadingLocationLatitude nullable: true, maxSize: 100
+        loadingLocationLongitude nullable: true, maxSize: 100
+        dumpingLocationName nullable: true, maxSize: 100
+        dumpingLocationLatitude nullable: true, maxSize: 100
+        dumpingLocationLongitude nullable: true, maxSize: 100
     }
 
     Voyage rightShift(Voyage voyage) {
