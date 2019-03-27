@@ -57,10 +57,11 @@ class VoyageService extends BaseService
                 id                      : it.id,
                 code                    : it.code,
                 company                 : [id: it.company.id, name: it.company.title],
-                driver                  : [id: it.driver.id, name: it.driver.title],
-                order                   : [id: it.order.id, name: it.order.title],
-                sysrefTransportationType: [id: it.sysrefTransportationType.id, name: it.sysrefTransportationType.title],
-                sysrefVoyageDirection   : [id: it.sysrefVoyageDirection.id, name: it.sysrefVoyageDirection.title]
+                vehicle                 : [id: it.vehicle.id, name: it.vehicle.plateNumber],
+                driver                  : [id: it.driver.id, name: it.driver.getFullName()],
+                order                   : [id: it.order.id, name: it.order.name],
+                sysrefTransportationType: [id: it.sysrefTransportationType.id, name: it.sysrefTransportationType.name],
+                sysrefVoyageDirection   : [id: it.sysrefVoyageDirection.id, name: it.sysrefVoyageDirection.name]
             ]
         }
 

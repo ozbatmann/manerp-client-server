@@ -70,8 +70,9 @@ class VehicleService extends BaseService
 
         List formattedData = data.collect {
             return [
-                id         : it.id,
-                plateNumber: it.plateNumber
+                id  : it.id,
+                // TODO: change
+                name: it.plateNumber
             ]
         }
 

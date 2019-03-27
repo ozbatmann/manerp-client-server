@@ -122,7 +122,7 @@
                     },
                     {
                         key: orderModel.customer,
-                        title: 'müşteri iş yeri',
+                        title: 'müşteri İş yeri',
                         type: 'select',
                         props: this.customerCompanyList
                     },

@@ -133,6 +133,11 @@
                                 to: { name: require('@/modules/main/order/route/index').routes.current }
                             },
                             {
+                                title: 'Personel Yönetimi',
+                                icon: 'account_circle',
+                                to: { name: require('@/modules/main/staff/route/index').routes.staffs }
+                            },
+                            {
                                 title: 'Şoför Yönetimi',
                                 icon: 'account_circle',
                                 to: { name: require('@/modules/main/driver/route/index').routes.drivers }

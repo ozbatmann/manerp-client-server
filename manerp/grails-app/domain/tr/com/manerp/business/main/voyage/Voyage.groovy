@@ -45,13 +45,13 @@ class Voyage implements BusinessDomain
         order nullable: false, unique: false
         sysrefTransportationType nullable: true, unique: false
         sysrefVoyageDirection nullable: false, unique: false
-        loadingLocation nullable: false, unique: false
-        dumpingLocation nullable: false, unique: false
+        loadingLocation nullable: true, unique: false
+        dumpingLocation nullable: true, unique: false
         substitudeDriver nullable: true, unique: false
-        transportWaybillNo nullable: false, blank: false, unique: false
-        deliveryNoteNo nullable: false, blank: false, unique: false
-        sasNumber nullable: false, blank: false, unique: false
-        sysrefDeliveryStatus nullable: false, unique: false
+        transportWaybillNo nullable: true, blank: true, unique: false
+        deliveryNoteNo nullable: true, blank: true, unique: false
+        sasNumber nullable: true, blank: true, unique: false
+        sysrefDeliveryStatus nullable: true, unique: false
     }
 
     static mapping = {

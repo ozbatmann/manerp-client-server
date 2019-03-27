@@ -19,7 +19,6 @@ class VehicleController extends BaseController
 
     def index()
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
