@@ -11,7 +11,7 @@
                 <!-- Add customer button -->
                 <m-data-table-action
                     title="araç ekle"
-                    @click="addDialog"
+                    disabled
                 ></m-data-table-action>
             </template>
 
@@ -29,7 +29,6 @@
             :data="addEditData"
             :inputs="addEditFields"
             title="Yeni Araç"
-            @save="addNewItem"
             @edit="editItem"
         ></m-data-table-add-new-form>
 
@@ -249,22 +248,11 @@
             // Adds a new driver
             // to the system
             getAllVehicles() {
-                this.loading = true;
                 let self = this;
+                this.loading = true;
+
                 this.$http.get('api/v1/vehicle').then((result) => {
                     self.vehicles = result.data.data.items
-                }).catch((error) => {
-                    console.log(error);
-                }).finally((result) => {
-                    self.loading = false;
-                })
-            },
-            addNewItem(item) {
-                this.newItem = item
-                this.loading = true;
-                let self = this;
-                this.$http.post('api/v1/vehicle', this.newItem).then((result) => {
-                    self.getAllVehicles();
                 }).catch((error) => {
                     console.log(error);
                 }).finally((result) => {
@@ -283,34 +271,40 @@
                 })
             },
             getSysrefVehicleOwnerList() {
+                let self = this;
+
                 this.$http.get("api/v1/sysrefVehicleOwner").then((result) => {
-                    this.sysrefVehicleOwnerList = result.data.data.items
-                    this.addEditFields.find(item => {
+                    self.sysrefVehicleOwnerList = result.data.data.items
+                    self.addEditFields.find(item => {
                         return item.key === vehicleModel.sysrefVehicleOwner
-                    }).props = this.sysrefVehicleOwnerList
+                    }).props = self.sysrefVehicleOwnerList
 
                 }).catch((error) => {
                     console.error(error);
                 })
             },
             getSysrefVehicleTypeList() {
+                let self = this;
+
                 this.$http.get("api/v1/sysrefVehicleType").then((result) => {
-                    this.sysrefVehicleTypeList = result.data.data.items
-                    this.addEditFields.find(item => {
+                    self.sysrefVehicleTypeList = result.data.data.items;
+                    self.addEditFields.find(item => {
                         return item.key === vehicleModel.sysrefVehicleType
-                    }).props = this.sysrefVehicleTypeList
+                    }).props = self.sysrefVehicleTypeList
 
                 }).catch((error) => {
                     console.error(error);
                 })
             },
             getRefWorkingAreaList() {
-                this.$http.get('api/v1/refWorkingArea/getListForDropDown').then((result) => {
-                    this.refWorkingAreaList = result.data.data.items
+                let self = this;
 
-                    this.addEditFields.find(item => {
+                this.$http.get('api/v1/refWorkingArea/getListForDropDown').then((result) => {
+                    self.refWorkingAreaList = result.data.data.items
+
+                    self.addEditFields.find(item => {
                         return item.key === vehicleModel.refWorkingArea
-                    }).props = this.refWorkingAreaList
+                    }).props = self.refWorkingAreaList
 
                 }).catch((error) => {
                     console.log(error);

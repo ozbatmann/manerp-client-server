@@ -143,19 +143,19 @@
 
             // Adds a new driver
             // to the system
-            getAllOrders() {
+            getAllVehicles() {
                 let self = this;
 
                 this.$http.get('api/v1/order?COMP').then((result) => {
                     self.orders = result.data.data.items
                 }).catch((error) => {
                     console.log(error);
-                }).finally(() => this.loading = false)
+                }).finally(() => self.loading = false)
             },
         },
 
         mounted() {
-            this.getAllOrders();
+            this.getAllVehicles();
         }
     }
 </script>

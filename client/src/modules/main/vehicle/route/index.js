@@ -9,13 +9,13 @@ const meta = (title) => {
         tabbed: true,
         tabs: [
             {
+                text: 'boşta olan araçlar',
+                to: {name: routes.idle}
+            },
+            {
                 text: 'sevkiyatta olan araçlar',
                 to: {name: routes.onVoyage}
             },
-            {
-                text: 'boşta olan araçlar',
-                to: {name: routes.idle}
-            }
         ]
     }
 };
@@ -26,13 +26,13 @@ export default [
         component: () => import('@/modules/main/shared/components/core/MCoreDetails'),
         children: [
             {
-                path: '',
+                path: 'voyage',
                 name: routes.onVoyage,
                 component: () => import('@/modules/main/vehicle/pages/MVehicleManagementOnVoyage'),
                 meta: meta('Araç Yönetimi')
             },
             {
-                path: 'idle',
+                path: '',
                 name: routes.idle,
                 component: () => import('@/modules/main/vehicle/pages/MVehicleManagementIdle'),
                 meta: meta('Araç Yönetimi')

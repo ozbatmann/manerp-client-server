@@ -305,45 +305,54 @@
                         console.log(error);
                 })
             },
+
             getSysrefCountryList() {
+                let self = this;
+
                 this.$http.get("api/v1/sysrefCountry").then((result) => {
-                    this.sysrefCountryList = result.data.data.items
-                    this.addEditFields.find(item => {
+                    self.sysrefCountryList = result.data.data.items
+                    self.addEditFields.find(item => {
                         return item.key === customerModel.sysrefCountry
-                    }).props = this.sysrefCountryList
+                    }).props = self.sysrefCountryList
 
                 }).catch((error) => {
                     console.error(error);
                 })
             },
             getSysrefCityList() {
+                let self = this;
+
                 this.$http.get("api/v1/sysrefCity").then((result) => {
-                    this.sysrefCityList = result.data.data.items
-                    this.addEditFields.find(item => {
+                    self.sysrefCityList = result.data.data.items
+                    self.addEditFields.find(item => {
                         return item.key === customerModel.sysrefCity
-                    }).props = this.sysrefCityList
+                    }).props = self.sysrefCityList
 
                 }).catch((error) => {
                     console.error(error);
                 })
             },
             getSysrefDistrictList() {
+                let self = this;
+
                 this.$http.get("api/v1/sysrefDistrict").then((result) => {
-                    this.sysrefDistrictList = result.data.data.items
-                    this.addEditFields.find(item => {
+                    self.sysrefDistrictList = result.data.data.items
+                    self.addEditFields.find(item => {
                         return item.key === customerModel.sysrefDistrict
-                    }).props = this.sysrefDistrictList
+                    }).props = self.sysrefDistrictList
 
                 }).catch((error) => {
                     console.error(error);
                 })
             },
             getRefCompanySectorList() {
+                let self = this;
+
                 this.$http.get("api/v1/refCompanySector/getListForDropDown").then((result) => {
-                    this.refCompanySectorList = result.data.data.items
-                    this.addEditFields.find(item => {
+                    self.refCompanySectorList = result.data.data.items
+                    self.addEditFields.find(item => {
                         return item.key === customerModel.refCompanySector
-                    }).props = this.refCompanySectorList
+                    }).props = self.refCompanySectorList
 
                 }).catch((error) => {
                     console.error(error);

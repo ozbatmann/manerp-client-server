@@ -1,17 +1,17 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <m-data-table
-            :headers="headers"
-            :items="vehicles"
-            :to="to"
+                :headers="headers"
+                :items="vehicles"
+                :loading="loading"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
 
                 <!-- Add customer button -->
                 <m-data-table-action
-                    title="araç ekle"
-                    @click="addDialog"
+                        title="araç ekle"
+                        @click="addDialog"
                 ></m-data-table-action>
             </template>
 
@@ -25,25 +25,25 @@
 
         <!-- Data table add-edit form -->
         <m-data-table-add-new-form
-            ref="addEditDialog"
-            :data="addEditData"
-            :inputs="addEditFields"
-            title="Yeni Araç"
-            @save="addNewItem"
+                ref="addEditDialog"
+                :data="addEditData"
+                :inputs="addEditFields"
+                title="Yeni Araç"
+                @save="addNewItem"
         ></m-data-table-add-new-form>
 
         <v-snackbar
-            v-model="snackbar.active"
-            color="grey darken-4"
-            :class="snackbar.textColor"
-            top
-            right
+                v-model="snackbar.active"
+                color="grey darken-4"
+                :class="snackbar.textColor"
+                top
+                right
         >
             {{ snackbar.text }}
             <v-btn
-                dark
-                flat
-                @click="snackbar.active = false"
+                    dark
+                    flat
+                    @click="snackbar.active = false"
             >
                 geri al
             </v-btn>
@@ -54,19 +54,21 @@
 <script>
     import MDataTable from '@/modules/main/shared/components/data/components/MDataTable'
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction"
+    import MDataTableAddNewForm from '@/modules/main/shared/components/data/components/MDataTableAddNewForm'
 
     const vehicleModel = require('@/modules/main/vehicle/models/vehicle-model').default;
 
     export default {
         name: "MVehicleManagementIdle",
-
         components: {
             MDataTable,
             MDataTableAction,
+            MDataTableAddNewForm
         },
 
         data() {
             return {
+                loading: true,
                 // Data-table
                 // add-edit dialog data
                 addEditData: {
@@ -91,10 +93,78 @@
                         key: vehicleModel.plateNumber,
                         max: 20,
                         rules: [
-                            'required', 'max:30'
+                            'required', 'max:20'
                         ],
                         title: 'plaka',
                         type: 'text',
+                    },
+                    {
+                        key: vehicleModel.brand,
+                        max: 50,
+                        rules: [
+                            'required', 'max:50'
+                        ],
+                        title: 'marka',
+                        type: 'text',
+                    },
+                    {
+                        key: vehicleModel.fleetCardNumber,
+                        max: 50,
+                        title: 'filo kart numarası',
+                        rules: [
+                            'required', 'max:50'
+                        ]
+                    },
+                    {
+                        key: vehicleModel.km,
+                        type: 'number',
+                        max: 8,
+                        title: 'km',
+                        rules: [
+                            'required', 'max:8'
+                        ]
+                    },
+                    {
+                        key: vehicleModel.refWorkingArea,
+                        title: 'çalışma alanı',
+                        type: 'select',
+                        props: this.refWorkingAreaList
+                    },
+                    {
+                        key: vehicleModel.sysrefVehicleType,
+                        title: 'tipi',
+                        type: 'select',
+                        props: this.sysrefVehicleTypeList
+                    },
+                    {
+                        key: vehicleModel.sysrefVehicleOwner,
+                        title: 'mülk tipi',
+                        type: 'select',
+                        props: this.sysrefVehicleOwnerList
+                    },
+                    {
+                        key: vehicleModel.vehicleOwnerFullName,
+                        max: 50,
+                        title: 'sahibi',
+                        rules: [
+                            'required', 'max:50'
+                        ]
+                    },
+                    {
+                        key: vehicleModel.kgsNo,
+                        max: 50,
+                        title: 'kgs numarası',
+                        rules: [
+                            'required', 'max:50'
+                        ]
+                    },
+                    {
+                        key: vehicleModel.ogsNo,
+                        max: 50,
+                        title: 'ogs numarası',
+                        rules: [
+                            'required', 'max:50'
+                        ]
                     },
                     {
                         key: vehicleModel.isDualRegime,
@@ -117,20 +187,54 @@
                         toggleable: false,
                         show: true,
                         search: {chip: false, value: null}
+                    },
+                    {
+                        text: 'plaka',
+                        sortable: true,
+                        value: vehicleModel.plateNumber,
+                        toggleable: false,
+                        show: true,
+                        search: {chip: false, value: null}
+                    },
+                    {
+                        text: 'filo kart numarası',
+                        sortable: true,
+                        value: vehicleModel.fleetCardNumber,
+                        toggleable: false,
+                        show: true,
+                        search: {chip: false, value: null}
+                    },
+                    {
+                        text: 'tipi',
+                        sortable: true,
+                        value: vehicleModel.sysrefVehicleType,
+                        toggleable: false,
+                        show: true,
+                        search: {chip: false, value: null}
+                    },
+                    {
+                        text: 'mülk tipi',
+                        sortable: true,
+                        value: vehicleModel.sysrefVehicleOwner,
+                        toggleable: false,
+                        show: true,
+                        search: {chip: false, value: null}
                     }
                 ],
 
                 vehicles: [],
+                refWorkingAreaList: [],
+                sysrefVehicleTypeList: [],
+                sysrefVehicleOwnerList: [],
 
                 newItem: null,
 
                 snackbar: false,
 
                 // Data table row click route
-                to: {
-                    name: require('@/modules/main/vehicle/route/index').routes.information
-                }
-
+                // to: {
+                //     name: require('@/modules/main/vehicle/route/index').routes.information
+                // }
             }
         },
         methods: {
@@ -142,48 +246,89 @@
 
             // Adds a new driver
             // to the system
-            getAllOrders() {
-                this.$http.get('api/v1/order').then((result) => {
-                    this.orders = result.data.data.items
+            getAllVehicles() {
+                let self = this;
+                this.loading = true;
+
+                this.$http.get('api/v1/vehicle').then((result) => {
+                    self.vehicles = result.data.data.items
                 }).catch((error) => {
                     console.log(error);
+                }).finally((result) => {
+                    self.loading = false;
                 })
             },
             addNewItem(item) {
+                let self = this;
                 this.newItem = item
-                this.$http.post('api/v1/order?WAIT', this.newItem).then((result) => {
-                    this.getAllDrivers();
+                this.loading = true;
+
+                this.$http.post('api/v1/vehicle', this.newItem).then((result) => {
+                    self.getAllVehicles();
                 }).catch((error) => {
                     console.log(error);
+                }).finally((result) => {
+                    self.loading = false;
                 })
             },
-            getSysrefRevenueTypeList() {
-                this.$http.get('api/v1/sysrefRevenueType').then((result) => {
-                    this.sysrefRevenueTypeList = result.data.data.items
 
-                    this.addEditFields.find(item => {
-                        return item.key === orderModel.sysrefRevenueType
-                    }).props = this.sysrefRevenueTypeList
+            editItem(item) {
+                let self = this;
+
+                this.$http.put('api/v1/vehicle/', item)
+                    .then(result => {
+                        self.getAllVehicles();
+                    }).catch(error => {
+                    console.log(error)
+                })
+            },
+            getSysrefVehicleOwnerList() {
+                let self = this;
+
+                this.$http.get("api/v1/sysrefVehicleOwner").then((result) => {
+                    self.sysrefVehicleOwnerList = result.data.data.items;
+                    self.addEditFields.find(item => {
+                        return item.key === vehicleModel.sysrefVehicleOwner
+                    }).props = self.sysrefVehicleOwnerList
 
                 }).catch((error) => {
-                    console.log(error);
+                    console.error(error);
                 })
             },
-            getCustomerCompanyList() {
-                this.$http.get('api/v1/customerCompany/getListForDropDown/').then((result) => {
-                    this.customerCompanyList = result.data.data.items
+            getSysrefVehicleTypeList() {
+                let self = this;
 
-                    this.addEditFields.find(item => {
-                        return item.key === orderModel.customer
-                    }).props = this.customerCompanyList
+                this.$http.get("api/v1/sysrefVehicleType").then((result) => {
+                    self.sysrefVehicleTypeList = result.data.data.items;
+                    self.addEditFields.find(item => {
+                        return item.key === vehicleModel.sysrefVehicleType
+                    }).props = self.sysrefVehicleTypeList
+
+                }).catch((error) => {
+                    console.error(error);
+                })
+            },
+            getRefWorkingAreaList() {
+                let self = this;
+
+                this.$http.get('api/v1/refWorkingArea/getListForDropDown').then((result) => {
+                    self.refWorkingAreaList = result.data.data.items
+
+                    self.addEditFields.find(item => {
+                        return item.key === vehicleModel.refWorkingArea
+                    }).props = self.refWorkingAreaList
 
                 }).catch((error) => {
                     console.log(error);
                 })
             }
         },
-        mounted() {
 
+        mounted() {
+            this.getAllVehicles();
+            this.getSysrefVehicleOwnerList();
+            this.getSysrefVehicleTypeList();
+            this.getRefWorkingAreaList();
         }
     }
 </script>

@@ -208,10 +208,10 @@
 
             // Adds a new driver
             // to the system
-            getAllOrders() {
+            getAllVehicles() {
                 let self = this;
 
-                this.$http.get('api/v1/order').then((result) => {
+                this.$http.get('api/v1/order?WAIT').then((result) => {
                     self.orders = result.data.data.items
                 }).catch((error) => {
                     console.log(error);
@@ -222,8 +222,8 @@
                 let self = this;
                 this.newItem = item;
 
-                this.$http.post('api/v1/order?WAIT', this.newItem).then((result) => {
-                    self.getAllOrders();
+                this.$http.post('api/v1/order', this.newItem).then((result) => {
+                    self.getAllVehicles();
                 }).catch((error) => {
                     console.log(error);
                 })
@@ -234,7 +234,7 @@
 
                 this.$http.put('api/v1/order', item)
                     .then(result => {
-                        self.getAllOrders()
+                        self.getAllVehicles()
                     }).catch(error => {
                     console.log(error)
                 })
@@ -268,7 +268,7 @@
         },
 
         mounted() {
-            this.getAllOrders();
+            this.getAllVehicles();
             this.getSysrefRevenueTypeList();
             this.getCustomerCompanyList();
         }
