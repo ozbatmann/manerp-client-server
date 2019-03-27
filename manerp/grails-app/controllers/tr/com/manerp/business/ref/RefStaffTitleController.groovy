@@ -73,6 +73,7 @@ class RefStaffTitleController extends BaseController
 
         try {
 
+            refStaffTitle.active = true
             refStaffTitleService.save(refStaffTitle)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = refStaffTitle.id

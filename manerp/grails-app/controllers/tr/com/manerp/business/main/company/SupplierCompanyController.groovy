@@ -75,6 +75,7 @@ class SupplierCompanyController extends BaseController
 
         try {
 
+            company.active = true
             company.setRandomCode()
             company.sysrefCompanyType = SysrefCompanyType.findByCode('SPL')
             companyService.save(company)

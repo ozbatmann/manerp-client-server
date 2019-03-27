@@ -24,7 +24,7 @@ class SemiTruckService extends BaseService {
 
     def save(SemiTruck dorset) {
 
-        dorset.save(failOnError: true)
+        dorset.save(flush: true, failOnError: true)
     }
 
     def delete(SemiTruck dorset) {

@@ -37,7 +37,7 @@ class StaffService extends BaseService
     def save(Staff staff)
     {
 
-        staff.save(failOnError: true)
+        staff.save(flush: true,failOnError: true)
     }
 
     def delete(Staff staff)

@@ -84,6 +84,7 @@ class VoyageController extends BaseController
             Voyage voyage = new Voyage()
             cmd >> voyage
 
+            voyage.active = true
             voyage.setRandomCode()
             voyageService.save(voyage)
             maneResponse.statusCode = StatusCode.CREATED

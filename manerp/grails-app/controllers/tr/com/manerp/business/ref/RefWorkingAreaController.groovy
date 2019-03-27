@@ -73,6 +73,7 @@ class RefWorkingAreaController extends BaseController
 
         try {
 
+            refWorkingArea.active = true
             refWorkingAreaService.save(refWorkingArea)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = refWorkingArea.id

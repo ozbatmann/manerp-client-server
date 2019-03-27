@@ -49,7 +49,7 @@ class OrderService extends BaseService
     def save(Order order)
     {
 
-        order.save(failOnError: true)
+        order.save(flush: true, failOnError: true)
     }
 
     def delete(Order order)

@@ -73,6 +73,7 @@ class RefCompanySectorController extends BaseController
 
         try {
 
+            refCompanySector.active = true
             refCompanySectorService.save(refCompanySector)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = refCompanySector.id

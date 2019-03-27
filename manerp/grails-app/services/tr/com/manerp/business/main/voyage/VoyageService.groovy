@@ -41,7 +41,7 @@ class VoyageService extends BaseService
     def save(Voyage voyage)
     {
 
-        voyage.save(failOnError: true)
+        voyage.save(flush: true, failOnError: true)
     }
 
     def delete(Voyage voyage)

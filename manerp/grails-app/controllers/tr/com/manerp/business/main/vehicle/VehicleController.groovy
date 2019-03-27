@@ -74,6 +74,7 @@ class VehicleController extends BaseController
 
         try {
 
+            vehicle.active=true
             vehicle.setRandomCode()
             vehicleService.save(vehicle)
             maneResponse.statusCode = StatusCode.CREATED

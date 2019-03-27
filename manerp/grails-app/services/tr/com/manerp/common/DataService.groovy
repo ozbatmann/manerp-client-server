@@ -148,7 +148,7 @@ class DataService
             sysrefCompanyTypeCst.active = true
             sysrefCompanyTypeCst.description = 'Müşteri iş yerleri'
 
-            sysrefCompanyTypeCst.save(failOnError: true)
+            sysrefCompanyTypeCst.save(flush: true, failOnError: true)
         }
 
         SysrefCompanyType sysrefCompanyTypeSup = SysrefCompanyType.findByName('Tedarikçi')
@@ -162,7 +162,7 @@ class DataService
             sysrefCompanyTypeSup.active = true
             sysrefCompanyTypeSup.description = 'Tedarikçi iş yerleri'
 
-            sysrefCompanyTypeSup.save(failOnError: true)
+            sysrefCompanyTypeSup.save(flush: true, failOnError: true)
         }
 
         SysrefCountry sysrefCountryTr = SysrefCountry.findByName('Türkiye')
@@ -173,7 +173,7 @@ class DataService
             sysrefCountryTr.code = 'TR'
             sysrefCountryTr.active = true
 
-            sysrefCountryTr.save(failOnError: true)
+            sysrefCountryTr.save(flush: true, failOnError: true)
         }
 
         SysrefCity sysrefCountryIzmir = SysrefCity.findByName('İzmir')
@@ -185,7 +185,7 @@ class DataService
             sysrefCountryIzmir.code = 'IZM'
             sysrefCountryIzmir.active = true
 
-            sysrefCountryIzmir.save(failOnError: true)
+            sysrefCountryIzmir.save(flush: true, failOnError: true)
         }
 
         SysrefDistrict sysrefDistrictOdemis = SysrefDistrict.findByName('Ödemiş')
@@ -197,7 +197,7 @@ class DataService
             sysrefDistrictOdemis.code = 'ODM'
             sysrefDistrictOdemis.active = true
 
-            sysrefDistrictOdemis.save(failOnError: true)
+            sysrefDistrictOdemis.save(flush: true, failOnError: true)
         }
 
         RefStaffTitle refStaffTitleDriver = RefStaffTitle.findByName('Şoför')
@@ -210,7 +210,7 @@ class DataService
             refStaffTitleDriver.description = 'Şoför unvanı'
             refStaffTitleDriver.active = true
 
-            refStaffTitleDriver.save(failOnError: true)
+            refStaffTitleDriver.save(flush: true, failOnError: true)
         }
 
         RefStaffTitle refStaffTitleOp = RefStaffTitle.findByName('Operasyoncu')
@@ -223,7 +223,7 @@ class DataService
             refStaffTitleOp.description = 'Operasyoncu unvanı'
             refStaffTitleOp.active = true
 
-            refStaffTitleOp.save(failOnError: true)
+            refStaffTitleOp.save(flush: true, failOnError: true)
         }
 
         SysrefGender sysrefGenderMale = SysrefGender.findByName('Erkek')
@@ -233,7 +233,7 @@ class DataService
             sysrefGenderMale.name = 'Erkek'
             sysrefGenderMale.code = 'MAL'
             sysrefGenderMale.active = true
-            sysrefGenderMale.save(failOnError: true)
+            sysrefGenderMale.save(flush: true, failOnError: true)
         }
 
         SysrefGender sysrefGenderFemale = SysrefGender.findByName('Kadın')
@@ -243,7 +243,7 @@ class DataService
             sysrefGenderFemale.name = 'Kadın'
             sysrefGenderFemale.code = 'FEM'
             sysrefGenderFemale.active = true
-            sysrefGenderFemale.save(failOnError: true)
+            sysrefGenderFemale.save(flush: true, failOnError: true)
         }
 
         SysrefStaffContractType sysrefStaffContractTypeSozlesmeli = SysrefStaffContractType.findByName('Sözleşmeli')
@@ -256,7 +256,7 @@ class DataService
             sysrefStaffContractTypeSozlesmeli.description = 'Sözleşmeli personeller'
             sysrefStaffContractTypeSozlesmeli.code = 'SOZ'
 
-            sysrefStaffContractTypeSozlesmeli.save(failOnError: true)
+            sysrefStaffContractTypeSozlesmeli.save(flush: true, failOnError: true)
         }
 
         SysrefStaffContractType sysrefStaffContractTypeKadrolu = SysrefStaffContractType.findByName('Kadrolu')
@@ -269,7 +269,7 @@ class DataService
             sysrefStaffContractTypeKadrolu.description = 'Kadrolu personeller'
             sysrefStaffContractTypeKadrolu.code = 'KAD'
 
-            sysrefStaffContractTypeKadrolu.save(failOnError: true)
+            sysrefStaffContractTypeKadrolu.save(flush: true, failOnError: true)
         }
 
         Staff staffBerat = Staff.findByFirstName('Berat')
@@ -288,7 +288,7 @@ class DataService
             staffBerat.drivingLicenseNumber = '314159'
             staffBerat.refStaffTitle = refStaffTitleDriver
             staffBerat.sysrefStaffContractType = sysrefStaffContractTypeKadrolu
-            staffBerat.save(failOnError: true)
+            staffBerat.save(flush: true, failOnError: true)
         }
 
         Staff staffMurat = Staff.findByFirstName('Muratcan')
@@ -308,7 +308,7 @@ class DataService
             staffMurat.refStaffTitle = refStaffTitleDriver
             staffMurat.sysrefStaffContractType = sysrefStaffContractTypeSozlesmeli
 
-            staffMurat.save(failOnError: true)
+            staffMurat.save(flush: true, failOnError: true)
         }
 
         Staff staffTuna = Staff.findByFirstName('Tunahan')
@@ -327,7 +327,7 @@ class DataService
             staffTuna.refStaffTitle = refStaffTitleOp
             staffTuna.sysrefStaffContractType = sysrefStaffContractTypeSozlesmeli
 
-            staffTuna.save(failOnError: true)
+            staffTuna.save(flush: true, failOnError: true)
         }
 
         Staff staffAli = Staff.findByFirstName('Ali')
@@ -347,7 +347,7 @@ class DataService
             staffAli.refStaffTitle = refStaffTitleOp
             staffAli.sysrefStaffContractType = sysrefStaffContractTypeKadrolu
 
-            staffAli.save(failOnError: true)
+            staffAli.save(flush: true, failOnError: true)
         }
 
         RefCompanySector refCompanySectorGida = RefCompanySector.findByName('Gıda')
@@ -360,7 +360,7 @@ class DataService
             refCompanySectorGida.active = true
             refCompanySectorGida.sysCompany = sysCompanyBumerang
 
-            refCompanySectorGida.save(failOnError: true)
+            refCompanySectorGida.save(flush: true, failOnError: true)
         }
 
         Company customerCompanyPinar = Company.findByName('Pınar')
@@ -382,7 +382,7 @@ class DataService
             customerCompanyPinar.taxOffice = 'İzmir Ödemiş Vergi Dairesi'
             customerCompanyPinar.customerRepresentative = 'Samet Aybaba'
 
-            customerCompanyPinar.save(failOnError: true)
+            customerCompanyPinar.save(flush: true, failOnError: true)
         }
 
         Vendor vendorPinarEsk = Vendor.findByTitle('Pınar Eskişehir Bayi')
@@ -397,7 +397,7 @@ class DataService
             vendorPinarEsk.company = customerCompanyPinar
             vendorPinarEsk.phone = '0 (222) 236 08 89'
 
-            vendorPinarEsk.save(failOnError: true)
+            vendorPinarEsk.save(flush: true, failOnError: true)
         }
 
         Vendor vendorPinarKemal = Vendor.findByTitle('Pınar Kemalpaşa Bayi')
@@ -412,7 +412,7 @@ class DataService
             vendorPinarKemal.company = customerCompanyPinar
             vendorPinarKemal.phone = '0 (232) 436 52 50'
 
-            vendorPinarKemal.save(failOnError: true)
+            vendorPinarKemal.save(flush: true, failOnError: true)
         }
 
         Company customerCompanyKerevitas = Company.findByName('Kerevitaş')
@@ -433,7 +433,7 @@ class DataService
             customerCompanyKerevitas.taxNumber = 'VERGI-KRV112233'
             customerCompanyKerevitas.taxOffice = 'İstanbul Bağlariçi Vergi Dairesi'
 
-            customerCompanyKerevitas.save(failOnError: true)
+            customerCompanyKerevitas.save(flush: true, failOnError: true)
         }
 
         Vendor vendorKerevitasAdana = Vendor.findByTitle('Kerevitaş Adana Bölge Müdürlüğü')
@@ -448,7 +448,7 @@ class DataService
             vendorKerevitasAdana.company = customerCompanyKerevitas
             vendorKerevitasAdana.phone = '0 (322) 428 11 56 '
 
-            vendorKerevitasAdana.save(failOnError: true)
+            vendorKerevitasAdana.save(flush: true, failOnError: true)
         }
 
         Vendor vendorKerevitasAnkara = Vendor.findByTitle('Kerevitaş Ankara Bölge Müdürlüğü')
@@ -463,7 +463,7 @@ class DataService
             vendorKerevitasAnkara.company = customerCompanyKerevitas
             vendorKerevitasAnkara.phone = '0 (312) 387 08 01'
 
-            vendorKerevitasAnkara.save(failOnError: true)
+            vendorKerevitasAnkara.save(flush: true, failOnError: true)
         }
 
         RefWorkingArea refWorkingAreaEge = RefWorkingArea.findByName('Ege Bölgesi')
@@ -476,7 +476,7 @@ class DataService
             refWorkingAreaEge.code = 'EGE'
             refWorkingAreaEge.description = 'Ege Bölgesinde çalışacak olan araçlar'
 
-            refWorkingAreaEge.save(failOnError: true)
+            refWorkingAreaEge.save(flush: true, failOnError: true)
         }
 
         SysrefVehicleType sysrefVehicleTypeCekici = SysrefVehicleType.findByName('Çekici')
@@ -489,7 +489,7 @@ class DataService
             sysrefVehicleTypeCekici.code = 'SEM'
             sysrefVehicleTypeCekici.description = 'Çekici olan araç tipleri'
 
-            sysrefVehicleTypeCekici.save(failOnError: true)
+            sysrefVehicleTypeCekici.save(flush: true, failOnError: true)
         }
 
         SysrefVehicleOwner sysrefVehicleOwnerOzmal = SysrefVehicleOwner.findByName('Özmal')
@@ -502,7 +502,7 @@ class DataService
             sysrefVehicleOwnerOzmal.code = 'OZM'
             sysrefVehicleOwnerOzmal.description = "$sysCompanyBumerang.title sahip olduğu araçlar"
 
-            sysrefVehicleOwnerOzmal.save(failOnError: true)
+            sysrefVehicleOwnerOzmal.save(flush: true, failOnError: true)
         }
 
         SysrefVehicleOwner sysrefVehicleOwnerKiralik = SysrefVehicleOwner.findByName('Kiralık')
@@ -515,7 +515,7 @@ class DataService
             sysrefVehicleOwnerKiralik.code = 'KRL'
             sysrefVehicleOwnerKiralik.description = "$sysCompanyBumerang.title kiraladığı araçlar"
 
-            sysrefVehicleOwnerKiralik.save(failOnError: true)
+            sysrefVehicleOwnerKiralik.save(flush: true, failOnError: true)
         }
 
         Vehicle vehicle1 = Vehicle.findByPlateNumber('35 123 321')
@@ -543,7 +543,7 @@ class DataService
             vehicle1.operationInsuranceNotification = true
             vehicle1.annualInsurance = true
 
-            vehicle1.save(failOnError: true)
+            vehicle1.save(flush: true, failOnError: true)
         }
 
         SemiTrailer trailer1 = SemiTrailer.findByPlateNumber('35 963 852')
@@ -557,7 +557,7 @@ class DataService
             trailer1.name = 'Çekici römorku'
             trailer1.brand = 'Volvo'
 
-            trailer1.save(failOnError: true)
+            trailer1.save(flush: true, failOnError: true)
         }
 
         SysrefRevenueType sysrefRevenueTypeTicari = SysrefRevenueType.findByName('Ticari')
@@ -570,7 +570,7 @@ class DataService
             sysrefRevenueTypeTicari.description = 'Ticari Gelir Tipi'
             sysrefRevenueTypeTicari.code = 'TCR'
 
-            sysrefRevenueTypeTicari.save(failOnError: true)
+            sysrefRevenueTypeTicari.save(flush: true, failOnError: true)
         }
 
         SysrefOrderState sysrefOrderStateComp = SysrefOrderState.findByCode('COMP')
@@ -583,7 +583,7 @@ class DataService
             sysrefOrderStateComp.active = true
             sysrefOrderStateComp.description = 'Tamamlanmış siparişler'
 
-            sysrefOrderStateComp.save(failOnError: true)
+            sysrefOrderStateComp.save(flush: true, failOnError: true)
         }
 
         SysrefOrderState sysrefOrderStateWait = SysrefOrderState.findByCode('WAIT')
@@ -596,7 +596,7 @@ class DataService
             sysrefOrderStateWait.active = true
             sysrefOrderStateWait.description = 'Bekleyen siparişler'
 
-            sysrefOrderStateWait.save(failOnError: true)
+            sysrefOrderStateWait.save(flush: true, failOnError: true)
         }
 
         Order orderPinar = Order.findByName('Pınar Sipariş')
@@ -614,7 +614,7 @@ class DataService
             orderPinar.billingNo = 'FATURA-111222'
             orderPinar.sysrefOrderState = sysrefOrderStateComp
 
-            orderPinar.save(failOnError: true)
+            orderPinar.save(flush: true, failOnError: true)
         }
 
         SysrefTransportationType sysrefTransportationTypeGidis = SysrefTransportationType.findByName('Komple')
@@ -637,7 +637,7 @@ class DataService
             sysrefVoyageDirectionGidis.description = 'Tek Yön sevkiyat yönü'
             sysrefVoyageDirectionGidis.code = 'TEK'
 
-            sysrefVoyageDirectionGidis.save(failOnError: true)
+            sysrefVoyageDirectionGidis.save(flush: true, failOnError: true)
         }
 
         SysrefVoyageDirection sysrefVoyageDirectionGidisDonus = SysrefVoyageDirection.findByName('Gidiş-Dönüş')
@@ -650,7 +650,7 @@ class DataService
             sysrefVoyageDirectionGidisDonus.description = 'Gidiş-Dönüş sevkiyat yönü'
             sysrefVoyageDirectionGidisDonus.code = 'GDN'
 
-            sysrefVoyageDirectionGidisDonus.save(failOnError: true)
+            sysrefVoyageDirectionGidisDonus.save(flush: true, failOnError: true)
         }
 
         SysrefDeliveryStatus sysrefDeliveryStatusRezervasyon = SysrefDeliveryStatus.findByName('Rezervasyon')
@@ -663,7 +663,7 @@ class DataService
             sysrefDeliveryStatusRezervasyon.description = 'Rezervasyon taşıma durumu'
             sysrefDeliveryStatusRezervasyon.code = 'REZ'
 
-            sysrefDeliveryStatusRezervasyon.save(failOnError: true)
+            sysrefDeliveryStatusRezervasyon.save(flush: true, failOnError: true)
         }
 
         SysrefDeliveryStatus sysrefDeliveryStatusYuklendi = SysrefDeliveryStatus.findByName('Yüklendi')
@@ -676,7 +676,7 @@ class DataService
             sysrefDeliveryStatusYuklendi.description = 'Yüklendi taşıma durumu'
             sysrefDeliveryStatusYuklendi.code = 'YUK'
 
-            sysrefDeliveryStatusYuklendi.save(failOnError: true)
+            sysrefDeliveryStatusYuklendi.save(flush: true, failOnError: true)
         }
 
         SysrefDeliveryStatus sysrefDeliveryStatusBosaltti = SysrefDeliveryStatus.findByName('Boşalttı')
@@ -689,7 +689,7 @@ class DataService
             sysrefDeliveryStatusBosaltti.description = 'Boşalttı taşıma durumu'
             sysrefDeliveryStatusBosaltti.code = 'BOS'
 
-            sysrefDeliveryStatusBosaltti.save(failOnError: true)
+            sysrefDeliveryStatusBosaltti.save(flush: true, failOnError: true)
         }
 
         Location loadingLocationPinar = Location.findByName('Karşıyaka')
@@ -699,7 +699,7 @@ class DataService
             loadingLocationPinar.sysCompany = sysCompanyBumerang
             loadingLocationPinar.name = 'Karşıyaka'
 
-            loadingLocationPinar.save(failOnError: true)
+            loadingLocationPinar.save(flush: true, failOnError: true)
         }
 
         Location dumpingLocationPinar = Location.findByName('Eskişehir')
@@ -709,7 +709,7 @@ class DataService
             dumpingLocationPinar.sysCompany = sysCompanyBumerang
             dumpingLocationPinar.name = 'Eskişehir'
 
-            dumpingLocationPinar.save(failOnError: true)
+            dumpingLocationPinar.save(flush: true, failOnError: true)
         }
 
         Voyage voyagePinar = Voyage.findByOrder(orderPinar)
@@ -733,7 +733,7 @@ class DataService
             voyagePinar.deliveryNoteNo = 'TESLIMAT-NOT-111222333'
             voyagePinar.sasNumber = 'SAS-111222333'
 
-            voyagePinar.save(failOnError: true)
+            voyagePinar.save(flush: true, failOnError: true)
         }
 
     }

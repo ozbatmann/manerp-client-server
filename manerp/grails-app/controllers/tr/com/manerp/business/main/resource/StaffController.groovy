@@ -75,6 +75,7 @@ class StaffController extends BaseController
         try {
 
             staff.setRandomCode()
+            staff.active = true
             staffService.save(staff)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = staff.id

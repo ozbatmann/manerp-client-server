@@ -45,6 +45,7 @@ class SemiTruckController extends BaseController
 
         try {
 
+            dorset.active = true
             dorset.setRandomCode()
             semiTruckService.save(dorset)
             maneResponse.statusCode = StatusCode.CREATED

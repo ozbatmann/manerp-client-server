@@ -34,7 +34,7 @@ class RefCompanySectorService extends BaseService {
 
     def save(RefCompanySector refCompanySector) {
 
-        refCompanySector.save(failOnError: true)
+        refCompanySector.save(flush: true, failOnError: true)
     }
 
     def delete(RefCompanySector refCompanySector) {

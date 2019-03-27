@@ -75,6 +75,7 @@ class DriverController extends BaseController
 
         try {
 
+            driver.active = true
             driver.refStaffTitle = RefStaffTitle.findByCode('DRV')
             driver.setRandomCode()
             driverService.save(driver)
