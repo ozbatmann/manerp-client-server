@@ -220,7 +220,7 @@
                     {
                         text: 'ID',
                         sortable: true,
-                        value: staffModel.id,
+                        value: staffModel.code,
                         toggleable: false,
                         show: true,
                         search: {chip: false, value: null}

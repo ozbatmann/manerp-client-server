@@ -1,5 +1,6 @@
 export default {
-    id: 'code',
+    id: 'id',
+    code: 'code',
     firstName: 'firstName',
     middleName: 'middleName',
     lastName: 'lastName',

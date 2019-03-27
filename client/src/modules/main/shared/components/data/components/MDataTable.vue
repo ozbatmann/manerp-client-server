@@ -5,8 +5,10 @@
             <!-- Data-table header slot -->
             <slot name="header"></slot>
 
-            <v-flex v-if="!noFiltering" mx-2>
-
+            <v-flex
+                    v-if="!noFiltering"
+                    mx-2
+            >
                 <!-- Search in table chip -->
                 <v-chip
                         v-if="filterOptions.search !== undefined"
@@ -359,7 +361,7 @@
             // Checks whether item has name prop or not
             // Used for differentiating sysRefs and regular text props
             field (item) {
-                return item.name ? item.name : item
+                return item ? item.name ? item.name : item : '-'
             },
 
             // Welcomes filter emit
@@ -402,12 +404,16 @@
                     this.pagination.descending = false
                 }
             },
+
+            // Emits delete action to the parent
             deleteItem(item) {
-                this.$emit('deleteItem',item)
+                this.$emit('deleteItem', item)
             }
         },
 
         watch: {
+            // Watches loading state and
+            // informs data-table accordingly
             loading (newVal) {
                 this.localLoading = newVal
             }
