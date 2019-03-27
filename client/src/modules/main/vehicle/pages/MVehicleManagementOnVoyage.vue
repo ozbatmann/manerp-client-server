@@ -96,15 +96,24 @@
                         key: vehicleModel.plateNumber,
                         max: 20,
                         rules: [
-                            'required', 'max:30'
+                            'required', 'max:20'
                         ],
                         title: 'plaka',
                         type: 'text',
                     },
                     {
+                        key: vehicleModel.brand,
+                        max: 50,
+                        rules: [
+                            'required', 'max:50'
+                        ],
+                        title: 'marka',
+                        type: 'text',
+                    },
+                    {
                         key: vehicleModel.fleetCardNumber,
                         max: 50,
-                        title: 'filo kart numbarası',
+                        title: 'filo kart numarası',
                         rules: [
                             'required', 'max:50'
                         ]
@@ -253,7 +262,7 @@
             },
             addNewItem(item) {
                 this.newItem = item
-                this.loading=true;
+                this.loading = true;
                 let self = this;
                 this.$http.post('api/v1/vehicle', this.newItem).then((result) => {
                     self.getAllVehicles();

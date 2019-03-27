@@ -528,7 +528,6 @@ class DataService
             vehicle1.plateNumber = '35 123 321'
             vehicle1.brand = 'Volvo'
             vehicle1.fleetCardNumber = '111222333'
-            vehicle1.hasLogo = true
             vehicle1.km = 12300
             vehicle1.isDualRegime = true
             vehicle1.refWorkingArea = refWorkingAreaEge

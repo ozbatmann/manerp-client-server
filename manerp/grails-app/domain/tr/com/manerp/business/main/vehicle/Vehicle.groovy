@@ -17,7 +17,6 @@ class Vehicle implements BusinessDomain
     @BindingFormat('dd/MM/yyyy HH:mm')
     Date purchaseDate
     Short numberOfSensors
-    Boolean hasLogo
     Integer km
     Boolean isDualRegime
     RefWorkingArea refWorkingArea
@@ -48,7 +47,6 @@ class Vehicle implements BusinessDomain
         plateNumber nullable: false, blank: false, unique: ['sysCompany'], maxSize: 12
         purchaseDate nullable: true, unique: false
         numberOfSensors nullable: true, unique: false
-        hasLogo nullable: false, unique: false
         km nullable: true, unique: false
         isDualRegime nullable: false, unique: false
         refWorkingArea nullable: true, unique: false
