@@ -15,10 +15,7 @@
 
                     <v-fade-transition mode="out-in">
 
-                        <keep-alive>
-
                             <router-view></router-view>
-                        </keep-alive>
                     </v-fade-transition>
 
                     <v-tooltip left>

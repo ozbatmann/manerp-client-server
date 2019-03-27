@@ -190,7 +190,11 @@
 
                 newItem: null,
 
-                snackbar: false,
+                snackbar: {
+                    text: null,
+                    textColor: null,
+                    active: false
+                },
 
                 // Data table row click route
                 to: {
@@ -223,6 +227,15 @@
                 this.newItem = item;
 
                 this.$http.post('api/v1/order', this.newItem).then((result) => {
+                    let status = result.data.status;
+                    if (status < 299) {
+                        self.snackbar.textColor = 'green--text text--accent-3';
+                    } else {
+                        self.snackbar.textColor = 'red--text';
+                    }
+
+                    self.snackbar.text = result.data.message;
+                    self.snackbar.active = true;
                     self.getAllVehicles();
                 }).catch((error) => {
                     console.log(error);
@@ -234,6 +247,15 @@
 
                 this.$http.put('api/v1/order', item)
                     .then(result => {
+                        let status = result.data.status;
+                        if (status < 299) {
+                            self.snackbar.textColor = 'green--text text--accent-3';
+                        } else {
+                            self.snackbar.textColor = 'red--text';
+                        }
+
+                        self.snackbar.text = result.data.message;
+                        self.snackbar.active = true;
                         self.getAllVehicles()
                     }).catch(error => {
                     console.log(error)
@@ -241,12 +263,14 @@
             },
 
             getSysrefRevenueTypeList() {
-                this.$http.get('api/v1/sysrefRevenueType').then((result) => {
-                    this.sysrefRevenueTypeList = result.data.data.items
+                let self = this;
 
-                    this.addEditFields.find(item => {
+                this.$http.get('api/v1/sysrefRevenueType').then((result) => {
+                    self.sysrefRevenueTypeList = result.data.data.items
+
+                    self.addEditFields.find(item => {
                         return item.key === orderModel.sysrefRevenueType
-                    }).props = this.sysrefRevenueTypeList
+                    }).props = self.sysrefRevenueTypeList
 
                 }).catch((error) => {
                     console.log(error);
@@ -254,12 +278,14 @@
             },
 
             getCustomerCompanyList() {
-                this.$http.get('api/v1/customerCompany/getListForDropDown/').then((result) => {
-                    this.customerCompanyList = result.data.data.items
+                let self = this;
 
-                    this.addEditFields.find(item => {
+                this.$http.get('api/v1/customerCompany/getListForDropDown/').then((result) => {
+                    self.customerCompanyList = result.data.data.items
+
+                    self.addEditFields.find(item => {
                         return item.key === orderModel.customer
-                    }).props = this.customerCompanyList
+                    }).props = self.customerCompanyList
 
                 }).catch((error) => {
                     console.log(error);

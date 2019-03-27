@@ -229,7 +229,11 @@
 
                 newItem: null,
 
-                snackbar: false,
+                snackbar: {
+                    text: null,
+                    textColor: null,
+                    active: false
+                },
 
                 // Data table row click route
                 // to: {

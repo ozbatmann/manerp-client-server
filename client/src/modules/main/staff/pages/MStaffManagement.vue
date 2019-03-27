@@ -306,7 +306,7 @@
                     self.staffs = result.data.data.items;
                 }).catch((error) => {
                     console.log(error);
-                }).finally(() => this.loading = false)
+                }).finally(() => self.loading = false)
             },
 
             // Adds a new staff
@@ -317,6 +317,15 @@
 
                 this.$http.post('api/v1/staff', this.newItem)
                     .then((result) => {
+                        let status = result.data.status;
+                        if (status < 299) {
+                            self.snackbar.textColor = 'green--text text--accent-3';
+                        } else {
+                            self.snackbar.textColor = 'red--text';
+                        }
+
+                        self.snackbar.text = result.data.message;
+                        self.snackbar.active = true;
                         self.getAllStaffs();
                     }).catch((error) => {
                     console.log(error);
@@ -328,6 +337,15 @@
 
                 this.$http.put('api/v1/staff/', item)
                     .then(result => {
+                        let status = result.data.status;
+                        if (status < 299) {
+                            self.snackbar.textColor = 'green--text text--accent-3';
+                        } else {
+                            self.snackbar.textColor = 'red--text';
+                        }
+
+                        self.snackbar.text = result.data.message;
+                        self.snackbar.active = true;
                         self.getAllStaffs();
                     }).catch(error => {
                     console.log(error)
@@ -335,11 +353,13 @@
             },
 
             getSysrefCountryList() {
+                let self = this;
+
                 this.$http.get("api/v1/sysrefCountry").then((result) => {
-                    this.sysrefCountryList = result.data.data.items;
-                    this.addEditFields.find(item => {
+                    self.sysrefCountryList = result.data.data.items;
+                    self.addEditFields.find(item => {
                         return item.key === staffModel.sysrefCountry
-                    }).props = this.sysrefCountryList
+                    }).props = self.sysrefCountryList
 
                 }).catch((error) => {
                     console.error(error);
@@ -347,11 +367,13 @@
             },
 
             getSysrefCityList() {
+                let self = this;
+
                 this.$http.get("api/v1/sysrefCity").then((result) => {
-                    this.sysrefCityList = result.data.data.items
-                    this.addEditFields.find(item => {
+                    self.sysrefCityList = result.data.data.items
+                    self.addEditFields.find(item => {
                         return item.key === staffModel.sysrefCity
-                    }).props = this.sysrefCityList
+                    }).props = self.sysrefCityList
 
                 }).catch((error) => {
                     console.error(error);
@@ -359,11 +381,13 @@
             },
 
             getSysrefDistrictList() {
+                let self = this;
+
                 this.$http.get("api/v1/sysrefDistrict").then((result) => {
-                    this.sysrefDistrictList = result.data.data.items
-                    this.addEditFields.find(item => {
+                    self.sysrefDistrictList = result.data.data.items
+                    self.addEditFields.find(item => {
                         return item.key === staffModel.sysrefDistrict
-                    }).props = this.sysrefDistrictList
+                    }).props = self.sysrefDistrictList
 
                 }).catch((error) => {
                     console.error(error);
@@ -371,11 +395,13 @@
             },
 
             getSysrefStaffContractType() {
+                let self = this;
+
                 this.$http.get("api/v1/sysrefStaffContractType").then((result) => {
-                    this.sysrefStaffContractTypeList = result.data.data.items
-                    this.addEditFields.find(item => {
+                    self.sysrefStaffContractTypeList = result.data.data.items
+                    self.addEditFields.find(item => {
                         return item.key === staffModel.sysrefStaffContractType
-                    }).props = this.sysrefStaffContractTypeList
+                    }).props = self.sysrefStaffContractTypeList
 
                 }).catch((error) => {
                     console.error(error);
@@ -383,19 +409,32 @@
             },
 
             getRefStaffTitleList() {
+                let self = this;
+
                 this.$http.get("api/v1/refStaffTitle/getListForDropDown").then((result) => {
-                    this.refStaffTitleList = result.data.data.items
-                    this.addEditFields.find(item => {
+                    self.refStaffTitleList = result.data.data.items
+                    self.addEditFields.find(item => {
                         return item.key === staffModel.refStaffTitle
-                    }).props = this.refStaffTitleList
+                    }).props = self.refStaffTitleList
 
                 }).catch((error) => {
                     console.error(error);
                 })
             },
             deleteItem(item) {
+                let self = this;
+
                 this.$http.delete(`api/v1/staff/${item.id}`).then((result) => {
-                    this.getAllStaffs()
+                    let status = result.data.status;
+                    if (status < 299) {
+                        self.snackbar.textColor = 'green--text text--accent-3';
+                    } else {
+                        self.snackbar.textColor = 'red--text';
+                    }
+
+                    self.snackbar.text = result.data.message;
+                    self.snackbar.active = true;
+                    self.getAllStaffs()
                 }).catch((error) => {
                     console.error(error);
                 })

@@ -281,6 +281,12 @@
                 sysrefDistrictList: [],
                 refCompanySectorList: [],
 
+                snackbar: {
+                    text: null,
+                    textColor: null,
+                    active: false
+                },
+
                 newItem: null,
                 to: {
                     name: require('@/modules/main/customer/route/index').routes.information,
