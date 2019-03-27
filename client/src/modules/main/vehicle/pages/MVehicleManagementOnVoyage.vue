@@ -274,23 +274,23 @@
                     console.log(error)
                 })
             },
-            getSysrefCountryList() {
-                this.$http.get("api/v1/sysrefCountry").then((result) => {
-                    this.sysrefCountryList = result.data.data.items
+            getSysrefVehicleOwnerList() {
+                this.$http.get("api/v1/sysrefVehicleOwner").then((result) => {
+                    this.sysrefVehicleOwnerList = result.data.data.items
                     this.addEditFields.find(item => {
-                        return item.key === vehicleModel.sysrefCountry
-                    }).props = this.sysrefCountryList
+                        return item.key === vehicleModel.sysrefVehicleOwner
+                    }).props = this.sysrefVehicleOwnerList
 
                 }).catch((error) => {
                     console.error(error);
                 })
             },
-            getSysrefCityList() {
-                this.$http.get("api/v1/sysrefCity").then((result) => {
-                    this.sysrefCityList = result.data.data.items
+            getSysrefVehicleTypeList() {
+                this.$http.get("api/v1/sysrefVehicleType").then((result) => {
+                    this.sysrefVehicleTypeList = result.data.data.items
                     this.addEditFields.find(item => {
-                        return item.key === vehicleModel.sysrefCity
-                    }).props = this.sysrefCityList
+                        return item.key === vehicleModel.sysrefVehicleType
+                    }).props = this.sysrefVehicleTypeList
 
                 }).catch((error) => {
                     console.error(error);
@@ -312,9 +312,8 @@
 
         mounted() {
             this.getAllVehicles();
-            this.getSysrefCountryList();
-            this.getSysrefCityList();
-            this.getSysrefDistrictList();
+            this.getSysrefVehicleOwnerList();
+            this.getSysrefVehicleTypeList();
             this.getRefWorkingAreaList();
         }
     }
