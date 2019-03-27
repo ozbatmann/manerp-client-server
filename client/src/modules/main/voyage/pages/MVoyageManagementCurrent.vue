@@ -77,6 +77,7 @@
                 // Data-table
                 // add-edit dialog data
                 addEditData: {
+                    [voyageModel.order]: null,
                     [voyageModel.company]: null,
                     [voyageModel.vehicle]: null,
                     [voyageModel.driver]: null,
@@ -88,10 +89,15 @@
                 // add-edit dialog fields
                 addEditFields: [
                     {
+                        key: voyageModel.order,
+                        title: 'sipariş',
+                        type: 'select',
+                        props: this.sysRefOrderList
+                    },
+                    {
                         key: voyageModel.company,
-                        max: 20,
                         rules: [
-                            'required', 'max:30'
+                            'required'
                         ],
                         title: 'şirket',
                         type: 'select',
@@ -99,10 +105,9 @@
                     },
                     {
                         key: voyageModel.vehicle,
-                        max: 50,
                         title: 'araç',
                         rules: [
-                            'required', 'max:30'
+                            'required'
                         ],
                         type: 'select',
                         props: this.sysRefVehicleList
@@ -110,10 +115,9 @@
                     {
                         key: voyageModel.driver,
                         type: 'select',
-                        max: 30,
                         title: 'şoför',
                         rules: [
-                            'required', 'max:30'
+                            'required'
                         ],
                         props: this.sysRefDriverList
                     },
@@ -138,6 +142,14 @@
                         toggleable: false,
                         show: true,
                         search: {chip: false, value: null}
+                    },
+                    {
+                        text: 'sipariş',
+                        sortable: true,
+                        value: voyageModel.order,
+                        toggleable: false,
+                        show: true,
+                        search: { chip: false, value: null },
                     },
                     {
                         text: 'şirket',
@@ -185,6 +197,7 @@
                 sysRefCompanyList: [],
                 sysRefVehicleList: [],
                 sysRefDriverList: [],
+                sysRefOrderList: [],
                 sysRefTransportationTypeList: [],
                 sysRefVoyageDirectionList: [],
 
@@ -234,10 +247,24 @@
             editItem(item) {
                 let self = this;
 
-                this.$http.put('api/v1/voyage', this.newItem).then((result) => {
+                this.$http.put('api/v1/voyage', item).then((result) => {
                     self.getAllVoyages();
                 }).catch((error) => {
                     console.log(error);
+                })
+            },
+
+            // Gets waiting orders
+            getSysRefOrder () {
+                let self = this;
+
+                this.$http.get("api/v1/order/getListForDropDown?WAIT").then((result) => {
+                    self.sysRefOrderList = result.data.data.items;
+                    self.addEditFields.find(item => {
+                        return item.key === voyageModel.order
+                    }).props = self.sysRefOrderList
+                }).catch((error) => {
+                    console.error(error);
                 })
             },
 
@@ -326,6 +353,7 @@
 
         mounted() {
             this.getAllVoyages();
+            this.getSysRefOrder();
             this.getSysRefCompany();
             this.getSysRefDriver();
             this.getSysRefVehicle();

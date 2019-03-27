@@ -342,8 +342,7 @@
         watch: {
             inputs: {
                 handler(newVal) {
-                    this.localInputs = this.inputs
-                    console.log(this.inputs)
+                    this.localInputs = newVal
                 },
 
                 deep: true

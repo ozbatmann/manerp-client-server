@@ -118,9 +118,24 @@
                         title: 'YÖNETİM',
                         items: [
                             {
+                                title: 'Araç Yönetimi',
+                                icon: 'directions_bus',
+                                to: { name: require('@/modules/main/vehicle/route/index').routes.onVoyage }
+                            },
+                            {
                                 title: 'Firma Yönetimi',
                                 icon: 'business',
                                 to: { name: require('@/modules/main/customer/route/index').routes.customer }
+                            },
+                            {
+                                title: 'Personel Yönetimi',
+                                icon: 'group',
+                                to: { name: require('@/modules/main/staff/route/index').routes.staffs }
+                            },
+                            {
+                                title: 'Parametre Yönetimi',
+                                icon: 'tune',
+                                to: { name: 'parameters' }
                             },
                             {
                                 title: 'Sevkiyat Yönetimi',
@@ -133,30 +148,15 @@
                                 to: { name: require('@/modules/main/order/route/index').routes.current }
                             },
                             {
-                                title: 'Personel Yönetimi',
-                                icon: 'account_circle',
-                                to: { name: require('@/modules/main/staff/route/index').routes.staffs }
-                            },
-                            {
                                 title: 'Şoför Yönetimi',
                                 icon: 'account_circle',
                                 to: { name: require('@/modules/main/driver/route/index').routes.drivers }
-                            },
-                            {
-                                title: 'Araç Yönetimi',
-                                icon: 'directions_bus',
-                                to: { name: require('@/modules/main/vehicle/route/index').routes.onVoyage }
-                            },
-                            {
-                                title: 'Parametre Yönetimi',
-                                icon: 'tune',
-                                to: { name: 'parameters' }
                             }
                         ]
                     }
                 ],
 
-                mini: true
+                mini: false
             }
         },
 

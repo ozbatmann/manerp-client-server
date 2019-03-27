@@ -67,7 +67,7 @@
             return {
                 drawer: null,
 
-                menu: true
+                menu: false
             }
         }
     }
