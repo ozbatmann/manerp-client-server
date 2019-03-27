@@ -120,7 +120,7 @@
                             {
                                 title: 'Araç Yönetimi',
                                 icon: 'directions_bus',
-                                to: { name: require('@/modules/main/vehicle/route/index').routes.onVoyage }
+                                to: { name: require('@/modules/main/vehicle/route/index').routes.idle }
                             },
                             {
                                 title: 'Firma Yönetimi',
