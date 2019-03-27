@@ -172,9 +172,9 @@ class OrderController extends BaseController
 
         try {
 
-            PaginationCommand cmd = new PaginationCommand(params)
+            OrderPaginationCommand cmd = new OrderPaginationCommand(params)
 
-            ManePaginatedResult result = orderService.getOrderList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
+            ManePaginatedResult result = orderService.getOrderList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort), cmd.orderStateCode)
             result.data = orderService.formatPaginatedResultForDropDown(result.data)
             maneResponse.data = result.toMap()
 

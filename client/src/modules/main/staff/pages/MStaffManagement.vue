@@ -29,7 +29,7 @@
             ref="addEditDialog"
             :data="addEditData"
             :inputs="addEditFields"
-            title="Yeni Şoför"
+            title="Yeni Personel"
             @save="addNewItem"
             @edit="editItem"
         ></m-data-table-add-new-form>
@@ -158,7 +158,7 @@
                     {
                         key: staffModel.email,
                         max: 50,
-                        title: 'eposta',
+                        title: 'e-posta',
                         type: 'email',
                         rules: [
                             'required', 'max:11'
@@ -203,15 +203,6 @@
                         type: 'checkbox',
                         disabled: true,
                         props: ['aktif']
-                    },
-                    {
-                        key: staffModel.drivingLicenseNumber,
-                        max: null,
-                        title: 'ehliyet numarası',
-                        type: 'tel',
-                        rules: [
-                            'required', 'max:30'
-                        ]
                     }
                 ],
 
@@ -242,19 +233,19 @@
                         search: {chip: false, value: null}
                     },
                     {
+                        text: 'unvan',
+                        sortable: true,
+                        value: staffModel.refStaffTitle,
+                        toggleable: true,
+                        show: true,
+                        search: {chip: false, value: null}
+                    },
+                    {
                         text: 'sözleşme tipi',
                         sortable: true,
                         value: staffModel.sysrefStaffContractType,
                         toggleable: true,
                         show: true
-                    },
-                    {
-                        text: 'telefon',
-                        sortable: true,
-                        value: staffModel.gsmNo,
-                        toggleable: true,
-                        show: true,
-                        search: {chip: false, value: null}
                     },
                     {
                         text: 't.c. kimlik numarası',
@@ -265,9 +256,9 @@
                         search: {chip: false, value: null}
                     },
                     {
-                        text: 'ehliyet numarası',
+                        text: 'telefon',
                         sortable: true,
-                        value: staffModel.drivingLicenseNumber,
+                        value: staffModel.gsmNo,
                         toggleable: true,
                         show: true,
                         search: {chip: false, value: null}
@@ -412,6 +403,7 @@
         },
 
         mounted() {
+            staffModel.active = true;
             this.getAllStaffs();
             this.getSysrefCountryList();
             this.getSysrefCityList();
