@@ -15,7 +15,7 @@ const meta = (title) => {
             {
                 text: 'boşta olan araçlar',
                 to: {name: routes.idle}
-            },
+            }
         ]
     }
 };
@@ -28,13 +28,13 @@ export default [
             {
                 path: '',
                 name: routes.onVoyage,
-                component: () => import('@/modules/main/vehicle/pages/MVehicleManagementCurrent'),
+                component: () => import('@/modules/main/vehicle/pages/MVehicleManagementOnVoyage'),
                 meta: meta('Araç Yönetimi')
             },
             {
                 path: 'idle',
                 name: routes.idle,
-                component: () => import('@/modules/main/vehicle/pages/MVehicleManagementCompleted'),
+                component: () => import('@/modules/main/vehicle/pages/MVehicleManagementIdle'),
                 meta: meta('Araç Yönetimi')
             },
         ]

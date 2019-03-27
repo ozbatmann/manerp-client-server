@@ -55,8 +55,8 @@ class StaffService extends BaseService
                 lastName               : it.lastName,
                 gsmNo                  : it.gsmNo,
                 tcIdNumber             : it.tcIdNumber,
-                sysrefStaffContractType: it.sysrefStaffContractType.name,
-                refStaffTitle          : it.refStaffTitle.name
+                sysrefStaffContractType: [id: it.sysrefStaffContractType.id, name: it.sysrefStaffContractType.name],
+                refStaffTitle          : [id: it.refStaffTitle.id, name: it.refStaffTitle.name]
             ]
         }
 

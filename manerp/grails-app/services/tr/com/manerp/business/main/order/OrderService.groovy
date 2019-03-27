@@ -66,7 +66,7 @@ class OrderService extends BaseService
             [
                 id               : it.id,
                 code             : it.code,
-                sysrefRevenueType: it.sysrefRevenueType.name,
+                sysrefRevenueType: [id: it.sysrefRevenueType.id, name: it.sysrefRevenueType.name],
                 orderDate        : sdf.format(it.orderDate),
                 billingNo        : it.billingNo,
                 company          : it.company.title
