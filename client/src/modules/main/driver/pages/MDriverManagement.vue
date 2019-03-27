@@ -343,11 +343,13 @@
             },
 
             getSysrefCountryList() {
+                let self = this;
+
                 this.$http.get("api/v1/sysrefCountry").then((result) => {
-                    this.sysrefCountryList = result.data.data.items;
-                    this.addEditFields.find(item => {
+                    self.sysrefCountryList = result.data.data.items;
+                    self.addEditFields.find(item => {
                         return item.key === driverModel.sysrefCountry
-                    }).props = this.sysrefCountryList
+                    }).props = self.sysrefCountryList
 
                 }).catch((error) => {
                     console.error(error);
@@ -355,11 +357,13 @@
             },
 
             getSysrefCityList() {
+                let self = this;
+
                 this.$http.get("api/v1/sysrefCity").then((result) => {
-                    this.sysrefCityList = result.data.data.items
-                    this.addEditFields.find(item => {
+                    self.sysrefCityList = result.data.data.items
+                    self.addEditFields.find(item => {
                         return item.key === driverModel.sysrefCity
-                    }).props = this.sysrefCityList
+                    }).props = self.sysrefCityList
 
                 }).catch((error) => {
                     console.error(error);
@@ -367,11 +371,13 @@
             },
 
             getSysrefDistrictList() {
+                let self = this;
+
                 this.$http.get("api/v1/sysrefDistrict").then((result) => {
-                    this.sysrefDistrictList = result.data.data.items
-                    this.addEditFields.find(item => {
+                    self.sysrefDistrictList = result.data.data.items
+                    self.addEditFields.find(item => {
                         return item.key === driverModel.sysrefDistrict
-                    }).props = this.sysrefDistrictList
+                    }).props = self.sysrefDistrictList
 
                 }).catch((error) => {
                     console.error(error);
@@ -379,19 +385,23 @@
             },
 
             getSysrefStaffContractType() {
+                let self = this;
+
                 this.$http.get("api/v1/sysrefStaffContractType").then((result) => {
-                    this.sysrefStaffContractTypeList = result.data.data.items
-                    this.addEditFields.find(item => {
+                    self.sysrefStaffContractTypeList = result.data.data.items
+                    self.addEditFields.find(item => {
                         return item.key === driverModel.sysrefStaffContractType
-                    }).props = this.sysrefStaffContractTypeList
+                    }).props = self.sysrefStaffContractTypeList
 
                 }).catch((error) => {
                     console.error(error);
                 })
             },
             deleteItem(item){
+                let self = this;
+
                 this.$http.delete(`api/v1/driver/${item.id}`).then((result) => {
-                    this.getAllDrivers()
+                    self.getAllDrivers()
                 }).catch((error) => {
                     console.error(error);
                 })

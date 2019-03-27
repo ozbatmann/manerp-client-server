@@ -1,8 +1,9 @@
 export default{
     id: 'id',
+    code: 'code',
     company: 'company',
     vehicle: 'vehicle',
     driver: 'driver',
-    sysRefTransportationType: 'sysRefTransportationType',
-    sysRefVoyageDirection: 'sysRefVoyageDirection'
+    sysRefTransportationType: 'sysrefTransportationType',
+    sysRefVoyageDirection: 'sysrefVoyageDirection'
 }

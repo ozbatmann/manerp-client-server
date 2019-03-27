@@ -12,7 +12,7 @@
                     class="headline font-weight-light"
                     key="toolbar-title"
             >
-                {{ $route.meta.title === undefined ? title : $route.meta.title }}
+                {{ $route.meta.title }}
             </v-toolbar-title>
         </v-scroll-y-transition>
         <template
@@ -25,12 +25,12 @@
                     slider-color="green accent-2"
             >
                 <v-tab
+                        v-for="(tab, index) in $route.meta.tabs"
                         :key="`customer-detail-tab-${index}`"
                         :to="tab.to"
                         append
                         exact
                         ripple
-                        v-for="(tab, index) in $route.meta.tabs"
                 >
                     {{ tab.text }}
                 </v-tab>

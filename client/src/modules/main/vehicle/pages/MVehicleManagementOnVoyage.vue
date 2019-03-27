@@ -3,7 +3,6 @@
         <m-data-table
             :headers="headers"
             :items="vehicles"
-            :to="to"
             @deleteItem="deleteItem"
             :loading="loading"
         >
