@@ -396,6 +396,8 @@
             // Column-wise search
             // enabled headers array
             searchableHeaders () {
+                if (this.headers === null) return null;
+
                 return this.headers.filter(header => {
                     return header.search !== undefined
                         && header.show
@@ -404,6 +406,8 @@
 
             // Toggle enabled headers
             toggleableHeaders () {
+                if (this.headers === null) return null;
+
                 return this.headers.filter(header => {
                     return header.toggleable
                 })
@@ -460,7 +464,8 @@
             // and sets chip state
             'options.search.value' (newValue) {
                 this.options.search.chip = newValue !== null
-                    && newValue.length > 0
+                    && newValue.length > 0;
+                
                 this.$emit('options', this.options)
             },
 

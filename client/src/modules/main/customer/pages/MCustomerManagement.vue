@@ -1,17 +1,18 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <m-data-table
-            :headers="headers"
-            :items="firms"
-            :to="to"
+                :headers="headers"
+                :items="firms"
+                :loading="loading"
+                :to="to"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
 
                 <!-- Add customer button -->
                 <m-data-table-action
-                    title="FİRMA EKLE"
-                    @click="addDialog"
+                        title="FİRMA EKLE"
+                        @click="addDialog"
                 ></m-data-table-action>
             </template>
 
@@ -23,11 +24,12 @@
         </m-data-table>
 
         <m-data-table-add-new-form
-            ref="addEditDialog"
-            :data="addEditData"
-            :inputs="addEditFields"
-            @save="addNewItem"
-            title="Yeni Firma"
+                title="Yeni Firma"
+                ref="addEditDialog"
+                :data="addEditData"
+                :inputs="addEditFields"
+                @save="addNewItem"
+                @edit="editItem"
         ></m-data-table-add-new-form>
     </div>
 </template>
@@ -49,6 +51,8 @@
 
         data() {
             return {
+                loading: true,
+
                 addEditData: {
                     [customerModel.name]: null,
                     [customerModel.sysrefCountry]: null,
@@ -272,18 +276,33 @@
                 this.$refs.addEditDialog.open(data)
             },
             getAllCustomers() {
+                let self = this;
+                this.loading = true;
+
                 this.$http.get('api/v1/customerCompany').then((result) => {
-                    this.firms = result.data.data.items
+                    self.firms = result.data.data.items
+                }).catch((error) => {
+                    console.log(error);
+                }).finally(() => this.loading = false)
+            },
+            addNewItem(item) {
+                let self = this;
+                this.newItem = item;
+
+                this.$http.post('api/v1/customerCompany', this.newItem).then((result) => {
+                    self.getAllCustomers();
                 }).catch((error) => {
                     console.log(error);
                 })
             },
-            addNewItem(item) {
-                this.newItem = item
-                this.$http.post('api/v1/customerCompany', this.newItem).then((result) => {
-                    this.getAllCustomers();
-                }).catch((error) => {
-                    console.log(error);
+            editItem (item) {
+                let self = this;
+
+                this.$http.put('api/v1/customerCompany', item)
+                    .then(result => {
+                        self.getAllCustomers()
+                    }).catch(error => {
+                        console.log(error);
                 })
             },
             getSysrefCountryList() {

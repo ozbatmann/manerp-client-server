@@ -4,6 +4,7 @@
             :headers="headers"
             :items="orders"
             :to="to"
+            :loading="loading"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
@@ -30,6 +31,7 @@
             :inputs="addEditFields"
             title="Yeni Sipariş"
             @save="addNewItem"
+            @edit="editItem"
         ></m-data-table-add-new-form>
 
         <v-snackbar
@@ -69,6 +71,8 @@
 
         data() {
             return {
+                loading: true,
+
                 // Data-table
                 // add-edit dialog data
                 addEditData: {
@@ -205,20 +209,37 @@
             // Adds a new driver
             // to the system
             getAllOrders() {
+                let self = this;
+
                 this.$http.get('api/v1/order').then((result) => {
-                    this.orders = result.data.data.items
+                    self.orders = result.data.data.items
                 }).catch((error) => {
                     console.log(error);
-                })
+                }).finally(() => this.loading = false)
             },
+
             addNewItem(item) {
-                this.newItem = item
+                let self = this;
+                this.newItem = item;
+
                 this.$http.post('api/v1/order?WAIT', this.newItem).then((result) => {
-                    this.getAllDrivers();
+                    self.getAllOrders();
                 }).catch((error) => {
                     console.log(error);
                 })
             },
+
+            editItem (item) {
+                let self = this;
+
+                this.$http.put('api/v1/order', item)
+                    .then(result => {
+                        self.getAllOrders()
+                    }).catch(error => {
+                    console.log(error)
+                })
+            },
+
             getSysrefRevenueTypeList() {
                 this.$http.get('api/v1/sysrefRevenueType').then((result) => {
                     this.sysrefRevenueTypeList = result.data.data.items
@@ -231,6 +252,7 @@
                     console.log(error);
                 })
             },
+
             getCustomerCompanyList() {
                 this.$http.get('api/v1/customerCompany/getListForDropDown/').then((result) => {
                     this.customerCompanyList = result.data.data.items

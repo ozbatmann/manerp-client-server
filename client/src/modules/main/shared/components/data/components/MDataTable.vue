@@ -95,7 +95,7 @@
                         :items="items"
                         :search="dataTableSearchModel"
                         :pagination.sync="pagination"
-                        :loading="loading"
+                        :loading="localLoading"
                         select-all
                         item-key="id"
                         class="m-data-table"
@@ -288,6 +288,9 @@
                 // from filter-table
                 filterOptions: {},
 
+                // Loading state of the data-table
+                localLoading: this.loading,
+
                 // Pagination options of data table
                 pagination: {
                     sortBy: 'name'
@@ -400,6 +403,12 @@
                 }
             },
         },
+
+        watch: {
+            loading (newVal) {
+                this.localLoading = newVal
+            }
+        }
     }
 </script>
 

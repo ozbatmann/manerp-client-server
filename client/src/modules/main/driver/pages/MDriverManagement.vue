@@ -3,6 +3,7 @@
         <m-data-table
             :headers="headers"
             :items="drivers"
+            :loading="loading"
             :to="to"
         >
             <!-- Data table header slot -->
@@ -29,6 +30,7 @@
             :inputs="addEditFields"
             title="Yeni Şoför"
             @save="addNewItem"
+            @edit="editItem"
         ></m-data-table-add-new-form>
 
         <v-snackbar
@@ -66,6 +68,8 @@
         },
         data() {
             return {
+                loading: true,
+
                 // Data-table
                 // add-edit dialog data
                 addEditData: {
@@ -197,7 +201,8 @@
                         key: driverModel.active,
                         max: null,
                         type: 'checkbox',
-                        props: ['aktif']
+                        disabled: true,
+                        props: [ 'aktif' ]
                     },
                     {
                         key: driverModel.drivingLicenseNumber,
@@ -303,27 +308,42 @@
             // Adds a new driver
             // to the system
             getAllDrivers() {
+                let self = this;
+                this.loading = true;
+
                 this.$http.get('api/v1/driver').then((result) => {
-                    this.drivers = result.data.data.items
+                    self.drivers = result.data.data.items;
                 }).catch((error) => {
                     console.log(error);
-                })
+                }).finally(() => this.loading = false)
             },
+
             addNewItem(item) {
                 this.newItem = item;
+                let self = this;
 
-                this.$http.post('api/v1/driver', this.newItem).then((result) => {
-                    this.snackbar.text = "Başarıyla eklendi."
-                    this.snackbar.textColor = 'green--text text--accent-3'
-                    this.snackbar.active = true
-                    this.getAllDrivers();
+                this.$http.post('api/v1/driver', this.newItem)
+                    .then((result) => {
+                        self.getAllDrivers();
                 }).catch((error) => {
                     console.log(error);
                 })
             },
+
+            editItem (item) {
+                let self = this;
+
+                this.$http.put('api/v1/driver/', item)
+                    .then(result => {
+                        self.getAllDrivers();
+                    }).catch(error => {
+                        console.log(error)
+                })
+            },
+
             getSysrefCountryList() {
                 this.$http.get("api/v1/sysrefCountry").then((result) => {
-                    this.sysrefCountryList = result.data.data.items
+                    this.sysrefCountryList = result.data.data.items;
                     this.addEditFields.find(item => {
                         return item.key === driverModel.sysrefCountry
                     }).props = this.sysrefCountryList
@@ -332,6 +352,7 @@
                     console.error(error);
                 })
             },
+
             getSysrefCityList() {
                 this.$http.get("api/v1/sysrefCity").then((result) => {
                     this.sysrefCityList = result.data.data.items
@@ -343,6 +364,7 @@
                     console.error(error);
                 })
             },
+
             getSysrefDistrictList() {
                 this.$http.get("api/v1/sysrefDistrict").then((result) => {
                     this.sysrefDistrictList = result.data.data.items
@@ -354,6 +376,7 @@
                     console.error(error);
                 })
             },
+
             getSysrefStaffContractType() {
                 this.$http.get("api/v1/sysrefStaffContractType").then((result) => {
                     this.sysrefStaffContractTypeList = result.data.data.items

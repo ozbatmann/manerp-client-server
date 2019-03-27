@@ -3,7 +3,7 @@
         <m-data-table
             :headers="headers"
             :items="orders"
-            :to="to"
+            :loading="loading"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
@@ -11,7 +11,7 @@
                 <!-- Add customer button -->
                 <m-data-table-action
                     title="sipariş ekle"
-                    @click="addDialog"
+                    disabled
                 ></m-data-table-action>
             </template>
 
@@ -29,7 +29,6 @@
             :data="addEditData"
             :inputs="addEditFields"
             title="Yeni Sipariş"
-            @save="addNewItem"
         ></m-data-table-add-new-form>
 
         <v-snackbar
@@ -69,6 +68,8 @@
 
         data() {
             return {
+                loading: true,
+
                 // Data-table
                 // add-edit dialog data
                 addEditData: {
@@ -143,66 +144,18 @@
             // Adds a new driver
             // to the system
             getAllOrders() {
+                let self = this;
+
                 this.$http.get('api/v1/order?COMP').then((result) => {
-                    this.orders = result.data.data.items
+                    self.orders = result.data.data.items
                 }).catch((error) => {
                     console.log(error);
-                })
+                }).finally(() => this.loading = false)
             },
-            addNewItem(item) {
-                this.newItem = item
-                this.$http.post('api/v1/order', this.newItem).then((result) => {
-                    this.getAllDrivers();
-                }).catch((error) => {
-                    console.log(error);
-                })
-            }
         },
 
         mounted() {
             this.getAllOrders();
-            // for (let i = 0; i < 15; i++) {
-            //     let order = {
-            //         id: `ORD-${i}`,
-            //         type: 'Sözleşmeli',
-            //         customer: 'Pinar Gida A.Ş',
-            //         direction: 'Gidiş/Dönüş',
-            //         route: `Sevenler Gıda
-            //                 <i class="v-icon material-icons green--text text--accent-3"
-            //                     style="font-size: 16px;">arrow_forward</i> Akmerler Bim`,
-            //         routes: [
-            //             {
-            //                 name: 'Sevenler Gıda',
-            //                 city: 'Ankara',
-            //                 district: 'Çankaya',
-            //                 address: 'Beytepe Mah., 1800.cd, No: 6, D: 6'
-            //             },
-            //
-            //             {
-            //                 name: 'Akmerler Bim',
-            //                 city: 'Trabzon',
-            //                 district: 'Çobanlı',
-            //                 address: 'Talatdere Mah., 2.cd, No: 12'
-            //             },
-            //
-            //             {
-            //                 name: 'Akmerler Bim',
-            //                 city: 'Trabzon',
-            //                 district: 'Çobanlı',
-            //                 address: 'Talatdere Mah., 2.cd, No: 12'
-            //             },
-            //
-            //             {
-            //                 name: 'Akmerler Bim',
-            //                 city: 'Trabzon',
-            //                 district: 'Çobanlı',
-            //                 address: 'Talatdere Mah., 2.cd, No: 12'
-            //             }
-            //         ]
-            //     };
-            //
-            //     this.orders.push(order)
-            // }
         }
     }
 </script>
