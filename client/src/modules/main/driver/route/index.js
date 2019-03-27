@@ -1,4 +1,5 @@
 export const routes = {
+    drivers: 'drivers',
     information: 'driver.information',
     orders: 'driver.routes',
     documents: 'driver.documents'
@@ -28,7 +29,7 @@ const meta = (title) => {
 export default [
     {
         path: 'drivers',
-        name: 'drivers',
+        name: routes.drivers,
         component: () => import('@/modules/main/driver/pages/MDriverManagement'),
         meta: { title: 'Şoför Yönetimi' }
     },

@@ -120,7 +120,7 @@
                             {
                                 title: 'Firma Yönetimi',
                                 icon: 'business',
-                                to: {name: 'firms.customers'}
+                                to: { name: require('@/modules/main/customer/route/index').routes.customer }
                             },
                             {
                                 title: 'Sevkiyat Yönetimi',
@@ -129,17 +129,17 @@
                             {
                                 title: 'Sipariş Yönetimi',
                                 icon: 'work',
-                                to: {name: 'orders.current'}
+                                to: { name: require('@/modules/main/order/route/index').routes.current }
                             },
                             {
                                 title: 'Şoför Yönetimi',
                                 icon: 'account_circle',
-                                to: {name: 'drivers'}
+                                to: { name: require('@/modules/main/driver/route/index').routes.drivers }
                             },
                             {
                                 title: 'Araç Yönetimi',
                                 icon: 'directions_bus',
-                                to: {name: 'vehicles.onVoyage'}
+                                to: { name: require('@/modules/main/vehicle/route/index').routes.onVoyage }
                             },
                             {
                                 title: 'Parametre Yönetimi',

@@ -8,11 +8,12 @@ const router = new VueRouter({
     routes: [
         {
             path: '/404',
+            name: '404',
             component: () => import('@/modules/main/AppNotFound')
         },
         {
             path: '*',
-            redirect: '/404'
+            redirect: { name: '404' }
         },
         {
             // Main route
