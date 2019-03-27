@@ -214,7 +214,7 @@
             addNewItem(item) {
                 this.newItem = item
                 this.$http.post('api/v1/order?WAIT', this.newItem).then((result) => {
-                    this.getAllDrivers();
+                    this.getAllOrders();
                 }).catch((error) => {
                     console.log(error);
                 })

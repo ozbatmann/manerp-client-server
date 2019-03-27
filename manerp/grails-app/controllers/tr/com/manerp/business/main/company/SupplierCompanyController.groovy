@@ -27,6 +27,7 @@ class SupplierCompanyController extends BaseController
             PaginationCommand cmd = new PaginationCommand(params)
 
             ManePaginatedResult result = companyService.getCompanyList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort), 'SPL')
+            result.data = companyService.formatPaginatedResultForList(result.data)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {

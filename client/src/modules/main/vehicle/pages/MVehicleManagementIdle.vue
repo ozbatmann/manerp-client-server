@@ -2,7 +2,7 @@
     <div>
         <m-data-table
             :headers="headers"
-            :items="orders"
+            :items="vehicles"
             :to="to"
         >
             <!-- Data table header slot -->
@@ -10,7 +10,7 @@
 
                 <!-- Add customer button -->
                 <m-data-table-action
-                    title="sipariş ekle"
+                    title="araç ekle"
                     @click="addDialog"
                 ></m-data-table-action>
             </template>
@@ -28,7 +28,7 @@
             ref="addEditDialog"
             :data="addEditData"
             :inputs="addEditFields"
-            title="Yeni Sipariş"
+            title="Yeni Araç"
             @save="addNewItem"
         ></m-data-table-add-new-form>
 
@@ -52,19 +52,17 @@
 </template>
 
 <script>
-    import MDataTable from '../../shared/components/data/components/MDataTable'
+    import MDataTable from '@/modules/main/shared/components/data/components/MDataTable'
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction"
-    import MDataTableAddNewForm from "../../shared/components/data/components/MDataTableAddNewForm"
 
-    const orderModel = require('@/modules/main/order/models/order-model').default;
+    const vehicleModel = require('@/modules/main/vehicle/models/vehicle-model').default;
 
     export default {
-        name: "MOrderManagementCompleted",
+        name: "MVehicleManagementCompleted",
 
         components: {
             MDataTable,
             MDataTableAction,
-            MDataTableAddNewForm
         },
 
         data() {
@@ -72,66 +70,40 @@
                 // Data-table
                 // add-edit dialog data
                 addEditData: {
-                    [orderModel.name]: null,
-                    [orderModel.sysrefRevenueType]: null,
+                    [vehicleModel.plateNumber]: null,
+                    [vehicleModel.fleetCardNumber]: null,
                     // [orderModel.orderDate]: null,
-                    [orderModel.billingNo]: null,
-                    [orderModel.customer]: null,
-                    [orderModel.workOrderNo]: null
+                    [vehicleModel.km]: null,
+                    [vehicleModel.isDualRegime]: null,
+                    [vehicleModel.refWorkingArea]: null,
+                    [vehicleModel.sysrefVehicleType]: null,
+                    [vehicleModel.sysrefVehicleOwner]: null,
+                    [vehicleModel.vehicleOwnerFullName]: null,
+                    [vehicleModel.kgsNo]: null,
+                    [vehicleModel.ogsNo]: null,
+                    [vehicleModel.description]: null
                 },
 
                 // Data-table
                 // add-edit dialog fields
                 addEditFields: [
                     {
-                        key: orderModel.name,
+                        key: vehicleModel.plateNumber,
                         max: 20,
                         rules: [
                             'required', 'max:30'
                         ],
-                        title: 'sipariş tanımı',
-                        type: 'text',
-                    },
-                    // {
-                    //     key: orderModel.orderDate,
-                    //     max: 20,
-                    //     rules: [
-                    //         'required', 'max:30'
-                    //     ],
-                    //     title: 'ad',
-                    //     type: 'text',
-                    // },
-                    {
-                        key: orderModel.sysrefRevenueType,
-                        title: 'gelir tipi',
-                        type: 'select',
-                        props: this.sysrefRevenueTypeList
-                    },
-                    {
-                        key: orderModel.billingNo,
-                        max: 20,
-                        rules: [
-                            'required', 'max:30'
-                        ],
-                        title: 'fatura numarası',
+                        title: 'plaka',
                         type: 'text',
                     },
                     {
-                        key: orderModel.customer,
-                        title: 'müşteri iş yeri',
-                        type: 'select',
-                        props: this.customerCompanyList
+                        key: vehicleModel.isDualRegime,
+                        max: null,
+                        type: 'checkbox',
+                        props: ['çift rejim']
                     },
                     {
-                        key: orderModel.workOrderNo,
-                        max: 30,
-                        title: 'iş emri numarası',
-                        rules: [
-                            'required', 'max:30'
-                        ]
-                    },
-                    {
-                        key: orderModel.active,
+                        key: vehicleModel.active,
                         max: null,
                         type: 'checkbox',
                         props: ['aktif']
@@ -141,48 +113,14 @@
                     {
                         text: 'ıd',
                         sortable: true,
-                        value: orderModel.id,
-                        toggleable: false,
-                        show: true,
-                        search: {chip: false, value: null}
-                    },
-                    {
-                        text: 'gelir tipi',
-                        sortable: true,
-                        value: orderModel.sysrefRevenueType,
-                        toggleable: false,
-                        show: true,
-                        search: {chip: false, value: null}
-                    },
-                    {
-                        text: 'müşteri firma',
-                        sortable: true,
-                        value: orderModel.customer,
-                        toggleable: false,
-                        show: true,
-                        search: {chip: false, value: null}
-                    },
-                    {
-                        text: 'fatura numarası',
-                        sortable: true,
-                        value: orderModel.billingNo,
-                        toggleable: false,
-                        show: true,
-                        search: {chip: false, value: null}
-                    },
-                    {
-                        text: 'sipariş tarihi',
-                        sortable: true,
-                        value: orderModel.orderDate,
+                        value: vehicleModel.id,
                         toggleable: false,
                         show: true,
                         search: {chip: false, value: null}
                     }
                 ],
 
-                orders: [],
-                sysrefRevenueTypeList: [],
-                customerCompanyList: [],
+                vehicles: [],
 
                 newItem: null,
 
@@ -190,11 +128,11 @@
 
                 // Data table row click route
                 to: {
-                    name: require('@/modules/main/driver/route/index').routes.information
+                    name: require('@/modules/main/vehicle/route/index').routes.information
                 }
+
             }
         },
-
         methods: {
 
             // Activates add new item dialog
@@ -213,8 +151,8 @@
             },
             addNewItem(item) {
                 this.newItem = item
-                this.$http.post('api/v1/order?COMP', this.newItem).then((result) => {
-                    this.getAllOrders();
+                this.$http.post('api/v1/order?WAIT', this.newItem).then((result) => {
+                    this.getAllDrivers();
                 }).catch((error) => {
                     console.log(error);
                 })
@@ -244,11 +182,8 @@
                 })
             }
         },
-
         mounted() {
-            this.getAllOrders();
-            this.getSysrefRevenueTypeList();
-            this.getCustomerCompanyList();
+
         }
     }
 </script>

@@ -67,7 +67,10 @@ class DriverService extends BaseService
                 sysrefStaffContractType: [id: it.sysrefStaffContractType.id, name: it.sysrefStaffContractType.name],
                 gsmNo                  : it.gsmNo,
                 tcIdNumber             : it.tcIdNumber,
-                drivingLicenseNumber   : it.drivingLicenseNumber
+                drivingLicenseNumber   : it.drivingLicenseNumber,
+                sysrefCountry          : it.sysrefCountry ? [id: it.sysrefCountry.id, name: it.sysrefCountry.name] : null,
+                sysrefCity             : it.sysrefCity ? [id: it.sysrefCity.id, name: it.sysrefCity.name] : null,
+                sysrefDistrict         : it.sysrefDistrict ? [id: it.sysrefDistrict.id, name: it.sysrefDistrict.name] : null
             ]
         }
 
