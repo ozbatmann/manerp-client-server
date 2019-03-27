@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import store from '../store'
-
+ import {store} from 'manerp-vue-base'
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -23,7 +22,7 @@ const router = new VueRouter({
                 {
                     path: '',
                     component: () => import('@/modules/main/AppMain'),
-                    beforeEnter: authenticated,
+                    //beforeEnter: authenticated(),
                     children: [
                         // Index overview routes
                         ...require('@/modules/main/index/route/index').default,
@@ -59,11 +58,12 @@ const router = new VueRouter({
     mode: 'history'
 });
 
-function authenticated () {
-    if (!this.$store.shared.loginStatus) {
-        this.$router.push({ name: 'login' })
-    }
-}
+// function authenticated () {
+//     if (!store.state.shared.loginStatus) {
+//
+//       router.push({ name: 'login' })
+//     }
+// }
 
 router.beforeEach((to, from, next) => {
     next()

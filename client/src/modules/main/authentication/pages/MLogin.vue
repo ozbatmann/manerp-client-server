@@ -123,6 +123,12 @@
 
                 this.$http.post('v1/auth/signIn', loginData)
                     .then(result => {
+                        if(result.data.status === 202){
+
+                            console.log(this.$store)
+                             this.$store.commit('shared/change', true)
+                            this.$router.push({name:'overview'})
+                        }
                         console.log(result)
                     }).catch(error => {
                         console.log(`Error is here: ${error}`)

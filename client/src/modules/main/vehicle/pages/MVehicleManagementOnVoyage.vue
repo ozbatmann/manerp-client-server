@@ -312,6 +312,7 @@
                 })
             },
             deleteItem(item){
+                debugger;
                 this.$http.delete(`api/v1/vehicle/${item.id}`).then((result) => {
                     this.getAllVehicles()
                 }).catch((error) => {

@@ -110,7 +110,7 @@ dataSource:
     jmxExport: true
     driverClassName: org.postgresql.Driver
     username: manerp
-    password: 628318_ynvkdc.!
+    password: manerp
 #    password: manerp
     properties:
         validationQuery: "SELECT 1"

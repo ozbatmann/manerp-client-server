@@ -132,11 +132,11 @@
                                 icon: 'group',
                                 to: { name: require('@/modules/main/staff/route/index').routes.staffs }
                             },
-                            {
-                                title: 'Parametre Yönetimi',
-                                icon: 'tune',
-                                to: { name: 'parameters' }
-                            },
+                            // {
+                            //     title: 'Parametre Yönetimi',
+                            //     icon: 'tune',
+                            //     to: { name: 'parameters' }
+                            // },
                             {
                                 title: 'Sevkiyat Yönetimi',
                                 icon: 'local_shipping',

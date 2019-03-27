@@ -73,7 +73,6 @@
         data() {
             return {
                 loading: true,
-
                 // Data-table
                 // add-edit dialog data
                 addEditData: {

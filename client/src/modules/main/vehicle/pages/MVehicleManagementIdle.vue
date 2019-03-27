@@ -4,6 +4,7 @@
                 :headers="headers"
                 :items="vehicles"
                 :loading="loading"
+                @deleteItem="deleteItem"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
@@ -342,6 +343,14 @@
 
                 }).catch((error) => {
                     console.log(error);
+                })
+            },
+            deleteItem(item){
+                debugger;
+                this.$http.delete(`api/v1/vehicle/${item.id}`).then((result) => {
+                    this.getAllVehicles()
+                }).catch((error) => {
+                    console.error(error);
                 })
             }
         },

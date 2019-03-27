@@ -29,7 +29,7 @@ environments {
         }
         dataSource {
             dbCreate = 'update'
-            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://localhost:5432/manerp'
+            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
         }
     }
     production {
@@ -39,7 +39,7 @@ environments {
         }
         dataSource {
             dbCreate = 'update'
-            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://localhost:5432/manerp'
+            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
         }
     }
 }

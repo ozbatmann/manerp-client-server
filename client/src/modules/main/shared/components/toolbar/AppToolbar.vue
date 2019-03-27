@@ -83,8 +83,8 @@
                         ></v-img>
                     </template>
                     <v-list dense>
-                        <v-list-tile @click="logout">Çıkış Yap</v-list-tile>
-                    </v-list>
+                    <v-list-tile @click="logout">Çıkış Yap</v-list-tile>
+                </v-list>
                 </v-menu>
             </v-avatar>
         </v-btn>
