@@ -31,7 +31,7 @@ export default [
         path: 'staffs',
         name: routes.staffs,
         component: () => import('@/modules/main/staff/pages/MStaffManagement'),
-        meta: { title: 'Şoför Yönetimi' }
+        meta: { title: 'Personel Yönetimi' }
     },
     {
         path: 'staffs/details/:id',

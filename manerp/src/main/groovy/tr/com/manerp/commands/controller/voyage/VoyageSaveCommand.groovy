@@ -39,8 +39,6 @@ class VoyageSaveCommand implements Validateable {
 
 
     static constraints = {
-        importFrom(Voyage)
-
         id maxSize: 32
         loadingLocationName nullable: true, maxSize: 100
         loadingLocationLatitude nullable: true, maxSize: 100

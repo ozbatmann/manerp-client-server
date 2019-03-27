@@ -51,6 +51,7 @@ class StaffService extends BaseService
         List formattedData = data.collect {
             [
                 id                     : it.id,
+                code                   : it.code,
                 firstName              : it.getFirstAndMiddleName(),
                 lastName               : it.lastName,
                 gsmNo                  : it.gsmNo,
