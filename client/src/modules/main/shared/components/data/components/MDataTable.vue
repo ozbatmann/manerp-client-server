@@ -95,6 +95,7 @@
                         :items="items"
                         :search="dataTableSearchModel"
                         :pagination.sync="pagination"
+                        :loading="localLoading"
                         select-all
                         item-key="id"
                         class="m-data-table"
@@ -266,6 +267,11 @@
                 default: null
             },
 
+            loading: {
+                type: Boolean,
+                default: true
+            },
+
             // Route of the row click
             to: {
                 type: Object
@@ -281,6 +287,9 @@
                 // Receives filtering options
                 // from filter-table
                 filterOptions: {},
+
+                // Loading state of the data-table
+                localLoading: this.loading,
 
                 // Pagination options of data table
                 pagination: {
@@ -394,6 +403,12 @@
                 }
             },
         },
+
+        watch: {
+            loading (newVal) {
+                this.localLoading = newVal
+            }
+        }
     }
 </script>
 

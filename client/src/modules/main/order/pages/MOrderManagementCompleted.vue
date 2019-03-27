@@ -3,7 +3,7 @@
         <m-data-table
             :headers="headers"
             :items="orders"
-            :to="to"
+            :loading="loading"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
@@ -11,7 +11,7 @@
                 <!-- Add customer button -->
                 <m-data-table-action
                     title="sipariş ekle"
-                    @click="addDialog"
+                    disabled
                 ></m-data-table-action>
             </template>
 
@@ -29,7 +29,6 @@
             :data="addEditData"
             :inputs="addEditFields"
             title="Yeni Sipariş"
-            @save="addNewItem"
         ></m-data-table-add-new-form>
 
         <v-snackbar
@@ -69,74 +68,23 @@
 
         data() {
             return {
+                loading: true,
+
                 // Data-table
                 // add-edit dialog data
                 addEditData: {
-                    [orderModel.name]: null,
                     [orderModel.sysrefRevenueType]: null,
-                    // [orderModel.orderDate]: null,
+                    [orderModel.orderDate]: null,
                     [orderModel.billingNo]: null,
-                    [orderModel.customer]: null,
-                    [orderModel.workOrderNo]: null
+                    [orderModel.customer]: null
                 },
 
                 // Data-table
                 // add-edit dialog fields
                 addEditFields: [
-                    {
-                        key: orderModel.name,
-                        max: 20,
-                        rules: [
-                            'required', 'max:30'
-                        ],
-                        title: 'sipariş tanımı',
-                        type: 'text',
-                    },
-                    // {
-                    //     key: orderModel.orderDate,
-                    //     max: 20,
-                    //     rules: [
-                    //         'required', 'max:30'
-                    //     ],
-                    //     title: 'ad',
-                    //     type: 'text',
-                    // },
-                    {
-                        key: orderModel.sysrefRevenueType,
-                        title: 'gelir tipi',
-                        type: 'select',
-                        props: this.sysrefRevenueTypeList
-                    },
-                    {
-                        key: orderModel.billingNo,
-                        max: 20,
-                        rules: [
-                            'required', 'max:30'
-                        ],
-                        title: 'fatura numarası',
-                        type: 'text',
-                    },
-                    {
-                        key: orderModel.customer,
-                        title: 'müşteri iş yeri',
-                        type: 'select',
-                        props: this.customerCompanyList
-                    },
-                    {
-                        key: orderModel.workOrderNo,
-                        max: 30,
-                        title: 'iş emri numarası',
-                        rules: [
-                            'required', 'max:30'
-                        ]
-                    },
-                    {
-                        key: orderModel.active,
-                        max: null,
-                        type: 'checkbox',
-                        props: ['aktif']
-                    }
+
                 ],
+
                 headers: [
                     {
                         text: 'ıd',
@@ -181,17 +129,8 @@
                 ],
 
                 orders: [],
-                sysrefRevenueTypeList: [],
-                customerCompanyList: [],
 
-                newItem: null,
-
-                snackbar: false,
-
-                // Data table row click route
-                to: {
-                    name: require('@/modules/main/driver/route/index').routes.information
-                }
+                snackbar: false
             }
         },
 
@@ -205,50 +144,18 @@
             // Adds a new driver
             // to the system
             getAllOrders() {
-                this.$http.get('api/v1/order').then((result) => {
-                    this.orders = result.data.data.items
+                let self = this;
+
+                this.$http.get('api/v1/order?COMP').then((result) => {
+                    self.orders = result.data.data.items
                 }).catch((error) => {
                     console.log(error);
-                })
+                }).finally(() => this.loading = false)
             },
-            addNewItem(item) {
-                this.newItem = item
-                this.$http.post('api/v1/order?COMP', this.newItem).then((result) => {
-                    this.getAllOrders();
-                }).catch((error) => {
-                    console.log(error);
-                })
-            },
-            getSysrefRevenueTypeList() {
-                this.$http.get('api/v1/sysrefRevenueType').then((result) => {
-                    this.sysrefRevenueTypeList = result.data.data.items
-
-                    this.addEditFields.find(item => {
-                        return item.key === orderModel.sysrefRevenueType
-                    }).props = this.sysrefRevenueTypeList
-
-                }).catch((error) => {
-                    console.log(error);
-                })
-            },
-            getCustomerCompanyList() {
-                this.$http.get('api/v1/customerCompany/getListForDropDown/').then((result) => {
-                    this.customerCompanyList = result.data.data.items
-
-                    this.addEditFields.find(item => {
-                        return item.key === orderModel.customer
-                    }).props = this.customerCompanyList
-
-                }).catch((error) => {
-                    console.log(error);
-                })
-            }
         },
 
         mounted() {
             this.getAllOrders();
-            this.getSysrefRevenueTypeList();
-            this.getCustomerCompanyList();
         }
     }
 </script>
