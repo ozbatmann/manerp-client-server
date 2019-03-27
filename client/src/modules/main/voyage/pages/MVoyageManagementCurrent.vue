@@ -203,7 +203,9 @@
 
                 newItem: null,
 
-                snackbar: false,
+                snackbar: {
+
+                },
 
                 // // Data table row click route
                 // to: {
@@ -237,6 +239,15 @@
                 this.newItem = item;
 
                 this.$http.post('api/v1/voyage', this.newItem).then((result) => {
+                    let status = result.data.status;
+                    if (status < 299) {
+                        self.snackbar.textColor = 'green--text text--accent-3';
+                    } else {
+                        self.snackbar.textColor = 'red--text';
+                    }
+
+                    self.snackbar.text = result.data.message;
+                    self.snackbar.active = true;
                     self.getAllVoyages();
                 }).catch((error) => {
                     console.log(error);
@@ -248,6 +259,15 @@
                 let self = this;
 
                 this.$http.put('api/v1/voyage', item).then((result) => {
+                    let status = result.data.status;
+                    if (status < 299) {
+                        self.snackbar.textColor = 'green--text text--accent-3';
+                    } else {
+                        self.snackbar.textColor = 'red--text';
+                    }
+
+                    self.snackbar.text = result.data.message;
+                    self.snackbar.active = true;
                     self.getAllVoyages();
                 }).catch((error) => {
                     console.log(error);
