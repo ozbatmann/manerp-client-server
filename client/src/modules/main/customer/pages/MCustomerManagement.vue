@@ -193,6 +193,12 @@
                         value: null,
                         rules: ['required', 'max:30'],
                         max: 30
+                    },
+                    {
+                        key: customerModel.active,
+                        max: null,
+                        type: 'checkbox',
+                        props: ['aktif']
                     }
                 ],
 

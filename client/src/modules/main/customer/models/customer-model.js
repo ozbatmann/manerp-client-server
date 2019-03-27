@@ -18,5 +18,6 @@ export default {
     employerRegistrationNo: 'employerRegistrationNo',
     tradeRegistrationNo: 'tradeRegistrationNo',
     taxOffice: 'taxOffice',
-    taxNumber: 'taxNumber'
+    taxNumber: 'taxNumber',
+    active: 'active'
 }

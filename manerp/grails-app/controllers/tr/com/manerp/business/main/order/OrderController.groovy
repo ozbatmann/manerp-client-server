@@ -6,6 +6,7 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
+import tr.com.manerp.business.sysref.SysrefOrderState
 import tr.com.manerp.commands.controller.common.PaginationCommand
 import tr.com.manerp.commands.controller.order.OrderPaginationCommand
 
@@ -76,7 +77,8 @@ class OrderController extends BaseController
         try {
 
             order.setRandomCode()
-            // TODO: change orderData
+            order.sysrefOrderState = SysrefOrderState.findByCode('COMP')
+            // TODO: change orderDate
             order.orderDate = new Date()
             orderService.save(order)
             maneResponse.statusCode = StatusCode.CREATED
