@@ -6,9 +6,11 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
 
 @Transactional
-class VoyageService extends BaseService {
-    
-    ManePaginatedResult getVoyageList(ManePaginationProperties properties) {
+class VoyageService extends BaseService
+{
+
+    ManePaginatedResult getVoyageList(ManePaginationProperties properties)
+    {
 
         def closure = {
             eq('active', true)
@@ -36,17 +38,37 @@ class VoyageService extends BaseService {
         return voyage
     }
 
-    def save(Voyage voyage) {
+    def save(Voyage voyage)
+    {
 
         voyage.save(failOnError: true)
     }
 
-    def delete(Voyage voyage) {
+    def delete(Voyage voyage)
+    {
 
         voyage.delete(flush: true, failOnError: true)
     }
 
-    List formatPaginatedResultForDropDown(def data) {
+    List formatPaginatedResultForList(def data)
+    {
+        List formattedData = data.collect {
+            [
+                id                      : it.id,
+                code                    : it.code,
+                company                 : [id: it.company.id, name: it.company.title],
+                driver                  : [id: it.driver.id, name: it.driver.title],
+                order                   : [id: it.order.id, name: it.order.title],
+                sysrefTransportationType: [id: it.sysrefTransportationType.id, name: it.sysrefTransportationType.title],
+                sysrefVoyageDirection   : [id: it.sysrefVoyageDirection.id, name: it.sysrefVoyageDirection.title]
+            ]
+        }
+
+        formattedData
+    }
+
+    List formatPaginatedResultForDropDown(def data)
+    {
 
         List formattedData = data.collect {
             return [

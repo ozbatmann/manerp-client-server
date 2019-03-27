@@ -3,6 +3,7 @@
         <m-data-table
             :headers="headers"
             :items="vehicles"
+            :loading="loading"
             :to="to"
         >
             <!-- Data table header slot -->
@@ -30,6 +31,7 @@
             :inputs="addEditFields"
             title="Yeni Araç"
             @save="addNewItem"
+            @edit="editItem"
         ></m-data-table-add-new-form>
 
         <v-snackbar
@@ -69,6 +71,7 @@
 
         data() {
             return {
+                loading: true,
                 // Data-table
                 // add-edit dialog data
                 addEditData: {
@@ -238,18 +241,37 @@
             // Adds a new driver
             // to the system
             getAllVehicles() {
+                this.loading = true;
+                let self = this;
                 this.$http.get('api/v1/vehicle').then((result) => {
-                    this.vehicles = result.data.data.items
+                    self.vehicles = result.data.data.items
                 }).catch((error) => {
                     console.log(error);
+                }).finally((result) => {
+                    self.loading = false;
                 })
             },
             addNewItem(item) {
                 this.newItem = item
+                this.loading=true;
+                let self = this;
                 this.$http.post('api/v1/vehicle', this.newItem).then((result) => {
-                    this.getAllVehicles();
+                    self.getAllVehicles();
                 }).catch((error) => {
                     console.log(error);
+                }).finally((result) => {
+                    self.loading = false;
+                })
+            },
+
+            editItem(item) {
+                let self = this;
+
+                this.$http.put('api/v1/vehicle/', item)
+                    .then(result => {
+                        self.getAllVehicles();
+                    }).catch(error => {
+                    console.log(error)
                 })
             },
             getSysrefCountryList() {
@@ -274,19 +296,8 @@
                     console.error(error);
                 })
             },
-            getSysrefDistrictList() {
-                this.$http.get("api/v1/sysrefDistrict").then((result) => {
-                    this.sysrefDistrictList = result.data.data.items
-                    this.addEditFields.find(item => {
-                        return item.key === vehicleModel.sysrefDistrict
-                    }).props = this.sysrefDistrictList
-
-                }).catch((error) => {
-                    console.error(error);
-                })
-            },
             getRefWorkingAreaList() {
-                this.$http.get('api/v1/refWorkingArea/getListForDropDown/').then((result) => {
+                this.$http.get('api/v1/refWorkingArea/getListForDropDown').then((result) => {
                     this.refWorkingAreaList = result.data.data.items
 
                     this.addEditFields.find(item => {
@@ -301,6 +312,10 @@
 
         mounted() {
             this.getAllVehicles();
+            this.getSysrefCountryList();
+            this.getSysrefCityList();
+            this.getSysrefDistrictList();
+            this.getRefWorkingAreaList();
         }
     }
 </script>
