@@ -31,6 +31,9 @@ const router = new VueRouter({
                         // Customer routes
                         ...require('@/modules/main/customer/route/index').default,
 
+                        // Staff routes
+                        ...require('@/modules/main/staff/route/index').default,
+
                         // Driver routes
                         ...require('@/modules/main/driver/route/index').default,
 

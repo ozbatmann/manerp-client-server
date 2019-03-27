@@ -627,15 +627,15 @@ class DataService
             sysrefTransportationTypeGidis.description = 'Komple taşıma'
         }
 
-        SysrefVoyageDirection sysrefVoyageDirectionGidis = SysrefVoyageDirection.findByName('Gidiş')
+        SysrefVoyageDirection sysrefVoyageDirectionGidis = SysrefVoyageDirection.findByName('Tek Yön')
         if ( sysrefVoyageDirectionGidis == null ) {
 
             sysrefVoyageDirectionGidis = new SysrefVoyageDirection()
             sysrefVoyageDirectionGidis.sysCompany = sysCompanyBumerang
-            sysrefVoyageDirectionGidis.name = 'Gidiş'
+            sysrefVoyageDirectionGidis.name = 'Tek Yön'
             sysrefVoyageDirectionGidis.active = true
-            sysrefVoyageDirectionGidis.description = 'Gidiş sevkiyat yönü'
-            sysrefVoyageDirectionGidis.code = 'GID'
+            sysrefVoyageDirectionGidis.description = 'Tek Yön sevkiyat yönü'
+            sysrefVoyageDirectionGidis.code = 'TEK'
 
             sysrefVoyageDirectionGidis.save(failOnError: true)
         }
