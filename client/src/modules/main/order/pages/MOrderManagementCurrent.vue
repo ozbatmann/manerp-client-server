@@ -61,7 +61,7 @@
     const orderModel = require('@/modules/main/order/models/order-model').default;
 
     export default {
-        name: "MOrderManagementCompleted",
+        name: "MOrderManagementCurrent",
 
         components: {
             MDataTable,

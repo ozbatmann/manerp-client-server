@@ -4,7 +4,6 @@
             :headers="headers"
             :items="vehicles"
             :loading="loading"
-            :to="to"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
@@ -54,14 +53,14 @@
 </template>
 
 <script>
-    import MDataTable from '../../shared/components/data/components/MDataTable'
+    import MDataTable from '@/modules/main/shared/components/data/components/MDataTable'
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction"
-    import MDataTableAddNewForm from "../../shared/components/data/components/MDataTableAddNewForm"
+    import MDataTableAddNewForm from "@/modules/main/shared/components/data/components/MDataTableAddNewForm"
 
     const vehicleModel = require('@/modules/main/vehicle/models/vehicle-model').default;
 
     export default {
-        name: "MVehicleManagementCompleted",
+        name: "MVehicleManagementOnVoyage",
 
         components: {
             MDataTable,
@@ -226,9 +225,9 @@
                 snackbar: false,
 
                 // Data table row click route
-                to: {
-                    name: require('@/modules/main/vehicle/route/index').routes.information
-                }
+                // to: {
+                //     name: require('@/modules/main/vehicle/route/index').routes.information
+                // }
             }
         },
         methods: {

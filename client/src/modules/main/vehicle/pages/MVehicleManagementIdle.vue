@@ -58,7 +58,7 @@
     const vehicleModel = require('@/modules/main/vehicle/models/vehicle-model').default;
 
     export default {
-        name: "MVehicleManagementCompleted",
+        name: "MVehicleManagementIdle",
 
         components: {
             MDataTable,
