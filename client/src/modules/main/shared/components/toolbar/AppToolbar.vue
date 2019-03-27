@@ -69,7 +69,23 @@
 
             <v-avatar size="30">
 
-                <v-img src="https://randomuser.me/api/portraits/men/85.jpg"/>
+                <v-menu
+                    bottom
+                    left
+                    :nudge-width="140"
+                    :nudge-top="30"
+                    :nudge-left="30"
+                >
+                    <template v-slot:activator="{ on }">
+                        <v-img
+                                v-on="on"
+                                src="https://randomuser.me/api/portraits/men/85.jpg"
+                        ></v-img>
+                    </template>
+                    <v-list dense>
+                        <v-list-tile @click="logout">Çıkış Yap</v-list-tile>
+                    </v-list>
+                </v-menu>
             </v-avatar>
         </v-btn>
     </v-toolbar>
@@ -124,6 +140,11 @@
                 } else {
                     cancelFullScreen.call(doc);
                 }
+            },
+
+            logout () {
+                this.$store.commit('shared/change', false);
+                this.$router.push({ name: 'login' })
             }
         },
 

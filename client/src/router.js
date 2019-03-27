@@ -18,12 +18,12 @@ const router = new VueRouter({
         {
             // Main route
             path: '/',
-            // beforeEnter: authenticated,
             component: () => import('@/App'),
             children: [
                 {
                     path: '',
                     component: () => import('@/modules/main/AppMain'),
+                    beforeEnter: authenticated,
                     children: [
                         // Index overview routes
                         ...require('@/modules/main/index/route/index').default,
@@ -58,6 +58,12 @@ const router = new VueRouter({
     ],
     mode: 'history'
 });
+
+function authenticated () {
+    if (!this.$store.shared.loginStatus) {
+        this.$router.push({ name: 'login' })
+    }
+}
 
 router.beforeEach((to, from, next) => {
     next()
