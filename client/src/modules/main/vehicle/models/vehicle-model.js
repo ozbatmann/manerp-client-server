@@ -11,5 +11,6 @@ export default {
     vehicleOwnerFullName: 'vehicleOwnerFullName',
     kgsNo: 'kgsNo',
     ogsNo: 'ogsNo',
-    description: 'description'
+    description: 'description',
+    active: 'active'
 }

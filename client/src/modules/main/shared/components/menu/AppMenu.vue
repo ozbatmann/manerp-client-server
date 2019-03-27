@@ -125,6 +125,7 @@
                             {
                                 title: 'Sevkiyat Yönetimi',
                                 icon: 'local_shipping',
+                                to: {name: 'voyages.current'}
                             },
                             {
                                 title: 'Sipariş Yönetimi',

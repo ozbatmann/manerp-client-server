@@ -3,6 +3,8 @@
         <m-data-table
             :headers="headers"
             :items="vehicles"
+            :to="to"
+            @deleteItem="deleteItem"
             :loading="loading"
         >
             <!-- Data table header slot -->
@@ -308,6 +310,13 @@
 
                 }).catch((error) => {
                     console.log(error);
+                })
+            },
+            deleteItem(item){
+                this.$http.delete(`api/v1/vehicle/${item.id}`).then((result) => {
+                    this.getAllVehicles()
+                }).catch((error) => {
+                    console.error(error);
                 })
             }
         },

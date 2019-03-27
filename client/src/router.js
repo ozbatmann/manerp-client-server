@@ -37,6 +37,9 @@ const router = new VueRouter({
                         // Order routes
                         ...require('@/modules/main/order/route/index').default,
 
+                        // Voyage routes
+                        ...require('@/modules/main/voyage/route/index').default,
+
                         // Vehicle routes
                         ...require('@/modules/main/vehicle/route/index').default,
 

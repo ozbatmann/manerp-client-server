@@ -5,6 +5,7 @@
                 :items="firms"
                 :loading="loading"
                 :to="to"
+                @deleteItem="deleteItem"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
@@ -354,6 +355,13 @@
                         return item.key === customerModel.refCompanySector
                     }).props = self.refCompanySectorList
 
+                }).catch((error) => {
+                    console.error(error);
+                })
+            },
+            deleteItem(item){
+                this.$http.delete(`api/v1/customerCompany/${item.id}`).then((result) => {
+                    this.getAllCustomers()
                 }).catch((error) => {
                     console.error(error);
                 })

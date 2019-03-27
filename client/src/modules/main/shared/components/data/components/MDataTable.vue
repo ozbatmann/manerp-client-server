@@ -204,7 +204,7 @@
                                                 name="action-menu"
                                                 :bind="props.item"
                                         ></slot>
-                                        <v-list-tile>Sil</v-list-tile>
+                                        <v-list-tile @click="deleteItem(props.item)">Sil</v-list-tile>
                                         <v-list-tile>Dışa aktar</v-list-tile>
                                     </v-list>
                                 </v-menu>
@@ -402,6 +402,9 @@
                     this.pagination.descending = false
                 }
             },
+            deleteItem(item) {
+                this.$emit('deleteItem',item)
+            }
         },
 
         watch: {
