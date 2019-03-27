@@ -13,7 +13,7 @@ const meta = (title) => {
                 to: {name: routes.current}
             },
             {
-                text: 'sonlanmış sevkiyatlar',
+                text: 'tamamlanmış sevkiyatlar',
                 to: {name: routes.completed}
             }
         ]

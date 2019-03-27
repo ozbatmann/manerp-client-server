@@ -4,7 +4,7 @@
         <m-data-table
             :headers="headers"
             :items="voyages"
-            :to="to"
+            :loading="loading"
             @deleteItem="deleteItem"
         >
             <!-- Data table header slot -->
@@ -32,6 +32,7 @@
             :inputs="addEditFields"
             title="Yeni Sevkiyat"
             @save="addNewItem"
+            @edit="editItem"
         ></m-data-table-add-new-form>
 
         <v-snackbar
@@ -71,6 +72,8 @@
 
         data() {
             return {
+                loading: true,
+
                 // Data-table
                 // add-edit dialog data
                 addEditData: {
@@ -91,7 +94,8 @@
                             'required', 'max:30'
                         ],
                         title: 'şirket',
-                        type: 'text',
+                        type: 'select',
+                        props: this.sysRefCompanyList
                     },
                     {
                         key: voyageModel.vehicle,
@@ -99,16 +103,19 @@
                         title: 'araç',
                         rules: [
                             'required', 'max:30'
-                        ]
+                        ],
+                        type: 'select',
+                        props: this.sysRefVehicleList
                     },
                     {
                         key: voyageModel.driver,
-                        type: 'text',
+                        type: 'select',
                         max: 30,
                         title: 'şoför',
                         rules: [
                             'required', 'max:30'
-                        ]
+                        ],
+                        props: this.sysRefDriverList
                     },
                     {
                         key: voyageModel.sysRefTransportationType,
@@ -127,7 +134,7 @@
                     {
                         text: 'ıd',
                         sortable: true,
-                        value: voyageModel.id,
+                        value: voyageModel.code,
                         toggleable: false,
                         show: true,
                         search: {chip: false, value: null}
@@ -175,6 +182,9 @@
                 ],
 
                 voyages: [],
+                sysRefCompanyList: [],
+                sysRefVehicleList: [],
+                sysRefDriverList: [],
                 sysRefTransportationTypeList: [],
                 sysRefVoyageDirectionList: [],
 
@@ -182,10 +192,10 @@
 
                 snackbar: false,
 
-                // Data table row click route
-                to: {
-                    name: require('@/modules/main/voyage/route/index').routes.information
-                }
+                // // Data table row click route
+                // to: {
+                //     name: require('@/modules/main/voyage/route/index').routes.information
+                // }
             }
         },
         methods: {
@@ -195,48 +205,119 @@
                 this.$refs.addEditDialog.open(data)
             },
 
-            // Adds a new driver
-            // to the system
+            // List all voyages
             getAllVoyages() {
+                let self = this;
+                this.loading = true;
+
                 this.$http.get('api/v1/voyage').then((result) => {
-                    this.voyages = result.data.data.items
+                    self.voyages = result.data.data.items;
+                    console.log(result.data.data.items)
                 }).catch((error) => {
                     console.log(error);
-                })
+                }).finally(() => self.loading = false)
             },
+            // Adds a new item
+            // to the system
             addNewItem(item) {
-                this.newItem = item
+                let self = this;
+                this.newItem = item;
+
                 this.$http.post('api/v1/voyage', this.newItem).then((result) => {
-                    this.getAllVoyages();
+                    self.getAllVoyages();
                 }).catch((error) => {
                     console.log(error);
                 })
             },
+
+            // Edits an item
+            editItem(item) {
+                let self = this;
+
+                this.$http.put('api/v1/voyage', this.newItem).then((result) => {
+                    self.getAllVoyages();
+                }).catch((error) => {
+                    console.log(error);
+                })
+            },
+
+            // Get customers list
+            getSysRefCompany() {
+                let self = this;
+
+                this.$http.get("api/v1/customerCompany/getListForDropDown").then((result) => {
+                    self.sysRefCompanyList = result.data.data.items;
+                    self.addEditFields.find(item => {
+                        return item.key === voyageModel.company
+                    }).props = self.sysRefCompanyList
+                }).catch((error) => {
+                    console.error(error);
+                })
+            },
+
+            // Get vehicle list
+            getSysRefVehicle() {
+                let self = this;
+
+                this.$http.get("api/v1/vehicle/getListForDropDown").then((result) => {
+                    self.sysRefVehicleList = result.data.data.items;
+                    self.addEditFields.find(item => {
+                        return item.key === voyageModel.vehicle
+                    }).props = self.sysRefVehicleList
+                }).catch((error) => {
+                    console.error(error);
+                })
+            },
+
+            // Get driver list
+            getSysRefDriver() {
+                let self = this;
+
+                this.$http.get("api/v1/driver/getListForDropDown").then((result) => {
+                    self.sysRefDriverList = result.data.data.items;
+                    self.addEditFields.find(item => {
+                        return item.key === voyageModel.driver
+                    }).props = self.sysRefDriverList
+                }).catch((error) => {
+                    console.error(error);
+                })
+            },
+
+            // Get transportation type list
             getSysRefTransportationTypeList() {
+                let self = this;
+
                 this.$http.get("api/v1/sysrefTransportationType").then((result) => {
-                    this.sysRefTransportationTypeList = result.data.data.items
-                    this.addEditFields.find(item => {
+                    self.sysRefTransportationTypeList = result.data.data.items
+                    self.addEditFields.find(item => {
                         return item.key === voyageModel.sysRefTransportationType
-                    }).props = this.sysRefTransportationTypeList
-
+                    }).props = self.sysRefTransportationTypeList
                 }).catch((error) => {
                     console.error(error);
                 })
             },
+
+            // Get voyage direction list
             getSysRefVoyageDirectionList() {
-                this.$http.get("api/v1/sysrefCity").then((result) => {
-                    this.sysRefVoyageDirectionList = result.data.data.items
-                    this.addEditFields.find(item => {
+                let self = this;
+
+                this.$http.get("api/v1/sysrefVoyageDirection").then((result) => {
+                    self.sysRefVoyageDirectionList = result.data.data.items
+                    self.addEditFields.find(item => {
                         return item.key === voyageModel.sysRefVoyageDirection
-                    }).props = this.sysRefVoyageDirectionList
+                    }).props = self.sysRefVoyageDirectionList
 
                 }).catch((error) => {
                     console.error(error);
                 })
             },
+
+            // Deletes an item
             deleteItem(item){
+                let self = this;
+
                 this.$http.delete(`api/v1/voyage/${item.id}`).then((result) => {
-                    this.getAllVehicles()
+                    self.getAllVoyages()
                 }).catch((error) => {
                     console.error(error);
                 })
@@ -245,6 +326,9 @@
 
         mounted() {
             this.getAllVoyages();
+            this.getSysRefCompany();
+            this.getSysRefDriver();
+            this.getSysRefVehicle();
             this.getSysRefTransportationTypeList();
             this.getSysRefVoyageDirectionList();
         }

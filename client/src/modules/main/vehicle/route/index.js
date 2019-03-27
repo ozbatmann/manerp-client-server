@@ -26,17 +26,17 @@ export default [
         component: () => import('@/modules/main/shared/components/core/MCoreDetails'),
         children: [
             {
-                path: 'voyage',
-                name: routes.onVoyage,
-                component: () => import('@/modules/main/vehicle/pages/MVehicleManagementOnVoyage'),
-                meta: meta('Araç Yönetimi')
-            },
-            {
                 path: '',
                 name: routes.idle,
                 component: () => import('@/modules/main/vehicle/pages/MVehicleManagementIdle'),
                 meta: meta('Araç Yönetimi')
             },
+            {
+                path: 'voyage',
+                name: routes.onVoyage,
+                component: () => import('@/modules/main/vehicle/pages/MVehicleManagementOnVoyage'),
+                meta: meta('Araç Yönetimi')
+            }
         ]
     }
 ]
