@@ -64,7 +64,7 @@ class DriverService extends BaseService
                 code                   : it.code,
                 firstName              : it.getFirstAndMiddleName(),
                 lastName               : it.lastName,
-                sysrefStaffContractType: it.sysrefStaffContractType.name,
+                sysrefStaffContractType: [id: it.sysrefStaffContractType.id, name: it.sysrefStaffContractType.name],
                 gsmNo                  : it.gsmNo,
                 tcIdNumber             : it.tcIdNumber,
                 drivingLicenseNumber   : it.drivingLicenseNumber

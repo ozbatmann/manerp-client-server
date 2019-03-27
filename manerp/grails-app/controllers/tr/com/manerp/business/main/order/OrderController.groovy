@@ -6,7 +6,9 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
+import tr.com.manerp.business.sysref.SysrefOrderState
 import tr.com.manerp.commands.controller.common.PaginationCommand
+import tr.com.manerp.commands.controller.order.OrderPaginationCommand
 
 class OrderController extends BaseController
 {
@@ -23,9 +25,9 @@ class OrderController extends BaseController
 
         try {
 
-            PaginationCommand cmd = new PaginationCommand(params)
+            OrderPaginationCommand cmd = new OrderPaginationCommand(params)
 
-            ManePaginatedResult result = orderService.getOrderList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
+            ManePaginatedResult result = orderService.getOrderList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort), cmd.orderStateCode)
             result.data = orderService.formatPaginatedResultForList(result.data)
             maneResponse.data = result.toMap()
 
@@ -75,6 +77,9 @@ class OrderController extends BaseController
         try {
 
             order.setRandomCode()
+            order.sysrefOrderState = SysrefOrderState.findByCode('COMP')
+            // TODO: change orderDate
+            order.orderDate = new Date()
             orderService.save(order)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = order.id

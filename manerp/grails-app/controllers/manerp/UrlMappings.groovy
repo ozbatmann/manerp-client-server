@@ -1,6 +1,7 @@
 package manerp
 
-class UrlMappings {
+class UrlMappings
+{
 
     static mappings = {
 
@@ -10,6 +11,11 @@ class UrlMappings {
 
         "/api/$namespace/$controller"() {
             action = [GET: "index", POST: "save", PUT: "update", PATCH: "patch", DELETE: "delete"]
+        }
+
+        // TODO: find better solution. conflict with show
+        "/api/$namespace/$controller/getListForDropDown"() {
+            action = [GET: "getListForDropDown"]
         }
 
         "/api/$namespace/$controller/$id"() {

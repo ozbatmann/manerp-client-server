@@ -26,6 +26,7 @@
             ref="addEditDialog"
             :data="addEditData"
             :inputs="addEditFields"
+            @save="addNewItem"
             title="Yeni Firma"
         ></m-data-table-add-new-form>
     </div>
@@ -50,20 +51,41 @@
             return {
                 addEditData: {
                     [customerModel.name]: null,
-                    [customerModel.phone]: null,
-                    [customerModel.email]: null,
-                    [customerModel.taxNumber]: null,
-                    [customerModel.taxOffice]: null,
+                    [customerModel.sysrefCountry]: null,
+                    [customerModel.sysrefCity]: null,
+                    [customerModel.sysrefDistrict]: null,
                     [customerModel.address]: null,
+                    [customerModel.phone]: null,
+                    [customerModel.phone2]: null,
+                    [customerModel.fax]: null,
+                    [customerModel.gsm]: null,
+                    [customerModel.webAddress]: null,
+                    [customerModel.email]: null,
+                    [customerModel.refCompanySector]: null,
+                    [customerModel.customerRepresentative]: null,
+                    [customerModel.numberOfStaff]: null,
+                    [customerModel.employerRegistrationNo]: null,
+                    [customerModel.tradeRegistrationNo]: null,
+                    [customerModel.taxOffice]: null,
+                    [customerModel.taxNumber]: null,
                 },
 
                 addEditFields: [
                     {
-                        title: 'Firma Ünvanı',
+                        title: 'Firma Adı',
                         key: customerModel.name,
+                        max: 50,
                         type: 'text',
                         value: null,
-                        rules: ['required']
+                        rules: ['required', 'max:50']
+                    },
+                    {
+                        title: 'Firma Ünvanı',
+                        key: customerModel.title,
+                        max: 50,
+                        type: 'text',
+                        value: null,
+                        rules: ['required', 'max:50']
                     },
 
                     {
@@ -72,24 +94,50 @@
                         type: 'phone',
                         value: null,
                         mask: 'phone',
-                        rules: ['required', 'max:10'],
-                        max: 10
+                        rules: ['required', 'max:11'],
+                        max: 11
                     },
-
                     {
                         title: 'E-posta',
                         key: customerModel.email,
                         type: 'mail',
                         value: null,
-                        rules: ['required', 'email']
+                        rules: ['required', 'email', 'max:50'],
+                        max: 50
                     },
-
+                    {
+                        key: customerModel.sysrefCountry,
+                        title: 'ülke',
+                        type: 'select',
+                        props: this.sysrefCountryList
+                    },
+                    {
+                        key: customerModel.sysrefCity,
+                        title: 'İl',
+                        type: 'select',
+                        props: this.sysrefCityList
+                    },
+                    {
+                        key: customerModel.sysrefDistrict,
+                        title: 'ilçe',
+                        type: 'select',
+                        props: this.sysrefDistrictList
+                    },
+                    {
+                        title: 'Adres',
+                        key: customerModel.address,
+                        type: 'text',
+                        value: null,
+                        rules: ['required', 'max:255'],
+                        max: 255
+                    },
                     {
                         title: 'Vergi Numarası',
                         key: customerModel.taxNumber,
                         type: 'text',
                         value: null,
-                        rules: ['required']
+                        rules: ['required', 'max:50'],
+                        max: 50
                     },
 
                     {
@@ -97,15 +145,60 @@
                         key: customerModel.taxOffice,
                         type: 'text',
                         value: null,
-                        rules: ['required']
+                        rules: ['required', 'max:255'],
+                        max: 255
                     },
-
                     {
-                        title: 'Adres',
-                        key: customerModel.address,
+                        title: 'Faks Numarası',
+                        key: customerModel.fax,
                         type: 'text',
                         value: null,
-                        rules: ['required']
+                        rules: ['required', 'max:20'],
+                        max: 20
+                    },
+                    {
+                        title: 'Web Adresi',
+                        key: customerModel.webAddress,
+                        type: 'text',
+                        value: null,
+                        rules: ['required', 'max:30'],
+                        max: 30
+                    },
+                    {
+                        key: customerModel.refCompanySector,
+                        title: 'İş Yeri Sektörü',
+                        type: 'select',
+                        props: this.refCompanySectorList
+                    },
+                    {
+                        title: 'Müşteri Temsilcisi',
+                        key: customerModel.customerRepresentative,
+                        type: 'text',
+                        value: null,
+                        rules: ['required', 'max:30'],
+                        max: 30
+                    },
+                    {
+                        title: 'İşveren Sicil Numarası',
+                        key: customerModel.employerRegistrationNo,
+                        type: 'text',
+                        value: null,
+                        rules: ['required', 'max:30'],
+                        max: 30
+                    },
+                    {
+                        title: 'Ticari Sicil Numarası',
+                        key: customerModel.tradeRegistrationNo,
+                        type: 'text',
+                        value: null,
+                        rules: ['required', 'max:30'],
+                        max: 30
+                    },
+                    {
+                        key: customerModel.active,
+                        max: null,
+                        type: 'checkbox',
+                        props: ['aktif']
                     }
                 ],
 
@@ -160,57 +253,13 @@
                     }
                 ],
 
-                firms: [
-                    // {
-                    //     id: 'FIRM-01',
-                    //     title: 'Pınar Gıda A.Ş',
-                    //     phone: '0 232 545 6320',
-                    //     mail: 'info@pinar.com.tr',
-                    //     type: 'Müşteri',
-                    //     rep: 'Seval Çıtanak'
-                    // },
-                    // {
-                    //     id: 'FIRM-02',
-                    //     title: 'Pınar Gıda A.Ş',
-                    //     phone: '0 232 545 6320',
-                    //     mail: 'info@pinar.com.tr',
-                    //     type: 'Müşteri',
-                    //     rep: 'Seval Çıtanak'
-                    // },
-                    // {
-                    //     id: 'FIRM-03',
-                    //     title: 'Pınar Gıda A.Ş',
-                    //     phone: '0 232 545 6320',
-                    //     mail: 'info@pinar.com.tr',
-                    //     type: 'Müşteri',
-                    //     rep: 'Seval Çıtanak'
-                    // },
-                    // {
-                    //     id: 'FIRM-04',
-                    //     title: 'Pınar Gıda A.Ş',
-                    //     phone: '0 232 545 6320',
-                    //     mail: 'info@pinar.com.tr',
-                    //     type: 'Müşteri',
-                    //     rep: 'Seval Çıtanak'
-                    // },
-                    // {
-                    //     id: 'FIRM-05',
-                    //     title: 'Pınar Gıda A.Ş',
-                    //     phone: '0 232 545 6320',
-                    //     mail: 'info@pinar.com.tr',
-                    //     type: 'Müşteri',
-                    //     rep: 'Seval Çıtanak'
-                    // },
-                    // {
-                    //     id: 'FIRM-06',
-                    //     title: 'Pınar Gıda A.Ş',
-                    //     phone: '0 232 545 6320',
-                    //     mail: 'info@pinar.com.tr',
-                    //     type: 'Müşteri',
-                    //     rep: 'Seval Çıtanak'
-                    // }
-                ],
+                firms: [],
+                sysrefCountryList: [],
+                sysrefCityList: [],
+                sysrefDistrictList: [],
+                refCompanySectorList: [],
 
+                newItem: null,
                 to: {
                     name: require('@/modules/main/customer/route/index').routes.information,
                 }
@@ -232,18 +281,63 @@
             addNewItem(item) {
                 this.newItem = item
                 this.$http.post('api/v1/customerCompany', this.newItem).then((result) => {
-                    this.snackbar.text = "Başarıyla eklendi."
-                    this.snackbar.textColor = 'green--text text--accent-3'
-                    this.snackbar.active = true
                     this.getAllCustomers();
                 }).catch((error) => {
                     console.log(error);
+                })
+            },
+            getSysrefCountryList() {
+                this.$http.get("api/v1/sysrefCountry").then((result) => {
+                    this.sysrefCountryList = result.data.data.items
+                    this.addEditFields.find(item => {
+                        return item.key === customerModel.sysrefCountry
+                    }).props = this.sysrefCountryList
+
+                }).catch((error) => {
+                    console.error(error);
+                })
+            },
+            getSysrefCityList() {
+                this.$http.get("api/v1/sysrefCity").then((result) => {
+                    this.sysrefCityList = result.data.data.items
+                    this.addEditFields.find(item => {
+                        return item.key === customerModel.sysrefCity
+                    }).props = this.sysrefCityList
+
+                }).catch((error) => {
+                    console.error(error);
+                })
+            },
+            getSysrefDistrictList() {
+                this.$http.get("api/v1/sysrefDistrict").then((result) => {
+                    this.sysrefDistrictList = result.data.data.items
+                    this.addEditFields.find(item => {
+                        return item.key === customerModel.sysrefDistrict
+                    }).props = this.sysrefDistrictList
+
+                }).catch((error) => {
+                    console.error(error);
+                })
+            },
+            getRefCompanySectorList() {
+                this.$http.get("api/v1/refCompanySector/getListForDropDown").then((result) => {
+                    this.refCompanySectorList = result.data.data.items
+                    this.addEditFields.find(item => {
+                        return item.key === customerModel.refCompanySector
+                    }).props = this.refCompanySectorList
+
+                }).catch((error) => {
+                    console.error(error);
                 })
             }
         },
 
         mounted() {
             this.getAllCustomers();
+            this.getSysrefCountryList();
+            this.getSysrefCityList();
+            this.getSysrefDistrictList();
+            this.getRefCompanySectorList();
         }
     }
 </script>

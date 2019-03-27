@@ -39,7 +39,11 @@ Vue.directive('click-outside', {
     },
 });
 
+<<<<<<< HEAD
 http.defaults.baseURL = "http://192.168.1.30:8082/";
+=======
+http.defaults.baseURL = "http://localhost:8082/";
+>>>>>>> eb3f9668ddc44746c59a6ef4b4e77c55e78f2c66
 
 new Vue({
     render: h => h(App),

@@ -48,7 +48,7 @@ class CompanyService extends BaseService
     def save(Company company)
     {
 
-        company.save(failOnError: true)
+        company.save(flush: true, failOnError: true)
     }
 
     def delete(Company company)
@@ -80,8 +80,9 @@ class CompanyService extends BaseService
 
         List formattedData = data.collect {
             return [
-                id   : it.id,
-                title: it.title
+                id  : it.id,
+                // TODO: change name to title
+                name: it.title
             ]
         }
 

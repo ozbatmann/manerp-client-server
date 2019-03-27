@@ -69,6 +69,74 @@
 
         data() {
             return {
+                // Data-table
+                // add-edit dialog data
+                addEditData: {
+                    [orderModel.name]: null,
+                    [orderModel.sysrefRevenueType]: null,
+                    // [orderModel.orderDate]: null,
+                    [orderModel.billingNo]: null,
+                    [orderModel.customer]: null,
+                    [orderModel.workOrderNo]: null
+                },
+
+                // Data-table
+                // add-edit dialog fields
+                addEditFields: [
+                    {
+                        key: orderModel.name,
+                        max: 20,
+                        rules: [
+                            'required', 'max:30'
+                        ],
+                        title: 'sipariş tanımı',
+                        type: 'text',
+                    },
+                    // {
+                    //     key: orderModel.orderDate,
+                    //     max: 20,
+                    //     rules: [
+                    //         'required', 'max:30'
+                    //     ],
+                    //     title: 'ad',
+                    //     type: 'text',
+                    // },
+                    {
+                        key: orderModel.sysrefRevenueType,
+                        title: 'gelir tipi',
+                        type: 'select',
+                        props: this.sysrefRevenueTypeList
+                    },
+                    {
+                        key: orderModel.billingNo,
+                        max: 20,
+                        rules: [
+                            'required', 'max:30'
+                        ],
+                        title: 'fatura numarası',
+                        type: 'text',
+                    },
+                    {
+                        key: orderModel.customer,
+                        title: 'müşteri iş yeri',
+                        type: 'select',
+                        props: this.customerCompanyList
+                    },
+                    {
+                        key: orderModel.workOrderNo,
+                        max: 30,
+                        title: 'iş emri numarası',
+                        rules: [
+                            'required', 'max:30'
+                        ]
+                    },
+                    {
+                        key: orderModel.active,
+                        max: null,
+                        type: 'checkbox',
+                        props: ['aktif']
+                    }
+                ],
                 headers: [
                     {
                         text: 'ıd',
@@ -113,8 +181,17 @@
                 ],
 
                 orders: [],
+                sysrefRevenueTypeList: [],
+                customerCompanyList: [],
 
-                snackbar: false
+                newItem: null,
+
+                snackbar: false,
+
+                // Data table row click route
+                to: {
+                    name: require('@/modules/main/driver/route/index').routes.information
+                }
             }
         },
 
@@ -136,11 +213,32 @@
             },
             addNewItem(item) {
                 this.newItem = item
-                this.$http.post('api/v1/order', this.newItem).then((result) => {
-                    this.snackbar.text = "Başarıyla eklendi.";
-                    this.snackbar.textColor = 'green--text text--accent-3';
-                    this.snackbar.active = true;
+                this.$http.post('api/v1/order?WAIT', this.newItem).then((result) => {
                     this.getAllDrivers();
+                }).catch((error) => {
+                    console.log(error);
+                })
+            },
+            getSysrefRevenueTypeList() {
+                this.$http.get('api/v1/sysrefRevenueType').then((result) => {
+                    this.sysrefRevenueTypeList = result.data.data.items
+
+                    this.addEditFields.find(item => {
+                        return item.key === orderModel.sysrefRevenueType
+                    }).props = this.sysrefRevenueTypeList
+
+                }).catch((error) => {
+                    console.log(error);
+                })
+            },
+            getCustomerCompanyList() {
+                this.$http.get('api/v1/customerCompany/getListForDropDown/').then((result) => {
+                    this.customerCompanyList = result.data.data.items
+
+                    this.addEditFields.find(item => {
+                        return item.key === orderModel.customer
+                    }).props = this.customerCompanyList
+
                 }).catch((error) => {
                     console.log(error);
                 })
@@ -149,6 +247,8 @@
 
         mounted() {
             this.getAllOrders();
+            this.getSysrefRevenueTypeList();
+            this.getCustomerCompanyList();
         }
     }
 </script>
