@@ -95,6 +95,7 @@
                         :items="items"
                         :search="dataTableSearchModel"
                         :pagination.sync="pagination"
+                        :loading="loading"
                         select-all
                         item-key="id"
                         class="m-data-table"
@@ -264,6 +265,11 @@
             items: {
                 type: Array,
                 default: null
+            },
+
+            loading: {
+                type: Boolean,
+                default: true
             },
 
             // Route of the row click
