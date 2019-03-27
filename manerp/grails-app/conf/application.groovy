@@ -5,7 +5,6 @@ grails.gorm.default.mapping = {
     id column: 'id', generator: 'uuid', length: 32
     table schema: 'manerp'
 }
-
 grails.gorm.default.constraints = {
     // default global constraints here...
     '*'(nullable: true)

@@ -28,4 +28,23 @@ class AuthController extends BaseController{
         render maneResponse
     }
 
+    String generateAccessToken(String username){
+        String tokenValue
+
+        try{
+            //load user details
+            def userDetails = User.findByUsername(username)
+
+            //generate access token
+            tokenValue = tokenGenerator.generateAccessToken(userDetails).accessToken
+
+            //store access token
+            tokenStorageService.storeToken(tokenValue, userDetails)
+        } catch (Exception e){
+            //Exception handling code
+        }
+
+        return tokenValue
+    }
+
 }
