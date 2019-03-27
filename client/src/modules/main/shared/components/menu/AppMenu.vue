@@ -144,7 +144,7 @@
                             {
                                 title: 'Parametre Yönetimi',
                                 icon: 'tune',
-                                to: {name: 'parameters'}
+                                to: { name: 'parameters' }
                             }
                         ]
                     }
