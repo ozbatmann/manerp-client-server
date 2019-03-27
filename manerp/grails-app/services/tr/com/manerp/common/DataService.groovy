@@ -21,6 +21,7 @@ import tr.com.manerp.business.sysref.SysrefCountry
 import tr.com.manerp.business.sysref.SysrefDeliveryStatus
 import tr.com.manerp.business.sysref.SysrefDistrict
 import tr.com.manerp.business.sysref.SysrefGender
+import tr.com.manerp.business.sysref.SysrefOrderState
 import tr.com.manerp.business.sysref.SysrefRevenueType
 import tr.com.manerp.business.sysref.SysrefStaffContractType
 import tr.com.manerp.business.sysref.SysrefTransportationType
@@ -28,7 +29,6 @@ import tr.com.manerp.business.sysref.SysrefVehicleOwner
 import tr.com.manerp.business.sysref.SysrefVehicleType
 import tr.com.manerp.business.sysref.SysrefVoyageDirection
 import tr.com.manerp.helper.SaltGenerator
-
 import java.nio.charset.StandardCharsets
 
 @Transactional
@@ -380,6 +380,7 @@ class DataService
             customerCompanyPinar.tradeRegistrationNo = '111222333'
             customerCompanyPinar.taxNumber = 'VERGI-333222111'
             customerCompanyPinar.taxOffice = 'İzmir Ödemiş Vergi Dairesi'
+            customerCompanyPinar.customerRepresentative = 'Samet Aybaba'
 
             customerCompanyPinar.save(failOnError: true)
         }
@@ -573,6 +574,32 @@ class DataService
             sysrefRevenueTypeTicari.save(failOnError: true)
         }
 
+        SysrefOrderState sysrefOrderStateComp = SysrefOrderState.findByCode('COMP')
+        if ( sysrefOrderStateComp == null ) {
+
+            sysrefOrderStateComp = new SysrefOrderState()
+            sysrefOrderStateComp.sysCompany = sysCompanyBumerang
+            sysrefOrderStateComp.name = 'Tamamlanmış'
+            sysrefOrderStateComp.code = 'COMP'
+            sysrefOrderStateComp.active = true
+            sysrefOrderStateComp.description = 'Tamamlanmış siparişler'
+
+            sysrefOrderStateComp.save(failOnError: true)
+        }
+
+        SysrefOrderState sysrefOrderStateWait = SysrefOrderState.findByCode('WAIT')
+        if ( sysrefOrderStateWait == null ) {
+
+            sysrefOrderStateWait = new SysrefOrderState()
+            sysrefOrderStateWait.sysCompany = sysCompanyBumerang
+            sysrefOrderStateWait.name = 'Bekleyen'
+            sysrefOrderStateWait.code = 'WAIT'
+            sysrefOrderStateWait.active = true
+            sysrefOrderStateWait.description = 'Bekleyen siparişler'
+
+            sysrefOrderStateWait.save(failOnError: true)
+        }
+
         Order orderPinar = Order.findByName('Pınar Sipariş')
         if ( orderPinar == null ) {
 
@@ -586,6 +613,7 @@ class DataService
             orderPinar.sysrefRevenueType = sysrefRevenueTypeTicari
             orderPinar.workOrderNo = 'SIPARIS-111222'
             orderPinar.billingNo = 'FATURA-111222'
+            orderPinar.sysrefOrderState = sysrefOrderStateComp
 
             orderPinar.save(failOnError: true)
         }

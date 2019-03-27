@@ -2,9 +2,21 @@ export default {
     id: 'code',
     name: 'name',
     title: 'title',
+    sysrefCountry: 'sysrefCountry',
+    sysrefCity: 'sysrefCity',
+    sysrefDistrict: 'sysrefDistrict',
+    address: 'address',
     phone: 'phone',
+    phone2: 'phone2',
+    fax: 'fax',
+    gsm: 'gsm',
+    webAddress: 'webAddress',
     email: 'email',
-    taxNumber: 'taxNumber',
+    refCompanySector: 'refCompanySector',
+    customerRepresentative: 'customerRepresentative',
+    numberOfStaff: 'numberOfStaff',
+    employerRegistrationNo: 'employerRegistrationNo',
+    tradeRegistrationNo: 'tradeRegistrationNo',
     taxOffice: 'taxOffice',
-    address: 'address'
+    taxNumber: 'taxNumber'
 }

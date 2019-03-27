@@ -176,7 +176,7 @@
                         key: driverModel.sysrefDistrict,
                         title: 'ilçe',
                         type: 'select',
-                        props: this.getSysrefDistrictList
+                        props: this.sysrefDistrictList
                     },
                     {
                         key: driverModel.address,
@@ -313,7 +313,6 @@
                 this.newItem = item;
 
                 this.$http.post('api/v1/driver', this.newItem).then((result) => {
-                    console.log('result: ', result)
                     this.snackbar.text = "Başarıyla eklendi."
                     this.snackbar.textColor = 'green--text text--accent-3'
                     this.snackbar.active = true

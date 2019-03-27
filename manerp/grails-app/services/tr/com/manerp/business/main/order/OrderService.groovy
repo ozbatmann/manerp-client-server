@@ -1,6 +1,5 @@
 package tr.com.manerp.business.main.order
 
-import grails.databinding.SimpleDataBinder
 import grails.gorm.transactions.Transactional
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
@@ -11,10 +10,11 @@ import java.text.SimpleDateFormat
 class OrderService extends BaseService
 {
 
-    ManePaginatedResult getOrderList(ManePaginationProperties properties)
+    ManePaginatedResult getOrderList(ManePaginationProperties properties, String orderStateCode)
     {
 
         def closure = {
+
             eq('active', true)
 
             if ( !properties.sortPairList ) {
@@ -24,6 +24,12 @@ class OrderService extends BaseService
             if ( !properties.sortPairList ) {
                 order('dateCreated', 'desc')
             }
+
+            sysrefOrderState {
+                eq('active', true)
+                eq('code', orderStateCode)
+            }
+
         }
 
         return paginate(Order, properties, closure)

@@ -143,7 +143,7 @@
             // Adds a new driver
             // to the system
             getAllOrders() {
-                this.$http.get('api/v1/order').then((result) => {
+                this.$http.get('api/v1/order?COMP').then((result) => {
                     this.orders = result.data.data.items
                 }).catch((error) => {
                     console.log(error);
@@ -152,9 +152,6 @@
             addNewItem(item) {
                 this.newItem = item
                 this.$http.post('api/v1/order', this.newItem).then((result) => {
-                    this.snackbar.text = "Başarıyla eklendi."
-                    this.snackbar.textColor = 'green--text text--accent-3'
-                    this.snackbar.active = true
                     this.getAllDrivers();
                 }).catch((error) => {
                     console.log(error);

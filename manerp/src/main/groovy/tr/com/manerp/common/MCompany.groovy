@@ -1,13 +1,13 @@
 package tr.com.manerp.common
 
-import tr.com.manerp.business.main.resource.Staff
 import tr.com.manerp.business.ref.RefCompanySector
 import tr.com.manerp.business.sysref.SysrefCity
 import tr.com.manerp.business.sysref.SysrefCountry
 import tr.com.manerp.business.sysref.SysrefDistrict
 import tr.com.manerp.business.sysref.SysrefNaceCode
 
-trait MCompany {
+trait MCompany
+{
     String name
     String title
     SysrefCountry sysrefCountry
@@ -21,7 +21,8 @@ trait MCompany {
     String webAddress
     String email
     RefCompanySector refCompanySector
-    Staff customerRepresentative
+//    Staff customerRepresentative
+    String customerRepresentative
     Integer numberOfStaff
     String employerRegistrationNo
     String tradeRegistrationNo
