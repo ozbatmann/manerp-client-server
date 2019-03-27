@@ -75,6 +75,7 @@ class CustomerCompanyController extends BaseController
 
         try {
 
+            company.active = true
             company.setRandomCode()
             company.sysrefCompanyType = SysrefCompanyType.findByCode('CST')
             companyService.save(company)

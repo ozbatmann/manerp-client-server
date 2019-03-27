@@ -37,7 +37,7 @@ class RefWorkingAreaService extends BaseService
     def save(RefWorkingArea refWorkingArea)
     {
 
-        refWorkingArea.save(failOnError: true)
+        refWorkingArea.save(flush: true, failOnError: true)
     }
 
     def delete(RefWorkingArea refWorkingArea)

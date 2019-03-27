@@ -73,6 +73,7 @@ class ArventoDeviceController extends BaseController
 
         try {
 
+            arventoDevice.active = true
             arventoDevice.setRandomCode()
             arventoDeviceService.save(arventoDevice)
             maneResponse.statusCode = StatusCode.CREATED

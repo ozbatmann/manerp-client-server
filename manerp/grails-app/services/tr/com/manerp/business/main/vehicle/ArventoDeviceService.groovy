@@ -34,7 +34,7 @@ class ArventoDeviceService extends BaseService {
 
     def save(ArventoDevice arventoDevice) {
 
-        arventoDevice.save(failOnError: true)
+        arventoDevice.save(flush: true, failOnError: true)
     }
 
     def delete(ArventoDevice arventoDevice) {

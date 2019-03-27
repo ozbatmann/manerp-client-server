@@ -1,6 +1,7 @@
 package tr.com.manerp.business.main.resource
 
 import grails.util.Holders
+import org.apache.commons.lang.RandomStringUtils
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.auth.User
 import tr.com.manerp.base.domain.BusinessDomain
@@ -82,7 +83,13 @@ class Staff implements BusinessDomain, Person
 
     def setRandomCode()
     {
-        setRandomCode(Staff)
+        int length = Holders.config.manerp.randomCode.length
+        String charset = Holders.config.manerp.randomCode.charset
+
+        String randomCode = RandomStringUtils.random(length, charset).toString()
+        def staff = Staff.findByCode(randomCode)
+
+        this.code = randomCode.toUpperCase()
     }
 
 

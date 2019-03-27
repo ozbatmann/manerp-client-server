@@ -40,7 +40,7 @@ class VehicleService extends BaseService
     def save(Vehicle vehicle)
     {
 
-        vehicle.save(failOnError: true)
+        vehicle.save(flush: true, failOnError: true)
     }
 
     def delete(Vehicle vehicle)

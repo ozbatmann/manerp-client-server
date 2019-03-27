@@ -73,6 +73,7 @@ class SemiTrailerController extends BaseController
 
         try {
 
+            trailer.active = true
             trailer.setRandomCode()
             semiTrailerService.save(trailer)
             maneResponse.statusCode = StatusCode.CREATED

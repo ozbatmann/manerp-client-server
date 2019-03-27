@@ -38,7 +38,7 @@ class SemiTrailerService extends BaseService
     def save(SemiTrailer trailer)
     {
 
-        trailer.save(failOnError: true)
+        trailer.save(fflush: true, ailOnError: true)
     }
 
     def delete(SemiTrailer trailer)

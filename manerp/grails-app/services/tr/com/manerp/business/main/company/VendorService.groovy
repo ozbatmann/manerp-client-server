@@ -44,7 +44,7 @@ class VendorService extends BaseService
     def save(Vendor vendor)
     {
 
-        vendor.save(failOnError: true)
+        vendor.save(flush: true, failOnError: true)
     }
 
     def delete(Vendor vendor)

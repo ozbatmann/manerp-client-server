@@ -47,7 +47,7 @@ class DriverService extends BaseService
     def save(Staff driver)
     {
 
-        driver.save(failOnError: true)
+        driver.save(flush: true, failOnError: true)
     }
 
     def delete(Staff driver)

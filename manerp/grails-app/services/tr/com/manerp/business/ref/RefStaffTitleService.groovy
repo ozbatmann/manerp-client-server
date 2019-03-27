@@ -34,7 +34,7 @@ class RefStaffTitleService extends BaseService {
     
     def save(RefStaffTitle refStaffTitle) {
 
-        refStaffTitle.save(failOnError: true)
+        refStaffTitle.save(flush: true, failOnError: true)
     }
 
     def delete(RefStaffTitle refStaffTitle) {

@@ -76,6 +76,7 @@ class OrderController extends BaseController
 
         try {
 
+            order.active = true
             order.setRandomCode()
             order.sysrefOrderState = SysrefOrderState.findByCode('COMP')
             // TODO: change orderDate
