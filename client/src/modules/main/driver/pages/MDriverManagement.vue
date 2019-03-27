@@ -5,6 +5,7 @@
             :items="drivers"
             :loading="loading"
             :to="to"
+            @deleteItem="deleteItem"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
@@ -384,6 +385,13 @@
                         return item.key === driverModel.sysrefStaffContractType
                     }).props = this.sysrefStaffContractTypeList
 
+                }).catch((error) => {
+                    console.error(error);
+                })
+            },
+            deleteItem(item){
+                this.$http.delete(`api/v1/driver/${item.id}`).then((result) => {
+                    this.getAllDrivers()
                 }).catch((error) => {
                     console.error(error);
                 })
