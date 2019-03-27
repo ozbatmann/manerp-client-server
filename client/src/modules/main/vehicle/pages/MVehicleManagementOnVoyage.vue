@@ -3,7 +3,6 @@
         <m-data-table
             :headers="headers"
             :items="vehicles"
-            :to="to"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
@@ -222,10 +221,10 @@
 
                 snackbar: false,
 
-                // Data table row click route
-                to: {
-                    name: require('@/modules/main/vehicle/route/index').routes.information
-                }
+                // // Data table row click route
+                // to: {
+                //     name: require('@/modules/main/vehicle/route/index').routes.information
+                // }
             }
         },
         methods: {
