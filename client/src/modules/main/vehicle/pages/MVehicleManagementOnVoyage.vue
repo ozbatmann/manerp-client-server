@@ -261,6 +261,29 @@
                 })
             },
 
+            addNewItem(item) {
+                let self = this;
+                this.newItem = item
+                this.loading = true;
+
+                this.$http.post('api/v1/vehicle', this.newItem).then((result) => {
+                    let status = result.data.status;
+                    if (status < 299) {
+                        self.snackbar.textColor = 'green--text text--accent-3';
+                    } else {
+                        self.snackbar.textColor = 'red--text';
+                    }
+
+                    self.snackbar.text = result.data.message;
+                    self.snackbar.active = true;
+                    self.getAllVehicles();
+                }).catch((error) => {
+                    console.log(error);
+                }).finally((result) => {
+                    self.loading = false;
+                })
+            },
+
             editItem(item) {
                 let self = this;
 
