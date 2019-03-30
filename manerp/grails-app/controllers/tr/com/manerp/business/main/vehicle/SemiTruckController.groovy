@@ -12,7 +12,7 @@ class SemiTruckController extends BaseController
 {
 
     static namespace = "v1"
-    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
+    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE"]
 
     def semiTruckService
 
@@ -122,29 +122,6 @@ class SemiTruckController extends BaseController
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             maneResponse.message = maneResponse.message ?: ex.getMessage()
-            ex.printStackTrace()
-        }
-
-        render maneResponse
-    }
-
-    def getListForDropDown()
-    {
-
-        ManeResponse maneResponse = new ManeResponse()
-
-        try {
-
-            PaginationCommand cmd = new PaginationCommand(params)
-
-            ManePaginatedResult result = semiTruckService.getDorsetList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
-            result.data = semiTruckService.formatPaginatedResultForDropDown(result.data)
-            maneResponse.data = result.toMap()
-
-        } catch (Exception ex) {
-
-            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 

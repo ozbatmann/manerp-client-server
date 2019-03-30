@@ -55,17 +55,4 @@ class DriverService extends BaseService
 
         driver.delete(flush: true, failOnError: true)
     }
-
-    List formatPaginatedResultForDropDown(def data)
-    {
-
-        List formattedData = data.collect {
-            return [
-                id  : it.id,
-                name: it.getFullName()
-            ]
-        }
-
-        return formattedData
-    }
 }

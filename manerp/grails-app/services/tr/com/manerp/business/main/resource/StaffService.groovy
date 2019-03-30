@@ -65,17 +65,4 @@ class StaffService extends BaseService
 
         formattedData
     }
-
-    List formatPaginatedResultForDropDown(def data)
-    {
-
-        List formattedData = data.collect {
-            [
-                id  : it.id,
-                name: it.getFullName()
-            ]
-        }
-
-        formattedData
-    }
 }

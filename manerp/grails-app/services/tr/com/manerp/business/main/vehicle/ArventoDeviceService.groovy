@@ -42,15 +42,4 @@ class ArventoDeviceService extends BaseService {
         arventoDevice.delete(flush: true, failOnError: true)
     }
 
-    List formatPaginatedResultForDropDown(def data) {
-
-        List formattedData = data.collect {
-            return [
-                id      : it.id,
-                deviceId: it.deviceId
-            ]
-        }
-
-        return formattedData
-    }
 }

@@ -26,7 +26,6 @@ class VehicleController extends BaseController
             PaginationCommand cmd = new PaginationCommand(params)
 
             ManePaginatedResult result = vehicleService.getVehicleList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields))
-            result.data = vehicleService.formatPaginatedResultForList(result.data)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {

@@ -21,16 +21,4 @@ class SysrefService extends BaseService {
         return paginate(type, properties, closure)
     }
 
-    List formatPaginatedResultForDropDown(def data) {
-
-        List formattedData = data.collect {
-            return [
-                id  : it.id,
-                name: it.name
-            ]
-        }
-
-        return formattedData
-    }
-
 }

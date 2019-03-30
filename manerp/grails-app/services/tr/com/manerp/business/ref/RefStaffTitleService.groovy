@@ -42,17 +42,4 @@ class RefStaffTitleService extends BaseService {
         refStaffTitle.delete(flush: true, failOnError: true)
     }
 
-    List formatPaginatedResultForDropDown(def data) {
-
-        List formattedData = data.collect {
-            return [
-                id  : it.id,
-                name: it.name
-            ]
-        }
-
-        return formattedData
-    }
-
-
 }

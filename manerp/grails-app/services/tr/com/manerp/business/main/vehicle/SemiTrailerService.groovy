@@ -47,16 +47,4 @@ class SemiTrailerService extends BaseService
         trailer.delete(flush: true, failOnError: true)
     }
 
-    List formatPaginatedResultForDropDown(def data)
-    {
-
-        List formattedData = data.collect {
-            return [
-                id         : it.id,
-                plateNumber: it.plateNumber
-            ]
-        }
-
-        return formattedData
-    }
 }

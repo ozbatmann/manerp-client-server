@@ -75,18 +75,4 @@ class CompanyService extends BaseService
         return formattedData
     }
 
-    List formatPaginatedResultForDropDown(def data)
-    {
-
-        List formattedData = data.collect {
-            return [
-                id  : it.id,
-                // TODO: change name to title
-                name: it.title
-            ]
-        }
-
-        return formattedData
-    }
-
 }

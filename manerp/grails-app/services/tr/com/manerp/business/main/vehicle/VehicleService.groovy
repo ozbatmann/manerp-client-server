@@ -65,17 +65,4 @@ class VehicleService extends BaseService
         formattedData
     }
 
-    List formatPaginatedResultForDropDown(def data)
-    {
-
-        List formattedData = data.collect {
-            return [
-                id  : it.id,
-                // TODO: change
-                name: it.plateNumber
-            ]
-        }
-
-        return formattedData
-    }
 }
