@@ -27,7 +27,7 @@ class CompanyService extends BaseService
 
         }
 
-        return paginate(Company, properties, closure)
+        return paginate(Company, properties, closure, ['sysCompany'] as HashSet)
     }
 
     Company getCompany(String id, String sysrefCompanyTypeCode)

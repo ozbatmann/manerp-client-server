@@ -26,7 +26,7 @@ class DriverService extends BaseService
             }
         }
 
-        return paginate(Staff, properties, closure)
+        return paginate(Staff, properties, closure, ['sysCompany'] as HashSet)
     }
 
     Staff getDriver(String id)
@@ -54,27 +54,6 @@ class DriverService extends BaseService
     {
 
         driver.delete(flush: true, failOnError: true)
-    }
-
-    List formatPaginatedResultForList(def data)
-    {
-        List formattedData = data.collect {
-            [
-                id                     : it.id,
-                code                   : it.code,
-                firstName              : it.getFirstAndMiddleName(),
-                lastName               : it.lastName,
-                sysrefStaffContractType: [id: it.sysrefStaffContractType.id, name: it.sysrefStaffContractType.name],
-                gsmNo                  : it.gsmNo,
-                tcIdNumber             : it.tcIdNumber,
-                drivingLicenseNumber   : it.drivingLicenseNumber,
-                sysrefCountry          : it.sysrefCountry ? [id: it.sysrefCountry.id, name: it.sysrefCountry.name] : null,
-                sysrefCity             : it.sysrefCity ? [id: it.sysrefCity.id, name: it.sysrefCity.name] : null,
-                sysrefDistrict         : it.sysrefDistrict ? [id: it.sysrefDistrict.id, name: it.sysrefDistrict.name] : null
-            ]
-        }
-
-        formattedData
     }
 
     List formatPaginatedResultForDropDown(def data)

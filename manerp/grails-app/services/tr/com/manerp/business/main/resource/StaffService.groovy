@@ -13,14 +13,16 @@ class StaffService extends BaseService
     {
 
         def closure = {
+
             eq('active', true)
 
             if ( !properties.sortPairList ) {
+
                 order('dateCreated', 'desc')
             }
         }
 
-        return paginate(Staff, properties, closure)
+        return paginate(Staff, properties, closure, ['sysCompany'] as HashSet)
     }
 
     Staff getStaff(String id)
@@ -37,7 +39,7 @@ class StaffService extends BaseService
     def save(Staff staff)
     {
 
-        staff.save(flush: true,failOnError: true)
+        staff.save(flush: true, failOnError: true)
     }
 
     def delete(Staff staff)

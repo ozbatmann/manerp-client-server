@@ -32,7 +32,7 @@ class OrderService extends BaseService
 
         }
 
-        return paginate(Order, properties, closure)
+        return paginate(Order, properties, closure, ['sysCompany'] as HashSet)
     }
 
     Order getOrder(String id)

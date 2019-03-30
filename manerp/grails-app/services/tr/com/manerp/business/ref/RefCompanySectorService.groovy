@@ -18,7 +18,7 @@ class RefCompanySectorService extends BaseService {
             }
         }
 
-        return paginate(RefCompanySector, properties, closure)
+        return paginate(RefCompanySector, properties, closure, ['sysCompany'] as HashSet)
     }
 
     RefCompanySector getRefCompanySector(String id)

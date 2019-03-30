@@ -24,7 +24,7 @@ class VoyageService extends BaseService
             }
         }
 
-        return paginate(Voyage, properties, closure)
+        return paginate(Voyage, properties, closure, ['sysCompany'] as HashSet)
     }
 
     Voyage getVoyage(String id)

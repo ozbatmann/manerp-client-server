@@ -2,6 +2,7 @@ package tr.com.manerp.common
 
 import at.favre.lib.crypto.bcrypt.BCrypt
 import grails.gorm.transactions.Transactional
+import tr.com.manerp.auth.SaltGenerator
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.auth.User
 import tr.com.manerp.business.main.company.Company
@@ -28,7 +29,6 @@ import tr.com.manerp.business.sysref.SysrefTransportationType
 import tr.com.manerp.business.sysref.SysrefVehicleOwner
 import tr.com.manerp.business.sysref.SysrefVehicleType
 import tr.com.manerp.business.sysref.SysrefVoyageDirection
-import tr.com.manerp.helper.SaltGenerator
 import java.nio.charset.StandardCharsets
 
 @Transactional
@@ -42,7 +42,7 @@ class DataService
         if ( userList.size() == 0 ) {
 
             User userBerat = new User()
-            userBerat.username = 'instantcrush'
+            userBerat.username = 'berat'
             String beratPassword = '1234'
             byte[] beratSalt = SaltGenerator.generateSalt()
             byte[] beratPasswordHash = BCrypt.withDefaults().hash(6, beratSalt, beratPassword.getBytes(StandardCharsets.UTF_8))
@@ -56,7 +56,7 @@ class DataService
             userBerat.middleName = 'Berat'
             userBerat.lastName = 'Postalcıoğlu'
             userBerat.email = 'beratpostalci@gmail.com'
-            userBerat.tcIdNumber = 12212222222
+            userBerat.tcIdNumber = 25621561716
             userBerat.gsmNo = '05343023283'
             userBerat.active = true
             userBerat.save(flush: true, failOnError: true)
@@ -76,7 +76,7 @@ class DataService
             userAli.middleName = 'İmran'
             userAli.lastName = 'Özbatman'
             userAli.email = 'aliimranozbatman@gmail.com'
-            userAli.tcIdNumber = 12212222223
+            userAli.tcIdNumber = 25513665796
             userAli.gsmNo = '5051403166'
             userAli.active = true
             userAli.save(flush: true, failOnError: true)
@@ -96,7 +96,7 @@ class DataService
             userTuna.firstName = 'Tunahan'
             userTuna.lastName = 'Bayındır'
             userTuna.email = 'tunahanbayindir@gmail.com'
-            userTuna.tcIdNumber = 12212222224
+            userTuna.tcIdNumber = 25463216556
             userTuna.gsmNo = '5051403166'
             userTuna.active = true
             userTuna.save(flush: true, failOnError: true)
@@ -115,7 +115,7 @@ class DataService
             userMuratcan.firstName = 'Muratcan'
             userMuratcan.lastName = 'Balık'
             userMuratcan.email = 'muratcanbalikk@gmail.com'
-            userMuratcan.tcIdNumber = 12212222225
+            userMuratcan.tcIdNumber = 25365498731
             userMuratcan.gsmNo = '5051403166'
             userMuratcan.active = true
             userMuratcan.save(flush: true, failOnError: true)
@@ -127,9 +127,9 @@ class DataService
             sysCompanyBumerang = new SysCompany()
             sysCompanyBumerang.name = 'Bumerang Lojistik'
             sysCompanyBumerang.title = 'Bumerang Lojistik LTD. ŞTİ.'
-//            sysCompanyBumerang.sysrefCountry = SysrefCountry.findByName('Türkiye')
-//            sysCompanyBumerang.sysrefCity = SysrefCountry.findByName('İzmir')
-//            sysCompanyBumerang.sysrefDistrict = SysrefCountry.findByName('Ödemiş')
+            sysCompanyBumerang.sysrefCountry = SysrefCountry.findByName('Türkiye')
+            sysCompanyBumerang.sysrefCity = SysrefCity.findByName('İzmir')
+            sysCompanyBumerang.sysrefDistrict = SysrefDistrict.findByName('Ödemiş')
             sysCompanyBumerang.active = true
             sysCompanyBumerang.address = 'İzmir'
             sysCompanyBumerang.phone = '05343023283'

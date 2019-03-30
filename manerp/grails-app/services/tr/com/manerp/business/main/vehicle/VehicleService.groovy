@@ -23,7 +23,7 @@ class VehicleService extends BaseService
             }
         }
 
-        return paginate(Vehicle, properties, closure)
+        return paginate(Vehicle, properties, closure, ['sysCompany'] as HashSet)
     }
 
     Vehicle getVehicle(String id)

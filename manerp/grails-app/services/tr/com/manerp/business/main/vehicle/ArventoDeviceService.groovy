@@ -18,7 +18,7 @@ class ArventoDeviceService extends BaseService {
             }
         }
 
-        return paginate(ArventoDevice, properties, closure)
+        return paginate(ArventoDevice, properties, closure, ['sysCompany'] as HashSet)
     }
 
     ArventoDevice getArventoDevice(String id)

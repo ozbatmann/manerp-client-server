@@ -24,10 +24,9 @@ class VendorService extends BaseService
             if ( !properties.sortPairList ) {
                 order('dateCreated', 'desc')
             }
-
         }
 
-        return paginate(Vendor, properties, closure)
+        return paginate(Vendor, properties, closure, ['sysCompany'] as HashSet)
     }
 
     Vendor getVendor(String id)

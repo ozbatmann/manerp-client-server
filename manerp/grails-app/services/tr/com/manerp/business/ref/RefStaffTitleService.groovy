@@ -18,7 +18,7 @@ class RefStaffTitleService extends BaseService {
             }
         }
 
-        return paginate(RefStaffTitle, properties, closure)
+        return paginate(RefStaffTitle, properties, closure, ['sysCompany'] as HashSet)
     }
     
     RefStaffTitle getRefStaffTitle(String id)

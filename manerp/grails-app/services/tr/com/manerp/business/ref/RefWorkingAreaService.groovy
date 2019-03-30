@@ -20,7 +20,7 @@ class RefWorkingAreaService extends BaseService
             }
         }
 
-        return paginate(RefWorkingArea, properties, closure)
+        return paginate(RefWorkingArea, properties, closure, ['sysCompany'] as HashSet)
     }
 
     RefWorkingArea getRefWorkingArea(String id)

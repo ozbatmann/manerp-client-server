@@ -21,7 +21,7 @@ class SemiTrailerService extends BaseService
             }
         }
 
-        return paginate(SemiTrailer, properties, closure)
+        return paginate(SemiTrailer, properties, closure, ['sysCompany'] as HashSet)
     }
 
     SemiTrailer getSemiTrailer(String id)

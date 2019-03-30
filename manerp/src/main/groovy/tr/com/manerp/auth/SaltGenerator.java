@@ -1,4 +1,4 @@
-package tr.com.manerp.helper;
+package tr.com.manerp.auth;
 
 import java.security.SecureRandom;
 
