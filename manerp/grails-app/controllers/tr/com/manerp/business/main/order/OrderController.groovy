@@ -14,7 +14,8 @@ class OrderController extends BaseController
 {
 
     static namespace = "v1"
-    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
+    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE"]
+//    static responseFormats = ['json']
 
     def orderService
 
@@ -27,8 +28,7 @@ class OrderController extends BaseController
 
             OrderPaginationCommand cmd = new OrderPaginationCommand(params)
 
-            ManePaginatedResult result = orderService.getOrderList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort), cmd.orderStateCode)
-            result.data = orderService.formatPaginatedResultForList(result.data)
+            ManePaginatedResult result = orderService.getOrderList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), cmd.orderStateCode)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -52,7 +52,6 @@ class OrderController extends BaseController
             if ( !order ) throw new Exception()
 
             maneResponse.data = order
-            maneResponse.statusCode = StatusCode.OK
 
         } catch (Exception ex) {
 
@@ -78,9 +77,13 @@ class OrderController extends BaseController
 
             order.active = true
             order.setRandomCode()
+
+            // TODO: change - client must provide sysrefOrderState
             order.sysrefOrderState = SysrefOrderState.findByCode('COMP')
-            // TODO: change orderDate
+
+            // TODO: change orderDate - client must provide orderDate
             order.orderDate = new Date()
+
             orderService.save(order)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = order.id
@@ -160,29 +163,6 @@ class OrderController extends BaseController
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             maneResponse.message = maneResponse.message ?: ex.getMessage()
-            ex.printStackTrace()
-        }
-
-        render maneResponse
-    }
-
-    def getListForDropDown()
-    {
-
-        ManeResponse maneResponse = new ManeResponse()
-
-        try {
-
-            OrderPaginationCommand cmd = new OrderPaginationCommand(params)
-
-            ManePaginatedResult result = orderService.getOrderList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort), cmd.orderStateCode)
-            result.data = orderService.formatPaginatedResultForDropDown(result.data)
-            maneResponse.data = result.toMap()
-
-        } catch (Exception ex) {
-
-            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 

@@ -13,7 +13,7 @@ class VoyageController extends BaseController
 {
 
     static namespace = "v1"
-    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
+    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE"]
 
     def voyageService
 
@@ -26,7 +26,7 @@ class VoyageController extends BaseController
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            ManePaginatedResult result = voyageService.getVoyageList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
+            ManePaginatedResult result = voyageService.getVoyageList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields))
             result.data = voyageService.formatPaginatedResultForList(result.data)
             maneResponse.data = result.toMap()
 
@@ -171,29 +171,6 @@ class VoyageController extends BaseController
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             maneResponse.message = maneResponse.message ?: ex.getMessage()
-            ex.printStackTrace()
-        }
-
-        render maneResponse
-    }
-
-    def getListForDropDown()
-    {
-
-        ManeResponse maneResponse = new ManeResponse()
-
-        try {
-
-            PaginationCommand cmd = new PaginationCommand(params)
-
-            ManePaginatedResult result = voyageService.getVoyageList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
-            result.data = voyageService.formatPaginatedResultForDropDown(result.data)
-            maneResponse.data = result.toMap()
-
-        } catch (Exception ex) {
-
-            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 

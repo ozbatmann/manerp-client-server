@@ -24,8 +24,7 @@ class SysrefDistrictController extends BaseController
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            ManePaginatedResult result = sysrefService.getList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort), SysrefDistrict)
-            result.data = sysrefService.formatPaginatedResultForDropDown(result.data)
+            ManePaginatedResult result = sysrefService.getList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), SysrefDistrict)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {

@@ -23,8 +23,7 @@ class SysrefCountryController extends BaseController
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            ManePaginatedResult result = sysrefService.getList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort), SysrefCountry)
-            result.data = sysrefService.formatPaginatedResultForDropDown(result.data)
+            ManePaginatedResult result = sysrefService.getList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), SysrefCountry)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {

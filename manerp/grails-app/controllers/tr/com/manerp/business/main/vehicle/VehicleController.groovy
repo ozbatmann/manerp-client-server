@@ -13,7 +13,7 @@ class VehicleController extends BaseController
 {
 
     static namespace = "v1"
-    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
+    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE"]
 
     def vehicleService
 
@@ -25,7 +25,7 @@ class VehicleController extends BaseController
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            ManePaginatedResult result = vehicleService.getVehicleList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
+            ManePaginatedResult result = vehicleService.getVehicleList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields))
             result.data = vehicleService.formatPaginatedResultForList(result.data)
             maneResponse.data = result.toMap()
 
@@ -74,7 +74,7 @@ class VehicleController extends BaseController
 
         try {
 
-            vehicle.active=true
+            vehicle.active = true
             vehicle.setRandomCode()
             vehicleService.save(vehicle)
             maneResponse.statusCode = StatusCode.CREATED
@@ -161,26 +161,4 @@ class VehicleController extends BaseController
         render maneResponse
     }
 
-    def getListForDropDown()
-    {
-
-        ManeResponse maneResponse = new ManeResponse()
-
-        try {
-
-            PaginationCommand cmd = new PaginationCommand(params)
-
-            ManePaginatedResult result = vehicleService.getVehicleList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort))
-            result.data = vehicleService.formatPaginatedResultForDropDown(result.data)
-            maneResponse.data = result.toMap()
-
-        } catch (Exception ex) {
-
-            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
-            ex.printStackTrace()
-        }
-
-        render maneResponse
-    }
 }

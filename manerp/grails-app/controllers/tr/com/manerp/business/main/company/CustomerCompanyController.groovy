@@ -13,7 +13,7 @@ class CustomerCompanyController extends BaseController
 {
 
     static namespace = "v1"
-    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE", getListForDropDown: "GET"]
+    static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE"]
 
     def companyService
 
@@ -26,8 +26,7 @@ class CustomerCompanyController extends BaseController
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            ManePaginatedResult result = companyService.getCompanyList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort), 'CST')
-            result.data = companyService.formatPaginatedResultForList(result.data)
+            ManePaginatedResult result = companyService.getCompanyList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), 'CST')
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -44,6 +43,8 @@ class CustomerCompanyController extends BaseController
     {
 
         ManeResponse maneResponse = new ManeResponse()
+
+        // TODO: request sysrefCompanyTypeCode from client
         Company company = companyService.getCompany(id, 'CST')
 
         try {
@@ -162,29 +163,6 @@ class CustomerCompanyController extends BaseController
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             maneResponse.message = maneResponse.message ?: ex.getMessage()
-            ex.printStackTrace()
-        }
-
-        render maneResponse
-    }
-
-    def getListForDropDown()
-    {
-
-        ManeResponse maneResponse = new ManeResponse()
-
-        try {
-
-            PaginationCommand cmd = new PaginationCommand(params)
-
-            ManePaginatedResult result = companyService.getCompanyList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort), 'CST')
-            result.data = companyService.formatPaginatedResultForDropDown(result.data)
-            maneResponse.data = result.toMap()
-
-        } catch (Exception ex) {
-
-            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 
