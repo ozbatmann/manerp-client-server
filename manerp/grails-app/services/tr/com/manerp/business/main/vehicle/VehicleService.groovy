@@ -12,14 +12,18 @@ import java.text.SimpleDateFormat
 class VehicleService extends BaseService
 {
 
-    ManePaginatedResult getVehicleList(ManePaginationProperties properties)
+    ManePaginatedResult getVehicleList(ManePaginationProperties properties, String vehicleStateCode)
     {
-
         def closure = {
             eq('active', true)
 
             if ( !properties.sortPairList ) {
                 order('dateCreated', 'desc')
+            }
+
+            sysrefVehicleState {
+                eq('active', true)
+                eq('code', vehicleStateCode)
             }
         }
 

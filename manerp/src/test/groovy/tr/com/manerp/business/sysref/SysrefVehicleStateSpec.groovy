@@ -1,9 +1,9 @@
 package tr.com.manerp.business.sysref
 
-import grails.testing.web.controllers.ControllerUnitTest
+import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class SysrefOrderStateControllerSpec extends Specification implements ControllerUnitTest<SysrefOrderStateController> {
+class SysrefVehicleStateSpec extends Specification implements DomainUnitTest<SysrefVehicleState> {
 
     def setup() {
     }

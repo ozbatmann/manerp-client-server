@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat
 class OrderService extends BaseService
 {
 
-    ManePaginatedResult getOrderList(ManePaginationProperties properties, String orderStateCode)
+    ManePaginatedResult getOrderList(ManePaginationProperties properties, String orderStateCode, String companyId)
     {
 
         def closure = {
@@ -21,15 +21,17 @@ class OrderService extends BaseService
                 order('dateCreated', 'desc')
             }
 
-            if ( !properties.sortPairList ) {
-                order('dateCreated', 'desc')
+            if ( companyId ) {
+                company {
+                    eq('active', true)
+                    eq('id', companyId)
+                }
             }
 
             sysrefOrderState {
                 eq('active', true)
                 eq('code', orderStateCode)
             }
-
         }
 
         return paginate(Order, properties, closure, ['sysCompany'] as HashSet)

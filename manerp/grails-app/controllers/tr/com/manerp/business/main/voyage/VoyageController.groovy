@@ -6,7 +6,7 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
-import tr.com.manerp.commands.controller.common.PaginationCommand
+import tr.com.manerp.commands.controller.voyage.VoyagePaginationCommand
 import tr.com.manerp.commands.controller.voyage.VoyageSaveCommand
 
 class VoyageController extends BaseController
@@ -24,7 +24,7 @@ class VoyageController extends BaseController
 
         try {
 
-            PaginationCommand cmd = new PaginationCommand(params)
+            VoyagePaginationCommand cmd = new VoyagePaginationCommand(params)
 
             ManePaginatedResult result = voyageService.getVoyageList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields))
             maneResponse.data = result.toMap()

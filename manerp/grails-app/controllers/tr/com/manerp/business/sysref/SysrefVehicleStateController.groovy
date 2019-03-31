@@ -4,10 +4,9 @@ import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
-import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
-class SysrefVehicleOwnerController extends BaseController
+class SysrefVehicleStateController
 {
     static namespace = "v1"
     static allowedMethods = [index: "GET"]
@@ -16,14 +15,13 @@ class SysrefVehicleOwnerController extends BaseController
 
     def index()
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            ManePaginatedResult result = sysrefService.getList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), SysrefVehicleOwner)
+            ManePaginatedResult result = sysrefService.getList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), SysrefVehicleState)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {

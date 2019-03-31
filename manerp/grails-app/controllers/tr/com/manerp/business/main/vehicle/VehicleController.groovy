@@ -6,8 +6,7 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
-import tr.com.manerp.business.main.resource.Staff
-import tr.com.manerp.commands.controller.common.PaginationCommand
+import tr.com.manerp.commands.controller.vehicle.VehiclePaginationCommand
 
 class VehicleController extends BaseController
 {
@@ -23,9 +22,9 @@ class VehicleController extends BaseController
 
         try {
 
-            PaginationCommand cmd = new PaginationCommand(params)
+            VehiclePaginationCommand cmd = new VehiclePaginationCommand(params)
 
-            ManePaginatedResult result = vehicleService.getVehicleList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields))
+            ManePaginatedResult result = vehicleService.getVehicleList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), cmd.vehicleStateCode)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
