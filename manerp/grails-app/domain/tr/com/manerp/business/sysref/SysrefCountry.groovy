@@ -6,8 +6,8 @@ class SysrefCountry implements SysrefDomain
 {
 
     static constraints = {
-        code nullable: true, blank: true, unique: true, maxSize: 8
-        name nullable: false, blank: false, unique: false, maxSize: 100
+        code nullable: true, blank: true, unique: true, maxSize: 2
+        name nullable: false, blank: false, unique: false, maxSize: 33
     }
 
 }

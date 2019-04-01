@@ -165,40 +165,40 @@ class DataService
             sysrefCompanyTypeSup.save(flush: true, failOnError: true)
         }
 
-        SysrefCountry sysrefCountryTr = SysrefCountry.findByName('Türkiye')
-        if ( sysrefCountryTr == null ) {
-
-            sysrefCountryTr = new SysrefCountry()
-            sysrefCountryTr.name = 'Türkiye'
-            sysrefCountryTr.code = 'TR'
-            sysrefCountryTr.active = true
-
-            sysrefCountryTr.save(flush: true, failOnError: true)
-        }
-
-        SysrefCity sysrefCountryIzmir = SysrefCity.findByName('İzmir')
-        if ( sysrefCountryIzmir == null ) {
-
-            sysrefCountryIzmir = new SysrefCity()
-            sysrefCountryIzmir.sysrefCountry = sysrefCountryTr
-            sysrefCountryIzmir.name = 'İzmir'
-            sysrefCountryIzmir.code = 'IZM'
-            sysrefCountryIzmir.active = true
-
-            sysrefCountryIzmir.save(flush: true, failOnError: true)
-        }
-
-        SysrefDistrict sysrefDistrictOdemis = SysrefDistrict.findByName('Ödemiş')
-        if ( sysrefDistrictOdemis == null ) {
-
-            sysrefDistrictOdemis = new SysrefDistrict()
-            sysrefDistrictOdemis.sysrefCity = sysrefCountryIzmir
-            sysrefDistrictOdemis.name = 'Ödemiş'
-            sysrefDistrictOdemis.code = 'ODM'
-            sysrefDistrictOdemis.active = true
-
-            sysrefDistrictOdemis.save(flush: true, failOnError: true)
-        }
+//        SysrefCountry sysrefCountryTr = SysrefCountry.findByName('Türkiye')
+//        if ( sysrefCountryTr == null ) {
+//
+//            sysrefCountryTr = new SysrefCountry()
+//            sysrefCountryTr.name = 'Türkiye'
+//            sysrefCountryTr.code = 'TR'
+//            sysrefCountryTr.active = true
+//
+//            sysrefCountryTr.save(flush: true, failOnError: true)
+//        }
+//
+//        SysrefCity sysrefCountryIzmir = SysrefCity.findByName('İzmir')
+//        if ( sysrefCountryIzmir == null ) {
+//
+//            sysrefCountryIzmir = new SysrefCity()
+//            sysrefCountryIzmir.sysrefCountry = sysrefCountryTr
+//            sysrefCountryIzmir.name = 'İzmir'
+//            sysrefCountryIzmir.code = 'IZM'
+//            sysrefCountryIzmir.active = true
+//
+//            sysrefCountryIzmir.save(flush: true, failOnError: true)
+//        }
+//
+//        SysrefDistrict sysrefDistrictOdemis = SysrefDistrict.findByName('Ödemiş')
+//        if ( sysrefDistrictOdemis == null ) {
+//
+//            sysrefDistrictOdemis = new SysrefDistrict()
+//            sysrefDistrictOdemis.sysrefCity = sysrefCountryIzmir
+//            sysrefDistrictOdemis.name = 'Ödemiş'
+//            sysrefDistrictOdemis.code = 'ODM'
+//            sysrefDistrictOdemis.active = true
+//
+//            sysrefDistrictOdemis.save(flush: true, failOnError: true)
+//        }
 
         RefStaffTitle refStaffTitleDriver = RefStaffTitle.findByName('Şoför')
         if ( refStaffTitleDriver == null ) {
