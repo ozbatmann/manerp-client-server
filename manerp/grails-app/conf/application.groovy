@@ -19,6 +19,9 @@ manerp {
     postgresql {
         maxByteSize = 20 * 1024 * 1024 // 20MB
     }
+    domain {
+        excludedFields = ['sysCompany'] as HashSet
+    }
 }
 
 environments {

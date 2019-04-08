@@ -18,7 +18,7 @@ class SysrefCityController extends BaseController
     static namespace = "v1"
     static allowedMethods = [index: "GET", show: "GET"]
 
-    def sysrefService
+    def sysrefCityService
 
     def index()
     {
@@ -35,7 +35,7 @@ class SysrefCityController extends BaseController
                 }
             }
 
-            ManePaginatedResult result = sysrefService.getList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), SysrefCity, closure)
+            ManePaginatedResult result = sysrefCityService.getSysrefCityList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields))
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -52,7 +52,7 @@ class SysrefCityController extends BaseController
     {
 
         ManeResponse maneResponse = new ManeResponse()
-        SysrefCity city
+        def city
 
         try {
 
@@ -60,7 +60,7 @@ class SysrefCityController extends BaseController
 
             if ( cmd.validate() ) {
 
-                city = SysrefCity.get(cmd.id)
+                city = sysrefCityService.getSysrefCity(cmd)
                 if ( !city ) throw new Exception()
 
             } else {
