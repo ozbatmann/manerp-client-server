@@ -16,7 +16,7 @@ class AuthController extends BaseController{
 
         try {
             def signInResponse = authService.signIn(request.JSON.username.toString(), request.JSON.password.toString())
-            maneResponse.statusCode = StatusCode.ACCEPTED
+            maneResponse.statusCode = StatusCode.OK
             maneResponse.data = signInResponse
 
         } catch (Exception ex) {

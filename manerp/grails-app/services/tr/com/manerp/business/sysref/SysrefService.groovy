@@ -6,11 +6,16 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
 
 @Transactional
-class SysrefService extends BaseService {
+class SysrefService extends BaseService
+{
 
-    ManePaginatedResult getList(ManePaginationProperties properties, Class type) {
+    ManePaginatedResult getList(ManePaginationProperties properties, Class type, Closure customClosure = null)
+    {
 
         def closure = {
+
+            if ( customClosure ) customClosure
+
             eq('active', true)
 
             if ( !properties.sortPairList ) {

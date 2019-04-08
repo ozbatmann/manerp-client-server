@@ -30,7 +30,7 @@ export default [
     {
         path: 'staffs',
         name: routes.staffs,
-        component: () => import('@/modules/main/staff/pages/MStaffManagement'),
+        component: () => import('@/modules/main/staff/pages/StaffManagement'),
         meta: { title: 'Personel Yönetimi' }
     },
     {
