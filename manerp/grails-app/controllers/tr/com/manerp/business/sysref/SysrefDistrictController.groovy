@@ -6,6 +6,7 @@ import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
+import tr.com.manerp.commands.controller.sysrefDistrict.SysrefDistrictPaginationCommand
 
 class SysrefDistrictController extends BaseController
 {
@@ -22,9 +23,22 @@ class SysrefDistrictController extends BaseController
 
         try {
 
-            PaginationCommand cmd = new PaginationCommand(params)
+            SysrefDistrictPaginationCommand cmd = new SysrefDistrictPaginationCommand(params)
+            def closure
 
-            ManePaginatedResult result = sysrefService.getList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), SysrefDistrict)
+            if ( cmd.validate() ) {
+
+                closure = {
+                    sysrefCity {
+                        eq('id', cmd.cityId)
+                    }
+                }
+            } else {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Parametreler uygun değil')
+            }
+
+            ManePaginatedResult result = sysrefService.getList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), SysrefDistrict, closure)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {

@@ -14,7 +14,11 @@ class SysrefService extends BaseService
 
         def closure = {
 
-            if ( customClosure ) customClosure
+            if ( customClosure ) {
+                customClosure.resolveStrategy = Closure.DELEGATE_ONLY
+                customClosure.delegate = delegate
+                customClosure()
+            }
 
             eq('active', true)
 

@@ -6,7 +6,7 @@
         <span v-if="isEdit"
               class="headline">Güncelle</span>
                 <span v-else
-                      class="headline">Ekle</span>
+                      class="headline">Yeni Personel</span>
             </v-card-title>
             <v-card-text style="max-height: 90%;">
                 <v-container grid-list-md pa-0>
@@ -195,6 +195,7 @@
                 })
             },
             getSysrefCities() {
+                this.data.sysrefCity = null;
                 this.$http.get("api/v1/sysrefCity?fields=id,name&countryId=" + this.data.sysrefCountry.id).then((result) => {
                     this.sysrefCities = result.data.data.items
                 }).catch((error) => {
@@ -204,6 +205,7 @@
                 })
             },
             getSysrefDistricts() {
+                this.data.sysrefDistrict = null;
                 this.$http.get("api/v1/sysrefDistrict?fields=id,name&cityId=" + this.data.sysrefCity.id).then((result) => {
                     this.sysrefDistricts = result.data.data.items
                 }).catch((error) => {

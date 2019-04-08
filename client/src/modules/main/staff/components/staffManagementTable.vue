@@ -133,9 +133,6 @@
                 },
 
                 staffs: [],
-                refStaffTitles: [],
-                sysrefStaffContractTypes: [],
-
                 newItem: null,
 
                 // Data table row click route
@@ -154,7 +151,7 @@
             editDialog(data) {
                 if (data !== undefined && data !== null) {
                     this.$http.get("api/v1/staff/" + data.id).then((result) => {
-                        let items = result.data.data
+                        let items = result.data.data;
                         this.$refs.staffManagementAddEditDialog.open(items)
                     }).catch((error) => {
                         console.error(error);
@@ -165,7 +162,7 @@
                 let self = this;
                 this.loading = true;
 
-                let fields = 'id,code,firstName,lastName,refStaffTitle=id;name,sysrefStaffContractType=name,tcIdNumber,gsmNo';
+                let fields = 'id,code,firstName,lastName,refStaffTitle=name,sysrefStaffContractType=name,tcIdNumber,gsmNo';
                 let pagination = 'limit=10&offset=0';
                 this.$http.get('api/v1/staff?fields=' + fields + "&" + pagination).then((result) => {
                     self.staffs = result.data.data.items;
@@ -226,20 +223,6 @@
                     self.snackbar.text = result.data.message;
                     self.snackbar.active = true;
                     self.getAllStaffs()
-                }).catch((error) => {
-                    console.error(error);
-                })
-            },
-            getRefStaffTitles() {
-                this.$http.get("api/v1/refStaffTitle?fields=id,name").then((result) => {
-                    this.refStaffTitles = result.data.data.items
-                }).catch((error) => {
-                    console.error(error);
-                })
-            },
-            getSysrefStaffContractTypes() {
-                this.$http.get("api/v1/sysrefStaffContractType?fields=id,name").then((result) => {
-                    this.sysrefStaffContractTypes = result.data.data.items
                 }).catch((error) => {
                     console.error(error);
                 })
