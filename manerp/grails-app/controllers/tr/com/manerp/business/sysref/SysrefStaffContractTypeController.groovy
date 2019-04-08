@@ -6,6 +6,7 @@ import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
+import tr.com.manerp.commands.controller.common.ShowCommand
 
 class SysrefStaffContractTypeController extends BaseController
 {
@@ -13,7 +14,7 @@ class SysrefStaffContractTypeController extends BaseController
     static namespace = "v1"
     static allowedMethods = [index: "GET"]
 
-    def sysrefService
+    def sysrefStaffContractTypeService
 
     def index()
     {
@@ -24,13 +25,52 @@ class SysrefStaffContractTypeController extends BaseController
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            ManePaginatedResult result = sysrefService.getList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), SysrefStaffContractType)
+            ManePaginatedResult result = sysrefStaffContractTypeService.getSysrefStaffContractTypeList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields))
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             maneResponse.message = ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
+    }
+
+    def show()
+    {
+
+        ManeResponse maneResponse = new ManeResponse()
+        def contractType
+
+        try {
+
+            ShowCommand cmd = new ShowCommand(params)
+
+            if ( cmd.validate() ) {
+
+                contractType = sysrefStaffContractTypeService.getSysrefStaffContractType(cmd)
+                if ( !contractType ) throw new Exception()
+
+            } else {
+
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Parametreler uygun değil')
+            }
+
+            maneResponse.data = contractType
+            maneResponse.statusCode = StatusCode.OK
+
+        } catch (Exception ex) {
+
+            if ( !contractType ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Görüntülenmek istenen sözleşme tipi sistemde bulunmamaktadır.'
+            }
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = maneResponse.message ?: ex.getMessage()
             ex.printStackTrace()
         }
 
