@@ -64,7 +64,7 @@ dependencies {
     runtime 'org.postgresql:postgresql:42.2.2'
 
     // manerp response plugin
-    compile "tr.com.manerp:manerp-response-plugin:0.3.0"
+    compile "tr.com.manerp:manerp-response-plugin:0.3.1"
 
     // encryption plugin
     compile group: 'at.favre.lib', name: 'bcrypt', version: '0.7.0'
