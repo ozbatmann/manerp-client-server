@@ -26,6 +26,7 @@ class SysrefCompanyTypeService extends BaseService
         return paginate(SysrefCompanyType, properties, closure, excludedFields)
     }
 
+    // TODO: change with companyId
     def getSysrefCompanyType(ShowCommand cmd)
     {
         SysrefCompanyType companyType = SysrefCompanyType.createCriteria().get {
