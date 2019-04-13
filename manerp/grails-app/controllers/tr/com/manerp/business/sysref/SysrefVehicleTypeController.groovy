@@ -50,7 +50,7 @@ class SysrefVehicleTypeController extends BaseController
 
             if ( cmd.validate() ) {
 
-                vehicleType = sysrefVehicleTypeService.getSysrefVehicleType(cmd)
+                vehicleType = sysrefVehicleTypeService.getSysrefVehicleType(cmd.id, cmd.fields)
                 if ( !vehicleType ) throw new Exception()
 
             } else {

@@ -47,7 +47,7 @@ class SysrefVehicleStateController
 
             if ( cmd.validate() ) {
 
-                vehicleState = sysrefVehicleStateService.getSysrefVehicleState(cmd)
+                vehicleState = sysrefVehicleStateService.getSysrefVehicleState(cmd.id, cmd.fields)
                 if ( !vehicleState ) throw new Exception()
 
             } else {

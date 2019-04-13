@@ -1,6 +1,7 @@
 package tr.com.manerp.business.main.order
 
 import grails.gorm.transactions.Transactional
+import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
@@ -34,7 +35,8 @@ class OrderService extends BaseService
             }
         }
 
-        return paginate(Order, properties, closure, ['sysCompany'] as HashSet)
+        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
+        return paginate(Order, properties, closure, excludedFields)
     }
 
     Order getOrder(String id)

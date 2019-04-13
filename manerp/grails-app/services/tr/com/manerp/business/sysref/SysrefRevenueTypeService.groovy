@@ -4,10 +4,11 @@ import grails.gorm.transactions.Transactional
 import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.util.FieldParser
-import tr.com.manerp.commands.controller.common.ShowCommand
+import tr.com.manerp.base.service.BaseService
 
 @Transactional
-class SysrefRevenueTypeService {
+class SysrefRevenueTypeService extends BaseService
+{
 
     def getSysrefRevenueTypeList(ManePaginationProperties properties)
     {
@@ -24,19 +25,19 @@ class SysrefRevenueTypeService {
         return paginate(SysrefRevenueType, properties, closure, excludedFields)
     }
 
-    def getSysrefRevenueType(ShowCommand cmd)
+    def getSysrefRevenueType(String id, String fields = null)
     {
         SysrefRevenueType revenueType = SysrefRevenueType.createCriteria().get {
 
-            eq('id', cmd.id)
+            eq('id', id)
 
         } as SysrefRevenueType
 
         def _revenueType = revenueType
-        if ( cmd.fields ) {
+        if ( fields ) {
 
             FieldParser fieldParser = new FieldParser()
-            List fieldList = fieldParser.parseFieldsToList(cmd.fields)
+            List fieldList = fieldParser.parseFieldsToList(fields)
             HashSet excludedFields = Holders.config.manerp.domain.excludedFields
             _revenueType = filterDomainInstance(revenueType, fieldList, excludedFields)
         }

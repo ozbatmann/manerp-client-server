@@ -182,7 +182,6 @@
                         } else {
                             self.snackbar.textColor = 'red--text';
                         }
-
                         self.snackbar.text = result.data.message;
                         self.snackbar.active = true;
                         self.getAllStaffs();

@@ -50,7 +50,7 @@ class SysrefGenderController extends BaseController
 
             if ( cmd.validate() ) {
 
-                gender = sysrefGenderService.getSysrefGender(cmd)
+                gender = sysrefGenderService.getSysrefGender(cmd.id, cmd.fields)
                 if ( !gender ) throw new Exception()
 
             } else {

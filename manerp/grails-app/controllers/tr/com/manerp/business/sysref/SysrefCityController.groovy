@@ -29,13 +29,7 @@ class SysrefCityController extends BaseController
 
             SysrefCityPaginationCommand cmd = new SysrefCityPaginationCommand(params)
 
-            def closure = {
-                sysrefCountry {
-                    eq('id', cmd.countryId)
-                }
-            }
-
-            ManePaginatedResult result = sysrefCityService.getSysrefCityList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields))
+            ManePaginatedResult result = sysrefCityService.getSysrefCityList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), cmd.countryId)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -60,7 +54,7 @@ class SysrefCityController extends BaseController
 
             if ( cmd.validate() ) {
 
-                city = sysrefCityService.getSysrefCity(cmd)
+                city = sysrefCityService.getSysrefCity(cmd.id, cmd.fields)
                 if ( !city ) throw new Exception()
 
             } else {

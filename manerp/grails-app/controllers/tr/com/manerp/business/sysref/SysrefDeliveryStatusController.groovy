@@ -50,7 +50,7 @@ class SysrefDeliveryStatusController extends BaseController
 
             if ( cmd.validate() ) {
 
-                deliveryStatus = sysrefDeliveryStatusService.getSysrefDeliveryStatus(cmd)
+                deliveryStatus = sysrefDeliveryStatusService.getSysrefDeliveryStatus(cmd.id, cmd.fields)
                 if ( !deliveryStatus ) throw new Exception()
 
             } else {

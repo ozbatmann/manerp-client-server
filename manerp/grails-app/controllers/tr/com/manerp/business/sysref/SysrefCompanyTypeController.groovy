@@ -10,7 +10,6 @@ import tr.com.manerp.commands.controller.common.ShowCommand
 
 class SysrefCompanyTypeController extends BaseController
 {
-
     static namespace = "v1"
     static allowedMethods = [index: "GET"]
 
@@ -18,7 +17,6 @@ class SysrefCompanyTypeController extends BaseController
 
     def index()
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
@@ -40,7 +38,6 @@ class SysrefCompanyTypeController extends BaseController
 
     def show()
     {
-
         ManeResponse maneResponse = new ManeResponse()
         def companyType
 
@@ -50,7 +47,7 @@ class SysrefCompanyTypeController extends BaseController
 
             if ( cmd.validate() ) {
 
-                companyType = sysrefCompanyTypeService.getSysrefCompanyType(cmd)
+                companyType = sysrefCompanyTypeService.getSysrefCompanyType(cmd.id, cmd.fields)
                 if ( !companyType ) throw new Exception()
 
             } else {

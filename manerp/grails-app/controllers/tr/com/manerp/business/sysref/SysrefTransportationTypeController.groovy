@@ -50,7 +50,7 @@ class SysrefTransportationTypeController extends BaseController
 
             if ( cmd.validate() ) {
 
-                transportationType = sysrefTransportationTypeService.getSysrefTransportationType(cmd)
+                transportationType = sysrefTransportationTypeService.getSysrefTransportationType(cmd.id, cmd.fields)
                 if ( !transportationType ) throw new Exception()
 
             } else {

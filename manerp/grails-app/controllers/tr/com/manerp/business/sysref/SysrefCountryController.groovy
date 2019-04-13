@@ -49,7 +49,7 @@ class SysrefCountryController extends BaseController
 
             if ( cmd.validate() ) {
 
-                country = sysrefCountryService.getSysrefCountry(cmd)
+                country = sysrefCountryService.getSysrefCountry(cmd.id, cmd.fields)
                 if ( !country ) throw new Exception()
 
             } else {

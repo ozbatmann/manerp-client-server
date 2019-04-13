@@ -49,7 +49,7 @@ class SysrefVehicleOwnerController extends BaseController
 
             if ( cmd.validate() ) {
 
-                vehicleOwner = sysrefVehicleOwnerService.getSysrefVehicleOwner(cmd)
+                vehicleOwner = sysrefVehicleOwnerService.getSysrefVehicleOwner(cmd.id, cmd.fields)
                 if ( !vehicleOwner ) throw new Exception()
 
             } else {

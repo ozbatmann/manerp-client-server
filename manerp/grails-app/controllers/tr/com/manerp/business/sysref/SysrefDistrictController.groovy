@@ -25,21 +25,14 @@ class SysrefDistrictController extends BaseController
         try {
 
             SysrefDistrictPaginationCommand cmd = new SysrefDistrictPaginationCommand(params)
-            def closure
 
-            if ( cmd.validate() ) {
+            if ( !cmd.validate() ) {
 
-                closure = {
-                    sysrefCity {
-                        eq('id', cmd.cityId)
-                    }
-                }
-            } else {
                 maneResponse.statusCode = StatusCode.BAD_REQUEST
-                throw new Exception('Parametreler uygun değil')
+                throw new Exception('cityId parametresi gereklidir.')
             }
 
-            ManePaginatedResult result = sysrefDistrictService.getList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), SysrefDistrict, closure)
+            ManePaginatedResult result = sysrefDistrictService.getSysrefDistrictList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), cmd.cityId)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -63,7 +56,7 @@ class SysrefDistrictController extends BaseController
 
             if ( cmd.validate() ) {
 
-                district = sysrefDistrictService.getSysrefDistrict(cmd)
+                district = sysrefDistrictService.getSysrefDistrict(cmd.id, cmd.fields)
                 if ( !district ) throw new Exception()
 
             } else {

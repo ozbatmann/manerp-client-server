@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="showDialog" persistent max-width="50%" scrollable>
+    <v-dialog v-model="showDialog" persistent max-width="80%" scrollable>
         <!-- <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn> -->
         <v-card class="pa-3">
             <v-card-title>
@@ -16,23 +16,43 @@
                                           :error-messages="errors.collect('firstName')"
                                           v-model="data.firstName"
                                           label="Ad"
-                                          name="firstName">
+                                          name="firstName"
+                                          :counter="30"
+                                          maxlength="30"
+                                          background-color="grey lighten-4"
+                                          color="green accent-2"
+                                          full-width>
                             </v-text-field>
                             <v-text-field v-model="data.middleName"
+                                          :counter="30"
+                                          maxlength="30"
                                           label="İkinci Ad"
-                                          name="middleName">
+                                          name="middleName"
+                                          background-color="grey lighten-4"
+                                          color="green accent-2"
+                                          full-width>
                             </v-text-field>
                             <v-text-field v-validate="'required'"
                                           :error-messages="errors.collect('lastName')"
                                           v-model="data.lastName"
+                                          :counter="50"
+                                          maxlength="50"
                                           label="Soyad"
-                                          name="lastName">
+                                          name="lastName"
+                                          background-color="grey lighten-4"
+                                          color="green accent-2"
+                                          full-width>
                             </v-text-field>
                             <v-text-field v-validate="'required'"
                                           :error-messages="errors.collect('tcIdNumber')"
                                           v-model="data.tcIdNumber"
+                                          :counter="11"
+                                          maxlength="11"
                                           label="TC Kimlik Numarası"
-                                          name="tcIdNumber">
+                                          name="tcIdNumber"
+                                          background-color="grey lighten-4"
+                                          color="green accent-2"
+                                          full-width>
                             </v-text-field>
                             <v-combobox v-model="data.sysrefGender"
                                         :return-object="true"
@@ -40,20 +60,33 @@
                                         item-value="id"
                                         label="Cinsiyet"
                                         item-text="name"
-                                        name="sysrefGender">
+                                        name="sysrefGender"
+                                        background-color="grey lighten-4"
+                                        color="green accent-2"
+                                        full-width>
                             </v-combobox>
                             <v-text-field v-validate="'required'"
                                           mask="phone"
                                           :error-messages="errors.collect('gsmNo')"
                                           v-model="data.gsmNo"
+                                          :counter="11"
+                                          maxlength="11"
                                           label="GSM"
-                                          name="gsmNo">
+                                          name="gsmNo"
+                                          background-color="grey lighten-4"
+                                          color="green accent-2"
+                                          full-width>
                             </v-text-field>
                             <v-text-field v-validate="'email'"
                                           :error-messages="errors.collect('email')"
                                           v-model="data.email"
+                                          :counter="50"
+                                          maxlength="50"
                                           label="E-Mail"
-                                          name="email">
+                                          name="email"
+                                          background-color="grey lighten-4"
+                                          color="green accent-2"
+                                          full-width>
                             </v-text-field>
                             <v-combobox v-validate="'required'"
                                         :error-messages="errors.collect('refStaffTitle')"
@@ -63,7 +96,10 @@
                                         item-value="id"
                                         label="Unvan"
                                         item-text="name"
-                                        name="refStaffTitle">
+                                        name="refStaffTitle"
+                                        background-color="grey lighten-4"
+                                        color="green accent-2"
+                                        full-width>
                             </v-combobox>
                             <v-combobox v-validate="'required'"
                                         :error-messages="errors.collect('sysrefStaffContractType')"
@@ -73,7 +109,10 @@
                                         item-value="id"
                                         label="Sözleşme Tipi"
                                         item-text="name"
-                                        name="sysrefStaffContractType">
+                                        name="sysrefStaffContractType"
+                                        background-color="grey lighten-4"
+                                        color="green accent-2"
+                                        full-width>
                             </v-combobox>
                             <v-combobox v-model="data.sysrefCountry"
                                         v-on:change="getSysrefCities"
@@ -82,31 +121,46 @@
                                         item-value="id"
                                         label="Ülke"
                                         item-text="name"
-                                        name="sysrefCity">
+                                        name="sysrefCity"
+                                        background-color="grey lighten-4"
+                                        color="green accent-2"
+                                        full-width>
                             </v-combobox>
                             <v-combobox v-model="data.sysrefCity"
                                         v-on:change="getSysrefDistricts"
+                                        :disabled="!data.sysrefCountry"
                                         :return-object="true"
                                         :items="sysrefCities"
                                         item-value="id"
                                         label="İl"
                                         item-text="name"
-                                        name="sysrefCity">
+                                        name="sysrefCity"
+                                        background-color="grey lighten-4"
+                                        color="green accent-2"
+                                        full-width>
                             </v-combobox>
                             <v-combobox v-model="data.sysrefDistrict"
+                                        :disabled="!data.sysrefCity"
                                         :return-object="true"
                                         :items="sysrefDistricts"
                                         item-value="id"
                                         label="İlçe"
                                         item-text="name"
-                                        name="sysrefDistrict">
+                                        name="sysrefDistrict"
+                                        background-color="grey lighten-4"
+                                        color="green accent-2"
+                                        full-width>
                             </v-combobox>
                             <v-textarea box
                                         style="padding-top: 3%;"
                                         label="Adres"
                                         auto-grow
                                         v-model="data.address"
-                                        name="address">
+                                        :counter="255"
+                                        maxlength="255"
+                                        name="address"
+                                        background-color="grey lighten-4"
+                                        color="green accent-2">
                             </v-textarea>
                         </v-flex>
                     </v-layout>
@@ -144,6 +198,7 @@
             open(data) {
                 this.showDialog = true;
                 if (data) {
+                    console.log(data);
                     this.data = data;
                     this.isEdit = true;
                 } else {
@@ -196,7 +251,7 @@
             },
             getSysrefCities() {
                 this.data.sysrefCity = null;
-                this.$http.get("api/v1/sysrefCity?fields=id,name&countryId=" + this.data.sysrefCountry.id).then((result) => {
+                this.$http.get("api/v1/sysrefCity?limit=81&fields=id,name&countryId=" + this.data.sysrefCountry.id).then((result) => {
                     this.sysrefCities = result.data.data.items
                 }).catch((error) => {
                     console.error(error);
@@ -206,7 +261,7 @@
             },
             getSysrefDistricts() {
                 this.data.sysrefDistrict = null;
-                this.$http.get("api/v1/sysrefDistrict?fields=id,name&cityId=" + this.data.sysrefCity.id).then((result) => {
+                this.$http.get("api/v1/sysrefDistrict?limit=500&fields=id,name&cityId=" + this.data.sysrefCity.id).then((result) => {
                     this.sysrefDistricts = result.data.data.items
                 }).catch((error) => {
                     console.error(error);
@@ -215,7 +270,7 @@
                 })
             },
             getRefStaffTitles() {
-                this.$http.get("api/v1/refStaffTitle?fields=id,name").then((result) => {
+                this.$http.get("api/v1/refStaffTitle?fields=id,name&limit=100").then((result) => {
                     this.refStaffTitles = result.data.data.items
                 }).catch((error) => {
                     console.error(error);
@@ -224,7 +279,7 @@
                 })
             },
             getSysrefStaffContractTypes() {
-                this.$http.get("api/v1/sysrefStaffContractType?fields=id,name").then((result) => {
+                this.$http.get("api/v1/sysrefStaffContractType?fields=id,name&limit=100").then((result) => {
                     this.sysrefStaffContractTypes = result.data.data.items
                 }).catch((error) => {
                     console.error(error);

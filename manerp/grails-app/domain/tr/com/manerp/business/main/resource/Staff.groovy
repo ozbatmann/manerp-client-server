@@ -37,7 +37,7 @@ class Staff implements BusinessDomain, Person
         lastName nullable: false, blank: false, unique: false, maxSize: 50
         email email: true, blank: false, nullable: false, unique: ['sysCompany'], maxSize: 50
         sysrefGender nullable: true, unique: false
-        tcIdNumber nullable: false, unique: ['sysCompany']
+        tcIdNumber nullable: false, unique: ['sysCompany'], maxSize: 11
         birthDate nullable: true, unique: false
         sysrefCountry nullable: true, unique: false
         sysrefCity nullable: true, unique: false

@@ -1,14 +1,17 @@
 package tr.com.manerp.business.ref
 
 import grails.gorm.transactions.Transactional
+import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
 
 @Transactional
-class RefStaffTitleService extends BaseService {
-    
-    ManePaginatedResult getRefStaffTitleList(ManePaginationProperties properties) {
+class RefStaffTitleService extends BaseService
+{
+
+    ManePaginatedResult getRefStaffTitleList(ManePaginationProperties properties)
+    {
 
         def closure = {
             eq('active', true)
@@ -18,9 +21,10 @@ class RefStaffTitleService extends BaseService {
             }
         }
 
-        return paginate(RefStaffTitle, properties, closure, ['sysCompany'] as HashSet)
+        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
+        return paginate(RefStaffTitle, properties, closure, excludedFields)
     }
-    
+
     RefStaffTitle getRefStaffTitle(String id)
     {
         RefStaffTitle refStaffTitle = RefStaffTitle.createCriteria().get {
@@ -31,13 +35,15 @@ class RefStaffTitleService extends BaseService {
 
         return refStaffTitle
     }
-    
-    def save(RefStaffTitle refStaffTitle) {
+
+    def save(RefStaffTitle refStaffTitle)
+    {
 
         refStaffTitle.save(flush: true, failOnError: true)
     }
 
-    def delete(RefStaffTitle refStaffTitle) {
+    def delete(RefStaffTitle refStaffTitle)
+    {
 
         refStaffTitle.delete(flush: true, failOnError: true)
     }

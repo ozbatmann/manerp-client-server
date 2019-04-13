@@ -1,6 +1,7 @@
 package tr.com.manerp.business.main.resource
 
 import grails.gorm.transactions.Transactional
+import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
@@ -26,7 +27,8 @@ class DriverService extends BaseService
             }
         }
 
-        return paginate(Staff, properties, closure, ['sysCompany'] as HashSet)
+        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
+        return paginate(Staff, properties, closure, excludedFields)
     }
 
     Staff getDriver(String id)

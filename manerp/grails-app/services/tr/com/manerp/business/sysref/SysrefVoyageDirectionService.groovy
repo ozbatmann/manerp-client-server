@@ -5,7 +5,6 @@ import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.util.FieldParser
 import tr.com.manerp.base.service.BaseService
-import tr.com.manerp.commands.controller.common.ShowCommand
 
 @Transactional
 class SysrefVoyageDirectionService extends BaseService
@@ -26,19 +25,19 @@ class SysrefVoyageDirectionService extends BaseService
         return paginate(SysrefVoyageDirection, properties, closure, excludedFields)
     }
 
-    def getSysrefVoyageDirection(ShowCommand cmd)
+    def getSysrefVoyageDirection(String id, String fields = null)
     {
         SysrefVoyageDirection voyageDirection = SysrefVoyageDirection.createCriteria().get {
 
-            eq('id', cmd.id)
+            eq('id', id)
 
         } as SysrefVoyageDirection
 
         def _voyageDirection = voyageDirection
-        if ( cmd.fields ) {
+        if ( fields ) {
 
             FieldParser fieldParser = new FieldParser()
-            List fieldList = fieldParser.parseFieldsToList(cmd.fields)
+            List fieldList = fieldParser.parseFieldsToList(fields)
             HashSet excludedFields = Holders.config.manerp.domain.excludedFields
             _voyageDirection = filterDomainInstance(voyageDirection, fieldList, excludedFields)
         }

@@ -1,6 +1,7 @@
 package tr.com.manerp.business.main.company
 
 import grails.gorm.transactions.Transactional
+import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
@@ -27,7 +28,8 @@ class CompanyService extends BaseService
 
         }
 
-        return paginate(Company, properties, closure, ['sysCompany'] as HashSet)
+        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
+        return paginate(Company, properties, closure, excludedFields)
     }
 
     Company getCompany(String id, String sysrefCompanyTypeCode)

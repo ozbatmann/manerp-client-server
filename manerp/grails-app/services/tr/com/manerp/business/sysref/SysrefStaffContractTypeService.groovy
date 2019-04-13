@@ -5,7 +5,6 @@ import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.util.FieldParser
 import tr.com.manerp.base.service.BaseService
-import tr.com.manerp.commands.controller.common.ShowCommand
 
 @Transactional
 class SysrefStaffContractTypeService extends BaseService
@@ -26,19 +25,19 @@ class SysrefStaffContractTypeService extends BaseService
         return paginate(SysrefStaffContractType, properties, closure, excludedFields)
     }
 
-    def getSysrefStaffContractType(ShowCommand cmd)
+    def getSysrefStaffContractType(String id, String fields = null)
     {
         SysrefStaffContractType contractType = SysrefStaffContractType.createCriteria().get {
 
-            eq('id', cmd.id)
+            eq('id', id)
 
         } as SysrefStaffContractType
 
         def _contractType = contractType
-        if ( cmd.fields ) {
+        if ( fields ) {
 
             FieldParser fieldParser = new FieldParser()
-            List fieldList = fieldParser.parseFieldsToList(cmd.fields)
+            List fieldList = fieldParser.parseFieldsToList(fields)
             HashSet excludedFields = Holders.config.manerp.domain.excludedFields
             _contractType = filterDomainInstance(contractType, fieldList, excludedFields)
         }

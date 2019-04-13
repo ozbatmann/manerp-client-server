@@ -5,7 +5,6 @@ import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.util.FieldParser
 import tr.com.manerp.base.service.BaseService
-import tr.com.manerp.commands.controller.common.ShowCommand
 
 @Transactional
 class SysrefVehicleOwnerService extends BaseService
@@ -26,19 +25,19 @@ class SysrefVehicleOwnerService extends BaseService
         return paginate(SysrefVehicleOwner, properties, closure, excludedFields)
     }
 
-    def getSysrefVehicleOwner(ShowCommand cmd)
+    def getSysrefVehicleOwner(String id, String fields = null)
     {
         SysrefVehicleOwner vehicleOwner = SysrefVehicleOwner.createCriteria().get {
 
-            eq('id', cmd.id)
+            eq('id', id)
 
         } as SysrefVehicleOwner
 
         def _vehicleOwner = vehicleOwner
-        if ( cmd.fields ) {
+        if ( fields ) {
 
             FieldParser fieldParser = new FieldParser()
-            List fieldList = fieldParser.parseFieldsToList(cmd.fields)
+            List fieldList = fieldParser.parseFieldsToList(fields)
             HashSet excludedFields = Holders.config.manerp.domain.excludedFields
             _vehicleOwner = filterDomainInstance(vehicleOwner, fieldList, excludedFields)
         }

@@ -50,7 +50,7 @@ class SysrefVoyageDirectionController extends BaseController
 
             if ( cmd.validate() ) {
 
-                voyageDirection = sysrefVehicleTypeService.getSysrefVehicleType(cmd)
+                voyageDirection = sysrefVoyageDirectionService.getSysrefVoyageDirection(cmd.id, cmd.fields)
                 if ( !voyageDirection ) throw new Exception()
 
             } else {

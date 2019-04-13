@@ -50,7 +50,7 @@ class SysrefStaffContractTypeController extends BaseController
 
             if ( cmd.validate() ) {
 
-                contractType = sysrefStaffContractTypeService.getSysrefStaffContractType(cmd)
+                contractType = sysrefStaffContractTypeService.getSysrefStaffContractType(cmd.id, cmd.fields)
                 if ( !contractType ) throw new Exception()
 
             } else {

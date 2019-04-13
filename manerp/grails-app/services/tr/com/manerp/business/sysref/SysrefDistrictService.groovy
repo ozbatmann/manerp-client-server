@@ -5,16 +5,19 @@ import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.util.FieldParser
 import tr.com.manerp.base.service.BaseService
-import tr.com.manerp.commands.controller.common.ShowCommand
 
 @Transactional
 class SysrefDistrictService extends BaseService
 {
-    def getSysrefDistrictList(ManePaginationProperties properties)
+    def getSysrefDistrictList(ManePaginationProperties properties, String cityId)
     {
         def closure = {
 
             eq('active', true)
+
+            sysrefCity {
+                eq('id', cityId)
+            }
 
             if ( !properties.sortPairList ) {
                 order('dateCreated', 'desc')
@@ -25,19 +28,19 @@ class SysrefDistrictService extends BaseService
         return paginate(SysrefDistrict, properties, closure, excludedFields)
     }
 
-    def getSysrefDistrict(ShowCommand cmd)
+    def getSysrefDistrict(String id, String fields = null)
     {
         SysrefDistrict district = SysrefDistrict.createCriteria().get {
 
-            eq('id', cmd.id)
+            eq('id', id)
 
         } as SysrefDistrict
 
         def _district = district
-        if ( cmd.fields ) {
+        if ( fields ) {
 
             FieldParser fieldParser = new FieldParser()
-            List fieldList = fieldParser.parseFieldsToList(cmd.fields)
+            List fieldList = fieldParser.parseFieldsToList(fields)
             HashSet excludedFields = Holders.config.manerp.domain.excludedFields
             _district = filterDomainInstance(district, fieldList, excludedFields)
         }

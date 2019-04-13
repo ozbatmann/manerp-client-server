@@ -1,6 +1,7 @@
 package tr.com.manerp.business.main.voyage
 
 import grails.gorm.transactions.Transactional
+import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
@@ -37,7 +38,8 @@ class VoyageService extends BaseService
             }
         }
 
-        return paginate(Voyage, properties, closure, ['sysCompany'] as HashSet)
+        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
+        return paginate(Voyage, properties, closure, excludedFields)
     }
 
     Voyage getVoyage(String id)

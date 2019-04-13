@@ -26,19 +26,19 @@ class SysrefGenderService extends BaseService
         return paginate(SysrefGender, properties, closure, excludedFields)
     }
 
-    def getSysrefGender(ShowCommand cmd)
+    def getSysrefGender(String id, String fields = null)
     {
         SysrefGender gender = SysrefGender.createCriteria().get {
 
-            eq('id', cmd.id)
+            eq('id', id)
 
         } as SysrefGender
 
         def _gender = gender
-        if ( cmd.fields ) {
+        if ( fields ) {
 
             FieldParser fieldParser = new FieldParser()
-            List fieldList = fieldParser.parseFieldsToList(cmd.fields)
+            List fieldList = fieldParser.parseFieldsToList(fields)
             HashSet excludedFields = Holders.config.manerp.domain.excludedFields
             _gender = filterDomainInstance(gender, fieldList, excludedFields)
         }

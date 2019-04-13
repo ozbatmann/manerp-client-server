@@ -50,7 +50,7 @@ class SysrefRevenueTypeController extends BaseController
 
             if ( cmd.validate() ) {
 
-                revenueType = sysrefRevenueTypeService.getSysrefRevenueType(cmd)
+                revenueType = sysrefRevenueTypeService.getSysrefRevenueType(cmd.id, cmd.fields)
                 if ( !revenueType ) throw new Exception()
 
             } else {
