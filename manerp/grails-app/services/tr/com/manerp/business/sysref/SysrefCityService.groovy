@@ -1,9 +1,8 @@
 package tr.com.manerp.business.sysref
 
 import grails.gorm.transactions.Transactional
-import grails.util.Holders
+import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
-import manerp.response.plugin.util.FieldParser
 import tr.com.manerp.base.service.BaseService
 
 @Transactional
@@ -24,26 +23,47 @@ class SysrefCityService extends BaseService
             }
         }
 
-        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-        return paginate(SysrefCity, properties, closure, excludedFields)
+        ManePaginatedResult result = paginate(SysrefCity, properties, closure)
+
+        result.data = formatResultForList(result.data as List)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, SysrefCity)
+        return result
     }
 
     def getSysrefCity(String id, String fields = null)
     {
-        SysrefCity city = SysrefCity.createCriteria().get {
+        def city = SysrefCity.createCriteria().get {
 
             eq('id', id)
 
         } as SysrefCity
 
-        def _city = city
-        if ( fields ) {
+        city = formatResultForShow(city)
+        if ( fields ) city = filterDataByFields(city, fields, SysrefCity)
 
-            FieldParser fieldParser = new FieldParser()
-            List fieldList = fieldParser.parseFieldsToList(fields)
-            HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-            _city = filterDomainInstance(city, fieldList, excludedFields)
-        }
-        return _city
+        return city
     }
+
+    List formatResultForList(List data)
+    {
+        List formattedData = data.collect {
+            [
+                id  : it.id,
+                name: it.name,
+                code: it?.code
+            ]
+        }
+
+        formattedData
+    }
+
+    def formatResultForShow(def data)
+    {
+        return [
+            id  : data.id,
+            name: data.name,
+            code: data?.code
+        ]
+    }
+
 }

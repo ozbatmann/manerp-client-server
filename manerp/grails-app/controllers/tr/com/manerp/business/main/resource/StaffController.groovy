@@ -7,6 +7,7 @@ import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
+import tr.com.manerp.commands.controller.common.ShowCommand
 
 class StaffController extends BaseController
 {
@@ -18,7 +19,6 @@ class StaffController extends BaseController
 
     def index()
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
@@ -38,15 +38,25 @@ class StaffController extends BaseController
         render maneResponse
     }
 
-    def show(String id)
+    def show()
     {
 
         ManeResponse maneResponse = new ManeResponse()
-        Staff staff = staffService.getStaff(id)
+        def staff
 
         try {
 
-            if ( !staff ) throw new Exception()
+            ShowCommand cmd = new ShowCommand(params)
+
+            if ( cmd.validate() ) {
+
+                staff = staffService.getStaff(cmd.id, cmd.fields)
+
+            } else {
+
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Parametreler uygun değil')
+            }
 
             maneResponse.data = staff
             maneResponse.statusCode = StatusCode.OK
@@ -66,6 +76,7 @@ class StaffController extends BaseController
         render maneResponse
     }
 
+    // TODO: write staff command !important
     def save(Staff staff)
     {
 

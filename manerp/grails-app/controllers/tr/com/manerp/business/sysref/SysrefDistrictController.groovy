@@ -57,7 +57,6 @@ class SysrefDistrictController extends BaseController
             if ( cmd.validate() ) {
 
                 district = sysrefDistrictService.getSysrefDistrict(cmd.id, cmd.fields)
-                if ( !district ) throw new Exception()
 
             } else {
 

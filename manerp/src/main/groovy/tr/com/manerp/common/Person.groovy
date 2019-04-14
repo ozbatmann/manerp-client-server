@@ -6,7 +6,8 @@ import tr.com.manerp.business.sysref.SysrefCountry
 import tr.com.manerp.business.sysref.SysrefDistrict
 import tr.com.manerp.business.sysref.SysrefGender
 
-trait Person {
+trait Person
+{
     String firstName
     String middleName
     String lastName

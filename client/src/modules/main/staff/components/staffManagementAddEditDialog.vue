@@ -90,7 +90,6 @@
                                               full-width>
                                 </v-text-field>
                                 <v-combobox v-validate="'required'"
-                                            v-on:change=""
                                             :error-messages="errors.collect('refStaffTitle')"
                                             v-model="data.refStaffTitle"
                                             :return-object="true"
@@ -301,9 +300,6 @@
                 }).finally(() => {
 
                 })
-            },
-            refStaffTitleOnChange() {
-
             }
         },
         mounted() {

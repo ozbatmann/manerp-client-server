@@ -151,34 +151,8 @@
             editDialog(data) {
                 if (data !== undefined && data !== null) {
                     this.$http.get("api/v1/staff/" + data.id).then((result) => {
-
                         let items = result.data.data;
-
-                        // TODO: maybe better approach
-                        Promise.all(
-                            [
-                                this.getSysrefGender(items.sysrefGender ? items.sysrefGender.id : null),
-                                this.getSysrefStaffContractType(items.sysrefStaffContractType ? items.sysrefStaffContractType.id : null),
-                                this.getRefStaffTitle(items.refStaffTitle ? items.refStaffTitle.id : null),
-                                this.getSysrefCountry(items.sysrefCountry ? items.sysrefCountry.id : null),
-                                this.getSysrefCity(items.sysrefCity ? items.sysrefCity.id : null),
-                                this.getSysrefDistrict(items.sysrefDistrict ? items.sysrefDistrict.id : null)
-                            ]
-                        ).then((values) => {
-                            if (values[0]) items.sysrefGender.name = values[0].data.data.name;
-                            if (values[1]) items.sysrefStaffContractType.name = values[1].data.data.name;
-                            if (values[2]) items.refStaffTitle.name = values[2].data.data.name;
-                            if (values[3]) items.sysrefCountry.name = values[3].data.data.name;
-                            if (values[4]) items.sysrefCity.name = values[4].data.data.name;
-                            if (values[5]) items.sysrefDistrict.name = values[5].data.data.name;
-
-                            this.$refs.staffManagementAddEditDialog.open(items)
-                        }).catch((error) => {
-                            console.error(error)
-                        }).finally(() => {
-                            //TODO: remove spinner
-                        })
-
+                        this.$refs.staffManagementAddEditDialog.open(items)
                     }).catch((error) => {
                         console.error(error);
                     })
@@ -251,24 +225,6 @@
                 }).catch((error) => {
                     console.error(error);
                 })
-            },
-            getSysrefGender(id) {
-                if (id) return this.$http.get("api/v1/sysrefGender/" + id + "?fields=name");
-            },
-            getRefStaffTitle(id) {
-                if (id) return this.$http.get("api/v1/refStaffTitle/" + id + "?fields=name");
-            },
-            getSysrefStaffContractType(id) {
-                if (id) return this.$http.get("api/v1/sysrefStaffContractType/" + id + "?fields=name");
-            },
-            getSysrefCountry(id) {
-                if (id) return this.$http.get("api/v1/sysrefCountry/" + id + "?fields=name");
-            },
-            getSysrefCity(id) {
-                if (id) return this.$http.get("api/v1/sysrefCity/" + id + "?fields=name");
-            },
-            getSysrefDistrict(id) {
-                if (id) return this.$http.get("api/v1/sysrefDistrict/" + id + "?fields=name");
             }
         },
         mounted() {

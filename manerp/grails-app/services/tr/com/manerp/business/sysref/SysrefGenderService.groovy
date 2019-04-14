@@ -1,11 +1,9 @@
 package tr.com.manerp.business.sysref
 
 import grails.gorm.transactions.Transactional
-import grails.util.Holders
+import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
-import manerp.response.plugin.util.FieldParser
 import tr.com.manerp.base.service.BaseService
-import tr.com.manerp.commands.controller.common.ShowCommand
 
 @Transactional
 class SysrefGenderService extends BaseService
@@ -22,26 +20,42 @@ class SysrefGenderService extends BaseService
             }
         }
 
-        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-        return paginate(SysrefGender, properties, closure, excludedFields)
+        ManePaginatedResult result = paginate(SysrefGender, properties, closure)
+
+        result.data = formatResultForList(result.data as List)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, SysrefGender)
+        return result
     }
 
     def getSysrefGender(String id, String fields = null)
     {
-        SysrefGender gender = SysrefGender.createCriteria().get {
+        def gender = SysrefGender.createCriteria().get { eq('id', id) } as SysrefGender
+        gender = formatResultForShow(gender)
+        if ( fields ) gender = filterDataByFields(gender, fields, SysrefGender)
 
-            eq('id', id)
-
-        } as SysrefGender
-
-        def _gender = gender
-        if ( fields ) {
-
-            FieldParser fieldParser = new FieldParser()
-            List fieldList = fieldParser.parseFieldsToList(fields)
-            HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-            _gender = filterDomainInstance(gender, fieldList, excludedFields)
-        }
-        return _gender
+        return gender
     }
+
+    List formatResultForList(List data)
+    {
+        List formattedData = data.collect {
+            [
+                id  : it.id,
+                name: it.name,
+                code: it?.code
+            ]
+        }
+
+        formattedData
+    }
+
+    def formatResultForShow(def data)
+    {
+        return [
+            id  : data.id,
+            name: data.name,
+            code: data?.code
+        ]
+    }
+
 }

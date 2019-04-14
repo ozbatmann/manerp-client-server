@@ -55,7 +55,6 @@ class SysrefCityController extends BaseController
             if ( cmd.validate() ) {
 
                 city = sysrefCityService.getSysrefCity(cmd.id, cmd.fields)
-                if ( !city ) throw new Exception()
 
             } else {
 

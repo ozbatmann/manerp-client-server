@@ -1,7 +1,6 @@
 package tr.com.manerp.business.ref
 
 import grails.gorm.transactions.Transactional
-import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
@@ -21,17 +20,21 @@ class RefStaffTitleService extends BaseService
             }
         }
 
-        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-        return paginate(RefStaffTitle, properties, closure, excludedFields)
+        ManePaginatedResult result = paginate(RefStaffTitle, properties, closure)
+
+        result.data = formatResultForList(result.data as List)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, RefStaffTitle)
+        return result
     }
 
-    RefStaffTitle getRefStaffTitle(String id)
+    def getRefStaffTitle(String id, String fields)
     {
-        RefStaffTitle refStaffTitle = RefStaffTitle.createCriteria().get {
-
+        def refStaffTitle = RefStaffTitle.createCriteria().get {
             eq('id', id)
-
         } as RefStaffTitle
+
+        refStaffTitle = formatResultForShow(refStaffTitle)
+        if ( fields ) refStaffTitle = filterDataByFields(refStaffTitle, fields, RefStaffTitle)
 
         return refStaffTitle
     }
@@ -48,4 +51,28 @@ class RefStaffTitleService extends BaseService
         refStaffTitle.delete(flush: true, failOnError: true)
     }
 
+
+    List formatResultForList(List data)
+    {
+        List formattedData = data.collect {
+            [
+                id         : it.id,
+                name       : it.name,
+                code       : it?.code,
+                description: it?.description
+            ]
+        }
+
+        formattedData
+    }
+
+    def formatResultForShow(def data)
+    {
+        return [
+            id         : data.id,
+            name       : data.name,
+            code       : data?.code,
+            description: data?.description
+        ]
+    }
 }

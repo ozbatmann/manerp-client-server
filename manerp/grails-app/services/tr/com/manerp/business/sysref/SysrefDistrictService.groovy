@@ -1,9 +1,8 @@
 package tr.com.manerp.business.sysref
 
 import grails.gorm.transactions.Transactional
-import grails.util.Holders
+import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
-import manerp.response.plugin.util.FieldParser
 import tr.com.manerp.base.service.BaseService
 
 @Transactional
@@ -24,26 +23,47 @@ class SysrefDistrictService extends BaseService
             }
         }
 
-        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-        return paginate(SysrefDistrict, properties, closure, excludedFields)
+        ManePaginatedResult result = paginate(SysrefDistrict, properties, closure)
+
+        result.data = formatResultForList(result.data as List)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, SysrefDistrict)
+        return result
     }
 
     def getSysrefDistrict(String id, String fields = null)
     {
-        SysrefDistrict district = SysrefDistrict.createCriteria().get {
+        def district = SysrefDistrict.createCriteria().get {
 
             eq('id', id)
 
         } as SysrefDistrict
 
-        def _district = district
-        if ( fields ) {
+        district = formatResultForShow(district)
+        if ( fields ) district = filterDataByFields(district, fields, SysrefDistrict)
 
-            FieldParser fieldParser = new FieldParser()
-            List fieldList = fieldParser.parseFieldsToList(fields)
-            HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-            _district = filterDomainInstance(district, fieldList, excludedFields)
-        }
-        return _district
+        return district
     }
+
+    List formatResultForList(List data)
+    {
+        List formattedData = data.collect {
+            [
+                id  : it.id,
+                name: it.name,
+                code: it?.code
+            ]
+        }
+
+        formattedData
+    }
+
+    def formatResultForShow(def data)
+    {
+        return [
+            id  : data.id,
+            name: data.name,
+            code: data?.code
+        ]
+    }
+
 }
