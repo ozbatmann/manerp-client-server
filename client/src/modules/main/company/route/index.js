@@ -1,9 +1,9 @@
 export const routes = {
-    customer: 'firms.customers',
-    supplier: 'firms.suppliers',
-    information: 'firm.information',
-    orders: 'firm.orders',
-    documents: 'firm.documents'
+    customer: 'companies.customers',
+    supplier: 'companies.suppliers',
+    information: 'company.information',
+    orders: 'company.orders',
+    documents: 'company.documents'
 };
 
 const meta = (title) => {
@@ -12,12 +12,12 @@ const meta = (title) => {
         tabbed: true,
         tabs: [
             {
-                text: 'Müşteri Firmalar',
-                to: { name: routes.customer }
+                text: 'Müşteri İş Yerleri',
+                to: {name: routes.customer}
             },
             {
-                text: 'Tedarikçi Firmalar',
-                to: { name: routes.supplier }
+                text: 'Tedarikçi İş Yerleri',
+                to: {name: routes.supplier}
             }
         ]
     }
@@ -30,15 +30,15 @@ const detailsMeta = (title) => {
         tabs: [
             {
                 text: 'genel',
-                to: { name: routes.information }
+                to: {name: routes.information}
             },
             {
                 text: 'geçmiş siparişler',
-                to: { name: routes.orders }
+                to: {name: routes.orders}
             },
             {
                 text: 'dokümanlar',
-                to: { name: routes.documents }
+                to: {name: routes.documents}
             }
         ]
     }
@@ -46,20 +46,20 @@ const detailsMeta = (title) => {
 
 export default [
     {
-        path: 'firms',
+        path: 'companies',
         component: () => import('@/modules/main/shared/components/core/MCoreDetails'),
         children: [
             {
                 path: '',
                 name: routes.customer,
-                component: () => import('@/modules/main/customer/pages/MCustomerManagement'),
-                meta: meta("Firma Yonetimi")
+                component: () => import('@/modules/main/company/pages/CustomerManagement'),
+                meta: meta("Müşteri İş Yeri Yönetimi")
             },
             {
                 path: 'suppliers',
                 name: routes.supplier,
-                component: () => import('@/modules/main/customer/pages/MCustomerManagement'),
-                meta: meta('Firma Yonetimi')
+                component: () => import('@/modules/main/company/pages/SupplierManagement'),
+                meta: meta('Tedarikçi İş Yeri Yönetimi')
             }
         ]
     },
@@ -70,19 +70,19 @@ export default [
             {
                 path: '',
                 name: routes.information,
-                component: () => import('@/modules/main/customer/pages/MCustomerDetailsInformation'),
+                component: () => import('@/modules/main/company/pages/MCustomerDetailsInformation'),
                 meta: detailsMeta('Pınar Gıda A.Ş')
             },
             {
                 path: 'orders',
                 name: routes.orders,
-                component: () => import('@/modules/main/customer/pages/MCustomerDetailsOrders'),
+                component: () => import('@/modules/main/company/pages/MCustomerDetailsOrders'),
                 meta: detailsMeta('Pınar Gıda A.Ş')
             },
             {
                 path: 'documents',
                 name: routes.documents,
-                component: () => import('@/modules/main/customer/pages/MCustomerDetailsDocuments'),
+                component: () => import('@/modules/main/company/pages/MCustomerDetailsDocuments'),
                 meta: detailsMeta('Pınar Gıda A.Ş')
             }
         ]

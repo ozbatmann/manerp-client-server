@@ -27,7 +27,7 @@ class RefStaffTitleService extends BaseService
         return result
     }
 
-    def getRefStaffTitle(String id, String fields)
+    def getRefStaffTitle(String id, String fields=null)
     {
         def refStaffTitle = RefStaffTitle.createCriteria().get {
             eq('id', id)

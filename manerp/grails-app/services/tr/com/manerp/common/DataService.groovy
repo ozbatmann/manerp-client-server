@@ -8,6 +8,7 @@ import tr.com.manerp.auth.User
 import tr.com.manerp.business.main.company.Company
 import tr.com.manerp.business.main.company.Vendor
 import tr.com.manerp.business.main.order.Order
+import tr.com.manerp.business.main.order.VoyageOrder
 import tr.com.manerp.business.main.resource.Staff
 import tr.com.manerp.business.main.vehicle.SemiTrailer
 import tr.com.manerp.business.main.vehicle.Vehicle
@@ -164,41 +165,6 @@ class DataService
 
             sysrefCompanyTypeSup.save(flush: true, failOnError: true)
         }
-
-//        SysrefCountry sysrefCountryTr = SysrefCountry.findByName('Türkiye')
-//        if ( sysrefCountryTr == null ) {
-//
-//            sysrefCountryTr = new SysrefCountry()
-//            sysrefCountryTr.name = 'Türkiye'
-//            sysrefCountryTr.code = 'TR'
-//            sysrefCountryTr.active = true
-//
-//            sysrefCountryTr.save(flush: true, failOnError: true)
-//        }
-//
-//        SysrefCity sysrefCountryIzmir = SysrefCity.findByName('İzmir')
-//        if ( sysrefCountryIzmir == null ) {
-//
-//            sysrefCountryIzmir = new SysrefCity()
-//            sysrefCountryIzmir.sysrefCountry = sysrefCountryTr
-//            sysrefCountryIzmir.name = 'İzmir'
-//            sysrefCountryIzmir.code = 'IZM'
-//            sysrefCountryIzmir.active = true
-//
-//            sysrefCountryIzmir.save(flush: true, failOnError: true)
-//        }
-//
-//        SysrefDistrict sysrefDistrictOdemis = SysrefDistrict.findByName('Ödemiş')
-//        if ( sysrefDistrictOdemis == null ) {
-//
-//            sysrefDistrictOdemis = new SysrefDistrict()
-//            sysrefDistrictOdemis.sysrefCity = sysrefCountryIzmir
-//            sysrefDistrictOdemis.name = 'Ödemiş'
-//            sysrefDistrictOdemis.code = 'ODM'
-//            sysrefDistrictOdemis.active = true
-//
-//            sysrefDistrictOdemis.save(flush: true, failOnError: true)
-//        }
 
         RefStaffTitle refStaffTitleDriver = RefStaffTitle.findByName('Şoför')
         if ( refStaffTitleDriver == null ) {
@@ -712,16 +678,15 @@ class DataService
             dumpingLocationPinar.save(flush: true, failOnError: true)
         }
 
-        Voyage voyagePinar = Voyage.findByOrder(orderPinar)
+        Voyage voyagePinar = Voyage.findBySasNumber('SAS-111222333')
         if ( voyagePinar == null ) {
 
             voyagePinar = new Voyage()
+            voyagePinar.startDate = new Date()
             voyagePinar.setRandomCode()
             voyagePinar.sysCompany = sysCompanyBumerang
             voyagePinar.active = true
-            voyagePinar.order = orderPinar
             voyagePinar.driver = staffBerat
-            voyagePinar.company = customerCompanyPinar
             voyagePinar.vehicle = vehicle1
             voyagePinar.trailer = trailer1
             voyagePinar.sysrefTransportationType = sysrefTransportationTypeGidis
@@ -734,6 +699,19 @@ class DataService
             voyagePinar.sasNumber = 'SAS-111222333'
 
             voyagePinar.save(flush: true, failOnError: true)
+        }
+
+        VoyageOrder voyageOrder = VoyageOrder.findByVoyage(voyagePinar)
+        if ( voyageOrder == null ) {
+
+            voyageOrder = new VoyageOrder()
+            voyageOrder.sysCompany = sysCompanyBumerang
+            voyageOrder.setRandomCode()
+            voyageOrder.voyage = voyagePinar
+            voyageOrder.order = orderPinar
+            voyageOrder.active = true
+
+            voyageOrder.save(flush: true, failOnError: true)
         }
 
     }

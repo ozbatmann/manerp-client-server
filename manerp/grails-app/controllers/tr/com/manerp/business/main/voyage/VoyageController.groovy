@@ -6,6 +6,7 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
+import tr.com.manerp.commands.controller.common.ShowCommand
 import tr.com.manerp.commands.controller.voyage.VoyagePaginationCommand
 import tr.com.manerp.commands.controller.voyage.VoyageSaveCommand
 
@@ -26,7 +27,7 @@ class VoyageController extends BaseController
 
             VoyagePaginationCommand cmd = new VoyagePaginationCommand(params)
 
-            ManePaginatedResult result = voyageService.getVoyageList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields))
+            ManePaginatedResult result = voyageService.getVoyageList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), cmd.company, cmd.deliveryStatusCode)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -39,15 +40,25 @@ class VoyageController extends BaseController
         render maneResponse
     }
 
-    def show(String id)
+    def show()
     {
 
         ManeResponse maneResponse = new ManeResponse()
-        Voyage voyage = voyageService.getVoyage(id)
+        def voyage
 
         try {
 
-            if ( !voyage ) throw new Exception()
+            ShowCommand cmd = new ShowCommand(params)
+
+            if ( cmd.validate() ) {
+
+                voyage = voyageService.getVoyage(cmd.id, cmd.fields)
+
+            } else {
+
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Parametreler uygun değil')
+            }
 
             maneResponse.data = voyage
             maneResponse.statusCode = StatusCode.OK

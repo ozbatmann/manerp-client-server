@@ -1,9 +1,9 @@
 package tr.com.manerp.business.main.voyage
 
+import grails.databinding.BindingFormat
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.domain.BusinessDomain
 import tr.com.manerp.business.main.company.Company
-import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.resource.Staff
 import tr.com.manerp.business.main.vehicle.SemiTrailer
 import tr.com.manerp.business.main.vehicle.Vehicle
@@ -15,12 +15,13 @@ class Voyage implements BusinessDomain
 {
     static auditable = true
 
-    Company company
+    @BindingFormat('dd/MM/yyyy hh:MM')
+    Date startDate
+    @BindingFormat('dd/MM/yyyy hh:MM')
+    Date endDate
     Vehicle vehicle
     Staff driver
-//    SemiTruck dorset
     SemiTrailer trailer
-    Order order
     SysrefTransportationType sysrefTransportationType
     SysrefVoyageDirection sysrefVoyageDirection
     Location loadingLocation
@@ -31,18 +32,17 @@ class Voyage implements BusinessDomain
     String sasNumber
     SysrefDeliveryStatus sysrefDeliveryStatus
 
-
+//    static hasMany = [orders: Order] many-to-many relationship with Voyage defined in VoyageOrder cross domain
     static hasMany = [routes: VoyageRoute]
 
     static constraints = {
         code nullable: false, blank: false, unique: ['sysCompany'], maxSize: 8
         sysCompany nullable: false, unique: false
-        company nullable: false, unique: false
+        startDate nullable: false, unique: false
+        endDate nullable: true, unique: false
         vehicle nullable: false, unique: false
         driver nullable: false, unique: false
-//        dorset nullable: true, unique: false
         trailer nullable: true, unique: false
-        order nullable: false, unique: false
         sysrefTransportationType nullable: true, unique: false
         sysrefVoyageDirection nullable: false, unique: false
         loadingLocation nullable: true, unique: false

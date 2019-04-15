@@ -57,7 +57,7 @@
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction"
     import MDataTableAddNewForm from "../../shared/components/data/components/MDataTableAddNewForm";
 
-    const customerModel = require('@/modules/main/customer/models/customer-model').default;
+    const customerModel = require('@/modules/main/company/models/customer-model').default;
 
     export default {
         name: "MCustomerManagement",
@@ -289,7 +289,7 @@
 
                 newItem: null,
                 to: {
-                    name: require('@/modules/main/customer/route/index').routes.information,
+                    name: require('@/modules/main/company/route/index').routes.information,
                 }
             }
         },

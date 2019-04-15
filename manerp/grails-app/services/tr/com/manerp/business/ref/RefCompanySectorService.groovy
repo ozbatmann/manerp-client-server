@@ -26,7 +26,7 @@ class RefCompanySectorService extends BaseService
         return paginate(RefCompanySector, properties, closure, excludedFields)
     }
 
-    def getRefCompanySector(String id, String fields)
+    def getRefCompanySector(String id, String fields=null)
     {
         RefCompanySector refCompanySector = RefCompanySector.createCriteria().get {
 

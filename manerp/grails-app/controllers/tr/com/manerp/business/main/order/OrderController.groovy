@@ -8,6 +8,7 @@ import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.business.sysref.SysrefOrderState
 import tr.com.manerp.commands.controller.common.PaginationCommand
+import tr.com.manerp.commands.controller.common.ShowCommand
 import tr.com.manerp.commands.controller.order.OrderPaginationCommand
 
 class OrderController extends BaseController
@@ -15,7 +16,6 @@ class OrderController extends BaseController
 
     static namespace = "v1"
     static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE"]
-//    static responseFormats = ['json']
 
     def orderService
 
@@ -41,17 +41,28 @@ class OrderController extends BaseController
         render maneResponse
     }
 
-    def show(String id)
+    def show()
     {
 
         ManeResponse maneResponse = new ManeResponse()
-        Order order = orderService.getOrder(id)
+        def order
 
         try {
 
-            if ( !order ) throw new Exception()
+            ShowCommand cmd = new ShowCommand(params)
+
+            if ( cmd.validate() ) {
+
+                order = orderService.getOrder(cmd.id, cmd.fields)
+
+            } else {
+
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Parametreler uygun değil')
+            }
 
             maneResponse.data = order
+            maneResponse.statusCode = StatusCode.OK
 
         } catch (Exception ex) {
 

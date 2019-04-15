@@ -40,19 +40,19 @@ export default [
             {
                 path: '',
                 name: routes.information,
-                component: () => import('@/modules/main/customer/pages/MCustomerDetailsInformation'),
+                component: () => import('@/modules/main/company/pages/MCustomerDetailsInformation'),
                 meta: meta('Ahmet Aliakça')
             },
             {
                 path: 'routes',
                 name: routes.orders,
-                component: () => import('@/modules/main/customer/pages/MCustomerDetailsOrders'),
+                component: () => import('@/modules/main/company/pages/MCustomerDetailsOrders'),
                 meta: meta('Ahmet Aliakça')
             },
             {
                 path: 'documents',
                 name: routes.documents,
-                component: () => import('@/modules/main/customer/pages/MCustomerDetailsDocuments'),
+                component: () => import('@/modules/main/company/pages/MCustomerDetailsDocuments'),
                 meta: meta('Ahmet Aliakça')
             }
         ]

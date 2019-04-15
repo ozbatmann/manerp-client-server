@@ -16,8 +16,7 @@ class Company implements BusinessDomain, MCompany
 
     static hasMany = [
         vendors: Vendor,            // Company bayileri
-        orders : Order,
-        voyages: Voyage
+        orders : Order
     ]
 
     static constraints = {
@@ -52,7 +51,6 @@ class Company implements BusinessDomain, MCompany
     static mapping = {
         vendors cascade: 'all-delete-orphan'
         orders cascade: 'all-delete-orphan'
-        voyages cascade: 'all-delete-orphan'
     }
 
     def beforeValidate()

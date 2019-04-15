@@ -4,13 +4,13 @@ import tr.com.manerp.commands.controller.common.PaginationCommand
 
 class VoyagePaginationCommand extends PaginationCommand
 {
-    String company
+    String companyId
     String deliveryStatusCode
 
     VoyagePaginationCommand(def params)
     {
         super(params)
-        this.company = params.company as String
+        this.companyId = params.companyId as String
         this.deliveryStatusCode = params.deliveryStatusCode as String
     }
 
@@ -18,7 +18,7 @@ class VoyagePaginationCommand extends PaginationCommand
 
         importFrom(PaginationCommand)
 
-        company nullable: true, blank: true
+        companyId nullable: true, blank: true
         deliveryStatusCode nullable: true, blank: true
     }
 }

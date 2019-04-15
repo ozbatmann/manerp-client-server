@@ -123,9 +123,9 @@
                                 to: { name: require('@/modules/main/vehicle/route/index').routes.idle }
                             },
                             {
-                                title: 'Firma Yönetimi',
+                                title: 'İş Yeri Yönetimi',
                                 icon: 'business',
-                                to: { name: require('@/modules/main/customer/route/index').routes.customer }
+                                to: { name: require('@/modules/main/company/route/index').routes.customer }
                             },
                             {
                                 title: 'Personel Yönetimi',

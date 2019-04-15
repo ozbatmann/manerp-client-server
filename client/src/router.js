@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
- import {store} from 'manerp-vue-base'
+import {store} from 'manerp-vue-base'
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -12,7 +13,7 @@ const router = new VueRouter({
         },
         {
             path: '*',
-            redirect: { name: '404' }
+            redirect: {name: '404'}
         },
         {
             // Main route
@@ -27,8 +28,8 @@ const router = new VueRouter({
                         // Index overview routes
                         ...require('@/modules/main/index/route/index').default,
 
-                        // Customer routes
-                        ...require('@/modules/main/customer/route/index').default,
+                        // Company routes
+                        ...require('@/modules/main/company/route/index').default,
 
                         // Staff routes
                         ...require('@/modules/main/staff/route/index').default,
