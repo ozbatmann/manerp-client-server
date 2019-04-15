@@ -1,136 +1,126 @@
 
 --
--- TOC entry 3315 (class 0 OID 25373)
--- Dependencies: 198
--- Data for Name: arvento_device; Type: TABLE DATA; Schema: manerp; Owner: manerp
---
-
-
-
---
--- TOC entry 3316 (class 0 OID 25378)
--- Dependencies: 199
+-- TOC entry 3314 (class 0 OID 29702)
+-- Dependencies: 234
 -- Data for Name: company; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.company (id, web_address, date_created, employer_registration_no, active, phone2, sysref_company_type_id, sysref_nace_code_id, sysref_city_id, sysref_country_id, customer_representative, name, ref_company_sector_id, tax_number, tax_office, phone, fax, code, sysref_district_id, last_updated, gsm, title, address, trade_registration_no, sys_company_id, number_of_staff, email) VALUES ('ff80818169d60cdb0169d60d30e00012', NULL, '2019-04-01 02:19:42.562', NULL, true, NULL, 'ff80818169d60cdb0169d60d23a50005', NULL, NULL, NULL, 'Samet Aybaba', 'Pınar', 'ff80818169d60cdb0169d60d2f8c0011', 'VERGI-333222111', 'İzmir Ödemiş Vergi Dairesi', '(0232) 436 15 15', NULL, '4D177D3E', NULL, '2019-04-01 02:19:42.562', NULL, 'Pınar Süt Mamülleri San. A.Ş.', 'Kemalpaşa Caddesi No:317 35060 Pınarbaşı/İzmir P.K. 904 35214 İzmir', '111222333', 'ff80818169d60cdb0169d60d22d60004', NULL, 'pinargida@pinar.com');
-INSERT INTO manerp.company (id, web_address, date_created, employer_registration_no, active, phone2, sysref_company_type_id, sysref_nace_code_id, sysref_city_id, sysref_country_id, customer_representative, name, ref_company_sector_id, tax_number, tax_office, phone, fax, code, sysref_district_id, last_updated, gsm, title, address, trade_registration_no, sys_company_id, number_of_staff, email) VALUES ('ff80818169d60cdb0169d60d345a0015', NULL, '2019-04-01 02:19:43.451', NULL, true, NULL, 'ff80818169d60cdb0169d60d23a50005', NULL, NULL, NULL, NULL, 'Kerevitaş', 'ff80818169d60cdb0169d60d2f8c0011', 'VERGI-KRV112233', 'İstanbul Bağlariçi Vergi Dairesi', '(0850) 209 16 16 ', NULL, '9E8BBF0E', NULL, '2019-04-01 02:19:43.451', NULL, 'Kerevitaş Unlu Mamülleri San. A.Ş.', 'Üniversite Mah. Bağlariçi cad. No:29 Avcılar İstanbul.', '333222111', 'ff80818169d60cdb0169d60d22d60004', NULL, 'info@kerevitas.com.tr');
+INSERT INTO manerp.company (id, web_address, date_created, employer_registration_no, active, phone2, sysref_company_type_id, sysref_nace_code_id, sysref_city_id, sysref_country_id, customer_representative, name, ref_company_sector_id, tax_number, tax_office, phone, fax, code, sysref_district_id, last_updated, gsm, title, address, trade_registration_no, sys_company_id, number_of_staff, email) VALUES ('ff8081816a229339016a229399780000', NULL, '2019-04-15 22:57:39.596', NULL, true, NULL, 'ff8081816a2261ec016a226283a30005', NULL, NULL, NULL, 'Samet Aybaba', 'Pınar', 'ff8081816a2261ec016a2262a1ee0011', 'VERGI-333222111', 'İzmir Ödemiş Vergi Dairesi', '(0232) 436 15 15', NULL, '7D47E59A', NULL, '2019-04-15 22:57:39.596', NULL, 'Pınar Süt Mamülleri San. A.Ş.', 'Kemalpaşa Caddesi No:317 35060 Pınarbaşı/İzmir P.K. 904 35214 İzmir', '111222333', 'ff8081816a2261ec016a2262828b0004', NULL, 'pinargida@pinar.com');
+INSERT INTO manerp.company (id, web_address, date_created, employer_registration_no, active, phone2, sysref_company_type_id, sysref_nace_code_id, sysref_city_id, sysref_country_id, customer_representative, name, ref_company_sector_id, tax_number, tax_office, phone, fax, code, sysref_district_id, last_updated, gsm, title, address, trade_registration_no, sys_company_id, number_of_staff, email) VALUES ('ff8081816a229339016a2293a4f70001', NULL, '2019-04-15 22:57:42.521', NULL, true, NULL, 'ff8081816a2261ec016a226283a30005', NULL, NULL, NULL, NULL, 'Kerevitaş', 'ff8081816a2261ec016a2262a1ee0011', 'VERGI-KRV112233', 'İstanbul Bağlariçi Vergi Dairesi', '(0850) 209 16 16 ', NULL, '8274C70E', NULL, '2019-04-15 22:57:42.521', NULL, 'Kerevitaş Unlu Mamülleri San. A.Ş.', 'Üniversite Mah. Bağlariçi cad. No:29 Avcılar İstanbul.', '333222111', 'ff8081816a2261ec016a2262828b0004', NULL, 'info@kerevitas.com.tr');
 
 
 --
--- TOC entry 3317 (class 0 OID 25386)
--- Dependencies: 200
+-- TOC entry 3279 (class 0 OID 28956)
+-- Dependencies: 199
 -- Data for Name: expenditure; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
 
 
 --
--- TOC entry 3318 (class 0 OID 25391)
--- Dependencies: 201
+-- TOC entry 3280 (class 0 OID 28961)
+-- Dependencies: 200
 -- Data for Name: location; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.location (id, date_created, last_updated, active, latitude, longitude, sys_company_id, name) VALUES ('ff80818169d60cdb0169d60d43440027', '2019-04-01 02:19:47.269', '2019-04-01 02:19:47.269', false, NULL, NULL, 'ff80818169d60cdb0169d60d22d60004', 'Karşıyaka');
-INSERT INTO manerp.location (id, date_created, last_updated, active, latitude, longitude, sys_company_id, name) VALUES ('ff80818169d60cdb0169d60d43a20028', '2019-04-01 02:19:47.363', '2019-04-01 02:19:47.363', false, NULL, NULL, 'ff80818169d60cdb0169d60d22d60004', 'Eskişehir');
+INSERT INTO manerp.location (id, date_created, last_updated, active, latitude, longitude, sys_company_id, name) VALUES ('ff8081816a2261ec016a2262dd120027', '2019-04-15 22:04:25.619', '2019-04-15 22:04:25.619', false, NULL, NULL, 'ff8081816a2261ec016a2262828b0004', 'Karşıyaka');
+INSERT INTO manerp.location (id, date_created, last_updated, active, latitude, longitude, sys_company_id, name) VALUES ('ff8081816a2261ec016a2262dd7b0028', '2019-04-15 22:04:25.723', '2019-04-15 22:04:25.723', false, NULL, NULL, 'ff8081816a2261ec016a2262828b0004', 'Eskişehir');
 
 
 --
--- TOC entry 3319 (class 0 OID 25396)
--- Dependencies: 202
+-- TOC entry 3281 (class 0 OID 28966)
+-- Dependencies: 201
 -- Data for Name: order; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp."order" (id, date_created, code, last_updated, sysref_order_state_id, active, order_date, sysref_revenue_type_id, company_id, sys_company_id, work_order_no, name, billing_no) VALUES ('ff80818169d60cdb0169d60d3f0c0021', '2019-04-01 02:19:46.189', '3FC4195A', '2019-04-01 02:19:46.189', 'ff80818169d60cdb0169d60d3d6e001f', true, '2019-04-01 02:19:46.095', 'ff80818169d60cdb0169d60d3cb0001e', 'ff80818169d60cdb0169d60d30e00012', 'ff80818169d60cdb0169d60d22d60004', 'SIPARIS-111222', 'Pınar Sipariş', 'FATURA-111222');
+INSERT INTO manerp."order" (id, date_created, code, last_updated, sysref_order_state_id, active, voyage_id, order_date, sysref_revenue_type_id, company_id, sys_company_id, work_order_no, name, billing_no) VALUES ('ff8081816a2261ec016a2262d6e50021', '2019-04-15 22:04:24.038', 'D0416472', '2019-04-15 22:04:24.038', 'ff8081816a2261ec016a2262d22b001f', true, NULL, '2019-04-15 22:04:23.932', 'ff8081816a2261ec016a2262cf87001e', 'ff8081816a2261ec016a2262a73c0012', 'ff8081816a2261ec016a2262828b0004', 'SIPARIS-111222', 'Pınar Sipariş', 'FATURA-111222');
 
 
 --
--- TOC entry 3320 (class 0 OID 25401)
--- Dependencies: 203
+-- TOC entry 3282 (class 0 OID 28971)
+-- Dependencies: 202
 -- Data for Name: ref_company_sector; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.ref_company_sector (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d2f8c0011', '2019-04-01 02:19:42.222', 'FOD', '2019-04-01 02:19:42.222', true, 'ff80818169d60cdb0169d60d22d60004', 'Gıda', 'Gıda sektöründeki firmalar');
+INSERT INTO manerp.ref_company_sector (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262a1ee0011', '2019-04-15 22:04:10.479', 'FOD', '2019-04-15 22:04:10.479', true, 'ff8081816a2261ec016a2262828b0004', 'Gıda', 'Gıda sektöründeki firmalar');
 
 
 --
--- TOC entry 3321 (class 0 OID 25406)
--- Dependencies: 204
+-- TOC entry 3283 (class 0 OID 28976)
+-- Dependencies: 203
 -- Data for Name: ref_staff_title; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.ref_staff_title (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d254e0007', '2019-04-01 02:19:39.598', 'DRV', '2019-04-01 02:19:39.598', true, 'ff80818169d60cdb0169d60d22d60004', 'Şoför', 'Şoför unvanı');
-INSERT INTO manerp.ref_staff_title (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d26310008', '2019-04-01 02:19:39.825', 'OPT', '2019-04-01 02:19:39.825', true, 'ff80818169d60cdb0169d60d22d60004', 'Operasyoncu', 'Operasyoncu unvanı');
+INSERT INTO manerp.ref_staff_title (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a226285860007', '2019-04-15 22:04:03.206', 'DRV', '2019-04-15 22:04:03.206', true, 'ff8081816a2261ec016a2262828b0004', 'Şoför', 'Şoför unvanı');
+INSERT INTO manerp.ref_staff_title (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262870f0008', '2019-04-15 22:04:03.6', 'OPT', '2019-04-15 22:04:03.6', true, 'ff8081816a2261ec016a2262828b0004', 'Operasyoncu', 'Operasyoncu unvanı');
 
 
 --
--- TOC entry 3322 (class 0 OID 25411)
--- Dependencies: 205
+-- TOC entry 3284 (class 0 OID 28981)
+-- Dependencies: 204
 -- Data for Name: ref_working_area; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.ref_working_area (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d37790018', '2019-04-01 02:19:44.25', 'EGE', '2019-04-01 02:19:44.25', true, 'ff80818169d60cdb0169d60d22d60004', 'Ege Bölgesi', 'Ege Bölgesinde çalışacak olan araçlar');
+INSERT INTO manerp.ref_working_area (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262b86f0018', '2019-04-15 22:04:16.241', 'EGE', '2019-04-15 22:04:16.241', true, 'ff8081816a2261ec016a2262828b0004', 'Ege Bölgesi', 'Ege Bölgesinde çalışacak olan araçlar');
 
 
 --
--- TOC entry 3323 (class 0 OID 25416)
--- Dependencies: 206
+-- TOC entry 3285 (class 0 OID 28986)
+-- Dependencies: 205
 -- Data for Name: revenue; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
 
 
 --
--- TOC entry 3324 (class 0 OID 25421)
--- Dependencies: 207
+-- TOC entry 3286 (class 0 OID 28991)
+-- Dependencies: 206
 -- Data for Name: semi_trailer; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.semi_trailer (id, date_created, code, last_updated, active, plate_number, brand, sys_company_id, name) VALUES ('ff80818169d60cdb0169d60d3bf2001d', '2019-04-01 02:19:45.395', '6D832A29', '2019-04-01 02:19:45.395', true, '35 963 852', 'Volvo', 'ff80818169d60cdb0169d60d22d60004', 'Çekici römorku');
+INSERT INTO manerp.semi_trailer (id, date_created, code, last_updated, active, plate_number, brand, sys_company_id, name) VALUES ('ff8081816a2261ec016a2262ce75001d', '2019-04-15 22:04:21.878', 'E566C7E8', '2019-04-15 22:04:21.878', true, '35 963 852', 'Volvo', 'ff8081816a2261ec016a2262828b0004', 'Çekici römorku');
 
 
 --
--- TOC entry 3325 (class 0 OID 25426)
--- Dependencies: 208
+-- TOC entry 3287 (class 0 OID 28996)
+-- Dependencies: 207
 -- Data for Name: semi_truck; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
 
 
 --
--- TOC entry 3326 (class 0 OID 25431)
--- Dependencies: 209
+-- TOC entry 3288 (class 0 OID 29001)
+-- Dependencies: 208
 -- Data for Name: staff; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.staff (id, driving_license_number, date_created, first_name, gsm_no, active, photo_mime_type, sysref_city_id, sysref_country_id, user_id, ref_staff_title_id, photo_name, last_name, tc_id_number, code, sysref_district_id, sysref_driving_type_id, last_updated, photo, middle_name, home_phone, address, sys_company_id, sysref_staff_contract_type_id, birth_date, sysref_gender_id, email) VALUES ('ff80818169d60cdb0169d60d2a3e000d', '314159', '2019-04-01 02:19:40.865', 'Berat', '05343023283', true, NULL, NULL, NULL, NULL, 'ff80818169d60cdb0169d60d254e0007', NULL, 'Postalcıoğlu', 21401769, 'CCE2C9B4', NULL, NULL, '2019-04-01 02:19:40.865', NULL, NULL, NULL, NULL, 'ff80818169d60cdb0169d60d22d60004', 'ff80818169d60cdb0169d60d28b7000c', '1995-05-09 00:00:00', NULL, 'beratpostalci@gmail.com');
-INSERT INTO manerp.staff (id, driving_license_number, date_created, first_name, gsm_no, active, photo_mime_type, sysref_city_id, sysref_country_id, user_id, ref_staff_title_id, photo_name, last_name, tc_id_number, code, sysref_district_id, sysref_driving_type_id, last_updated, photo, middle_name, home_phone, address, sys_company_id, sysref_staff_contract_type_id, birth_date, sysref_gender_id, email) VALUES ('ff80818169d60cdb0169d60d2bb7000e', '987654', '2019-04-01 02:19:41.24', 'Muratcan', '05306400660', true, NULL, NULL, NULL, NULL, 'ff80818169d60cdb0169d60d254e0007', NULL, 'Balık', 21100176, 'AD9B8E51', NULL, NULL, '2019-04-01 02:19:41.24', NULL, NULL, NULL, NULL, 'ff80818169d60cdb0169d60d22d60004', 'ff80818169d60cdb0169d60d2802000b', '1995-11-06 00:00:00', NULL, 'muratcanbalikk@gmail.com');
-INSERT INTO manerp.staff (id, driving_license_number, date_created, first_name, gsm_no, active, photo_mime_type, sysref_city_id, sysref_country_id, user_id, ref_staff_title_id, photo_name, last_name, tc_id_number, code, sysref_district_id, sysref_driving_type_id, last_updated, photo, middle_name, home_phone, address, sys_company_id, sysref_staff_contract_type_id, birth_date, sysref_gender_id, email) VALUES ('ff80818169d60cdb0169d60d2d23000f', NULL, '2019-04-01 02:19:41.605', 'Tunahan', '05415984560', true, NULL, NULL, NULL, NULL, 'ff80818169d60cdb0169d60d26310008', NULL, 'Bayındır', 20906646, '512F3FA7', NULL, NULL, '2019-04-01 02:19:41.605', NULL, NULL, NULL, NULL, 'ff80818169d60cdb0169d60d22d60004', 'ff80818169d60cdb0169d60d2802000b', '1995-11-06 00:00:00', NULL, 'tunahanbayindir@gmail.com');
-INSERT INTO manerp.staff (id, driving_license_number, date_created, first_name, gsm_no, active, photo_mime_type, sysref_city_id, sysref_country_id, user_id, ref_staff_title_id, photo_name, last_name, tc_id_number, code, sysref_district_id, sysref_driving_type_id, last_updated, photo, middle_name, home_phone, address, sys_company_id, sysref_staff_contract_type_id, birth_date, sysref_gender_id, email) VALUES ('ff80818169d60cdb0169d60d2e950010', NULL, '2019-04-01 02:19:41.974', 'Ali', '05051403166', true, NULL, NULL, NULL, NULL, 'ff80818169d60cdb0169d60d26310008', NULL, 'Özbatman', 21206646, '4379CA6E', NULL, NULL, '2019-04-01 02:19:41.974', NULL, 'İmran', NULL, NULL, 'ff80818169d60cdb0169d60d22d60004', 'ff80818169d60cdb0169d60d28b7000c', '1995-08-03 00:00:00', NULL, 'aliimranozbatman@gmail.com');
-INSERT INTO manerp.staff (id, driving_license_number, date_created, first_name, gsm_no, active, photo_mime_type, sysref_city_id, sysref_country_id, user_id, ref_staff_title_id, photo_name, last_name, tc_id_number, code, sysref_district_id, sysref_driving_type_id, last_updated, photo, middle_name, home_phone, address, sys_company_id, sysref_staff_contract_type_id, birth_date, sysref_gender_id, email) VALUES ('ff80818169fa38fc0169fa635dfb0001', NULL, '2019-04-08 03:40:09.981', 'Ahmet', '1231231231', true, NULL, '4', '1', NULL, 'ff80818169d60cdb0169d60d26310008', NULL, 'Mehmet', 564561561654, '13FAF93E', '4', NULL, '2019-04-13 21:32:37.763', NULL, 'Yemir', NULL, 'ggfdsgfds', 'ff80818169d60cdb0169d60d22d60004', 'ff80818169d60cdb0169d60d2802000b', NULL, 'ff80818169d60cdb0169d60d26bc0009', 'mehmet@gmail.com');
-INSERT INTO manerp.staff (id, driving_license_number, date_created, first_name, gsm_no, active, photo_mime_type, sysref_city_id, sysref_country_id, user_id, ref_staff_title_id, photo_name, last_name, tc_id_number, code, sysref_district_id, sysref_driving_type_id, last_updated, photo, middle_name, home_phone, address, sys_company_id, sysref_staff_contract_type_id, birth_date, sysref_gender_id, email) VALUES ('ff8081816a1780d1016a1803e10a0000', '123456789456123456789456123456', '2019-04-13 21:44:28.571', 'Ahmet', '0587895426', true, NULL, '1', '1', NULL, 'ff80818169d60cdb0169d60d254e0007', NULL, 'Sezer', 11111111111, '68A870B1', '4', NULL, '2019-04-13 21:59:22.945', NULL, 'Necdet', NULL, 'Ankara/Cankaya', 'ff80818169d60cdb0169d60d22d60004', 'ff80818169d60cdb0169d60d28b7000c', NULL, 'ff80818169d60cdb0169d60d26bc0009', 'ahmetnecdet@gmail.com');
+INSERT INTO manerp.staff (id, driving_license_number, date_created, first_name, gsm_no, active, photo_mime_type, sysref_city_id, sysref_country_id, user_id, ref_staff_title_id, photo_name, last_name, tc_id_number, code, sysref_district_id, sysref_driving_type_id, last_updated, photo, middle_name, home_phone, address, sys_company_id, sysref_staff_contract_type_id, birth_date, sysref_gender_id, email) VALUES ('ff8081816a2261ec016a22628e0e000d', '314159', '2019-04-15 22:04:05.393', 'Berat', '05343023283', true, NULL, NULL, NULL, NULL, 'ff8081816a2261ec016a226285860007', NULL, 'Postalcıoğlu', 21401769, '0DEB6D77', NULL, NULL, '2019-04-15 22:04:05.393', NULL, NULL, NULL, NULL, 'ff8081816a2261ec016a2262828b0004', 'ff8081816a2261ec016a22628b12000c', '1995-05-09 00:00:00', NULL, 'beratpostalci@gmail.com');
+INSERT INTO manerp.staff (id, driving_license_number, date_created, first_name, gsm_no, active, photo_mime_type, sysref_city_id, sysref_country_id, user_id, ref_staff_title_id, photo_name, last_name, tc_id_number, code, sysref_district_id, sysref_driving_type_id, last_updated, photo, middle_name, home_phone, address, sys_company_id, sysref_staff_contract_type_id, birth_date, sysref_gender_id, email) VALUES ('ff8081816a2261ec016a226291e0000e', '987654', '2019-04-15 22:04:06.37', 'Muratcan', '05306400660', true, NULL, NULL, NULL, NULL, 'ff8081816a2261ec016a226285860007', NULL, 'Balık', 21100176, '2C3C1B58', NULL, NULL, '2019-04-15 22:04:06.37', NULL, NULL, NULL, NULL, 'ff8081816a2261ec016a2262828b0004', 'ff8081816a2261ec016a22628a44000b', '1995-11-06 00:00:00', NULL, 'muratcanbalikk@gmail.com');
+INSERT INTO manerp.staff (id, driving_license_number, date_created, first_name, gsm_no, active, photo_mime_type, sysref_city_id, sysref_country_id, user_id, ref_staff_title_id, photo_name, last_name, tc_id_number, code, sysref_district_id, sysref_driving_type_id, last_updated, photo, middle_name, home_phone, address, sys_company_id, sysref_staff_contract_type_id, birth_date, sysref_gender_id, email) VALUES ('ff8081816a2261ec016a22629b20000f', NULL, '2019-04-15 22:04:08.738', 'Tunahan', '05415984560', true, NULL, NULL, NULL, NULL, 'ff8081816a2261ec016a2262870f0008', NULL, 'Bayındır', 20906646, '0C04F4F2', NULL, NULL, '2019-04-15 22:04:08.738', NULL, NULL, NULL, NULL, 'ff8081816a2261ec016a2262828b0004', 'ff8081816a2261ec016a22628a44000b', '1995-11-06 00:00:00', NULL, 'tunahanbayindir@gmail.com');
+INSERT INTO manerp.staff (id, driving_license_number, date_created, first_name, gsm_no, active, photo_mime_type, sysref_city_id, sysref_country_id, user_id, ref_staff_title_id, photo_name, last_name, tc_id_number, code, sysref_district_id, sysref_driving_type_id, last_updated, photo, middle_name, home_phone, address, sys_company_id, sysref_staff_contract_type_id, birth_date, sysref_gender_id, email) VALUES ('ff8081816a2261ec016a22629f0a0010', NULL, '2019-04-15 22:04:09.739', 'Ali', '05051403166', true, NULL, NULL, NULL, NULL, 'ff8081816a2261ec016a2262870f0008', NULL, 'Özbatman', 21206646, '2B61A001', NULL, NULL, '2019-04-15 22:04:09.739', NULL, 'İmran', NULL, NULL, 'ff8081816a2261ec016a2262828b0004', 'ff8081816a2261ec016a22628b12000c', '1995-08-03 00:00:00', NULL, 'aliimranozbatman@gmail.com');
 
 
 --
--- TOC entry 3327 (class 0 OID 25439)
--- Dependencies: 210
+-- TOC entry 3289 (class 0 OID 29009)
+-- Dependencies: 209
 -- Data for Name: staff_document; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
 
 
 --
--- TOC entry 3328 (class 0 OID 25447)
--- Dependencies: 211
+-- TOC entry 3290 (class 0 OID 29017)
+-- Dependencies: 210
 -- Data for Name: sys_company; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.sys_company (id, web_address, date_created, employer_registration_no, active, phone2, sysref_nace_code_id, sysref_city_id, sysref_country_id, customer_representative, name, ref_company_sector_id, tax_number, tax_office, phone, fax, sysref_district_id, last_updated, gsm, title, address, trade_registration_no, number_of_staff, email) VALUES ('ff80818169d60cdb0169d60d22d60004', NULL, '2019-04-01 02:19:38.967', NULL, true, NULL, NULL, NULL, NULL, NULL, 'Bumerang Lojistik', NULL, NULL, NULL, '05343023283', NULL, NULL, '2019-04-01 02:19:38.967', NULL, 'Bumerang Lojistik LTD. ŞTİ.', 'İzmir', NULL, NULL, NULL);
+INSERT INTO manerp.sys_company (id, web_address, date_created, employer_registration_no, active, phone2, sysref_nace_code_id, sysref_city_id, sysref_country_id, customer_representative, name, ref_company_sector_id, tax_number, tax_office, phone, fax, sysref_district_id, last_updated, gsm, title, address, trade_registration_no, number_of_staff, email) VALUES ('ff8081816a2261ec016a2262828b0004', NULL, '2019-04-15 22:04:02.443', NULL, true, NULL, NULL, NULL, NULL, NULL, 'Bumerang Lojistik', NULL, NULL, NULL, '05343023283', NULL, NULL, '2019-04-15 22:04:02.443', NULL, 'Bumerang Lojistik LTD. ŞTİ.', 'İzmir', NULL, NULL, NULL);
 
 
 --
--- TOC entry 3329 (class 0 OID 25455)
--- Dependencies: 212
+-- TOC entry 3291 (class 0 OID 29025)
+-- Dependencies: 211
 -- Data for Name: sysref_city; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
@@ -216,19 +206,20 @@ INSERT INTO manerp.sysref_city (id, date_created, code, last_updated, active, sy
 INSERT INTO manerp.sysref_city (id, date_created, code, last_updated, active, sysref_country_id, name) VALUES ('80', '2019-04-01 00:00:00', '80', '2019-04-01 00:00:00', true, '1', 'Osmaniye');
 INSERT INTO manerp.sysref_city (id, date_created, code, last_updated, active, sysref_country_id, name) VALUES ('81', '2019-04-01 00:00:00', '81', '2019-04-01 00:00:00', true, '1', 'Düzce');
 
+
 --
--- TOC entry 3330 (class 0 OID 25460)
--- Dependencies: 213
+-- TOC entry 3292 (class 0 OID 29030)
+-- Dependencies: 212
 -- Data for Name: sysref_company_type; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.sysref_company_type (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d23a50005', '2019-04-01 02:19:39.173', 'CST', '2019-04-01 02:19:39.173', true, 'ff80818169d60cdb0169d60d22d60004', 'Müşteri', 'Müşteri iş yerleri');
-INSERT INTO manerp.sysref_company_type (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d245e0006', '2019-04-01 02:19:39.358', 'SPL', '2019-04-01 02:19:39.358', true, 'ff80818169d60cdb0169d60d22d60004', 'Tedarikçi', 'Tedarikçi iş yerleri');
+INSERT INTO manerp.sysref_company_type (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a226283a30005', '2019-04-15 22:04:02.724', 'CST', '2019-04-15 22:04:02.724', true, 'ff8081816a2261ec016a2262828b0004', 'Müşteri', 'Müşteri iş yerleri');
+INSERT INTO manerp.sysref_company_type (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262847d0006', '2019-04-15 22:04:02.941', 'SPL', '2019-04-15 22:04:02.941', true, 'ff8081816a2261ec016a2262828b0004', 'Tedarikçi', 'Tedarikçi iş yerleri');
 
 
 --
--- TOC entry 3331 (class 0 OID 25465)
--- Dependencies: 214
+-- TOC entry 3293 (class 0 OID 29035)
+-- Dependencies: 213
 -- Data for Name: sysref_country; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
@@ -479,20 +470,21 @@ INSERT INTO manerp.sysref_country (id, date_created, code, last_updated, active,
 INSERT INTO manerp.sysref_country (id, date_created, code, last_updated, active, name) VALUES ('245', '2019-04-01 00:00:00', 'ZM', '2019-04-01 00:00:00', false, 'Zambiya');
 INSERT INTO manerp.sysref_country (id, date_created, code, last_updated, active, name) VALUES ('246', '2019-04-01 00:00:00', 'ZW', '2019-04-01 00:00:00', false, 'Zimbabve');
 
+
 --
--- TOC entry 3332 (class 0 OID 25470)
--- Dependencies: 215
+-- TOC entry 3294 (class 0 OID 29040)
+-- Dependencies: 214
 -- Data for Name: sysref_delivery_status; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.sysref_delivery_status (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d41750024', '2019-04-01 02:19:46.806', 'REZ', '2019-04-01 02:19:46.806', true, 'ff80818169d60cdb0169d60d22d60004', 'Rezervasyon', 'Rezervasyon taşıma durumu');
-INSERT INTO manerp.sysref_delivery_status (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d422b0025', '2019-04-01 02:19:46.988', 'YUK', '2019-04-01 02:19:46.988', true, 'ff80818169d60cdb0169d60d22d60004', 'Yüklendi', 'Yüklendi taşıma durumu');
-INSERT INTO manerp.sysref_delivery_status (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d42e20026', '2019-04-01 02:19:47.171', 'BOS', '2019-04-01 02:19:47.171', true, 'ff80818169d60cdb0169d60d22d60004', 'Boşalttı', 'Boşalttı taşıma durumu');
+INSERT INTO manerp.sysref_delivery_status (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262da0a0024', '2019-04-15 22:04:24.843', 'REZ', '2019-04-15 22:04:24.843', true, 'ff8081816a2261ec016a2262828b0004', 'Rezervasyon', 'Rezervasyon taşıma durumu');
+INSERT INTO manerp.sysref_delivery_status (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262db4a0025', '2019-04-15 22:04:25.163', 'YUK', '2019-04-15 22:04:25.163', true, 'ff8081816a2261ec016a2262828b0004', 'Yüklendi', 'Yüklendi taşıma durumu');
+INSERT INTO manerp.sysref_delivery_status (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262dc950026', '2019-04-15 22:04:25.493', 'BOS', '2019-04-15 22:04:25.493', true, 'ff8081816a2261ec016a2262828b0004', 'Boşalttı', 'Boşalttı taşıma durumu');
 
 
 --
--- TOC entry 3333 (class 0 OID 25475)
--- Dependencies: 216
+-- TOC entry 3295 (class 0 OID 29045)
+-- Dependencies: 215
 -- Data for Name: sysref_district; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
@@ -1494,18 +1486,26 @@ INSERT INTO manerp.sysref_district (id, date_created, code, last_updated, active
 
 
 --
--- TOC entry 3335 (class 0 OID 25485)
--- Dependencies: 218
+-- TOC entry 3296 (class 0 OID 29050)
+-- Dependencies: 216
+-- Data for Name: sysref_driving_type; Type: TABLE DATA; Schema: manerp; Owner: manerp
+--
+
+
+
+--
+-- TOC entry 3297 (class 0 OID 29055)
+-- Dependencies: 217
 -- Data for Name: sysref_gender; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.sysref_gender (id, date_created, code, last_updated, active, name) VALUES ('ff80818169d60cdb0169d60d26bc0009', '2019-04-01 02:19:39.965', 'MAL', '2019-04-01 02:19:39.965', true, 'Erkek');
-INSERT INTO manerp.sysref_gender (id, date_created, code, last_updated, active, name) VALUES ('ff80818169d60cdb0169d60d2744000a', '2019-04-01 02:19:40.101', 'FEM', '2019-04-01 02:19:40.101', true, 'Kadın');
+INSERT INTO manerp.sysref_gender (id, date_created, code, last_updated, active, name) VALUES ('ff8081816a2261ec016a226288410009', '2019-04-15 22:04:03.906', 'MAL', '2019-04-15 22:04:03.906', true, 'Erkek');
+INSERT INTO manerp.sysref_gender (id, date_created, code, last_updated, active, name) VALUES ('ff8081816a2261ec016a22628916000a', '2019-04-15 22:04:04.118', 'FEM', '2019-04-15 22:04:04.118', true, 'Kadın');
 
 
 --
--- TOC entry 3336 (class 0 OID 25490)
--- Dependencies: 219
+-- TOC entry 3298 (class 0 OID 29060)
+-- Dependencies: 218
 -- Data for Name: sysref_general_hazard_class; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
@@ -1515,8 +1515,8 @@ INSERT INTO manerp.sysref_general_hazard_class (id, date_created, code, last_upd
 
 
 --
--- TOC entry 3337 (class 0 OID 25495)
--- Dependencies: 220
+-- TOC entry 3299 (class 0 OID 29065)
+-- Dependencies: 219
 -- Data for Name: sysref_nace_code; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
@@ -4706,140 +4706,152 @@ INSERT INTO manerp.sysref_nace_code (id, date_created, code, sysref_general_haza
 
 
 --
--- TOC entry 3338 (class 0 OID 25500)
--- Dependencies: 221
+-- TOC entry 3300 (class 0 OID 29070)
+-- Dependencies: 220
 -- Data for Name: sysref_order_state; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.sysref_order_state (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d3d6e001f', '2019-04-01 02:19:45.775', 'COMP', '2019-04-01 02:19:45.775', true, 'ff80818169d60cdb0169d60d22d60004', 'Tamamlanmış', 'Tamamlanmış siparişler');
-INSERT INTO manerp.sysref_order_state (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d3e230020', '2019-04-01 02:19:45.956', 'WAIT', '2019-04-01 02:19:45.956', true, 'ff80818169d60cdb0169d60d22d60004', 'Bekleyen', 'Bekleyen siparişler');
+INSERT INTO manerp.sysref_order_state (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262d22b001f', '2019-04-15 22:04:22.828', 'COMP', '2019-04-15 22:04:22.828', true, 'ff8081816a2261ec016a2262828b0004', 'Tamamlanmış', 'Tamamlanmış siparişler');
+INSERT INTO manerp.sysref_order_state (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262d5a80020', '2019-04-15 22:04:23.721', 'WAIT', '2019-04-15 22:04:23.721', true, 'ff8081816a2261ec016a2262828b0004', 'Bekleyen', 'Bekleyen siparişler');
 
 
 --
--- TOC entry 3339 (class 0 OID 25505)
--- Dependencies: 222
+-- TOC entry 3301 (class 0 OID 29075)
+-- Dependencies: 221
 -- Data for Name: sysref_revenue_type; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.sysref_revenue_type (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d3cb0001e', '2019-04-01 02:19:45.585', 'TCR', '2019-04-01 02:19:45.585', true, 'ff80818169d60cdb0169d60d22d60004', 'Ticari', 'Ticari Gelir Tipi');
+INSERT INTO manerp.sysref_revenue_type (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262cf87001e', '2019-04-15 22:04:22.153', 'TCR', '2019-04-15 22:04:22.153', true, 'ff8081816a2261ec016a2262828b0004', 'Ticari', 'Ticari Gelir Tipi');
 
 
 --
--- TOC entry 3340 (class 0 OID 25510)
--- Dependencies: 223
+-- TOC entry 3302 (class 0 OID 29080)
+-- Dependencies: 222
 -- Data for Name: sysref_staff_contract_type; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.sysref_staff_contract_type (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d2802000b', '2019-04-01 02:19:40.291', 'SOZ', '2019-04-01 02:19:40.291', true, 'ff80818169d60cdb0169d60d22d60004', 'Sözleşmeli', 'Sözleşmeli personeller');
-INSERT INTO manerp.sysref_staff_contract_type (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d28b7000c', '2019-04-01 02:19:40.472', 'KAD', '2019-04-01 02:19:40.472', true, 'ff80818169d60cdb0169d60d22d60004', 'Kadrolu', 'Kadrolu personeller');
+INSERT INTO manerp.sysref_staff_contract_type (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a22628a44000b', '2019-04-15 22:04:04.421', 'SOZ', '2019-04-15 22:04:04.421', true, 'ff8081816a2261ec016a2262828b0004', 'Sözleşmeli', 'Sözleşmeli personeller');
+INSERT INTO manerp.sysref_staff_contract_type (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a22628b12000c', '2019-04-15 22:04:04.627', 'KAD', '2019-04-15 22:04:04.627', true, 'ff8081816a2261ec016a2262828b0004', 'Kadrolu', 'Kadrolu personeller');
 
 
 --
--- TOC entry 3341 (class 0 OID 25515)
--- Dependencies: 224
+-- TOC entry 3303 (class 0 OID 29085)
+-- Dependencies: 223
 -- Data for Name: sysref_transportation_type; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.sysref_transportation_type (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d45e4002a', '2019-04-01 02:19:47.942', NULL, '2019-04-01 02:19:47.942', true, 'ff80818169d60cdb0169d60d22d60004', 'Komple', 'Komple taşıma');
+INSERT INTO manerp.sysref_transportation_type (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262e28a002a', '2019-04-15 22:04:27.02', NULL, '2019-04-15 22:04:27.02', true, 'ff8081816a2261ec016a2262828b0004', 'Komple', 'Komple taşıma');
 
 
 --
--- TOC entry 3342 (class 0 OID 25520)
--- Dependencies: 225
+-- TOC entry 3304 (class 0 OID 29090)
+-- Dependencies: 224
 -- Data for Name: sysref_vehicle_owner; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.sysref_vehicle_owner (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d38ff001a', '2019-04-01 02:19:44.64', 'OZM', '2019-04-01 02:19:44.64', true, 'ff80818169d60cdb0169d60d22d60004', 'Özmal', 'Bumerang Lojistik LTD. ŞTİ. sahip olduğu araçlar');
-INSERT INTO manerp.sysref_vehicle_owner (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d39b7001b', '2019-04-01 02:19:44.824', 'KRL', '2019-04-01 02:19:44.824', true, 'ff80818169d60cdb0169d60d22d60004', 'Kiralık', 'Bumerang Lojistik LTD. ŞTİ. kiraladığı araçlar');
+INSERT INTO manerp.sysref_vehicle_owner (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262c344001a', '2019-04-15 22:04:19.013', 'OZM', '2019-04-15 22:04:19.013', true, 'ff8081816a2261ec016a2262828b0004', 'Özmal', 'Bumerang Lojistik LTD. ŞTİ. sahip olduğu araçlar');
+INSERT INTO manerp.sysref_vehicle_owner (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262c60f001b', '2019-04-15 22:04:19.728', 'KRL', '2019-04-15 22:04:19.728', true, 'ff8081816a2261ec016a2262828b0004', 'Kiralık', 'Bumerang Lojistik LTD. ŞTİ. kiraladığı araçlar');
 
 
 --
--- TOC entry 3343 (class 0 OID 25525)
--- Dependencies: 226
+-- TOC entry 3305 (class 0 OID 29095)
+-- Dependencies: 225
 -- Data for Name: sysref_vehicle_state; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
 
 
 --
--- TOC entry 3344 (class 0 OID 25530)
--- Dependencies: 227
+-- TOC entry 3306 (class 0 OID 29100)
+-- Dependencies: 226
 -- Data for Name: sysref_vehicle_type; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.sysref_vehicle_type (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d383b0019', '2019-04-01 02:19:44.444', 'SEM', '2019-04-01 02:19:44.444', true, 'ff80818169d60cdb0169d60d22d60004', 'Çekici', 'Çekici olan araç tipleri');
+INSERT INTO manerp.sysref_vehicle_type (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262bef30019', '2019-04-15 22:04:17.908', 'SEM', '2019-04-15 22:04:17.908', true, 'ff8081816a2261ec016a2262828b0004', 'Çekici', 'Çekici olan araç tipleri');
 
 
 --
--- TOC entry 3345 (class 0 OID 25535)
--- Dependencies: 228
+-- TOC entry 3307 (class 0 OID 29105)
+-- Dependencies: 227
 -- Data for Name: sysref_voyage_direction; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.sysref_voyage_direction (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d40020022', '2019-04-01 02:19:46.435', 'TEK', '2019-04-01 02:19:46.435', true, 'ff80818169d60cdb0169d60d22d60004', 'Tek Yön', 'Tek Yön sevkiyat yönü');
-INSERT INTO manerp.sysref_voyage_direction (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff80818169d60cdb0169d60d40b70023', '2019-04-01 02:19:46.616', 'GDN', '2019-04-01 02:19:46.616', true, 'ff80818169d60cdb0169d60d22d60004', 'Gidiş-Dönüş', 'Gidiş-Dönüş sevkiyat yönü');
+INSERT INTO manerp.sysref_voyage_direction (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262d82e0022', '2019-04-15 22:04:24.367', 'TEK', '2019-04-15 22:04:24.367', true, 'ff8081816a2261ec016a2262828b0004', 'Tek Yön', 'Tek Yön sevkiyat yönü');
+INSERT INTO manerp.sysref_voyage_direction (id, date_created, code, last_updated, active, sys_company_id, name, description) VALUES ('ff8081816a2261ec016a2262d9300023', '2019-04-15 22:04:24.626', 'GDN', '2019-04-15 22:04:24.626', true, 'ff8081816a2261ec016a2262828b0004', 'Gidiş-Dönüş', 'Gidiş-Dönüş sevkiyat yönü');
 
 
 --
--- TOC entry 3346 (class 0 OID 25540)
--- Dependencies: 229
+-- TOC entry 3308 (class 0 OID 29110)
+-- Dependencies: 228
 -- Data for Name: user; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp."user" (id, date_created, first_name, is_deletable, gsm_no, active, account_expired, photo_mime_type, sysref_city_id, sysref_country_id, photo_name, last_name, salt, tc_id_number, password_expired, sysref_district_id, last_updated, photo, middle_name, home_phone, address, password_hash, sys_company_id, username, account_locked, birth_date, sysref_gender_id, email) VALUES ('ff80818169d60cdb0169d60d1f600000', '2019-04-01 02:19:38.104', 'Bilal', false, '05343023283', true, false, NULL, NULL, NULL, NULL, 'Postalcıoğlu', '\x32205cba67a2987d50475cbfa1b19b88', 25621561716, false, NULL, '2019-04-01 02:19:38.104', NULL, 'Berat', NULL, NULL, '\x243261243036244b672f61736b63676b467a4f507a77396d5a455a672e322f5964346f654749613657467746566534574c73652e2f7756786f566553', NULL, 'berat', false, NULL, NULL, 'beratpostalci@gmail.com');
-INSERT INTO manerp."user" (id, date_created, first_name, is_deletable, gsm_no, active, account_expired, photo_mime_type, sysref_city_id, sysref_country_id, photo_name, last_name, salt, tc_id_number, password_expired, sysref_district_id, last_updated, photo, middle_name, home_phone, address, password_hash, sys_company_id, username, account_locked, birth_date, sysref_gender_id, email) VALUES ('ff80818169d60cdb0169d60d204a0001', '2019-04-01 02:19:38.315', 'Ali', false, '5051403166', true, false, NULL, NULL, NULL, NULL, 'Özbatman', '\x53e3805cd7d73a4bcaaea77d43d8a692', 25513665796, false, NULL, '2019-04-01 02:19:38.315', NULL, 'İmran', NULL, NULL, '\x2432612430362453384d2e564c64564d697449706f62374f37676b6965587964537145517638776d63454d6c5379485877424e535261346b4e6b4b4b', NULL, 'ozbatman', false, NULL, NULL, 'aliimranozbatman@gmail.com');
-INSERT INTO manerp."user" (id, date_created, first_name, is_deletable, gsm_no, active, account_expired, photo_mime_type, sysref_city_id, sysref_country_id, photo_name, last_name, salt, tc_id_number, password_expired, sysref_district_id, last_updated, photo, middle_name, home_phone, address, password_hash, sys_company_id, username, account_locked, birth_date, sysref_gender_id, email) VALUES ('ff80818169d60cdb0169d60d21070002', '2019-04-01 02:19:38.504', 'Tunahan', false, '5051403166', true, false, NULL, NULL, NULL, NULL, 'Bayındır', '\x642bb89fca904ba2d5405aefb96a53f3', 25463216556, false, NULL, '2019-04-01 02:19:38.504', NULL, NULL, NULL, NULL, '\x24326124303624584173326c366f4f51344a544f44707473556e5236756b66464a484d557964786e4433574a2f643170763371555378456e49734869', NULL, 'tuna', false, NULL, NULL, 'tunahanbayindir@gmail.com');
-INSERT INTO manerp."user" (id, date_created, first_name, is_deletable, gsm_no, active, account_expired, photo_mime_type, sysref_city_id, sysref_country_id, photo_name, last_name, salt, tc_id_number, password_expired, sysref_district_id, last_updated, photo, middle_name, home_phone, address, password_hash, sys_company_id, username, account_locked, birth_date, sysref_gender_id, email) VALUES ('ff80818169d60cdb0169d60d21c50003', '2019-04-01 02:19:38.694', 'Muratcan', false, '5051403166', true, false, NULL, NULL, NULL, NULL, 'Balık', '\x72c87460661e493b41a985474b874688', 25365498731, false, NULL, '2019-04-01 02:19:38.694', NULL, NULL, NULL, NULL, '\x2432612430362461716679574557635152722f6f57544651326245672e367447446453767265364b414137692f7843544477644b75457a45344d5779', NULL, 'muratcan', false, NULL, NULL, 'muratcanbalikk@gmail.com');
+INSERT INTO manerp."user" (id, date_created, first_name, is_deletable, gsm_no, active, account_expired, photo_mime_type, sysref_city_id, sysref_country_id, photo_name, last_name, salt, tc_id_number, password_expired, sysref_district_id, last_updated, photo, middle_name, home_phone, address, password_hash, sys_company_id, username, account_locked, birth_date, sysref_gender_id, email) VALUES ('ff8081816a2261ec016a22627dc60000', '2019-04-15 22:04:01.247', 'Bilal', false, '05343023283', true, false, NULL, NULL, NULL, NULL, 'Postalcıoğlu', '\x2f6dd15715c50d9807bc26e66c7b40ce', 25621561716, false, NULL, '2019-04-15 22:04:01.247', NULL, 'Berat', NULL, NULL, '\x243261243036244a303150547656444258654674415a6b5a46722e78652e4b516968776874614e594b4d4a455256644a61433567326152676d616d4f', NULL, 'berat', false, NULL, NULL, 'beratpostalci@gmail.com');
+INSERT INTO manerp."user" (id, date_created, first_name, is_deletable, gsm_no, active, account_expired, photo_mime_type, sysref_city_id, sysref_country_id, photo_name, last_name, salt, tc_id_number, password_expired, sysref_district_id, last_updated, photo, middle_name, home_phone, address, password_hash, sys_company_id, username, account_locked, birth_date, sysref_gender_id, email) VALUES ('ff8081816a2261ec016a22627f4c0001', '2019-04-15 22:04:01.612', 'Ali', false, '5051403166', true, false, NULL, NULL, NULL, NULL, 'Özbatman', '\xd505b2419ab3fc5ea99fa6fb07aaeda4', 25513665796, false, NULL, '2019-04-15 22:04:01.612', NULL, 'İmran', NULL, NULL, '\x243261243036247a4f55774f586f783944346e6c345a352f3470726e2e766867636e6b344b765342426e4e5a592f3433596a503555425065522e7a2e', NULL, 'ozbatman', false, NULL, NULL, 'aliimranozbatman@gmail.com');
+INSERT INTO manerp."user" (id, date_created, first_name, is_deletable, gsm_no, active, account_expired, photo_mime_type, sysref_city_id, sysref_country_id, photo_name, last_name, salt, tc_id_number, password_expired, sysref_district_id, last_updated, photo, middle_name, home_phone, address, password_hash, sys_company_id, username, account_locked, birth_date, sysref_gender_id, email) VALUES ('ff8081816a2261ec016a226280450002', '2019-04-15 22:04:01.862', 'Tunahan', false, '5051403166', true, false, NULL, NULL, NULL, NULL, 'Bayındır', '\xf536567b9cf7d71f6cb6c2e48bd7daaf', 25463216556, false, NULL, '2019-04-15 22:04:01.862', NULL, NULL, NULL, NULL, '\x2432612430362437525855633378317a76377172714a69673764597075333046694b785870613349496d6d3356756d6a5277623661307a6a4b4b6965', NULL, 'tuna', false, NULL, NULL, 'tunahanbayindir@gmail.com');
+INSERT INTO manerp."user" (id, date_created, first_name, is_deletable, gsm_no, active, account_expired, photo_mime_type, sysref_city_id, sysref_country_id, photo_name, last_name, salt, tc_id_number, password_expired, sysref_district_id, last_updated, photo, middle_name, home_phone, address, password_hash, sys_company_id, username, account_locked, birth_date, sysref_gender_id, email) VALUES ('ff8081816a2261ec016a226281410003', '2019-04-15 22:04:02.113', 'Muratcan', false, '5051403166', true, false, NULL, NULL, NULL, NULL, 'Balık', '\x4fc1f18389735c3347f2df206972e6c5', 25365498731, false, NULL, '2019-04-15 22:04:02.113', NULL, NULL, NULL, NULL, '\x243261243036245236467665326a7856424c463672366559564a6b764f754c755659484e33306d63387162387334564c356a6a7a366a2e326f466979', NULL, 'muratcan', false, NULL, NULL, 'muratcanbalikk@gmail.com');
 
 
 --
--- TOC entry 3347 (class 0 OID 25548)
--- Dependencies: 230
+-- TOC entry 3309 (class 0 OID 29118)
+-- Dependencies: 229
 -- Data for Name: vehicle; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.vehicle (id, fleet_card_number, sysref_vehicle_owner_id, date_created, vehicle_owner_full_name, active, annual_insurance, insurance_start_date, ogs_no, sysref_vehicle_type_id, number_of_sensors, km, is_dual_regime, operation_insurance_notification, fuel_kit, ref_working_area_id, kgs_no, code, last_updated, plate_number, brand, insurance_end_date, sys_company_id, description, purchase_date) VALUES ('ff80818169d60cdb0169d60d3b01001c', '111222333', 'ff80818169d60cdb0169d60d38ff001a', '2019-04-01 02:19:45.155', 'Tunahan Bayındır', true, true, '2011-05-06 00:00:00', 'OGS-111222', 'ff80818169d60cdb0169d60d383b0019', NULL, 12300, true, true, 'FUELKIT', 'ff80818169d60cdb0169d60d37790018', 'KGS-111222', 'E7FC6404', '2019-04-01 02:19:45.155', '35 123 321', 'Volvo', '2020-05-06 00:00:00', 'ff80818169d60cdb0169d60d22d60004', 'Özmal Çekici', NULL);
+INSERT INTO manerp.vehicle (id, fleet_card_number, sysref_vehicle_owner_id, date_created, vehicle_owner_full_name, active, annual_insurance, insurance_start_date, ogs_no, sysref_vehicle_type_id, number_of_sensors, km, is_dual_regime, operation_insurance_notification, fuel_kit, ref_working_area_id, kgs_no, code, last_updated, plate_number, brand, insurance_end_date, sys_company_id, description, purchase_date) VALUES ('ff8081816a2261ec016a2262ca7c001c', '111222333', 'ff8081816a2261ec016a2262c344001a', '2019-04-15 22:04:20.862', 'Tunahan Bayındır', true, true, '2011-05-06 00:00:00', 'OGS-111222', 'ff8081816a2261ec016a2262bef30019', NULL, 12300, true, true, 'FUELKIT', 'ff8081816a2261ec016a2262b86f0018', 'KGS-111222', 'B042991E', '2019-04-15 22:04:20.862', '35 123 321', 'Volvo', '2020-05-06 00:00:00', 'ff8081816a2261ec016a2262828b0004', 'Özmal Çekici', NULL);
 
 
 --
--- TOC entry 3348 (class 0 OID 25556)
--- Dependencies: 231
+-- TOC entry 3310 (class 0 OID 29126)
+-- Dependencies: 230
 -- Data for Name: vehicle_document; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
 
 
 --
--- TOC entry 3349 (class 0 OID 25564)
--- Dependencies: 232
+-- TOC entry 3311 (class 0 OID 29134)
+-- Dependencies: 231
 -- Data for Name: vendor; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.vendor (id, phone, date_created, code, sysref_district_id, last_updated, location_id, active, sysref_city_id, title, sysref_country_id, address, company_id, sys_company_id) VALUES ('ff80818169d60cdb0169d60d31fa0013', '0 (222) 236 08 89', '2019-04-01 02:19:42.844', 'B1DEFF1B', NULL, '2019-04-01 02:19:42.844', NULL, true, NULL, 'Pınar Eskişehir Bayi', NULL, 'Eskişehir Fabrika: Org. San. Bölgesi Mümtaz Zeytinoğlu Bulvarı P.K. 55 26001', 'ff80818169d60cdb0169d60d30e00012', 'ff80818169d60cdb0169d60d22d60004');
-INSERT INTO manerp.vendor (id, phone, date_created, code, sysref_district_id, last_updated, location_id, active, sysref_city_id, title, sysref_country_id, address, company_id, sys_company_id) VALUES ('ff80818169d60cdb0169d60d33100014', '0 (232) 436 52 50', '2019-04-01 02:19:43.122', '74913A62', NULL, '2019-04-01 02:19:43.122', NULL, true, NULL, 'Pınar Kemalpaşa Bayi', NULL, 'Kemalpaşa Asfaltı No: 4 35060 Pınarbaşı / İZMİR', 'ff80818169d60cdb0169d60d30e00012', 'ff80818169d60cdb0169d60d22d60004');
-INSERT INTO manerp.vendor (id, phone, date_created, code, sysref_district_id, last_updated, location_id, active, sysref_city_id, title, sysref_country_id, address, company_id, sys_company_id) VALUES ('ff80818169d60cdb0169d60d356f0016', '0 (322) 428 11 56 ', '2019-04-01 02:19:43.728', '56817820', NULL, '2019-04-01 02:19:43.728', NULL, true, NULL, 'Kerevitaş Adana Bölge Müdürlüğü', NULL, 'Adana Tarsus Karayolu 14. Km. Büyük Dikili Kavşağı No: 800/A Kıvanç Tekstil Karşısı Seyhan / ADANA', 'ff80818169d60cdb0169d60d345a0015', 'ff80818169d60cdb0169d60d22d60004');
-INSERT INTO manerp.vendor (id, phone, date_created, code, sysref_district_id, last_updated, location_id, active, sysref_city_id, title, sysref_country_id, address, company_id, sys_company_id) VALUES ('ff80818169d60cdb0169d60d368a0017', '0 (312) 387 08 01', '2019-04-01 02:19:44.011', '2DD3059F', NULL, '2019-04-01 02:19:44.011', NULL, true, NULL, 'Kerevitaş Ankara Bölge Müdürlüğü', NULL, 'Ostim Organize Sanayi Bölgesi Serhat Mah. 1271.Sok. No:36-38 Ostim - ANKARA', 'ff80818169d60cdb0169d60d345a0015', 'ff80818169d60cdb0169d60d22d60004');
+INSERT INTO manerp.vendor (id, phone, date_created, code, sysref_district_id, last_updated, location_id, active, sysref_city_id, title, sysref_country_id, address, company_id, sys_company_id) VALUES ('ff8081816a2261ec016a2262a8910013', '0 (222) 236 08 89', '2019-04-15 22:04:12.178', '05F177AF', NULL, '2019-04-15 22:04:12.178', NULL, true, NULL, 'Pınar Eskişehir Bayi', NULL, 'Eskişehir Fabrika: Org. San. Bölgesi Mümtaz Zeytinoğlu Bulvarı P.K. 55 26001', 'ff8081816a2261ec016a2262a73c0012', 'ff8081816a2261ec016a2262828b0004');
+INSERT INTO manerp.vendor (id, phone, date_created, code, sysref_district_id, last_updated, location_id, active, sysref_city_id, title, sysref_country_id, address, company_id, sys_company_id) VALUES ('ff8081816a2261ec016a2262ab610014', '0 (232) 436 52 50', '2019-04-15 22:04:12.898', 'B67DAAA0', NULL, '2019-04-15 22:04:12.898', NULL, true, NULL, 'Pınar Kemalpaşa Bayi', NULL, 'Kemalpaşa Asfaltı No: 4 35060 Pınarbaşı / İZMİR', 'ff8081816a2261ec016a2262a73c0012', 'ff8081816a2261ec016a2262828b0004');
+INSERT INTO manerp.vendor (id, phone, date_created, code, sysref_district_id, last_updated, location_id, active, sysref_city_id, title, sysref_country_id, address, company_id, sys_company_id) VALUES ('ff8081816a2261ec016a2262b1a20016', '0 (322) 428 11 56 ', '2019-04-15 22:04:14.499', '3D98A923', NULL, '2019-04-15 22:04:14.499', NULL, true, NULL, 'Kerevitaş Adana Bölge Müdürlüğü', NULL, 'Adana Tarsus Karayolu 14. Km. Büyük Dikili Kavşağı No: 800/A Kıvanç Tekstil Karşısı Seyhan / ADANA', 'ff8081816a2261ec016a2262ae7d0015', 'ff8081816a2261ec016a2262828b0004');
+INSERT INTO manerp.vendor (id, phone, date_created, code, sysref_district_id, last_updated, location_id, active, sysref_city_id, title, sysref_country_id, address, company_id, sys_company_id) VALUES ('ff8081816a2261ec016a2262b4e90017', '0 (312) 387 08 01', '2019-04-15 22:04:15.338', 'C766980C', NULL, '2019-04-15 22:04:15.338', NULL, true, NULL, 'Kerevitaş Ankara Bölge Müdürlüğü', NULL, 'Ostim Organize Sanayi Bölgesi Serhat Mah. 1271.Sok. No:36-38 Ostim - ANKARA', 'ff8081816a2261ec016a2262ae7d0015', 'ff8081816a2261ec016a2262828b0004');
 
 
 --
--- TOC entry 3350 (class 0 OID 25572)
--- Dependencies: 233
+-- TOC entry 3315 (class 0 OID 29710)
+-- Dependencies: 235
 -- Data for Name: voyage; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
-INSERT INTO manerp.voyage (id, date_created, transport_waybill_no, active, substitude_driver_id, order_id, trailer_id, sysref_voyage_direction_id, sas_number, loading_location_id, sysref_transportation_type_id, code, last_updated, dumping_location_id, delivery_note_no, sysref_delivery_status_id, driver_id, company_id, vehicle_id, sys_company_id) VALUES ('ff80818169d60cdb0169d60d45e40029', '2019-04-01 02:19:48.003', 'IRSALIYE-111222333', true, NULL, 'ff80818169d60cdb0169d60d3f0c0021', 'ff80818169d60cdb0169d60d3bf2001d', 'ff80818169d60cdb0169d60d40b70023', 'SAS-111222333', 'ff80818169d60cdb0169d60d43440027', 'ff80818169d60cdb0169d60d45e4002a', '3920E4FD', '2019-04-01 02:19:48.003', 'ff80818169d60cdb0169d60d43a20028', 'TESLIMAT-NOT-111222333', 'ff80818169d60cdb0169d60d422b0025', 'ff80818169d60cdb0169d60d2a3e000d', 'ff80818169d60cdb0169d60d30e00012', 'ff80818169d60cdb0169d60d3b01001c', 'ff80818169d60cdb0169d60d22d60004');
+INSERT INTO manerp.voyage (id, date_created, transport_waybill_no, active, substitude_driver_id, trailer_id, sysref_voyage_direction_id, sas_number, loading_location_id, sysref_transportation_type_id, code, last_updated, dumping_location_id, end_date, delivery_note_no, sysref_delivery_status_id, start_date, driver_id, vehicle_id, sys_company_id) VALUES ('ff8081816a229339016a2293d3850002', '2019-04-15 22:57:54.44', 'IRSALIYE-111222333', true, NULL, 'ff8081816a2261ec016a2262ce75001d', 'ff8081816a2261ec016a2262d9300023', 'SAS-111222333', 'ff8081816a2261ec016a2262dd120027', 'ff8081816a2261ec016a2262e28a002a', '18A2E6D2', '2019-04-15 22:57:54.44', 'ff8081816a2261ec016a2262dd7b0028', NULL, 'TESLIMAT-NOT-111222333', 'ff8081816a2261ec016a2262db4a0025', '2019-04-15 22:57:53.141', 'ff8081816a2261ec016a22628e0e000d', 'ff8081816a2261ec016a2262ca7c001c', 'ff8081816a2261ec016a2262828b0004');
 
 
 --
--- TOC entry 3351 (class 0 OID 25580)
--- Dependencies: 234
+-- TOC entry 3312 (class 0 OID 29150)
+-- Dependencies: 232
+-- Data for Name: voyage_order; Type: TABLE DATA; Schema: manerp; Owner: manerp
+--
+
+INSERT INTO manerp.voyage_order (id, date_created, code, last_updated, active, voyage_id, order_id, sys_company_id) VALUES ('ff8081816a2261ec016a2262e53e002b', '2019-04-15 22:04:27.711', '14F809E1', '2019-04-15 22:04:27.711', true, 'ff8081816a2261ec016a2262e28a0029', 'ff8081816a2261ec016a2262d6e50021', 'ff8081816a2261ec016a2262828b0004');
+INSERT INTO manerp.voyage_order (id, date_created, code, last_updated, active, voyage_id, order_id, sys_company_id) VALUES ('ff8081816a229339016a2293daab0003', '2019-04-15 22:57:56.269', '099A0C1D', '2019-04-15 22:57:56.269', true, 'ff8081816a229339016a2293d3850002', 'ff8081816a2261ec016a2262d6e50021', 'ff8081816a2261ec016a2262828b0004');
+
+
+--
+-- TOC entry 3313 (class 0 OID 29155)
+-- Dependencies: 233
 -- Data for Name: voyage_route; Type: TABLE DATA; Schema: manerp; Owner: manerp
 --
 
 
 
+SET default_tablespace = '';
+
 --
--- TOC entry 2915 (class 2606 OID 25377)
+-- TOC entry 2898 (class 2606 OID 28947)
 -- Name: arvento_device arvento_device_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -4848,7 +4860,7 @@ ALTER TABLE ONLY manerp.arvento_device
 
 
 --
--- TOC entry 2919 (class 2606 OID 25385)
+-- TOC entry 3070 (class 2606 OID 29709)
 -- Name: company company_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -4857,7 +4869,7 @@ ALTER TABLE ONLY manerp.company
 
 
 --
--- TOC entry 2925 (class 2606 OID 25390)
+-- TOC entry 2902 (class 2606 OID 28960)
 -- Name: expenditure expenditure_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -4866,7 +4878,7 @@ ALTER TABLE ONLY manerp.expenditure
 
 
 --
--- TOC entry 2927 (class 2606 OID 25395)
+-- TOC entry 2904 (class 2606 OID 28965)
 -- Name: location location_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -4875,7 +4887,7 @@ ALTER TABLE ONLY manerp.location
 
 
 --
--- TOC entry 2929 (class 2606 OID 25400)
+-- TOC entry 2906 (class 2606 OID 28970)
 -- Name: order order_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -4884,16 +4896,7 @@ ALTER TABLE ONLY manerp."order"
 
 
 --
--- TOC entry 3097 (class 2606 OID 26097)
--- Name: sysref_city_foreign ref_city_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.sysref_city_foreign
-    ADD CONSTRAINT ref_city_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 2933 (class 2606 OID 25405)
+-- TOC entry 2910 (class 2606 OID 28975)
 -- Name: ref_company_sector ref_company_sector_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -4902,43 +4905,7 @@ ALTER TABLE ONLY manerp.ref_company_sector
 
 
 --
--- TOC entry 3093 (class 2606 OID 26090)
--- Name: sysref_country_foreign ref_country_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.sysref_country_foreign
-    ADD CONSTRAINT ref_country_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 3101 (class 2606 OID 26109)
--- Name: sysref_district_foreign ref_district_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.sysref_district_foreign
-    ADD CONSTRAINT ref_district_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 3105 (class 2606 OID 26121)
--- Name: sysref_general_hazard_class_foreign ref_general_hazard_class_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.sysref_general_hazard_class_foreign
-    ADD CONSTRAINT ref_general_hazard_class_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 3109 (class 2606 OID 26131)
--- Name: sysref_nace_code_foreign ref_nace_code_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.sysref_nace_code_foreign
-    ADD CONSTRAINT ref_nace_code_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 2939 (class 2606 OID 25410)
+-- TOC entry 2916 (class 2606 OID 28980)
 -- Name: ref_staff_title ref_staff_title_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -4947,7 +4914,7 @@ ALTER TABLE ONLY manerp.ref_staff_title
 
 
 --
--- TOC entry 2945 (class 2606 OID 25415)
+-- TOC entry 2922 (class 2606 OID 28985)
 -- Name: ref_working_area ref_working_area_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -4956,7 +4923,7 @@ ALTER TABLE ONLY manerp.ref_working_area
 
 
 --
--- TOC entry 2951 (class 2606 OID 25420)
+-- TOC entry 2928 (class 2606 OID 28990)
 -- Name: revenue revenue_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -4965,7 +4932,7 @@ ALTER TABLE ONLY manerp.revenue
 
 
 --
--- TOC entry 2953 (class 2606 OID 25425)
+-- TOC entry 2930 (class 2606 OID 28995)
 -- Name: semi_trailer semi_trailer_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -4974,7 +4941,7 @@ ALTER TABLE ONLY manerp.semi_trailer
 
 
 --
--- TOC entry 2957 (class 2606 OID 25430)
+-- TOC entry 2934 (class 2606 OID 29000)
 -- Name: semi_truck semi_truck_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -4983,7 +4950,7 @@ ALTER TABLE ONLY manerp.semi_truck
 
 
 --
--- TOC entry 2969 (class 2606 OID 25446)
+-- TOC entry 2946 (class 2606 OID 29016)
 -- Name: staff_document staff_document_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -4992,7 +4959,7 @@ ALTER TABLE ONLY manerp.staff_document
 
 
 --
--- TOC entry 2961 (class 2606 OID 25438)
+-- TOC entry 2938 (class 2606 OID 29008)
 -- Name: staff staff_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5001,7 +4968,7 @@ ALTER TABLE ONLY manerp.staff
 
 
 --
--- TOC entry 2971 (class 2606 OID 25454)
+-- TOC entry 2948 (class 2606 OID 29024)
 -- Name: sys_company sys_company_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5010,7 +4977,7 @@ ALTER TABLE ONLY manerp.sys_company
 
 
 --
--- TOC entry 2975 (class 2606 OID 25459)
+-- TOC entry 2952 (class 2606 OID 29029)
 -- Name: sysref_city sysref_city_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5019,7 +4986,7 @@ ALTER TABLE ONLY manerp.sysref_city
 
 
 --
--- TOC entry 2979 (class 2606 OID 25464)
+-- TOC entry 2956 (class 2606 OID 29034)
 -- Name: sysref_company_type sysref_company_type_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5028,7 +4995,7 @@ ALTER TABLE ONLY manerp.sysref_company_type
 
 
 --
--- TOC entry 2985 (class 2606 OID 25469)
+-- TOC entry 2962 (class 2606 OID 29039)
 -- Name: sysref_country sysref_country_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5037,7 +5004,7 @@ ALTER TABLE ONLY manerp.sysref_country
 
 
 --
--- TOC entry 2989 (class 2606 OID 25474)
+-- TOC entry 2966 (class 2606 OID 29044)
 -- Name: sysref_delivery_status sysref_delivery_status_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5046,7 +5013,7 @@ ALTER TABLE ONLY manerp.sysref_delivery_status
 
 
 --
--- TOC entry 2995 (class 2606 OID 25479)
+-- TOC entry 2972 (class 2606 OID 29049)
 -- Name: sysref_district sysref_district_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5055,7 +5022,7 @@ ALTER TABLE ONLY manerp.sysref_district
 
 
 --
--- TOC entry 2999 (class 2606 OID 25484)
+-- TOC entry 2976 (class 2606 OID 29054)
 -- Name: sysref_driving_type sysref_driving_type_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5064,7 +5031,7 @@ ALTER TABLE ONLY manerp.sysref_driving_type
 
 
 --
--- TOC entry 3005 (class 2606 OID 25489)
+-- TOC entry 2982 (class 2606 OID 29059)
 -- Name: sysref_gender sysref_gender_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5073,7 +5040,7 @@ ALTER TABLE ONLY manerp.sysref_gender
 
 
 --
--- TOC entry 3009 (class 2606 OID 25494)
+-- TOC entry 2986 (class 2606 OID 29064)
 -- Name: sysref_general_hazard_class sysref_general_hazard_class_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5082,7 +5049,7 @@ ALTER TABLE ONLY manerp.sysref_general_hazard_class
 
 
 --
--- TOC entry 3013 (class 2606 OID 25499)
+-- TOC entry 2990 (class 2606 OID 29069)
 -- Name: sysref_nace_code sysref_nace_code_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5091,7 +5058,7 @@ ALTER TABLE ONLY manerp.sysref_nace_code
 
 
 --
--- TOC entry 3017 (class 2606 OID 25504)
+-- TOC entry 2994 (class 2606 OID 29074)
 -- Name: sysref_order_state sysref_order_state_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5100,7 +5067,7 @@ ALTER TABLE ONLY manerp.sysref_order_state
 
 
 --
--- TOC entry 3023 (class 2606 OID 25509)
+-- TOC entry 3000 (class 2606 OID 29079)
 -- Name: sysref_revenue_type sysref_revenue_type_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5109,7 +5076,7 @@ ALTER TABLE ONLY manerp.sysref_revenue_type
 
 
 --
--- TOC entry 3029 (class 2606 OID 25514)
+-- TOC entry 3006 (class 2606 OID 29084)
 -- Name: sysref_staff_contract_type sysref_staff_contract_type_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5118,7 +5085,7 @@ ALTER TABLE ONLY manerp.sysref_staff_contract_type
 
 
 --
--- TOC entry 3035 (class 2606 OID 25519)
+-- TOC entry 3012 (class 2606 OID 29089)
 -- Name: sysref_transportation_type sysref_transportation_type_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5127,7 +5094,7 @@ ALTER TABLE ONLY manerp.sysref_transportation_type
 
 
 --
--- TOC entry 3041 (class 2606 OID 25524)
+-- TOC entry 3018 (class 2606 OID 29094)
 -- Name: sysref_vehicle_owner sysref_vehicle_owner_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5136,7 +5103,7 @@ ALTER TABLE ONLY manerp.sysref_vehicle_owner
 
 
 --
--- TOC entry 3047 (class 2606 OID 25529)
+-- TOC entry 3024 (class 2606 OID 29099)
 -- Name: sysref_vehicle_state sysref_vehicle_state_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5145,7 +5112,7 @@ ALTER TABLE ONLY manerp.sysref_vehicle_state
 
 
 --
--- TOC entry 3053 (class 2606 OID 25534)
+-- TOC entry 3030 (class 2606 OID 29104)
 -- Name: sysref_vehicle_type sysref_vehicle_type_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5154,7 +5121,7 @@ ALTER TABLE ONLY manerp.sysref_vehicle_type
 
 
 --
--- TOC entry 3059 (class 2606 OID 25539)
+-- TOC entry 3036 (class 2606 OID 29109)
 -- Name: sysref_voyage_direction sysref_voyage_direction_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5163,7 +5130,7 @@ ALTER TABLE ONLY manerp.sysref_voyage_direction
 
 
 --
--- TOC entry 2941 (class 2606 OID 25598)
+-- TOC entry 2918 (class 2606 OID 29173)
 -- Name: ref_staff_title uk13e024f0e7cb1ab68f47d0cb03b6; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5172,7 +5139,7 @@ ALTER TABLE ONLY manerp.ref_staff_title
 
 
 --
--- TOC entry 2959 (class 2606 OID 25608)
+-- TOC entry 2936 (class 2606 OID 29183)
 -- Name: semi_truck uk242ddde90bb34114ae7ca6ebeaec; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5181,7 +5148,7 @@ ALTER TABLE ONLY manerp.semi_truck
 
 
 --
--- TOC entry 2963 (class 2606 OID 25614)
+-- TOC entry 2940 (class 2606 OID 29189)
 -- Name: staff uk25afe19d87a746b008eb954fa6a1; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5190,7 +5157,7 @@ ALTER TABLE ONLY manerp.staff
 
 
 --
--- TOC entry 2935 (class 2606 OID 25594)
+-- TOC entry 2912 (class 2606 OID 29169)
 -- Name: ref_company_sector uk2728940a3d4fb19e93bee2c34dd1; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5199,7 +5166,7 @@ ALTER TABLE ONLY manerp.ref_company_sector
 
 
 --
--- TOC entry 3081 (class 2606 OID 25684)
+-- TOC entry 3058 (class 2606 OID 29259)
 -- Name: vendor uk29de0238e0608fcc0130a60ee61e; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5208,7 +5175,7 @@ ALTER TABLE ONLY manerp.vendor
 
 
 --
--- TOC entry 3065 (class 2606 OID 25678)
+-- TOC entry 3042 (class 2606 OID 29253)
 -- Name: user uk308fe7a11bc2b2a815b9dc3aad58; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5217,7 +5184,7 @@ ALTER TABLE ONLY manerp."user"
 
 
 --
--- TOC entry 3031 (class 2606 OID 25652)
+-- TOC entry 3008 (class 2606 OID 29227)
 -- Name: sysref_staff_contract_type uk33dd8c8e6fca1e80bf7666fe1ace; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5226,7 +5193,7 @@ ALTER TABLE ONLY manerp.sysref_staff_contract_type
 
 
 --
--- TOC entry 3055 (class 2606 OID 25666)
+-- TOC entry 3032 (class 2606 OID 29241)
 -- Name: sysref_vehicle_type uk36eb44091afc9b8ed7e0c5c04dae; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5235,7 +5202,7 @@ ALTER TABLE ONLY manerp.sysref_vehicle_type
 
 
 --
--- TOC entry 2943 (class 2606 OID 25600)
+-- TOC entry 2920 (class 2606 OID 29175)
 -- Name: ref_staff_title uk38563027f07da48dd8826c1b4221; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5244,7 +5211,7 @@ ALTER TABLE ONLY manerp.ref_staff_title
 
 
 --
--- TOC entry 3067 (class 2606 OID 25674)
+-- TOC entry 3044 (class 2606 OID 29249)
 -- Name: user uk39ff599945ef04b807262849c999; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5253,7 +5220,7 @@ ALTER TABLE ONLY manerp."user"
 
 
 --
--- TOC entry 3019 (class 2606 OID 25644)
+-- TOC entry 2996 (class 2606 OID 29219)
 -- Name: sysref_order_state uk3b2231eecb2df19eac69eb1c087d; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5262,7 +5229,7 @@ ALTER TABLE ONLY manerp.sysref_order_state
 
 
 --
--- TOC entry 2931 (class 2606 OID 25592)
+-- TOC entry 2908 (class 2606 OID 29167)
 -- Name: order uk3b9e0a9871a3c6f7318273525e4c; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5271,7 +5238,7 @@ ALTER TABLE ONLY manerp."order"
 
 
 --
--- TOC entry 3001 (class 2606 OID 25634)
+-- TOC entry 2978 (class 2606 OID 29209)
 -- Name: sysref_driving_type uk3f2dd93e95b104f53339c1ace71c; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5280,7 +5247,7 @@ ALTER TABLE ONLY manerp.sysref_driving_type
 
 
 --
--- TOC entry 3073 (class 2606 OID 25680)
+-- TOC entry 3050 (class 2606 OID 29255)
 -- Name: vehicle uk42de485e69a805e530d245d3b98c; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5289,7 +5256,7 @@ ALTER TABLE ONLY manerp.vehicle
 
 
 --
--- TOC entry 2965 (class 2606 OID 25610)
+-- TOC entry 2942 (class 2606 OID 29185)
 -- Name: staff uk43a032443492b888c98abb428339; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5298,7 +5265,7 @@ ALTER TABLE ONLY manerp.staff
 
 
 --
--- TOC entry 3037 (class 2606 OID 25654)
+-- TOC entry 3014 (class 2606 OID 29229)
 -- Name: sysref_transportation_type uk4590cd9d9bc0f2afc692eba95db6; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5307,7 +5274,7 @@ ALTER TABLE ONLY manerp.sysref_transportation_type
 
 
 --
--- TOC entry 3061 (class 2606 OID 25670)
+-- TOC entry 3038 (class 2606 OID 29245)
 -- Name: sysref_voyage_direction uk4c293fe9f06d3459df4138cb92a7; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5316,7 +5283,16 @@ ALTER TABLE ONLY manerp.sysref_voyage_direction
 
 
 --
--- TOC entry 2981 (class 2606 OID 25620)
+-- TOC entry 3064 (class 2606 OID 29265)
+-- Name: voyage_order uk64756fdbf2f2c38c979193c57e3d; Type: CONSTRAINT; Schema: manerp; Owner: manerp
+--
+
+ALTER TABLE ONLY manerp.voyage_order
+    ADD CONSTRAINT uk64756fdbf2f2c38c979193c57e3d UNIQUE (sys_company_id, code);
+
+
+--
+-- TOC entry 2958 (class 2606 OID 29195)
 -- Name: sysref_company_type uk719f650405a48a9d84944786e756; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5325,7 +5301,7 @@ ALTER TABLE ONLY manerp.sysref_company_type
 
 
 --
--- TOC entry 3043 (class 2606 OID 25660)
+-- TOC entry 3020 (class 2606 OID 29235)
 -- Name: sysref_vehicle_owner uk743eb82fb97bafaea6541a6740c9; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5334,7 +5310,7 @@ ALTER TABLE ONLY manerp.sysref_vehicle_owner
 
 
 --
--- TOC entry 3003 (class 2606 OID 25632)
+-- TOC entry 2980 (class 2606 OID 29207)
 -- Name: sysref_driving_type uk7521d1565f6d6346d1fae947751e; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5343,7 +5319,7 @@ ALTER TABLE ONLY manerp.sysref_driving_type
 
 
 --
--- TOC entry 2947 (class 2606 OID 25604)
+-- TOC entry 2924 (class 2606 OID 29179)
 -- Name: ref_working_area uk787b6532c467c4e7b029cbf14318; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5352,7 +5328,7 @@ ALTER TABLE ONLY manerp.ref_working_area
 
 
 --
--- TOC entry 2991 (class 2606 OID 25626)
+-- TOC entry 2968 (class 2606 OID 29201)
 -- Name: sysref_delivery_status uk7e55ba532274e008d3f4d694fc58; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5361,7 +5337,7 @@ ALTER TABLE ONLY manerp.sysref_delivery_status
 
 
 --
--- TOC entry 3045 (class 2606 OID 25658)
+-- TOC entry 3022 (class 2606 OID 29233)
 -- Name: sysref_vehicle_owner uk83f20c3a89d434a723b34c085b5e; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5370,7 +5346,7 @@ ALTER TABLE ONLY manerp.sysref_vehicle_owner
 
 
 --
--- TOC entry 2921 (class 2606 OID 25588)
+-- TOC entry 3072 (class 2606 OID 29719)
 -- Name: company uk86126dc4e0e19bb61738f9bc6d26; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5379,7 +5355,7 @@ ALTER TABLE ONLY manerp.company
 
 
 --
--- TOC entry 3075 (class 2606 OID 25682)
+-- TOC entry 3052 (class 2606 OID 29257)
 -- Name: vehicle uk89786d9c4f7b8ffec620db69abfa; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5388,7 +5364,7 @@ ALTER TABLE ONLY manerp.vehicle
 
 
 --
--- TOC entry 3087 (class 2606 OID 25688)
+-- TOC entry 3076 (class 2606 OID 29723)
 -- Name: voyage uk8abfa5ef7bb4e95b37b284369089; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5397,7 +5373,7 @@ ALTER TABLE ONLY manerp.voyage
 
 
 --
--- TOC entry 3033 (class 2606 OID 25650)
+-- TOC entry 3010 (class 2606 OID 29225)
 -- Name: sysref_staff_contract_type uk91360a40138f8e943539446dc2d0; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5406,7 +5382,7 @@ ALTER TABLE ONLY manerp.sysref_staff_contract_type
 
 
 --
--- TOC entry 3025 (class 2606 OID 25646)
+-- TOC entry 3002 (class 2606 OID 29221)
 -- Name: sysref_revenue_type uk91eb08c298fc74fb723b10868400; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5415,7 +5391,7 @@ ALTER TABLE ONLY manerp.sysref_revenue_type
 
 
 --
--- TOC entry 3057 (class 2606 OID 25668)
+-- TOC entry 3034 (class 2606 OID 29243)
 -- Name: sysref_vehicle_type uk9550816be89c27078f49a4c87832; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5424,16 +5400,7 @@ ALTER TABLE ONLY manerp.sysref_vehicle_type
 
 
 --
--- TOC entry 3103 (class 2606 OID 26111)
--- Name: sysref_district_foreign uk_12llwmcrob9k8ljs8uxxchbhc; Type: CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.sysref_district_foreign
-    ADD CONSTRAINT uk_12llwmcrob9k8ljs8uxxchbhc UNIQUE (code);
-
-
---
--- TOC entry 3007 (class 2606 OID 25636)
+-- TOC entry 2984 (class 2606 OID 29211)
 -- Name: sysref_gender uk_1bli7yeyj7777u9rxekwygpyd; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5442,7 +5409,7 @@ ALTER TABLE ONLY manerp.sysref_gender
 
 
 --
--- TOC entry 2997 (class 2606 OID 25630)
+-- TOC entry 2974 (class 2606 OID 29205)
 -- Name: sysref_district uk_3sk3gmkro7ye3met58agu60xp; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5451,25 +5418,7 @@ ALTER TABLE ONLY manerp.sysref_district
 
 
 --
--- TOC entry 3111 (class 2606 OID 26133)
--- Name: sysref_nace_code_foreign uk_5nua817e6ffwjnslo0x6gqik7; Type: CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.sysref_nace_code_foreign
-    ADD CONSTRAINT uk_5nua817e6ffwjnslo0x6gqik7 UNIQUE (code);
-
-
---
--- TOC entry 3095 (class 2606 OID 26092)
--- Name: sysref_country_foreign uk_bepbcd43jpe7tsupo20cmmgt0; Type: CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.sysref_country_foreign
-    ADD CONSTRAINT uk_bepbcd43jpe7tsupo20cmmgt0 UNIQUE (code);
-
-
---
--- TOC entry 2923 (class 2606 OID 25590)
+-- TOC entry 3074 (class 2606 OID 29721)
 -- Name: company uk_bma9lv19ba3yjwf12a34xord3; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5478,7 +5427,7 @@ ALTER TABLE ONLY manerp.company
 
 
 --
--- TOC entry 3011 (class 2606 OID 25638)
+-- TOC entry 2988 (class 2606 OID 29213)
 -- Name: sysref_general_hazard_class uk_g21enasgqpgqdqlp3vy4w923e; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5487,7 +5436,7 @@ ALTER TABLE ONLY manerp.sysref_general_hazard_class
 
 
 --
--- TOC entry 2973 (class 2606 OID 25616)
+-- TOC entry 2950 (class 2606 OID 29191)
 -- Name: sys_company uk_j9tm4v2fkrsabyx87lre841hp; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5496,7 +5445,7 @@ ALTER TABLE ONLY manerp.sys_company
 
 
 --
--- TOC entry 2977 (class 2606 OID 25618)
+-- TOC entry 2954 (class 2606 OID 29193)
 -- Name: sysref_city uk_kyemvokbw0er6thujg8qfuycq; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5505,7 +5454,7 @@ ALTER TABLE ONLY manerp.sysref_city
 
 
 --
--- TOC entry 2987 (class 2606 OID 25624)
+-- TOC entry 2964 (class 2606 OID 29199)
 -- Name: sysref_country uk_nif6u8kxg3cpo5tkhfxcpg49a; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5514,25 +5463,7 @@ ALTER TABLE ONLY manerp.sysref_country
 
 
 --
--- TOC entry 3099 (class 2606 OID 26099)
--- Name: sysref_city_foreign uk_ot6x4r0tb1jl87p47b54y8qpu; Type: CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.sysref_city_foreign
-    ADD CONSTRAINT uk_ot6x4r0tb1jl87p47b54y8qpu UNIQUE (code);
-
-
---
--- TOC entry 3107 (class 2606 OID 26123)
--- Name: sysref_general_hazard_class_foreign uk_pontblgk8ct70utcrc3lt2eih; Type: CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.sysref_general_hazard_class_foreign
-    ADD CONSTRAINT uk_pontblgk8ct70utcrc3lt2eih UNIQUE (code);
-
-
---
--- TOC entry 3015 (class 2606 OID 25640)
+-- TOC entry 2992 (class 2606 OID 29215)
 -- Name: sysref_nace_code uk_tpdigbnty626fpvrg13ds4pbb; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5541,7 +5472,7 @@ ALTER TABLE ONLY manerp.sysref_nace_code
 
 
 --
--- TOC entry 3039 (class 2606 OID 25656)
+-- TOC entry 3016 (class 2606 OID 29231)
 -- Name: sysref_transportation_type ukac5485d7ebad1c2333208bce2798; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5550,7 +5481,7 @@ ALTER TABLE ONLY manerp.sysref_transportation_type
 
 
 --
--- TOC entry 2955 (class 2606 OID 25606)
+-- TOC entry 2932 (class 2606 OID 29181)
 -- Name: semi_trailer ukaccdc2fead61f8d4d22b839217ca; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5559,7 +5490,7 @@ ALTER TABLE ONLY manerp.semi_trailer
 
 
 --
--- TOC entry 2993 (class 2606 OID 25628)
+-- TOC entry 2970 (class 2606 OID 29203)
 -- Name: sysref_delivery_status ukaff84878346b0200ee5bce055760; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5568,7 +5499,7 @@ ALTER TABLE ONLY manerp.sysref_delivery_status
 
 
 --
--- TOC entry 3063 (class 2606 OID 25672)
+-- TOC entry 3040 (class 2606 OID 29247)
 -- Name: sysref_voyage_direction ukb5911a7c0f9a9940772f6693a028; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5577,7 +5508,7 @@ ALTER TABLE ONLY manerp.sysref_voyage_direction
 
 
 --
--- TOC entry 2967 (class 2606 OID 25612)
+-- TOC entry 2944 (class 2606 OID 29187)
 -- Name: staff ukb7b2242fe3e9dd6036863c6b7ed0; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5586,7 +5517,7 @@ ALTER TABLE ONLY manerp.staff
 
 
 --
--- TOC entry 3049 (class 2606 OID 25662)
+-- TOC entry 3026 (class 2606 OID 29237)
 -- Name: sysref_vehicle_state ukbf3eec21db6d6cfb58a497f3c67b; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5595,7 +5526,7 @@ ALTER TABLE ONLY manerp.sysref_vehicle_state
 
 
 --
--- TOC entry 2983 (class 2606 OID 25622)
+-- TOC entry 2960 (class 2606 OID 29197)
 -- Name: sysref_company_type ukc716bd5b7610f0ec4539360084a8; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5604,7 +5535,7 @@ ALTER TABLE ONLY manerp.sysref_company_type
 
 
 --
--- TOC entry 2949 (class 2606 OID 25602)
+-- TOC entry 2926 (class 2606 OID 29177)
 -- Name: ref_working_area ukcb16d6b4e60f94b42de8128eef31; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5613,7 +5544,7 @@ ALTER TABLE ONLY manerp.ref_working_area
 
 
 --
--- TOC entry 3027 (class 2606 OID 25648)
+-- TOC entry 3004 (class 2606 OID 29223)
 -- Name: sysref_revenue_type ukceac6917d4d504d4be64210ed433; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5622,7 +5553,7 @@ ALTER TABLE ONLY manerp.sysref_revenue_type
 
 
 --
--- TOC entry 3021 (class 2606 OID 25642)
+-- TOC entry 2998 (class 2606 OID 29217)
 -- Name: sysref_order_state ukd05e9125765ac0cc9903064070fd; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5631,7 +5562,7 @@ ALTER TABLE ONLY manerp.sysref_order_state
 
 
 --
--- TOC entry 2937 (class 2606 OID 25596)
+-- TOC entry 2914 (class 2606 OID 29171)
 -- Name: ref_company_sector ukdc0a21f90aecefb6317b718568fb; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5640,7 +5571,7 @@ ALTER TABLE ONLY manerp.ref_company_sector
 
 
 --
--- TOC entry 3051 (class 2606 OID 25664)
+-- TOC entry 3028 (class 2606 OID 29239)
 -- Name: sysref_vehicle_state uke05bde829630a3bb99b0a0d11da0; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5649,7 +5580,7 @@ ALTER TABLE ONLY manerp.sysref_vehicle_state
 
 
 --
--- TOC entry 3083 (class 2606 OID 25686)
+-- TOC entry 3060 (class 2606 OID 29261)
 -- Name: vendor uke557646762717ce21ea15b7d1cdc; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5658,7 +5589,7 @@ ALTER TABLE ONLY manerp.vendor
 
 
 --
--- TOC entry 3069 (class 2606 OID 25676)
+-- TOC entry 3046 (class 2606 OID 29251)
 -- Name: user ukf232eaa4aa3623f9d3931031c7c6; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5667,7 +5598,7 @@ ALTER TABLE ONLY manerp."user"
 
 
 --
--- TOC entry 2917 (class 2606 OID 25586)
+-- TOC entry 2900 (class 2606 OID 29161)
 -- Name: arvento_device ukf4726349dbded83456ac9af3b679; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5676,7 +5607,7 @@ ALTER TABLE ONLY manerp.arvento_device
 
 
 --
--- TOC entry 3071 (class 2606 OID 25547)
+-- TOC entry 3048 (class 2606 OID 29117)
 -- Name: user user_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5685,7 +5616,7 @@ ALTER TABLE ONLY manerp."user"
 
 
 --
--- TOC entry 3079 (class 2606 OID 25563)
+-- TOC entry 3056 (class 2606 OID 29133)
 -- Name: vehicle_document vehicle_document_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5694,7 +5625,7 @@ ALTER TABLE ONLY manerp.vehicle_document
 
 
 --
--- TOC entry 3077 (class 2606 OID 25555)
+-- TOC entry 3054 (class 2606 OID 29125)
 -- Name: vehicle vehicle_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5703,7 +5634,7 @@ ALTER TABLE ONLY manerp.vehicle
 
 
 --
--- TOC entry 3085 (class 2606 OID 25571)
+-- TOC entry 3062 (class 2606 OID 29141)
 -- Name: vendor vendor_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5712,7 +5643,16 @@ ALTER TABLE ONLY manerp.vendor
 
 
 --
--- TOC entry 3089 (class 2606 OID 25579)
+-- TOC entry 3066 (class 2606 OID 29154)
+-- Name: voyage_order voyage_order_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
+--
+
+ALTER TABLE ONLY manerp.voyage_order
+    ADD CONSTRAINT voyage_order_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3078 (class 2606 OID 29717)
 -- Name: voyage voyage_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5721,7 +5661,7 @@ ALTER TABLE ONLY manerp.voyage
 
 
 --
--- TOC entry 3091 (class 2606 OID 25584)
+-- TOC entry 3068 (class 2606 OID 29159)
 -- Name: voyage_route voyage_route_pkey; Type: CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5730,7 +5670,7 @@ ALTER TABLE ONLY manerp.voyage_route
 
 
 --
--- TOC entry 3166 (class 2606 OID 25959)
+-- TOC entry 3126 (class 2606 OID 29541)
 -- Name: vehicle fk1xh02ddmtfup2brjacvg86r6j; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5739,7 +5679,7 @@ ALTER TABLE ONLY manerp.vehicle
 
 
 --
--- TOC entry 3146 (class 2606 OID 25859)
+-- TOC entry 3106 (class 2606 OID 29441)
 -- Name: sys_company fk2nk9g9chegg2hw5tohnkbc5ke; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5748,7 +5688,7 @@ ALTER TABLE ONLY manerp.sys_company
 
 
 --
--- TOC entry 3149 (class 2606 OID 25874)
+-- TOC entry 3109 (class 2606 OID 29456)
 -- Name: sysref_delivery_status fk2pjnythdeyv1sh7533gv2pq8v; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5757,7 +5697,7 @@ ALTER TABLE ONLY manerp.sysref_delivery_status
 
 
 --
--- TOC entry 3150 (class 2606 OID 25879)
+-- TOC entry 3110 (class 2606 OID 29461)
 -- Name: sysref_district fk2w97mxunqdwvvlb6uyj7yqtci; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5766,7 +5706,7 @@ ALTER TABLE ONLY manerp.sysref_district
 
 
 --
--- TOC entry 3118 (class 2606 OID 25719)
+-- TOC entry 3140 (class 2606 OID 29739)
 -- Name: company fk30projwp061qdxeq1k3msw9k1; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5775,7 +5715,16 @@ ALTER TABLE ONLY manerp.company
 
 
 --
--- TOC entry 3138 (class 2606 OID 25819)
+-- TOC entry 3086 (class 2606 OID 29759)
+-- Name: order fk37x1jik3ltv2pahxqp68t87ab; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
+--
+
+ALTER TABLE ONLY manerp."order"
+    ADD CONSTRAINT fk37x1jik3ltv2pahxqp68t87ab FOREIGN KEY (voyage_id) REFERENCES manerp.voyage(id);
+
+
+--
+-- TOC entry 3098 (class 2606 OID 29401)
 -- Name: staff fk4fp34w0kthv8a1v6iibflh1ox; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5784,7 +5733,7 @@ ALTER TABLE ONLY manerp.staff
 
 
 --
--- TOC entry 3188 (class 2606 OID 26069)
+-- TOC entry 3147 (class 2606 OID 29819)
 -- Name: voyage fk4lbahargudibcxnqee6kemoa2; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5793,7 +5742,7 @@ ALTER TABLE ONLY manerp.voyage
 
 
 --
--- TOC entry 3181 (class 2606 OID 26034)
+-- TOC entry 3148 (class 2606 OID 29789)
 -- Name: voyage fk4uake9osd97wail0l5n8piekr; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5802,7 +5751,7 @@ ALTER TABLE ONLY manerp.voyage
 
 
 --
--- TOC entry 3127 (class 2606 OID 25764)
+-- TOC entry 3087 (class 2606 OID 29346)
 -- Name: ref_company_sector fk4wtekm0vh73i8hbqgja0lmw90; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5811,7 +5760,7 @@ ALTER TABLE ONLY manerp.ref_company_sector
 
 
 --
--- TOC entry 3129 (class 2606 OID 25774)
+-- TOC entry 3089 (class 2606 OID 29356)
 -- Name: ref_working_area fk5c6gdy0q94j313nos972n6ixs; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5820,7 +5769,7 @@ ALTER TABLE ONLY manerp.ref_working_area
 
 
 --
--- TOC entry 3144 (class 2606 OID 25849)
+-- TOC entry 3104 (class 2606 OID 29431)
 -- Name: sys_company fk5imhocfi60yqwcltpq4shjper; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5829,16 +5778,7 @@ ALTER TABLE ONLY manerp.sys_company
 
 
 --
--- TOC entry 3178 (class 2606 OID 26019)
--- Name: voyage fk5jwtkrj3av3ddu4o4rfje47m5; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.voyage
-    ADD CONSTRAINT fk5jwtkrj3av3ddu4o4rfje47m5 FOREIGN KEY (order_id) REFERENCES manerp."order"(id);
-
-
---
--- TOC entry 3156 (class 2606 OID 25909)
+-- TOC entry 3116 (class 2606 OID 29491)
 -- Name: sysref_transportation_type fk63elhhgxf43kb2527nkkspq13; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5847,7 +5787,7 @@ ALTER TABLE ONLY manerp.sysref_transportation_type
 
 
 --
--- TOC entry 3185 (class 2606 OID 26054)
+-- TOC entry 3149 (class 2606 OID 29809)
 -- Name: voyage fk63kq5mwjb1ufg1y1r8e5d4fqx; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5856,16 +5796,7 @@ ALTER TABLE ONLY manerp.voyage
 
 
 --
--- TOC entry 3125 (class 2606 OID 25754)
--- Name: order fk6quba0rx4h4y59rphvj36i36f; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp."order"
-    ADD CONSTRAINT fk6quba0rx4h4y59rphvj36i36f FOREIGN KEY (company_id) REFERENCES manerp.company(id);
-
-
---
--- TOC entry 3145 (class 2606 OID 25854)
+-- TOC entry 3105 (class 2606 OID 29436)
 -- Name: sys_company fk6v97fpgep91xswyyp4gtuhofd; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5874,7 +5805,7 @@ ALTER TABLE ONLY manerp.sys_company
 
 
 --
--- TOC entry 3116 (class 2606 OID 25709)
+-- TOC entry 3141 (class 2606 OID 29729)
 -- Name: company fk6xs9nxy7n0lo4q63lyy9xebim; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5883,7 +5814,7 @@ ALTER TABLE ONLY manerp.company
 
 
 --
--- TOC entry 3165 (class 2606 OID 25954)
+-- TOC entry 3125 (class 2606 OID 29536)
 -- Name: user fk79vrungrqe2t44a8lb208tknw; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5892,7 +5823,7 @@ ALTER TABLE ONLY manerp."user"
 
 
 --
--- TOC entry 3182 (class 2606 OID 26039)
+-- TOC entry 3150 (class 2606 OID 29794)
 -- Name: voyage fk7os3teoqc1idrtv9kncr84adf; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5901,7 +5832,7 @@ ALTER TABLE ONLY manerp.voyage
 
 
 --
--- TOC entry 3161 (class 2606 OID 25934)
+-- TOC entry 3121 (class 2606 OID 29516)
 -- Name: user fk7pkqmsqbfodusmupe9gsuluha; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5910,7 +5841,7 @@ ALTER TABLE ONLY manerp."user"
 
 
 --
--- TOC entry 3148 (class 2606 OID 25869)
+-- TOC entry 3108 (class 2606 OID 29451)
 -- Name: sysref_company_type fk90nsvishenpkyr1pyf1jmom0y; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5919,7 +5850,7 @@ ALTER TABLE ONLY manerp.sysref_company_type
 
 
 --
--- TOC entry 3135 (class 2606 OID 25804)
+-- TOC entry 3095 (class 2606 OID 29386)
 -- Name: staff fk98hgxusn2mr5g4rtiqrs40x40; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5928,7 +5859,7 @@ ALTER TABLE ONLY manerp.staff
 
 
 --
--- TOC entry 3112 (class 2606 OID 25689)
+-- TOC entry 3079 (class 2606 OID 29266)
 -- Name: arvento_device fk9nvy5r7fi4faa0ljeu71igdh5; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5937,7 +5868,7 @@ ALTER TABLE ONLY manerp.arvento_device
 
 
 --
--- TOC entry 3179 (class 2606 OID 26024)
+-- TOC entry 3151 (class 2606 OID 29779)
 -- Name: voyage fk9q3nu1itdp3d5l28ylhpxfrf7; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5946,34 +5877,7 @@ ALTER TABLE ONLY manerp.voyage
 
 
 --
--- TOC entry 3191 (class 2606 OID 26100)
--- Name: sysref_city_foreign fk_2tkct315h279fyfvojvcw69xm; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.sysref_city_foreign
-    ADD CONSTRAINT fk_2tkct315h279fyfvojvcw69xm FOREIGN KEY (sysref_country_id) REFERENCES manerp.sysref_country_foreign(id);
-
-
---
--- TOC entry 3192 (class 2606 OID 26112)
--- Name: sysref_district_foreign fk_4ijr98meh8dr9pkad58sgiiyp; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.sysref_district_foreign
-    ADD CONSTRAINT fk_4ijr98meh8dr9pkad58sgiiyp FOREIGN KEY (sysref_city_id) REFERENCES manerp.sysref_city_foreign(id);
-
-
---
--- TOC entry 3193 (class 2606 OID 26134)
--- Name: sysref_nace_code_foreign fk_oxdpnkevsjodh2riwimjqanie; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.sysref_nace_code_foreign
-    ADD CONSTRAINT fk_oxdpnkevsjodh2riwimjqanie FOREIGN KEY (sysref_general_hazard_class_id) REFERENCES manerp.sysref_general_hazard_class_foreign(id);
-
-
---
--- TOC entry 3147 (class 2606 OID 25864)
+-- TOC entry 3107 (class 2606 OID 29446)
 -- Name: sysref_city fka1fetkjxhnxee01756g3yvwas; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5982,7 +5886,16 @@ ALTER TABLE ONLY manerp.sysref_city
 
 
 --
--- TOC entry 3162 (class 2606 OID 25939)
+-- TOC entry 3137 (class 2606 OID 29661)
+-- Name: voyage_order fkavo7voy7d14xlphate1n5x7qr; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
+--
+
+ALTER TABLE ONLY manerp.voyage_order
+    ADD CONSTRAINT fkavo7voy7d14xlphate1n5x7qr FOREIGN KEY (sys_company_id) REFERENCES manerp.sys_company(id);
+
+
+--
+-- TOC entry 3122 (class 2606 OID 29521)
 -- Name: user fkba4n1f1bydowcamml910fn6s4; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -5991,7 +5904,7 @@ ALTER TABLE ONLY manerp."user"
 
 
 --
--- TOC entry 3120 (class 2606 OID 25729)
+-- TOC entry 3142 (class 2606 OID 29749)
 -- Name: company fkbcqrhaaioks1570j3gnj77bub; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6000,7 +5913,7 @@ ALTER TABLE ONLY manerp.company
 
 
 --
--- TOC entry 3134 (class 2606 OID 25799)
+-- TOC entry 3094 (class 2606 OID 29381)
 -- Name: staff fkbhogfndgswrqk696i1s2stk2g; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6009,7 +5922,16 @@ ALTER TABLE ONLY manerp.staff
 
 
 --
--- TOC entry 3140 (class 2606 OID 25829)
+-- TOC entry 3136 (class 2606 OID 29656)
+-- Name: voyage_order fkcchjfmewrgc0dyyej6eg6925j; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
+--
+
+ALTER TABLE ONLY manerp.voyage_order
+    ADD CONSTRAINT fkcchjfmewrgc0dyyej6eg6925j FOREIGN KEY (order_id) REFERENCES manerp."order"(id);
+
+
+--
+-- TOC entry 3100 (class 2606 OID 29411)
 -- Name: staff fkcck9gssgb8slrektqqc1y0pqa; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6018,7 +5940,7 @@ ALTER TABLE ONLY manerp.staff
 
 
 --
--- TOC entry 3170 (class 2606 OID 25979)
+-- TOC entry 3130 (class 2606 OID 29561)
 -- Name: vehicle_document fkcldglkwkdd1pqlxjdc1xu47ht; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6027,7 +5949,7 @@ ALTER TABLE ONLY manerp.vehicle_document
 
 
 --
--- TOC entry 3119 (class 2606 OID 25724)
+-- TOC entry 3143 (class 2606 OID 29744)
 -- Name: company fkcsfvx4r31wb5171w73afe8iy1; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6036,7 +5958,7 @@ ALTER TABLE ONLY manerp.company
 
 
 --
--- TOC entry 3122 (class 2606 OID 25739)
+-- TOC entry 3082 (class 2606 OID 29316)
 -- Name: location fkdlyx1x9ab8y6b4ur4bxg4isx7; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6045,7 +5967,7 @@ ALTER TABLE ONLY manerp.location
 
 
 --
--- TOC entry 3177 (class 2606 OID 26014)
+-- TOC entry 3152 (class 2606 OID 29774)
 -- Name: voyage fkdnnwsk254hd3xu4q9rqd1qa0e; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6054,7 +5976,7 @@ ALTER TABLE ONLY manerp.voyage
 
 
 --
--- TOC entry 3141 (class 2606 OID 25834)
+-- TOC entry 3101 (class 2606 OID 29416)
 -- Name: staff_document fkdud4f5jmox19yoqmyxdt1aad7; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6063,7 +5985,7 @@ ALTER TABLE ONLY manerp.staff_document
 
 
 --
--- TOC entry 3113 (class 2606 OID 25694)
+-- TOC entry 3080 (class 2606 OID 29271)
 -- Name: arvento_device fkexxxdrj0y988oxyny5jo325md; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6072,7 +5994,7 @@ ALTER TABLE ONLY manerp.arvento_device
 
 
 --
--- TOC entry 3184 (class 2606 OID 26049)
+-- TOC entry 3153 (class 2606 OID 29804)
 -- Name: voyage fkflsv3kl6p6cxtph5ct7ail9vv; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6081,7 +6003,7 @@ ALTER TABLE ONLY manerp.voyage
 
 
 --
--- TOC entry 3160 (class 2606 OID 25929)
+-- TOC entry 3120 (class 2606 OID 29511)
 -- Name: sysref_voyage_direction fkfltbxsbekqre3udwpm3u3ef0; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6090,7 +6012,7 @@ ALTER TABLE ONLY manerp.sysref_voyage_direction
 
 
 --
--- TOC entry 3133 (class 2606 OID 25794)
+-- TOC entry 3093 (class 2606 OID 29376)
 -- Name: staff fkflxpgpoils7nvb3fcxvw6etn5; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6099,7 +6021,7 @@ ALTER TABLE ONLY manerp.staff
 
 
 --
--- TOC entry 3187 (class 2606 OID 26064)
+-- TOC entry 3154 (class 2606 OID 29814)
 -- Name: voyage fkgkjak9aou3qh130a0ly8ca30p; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6108,7 +6030,7 @@ ALTER TABLE ONLY manerp.voyage
 
 
 --
--- TOC entry 3159 (class 2606 OID 25924)
+-- TOC entry 3119 (class 2606 OID 29506)
 -- Name: sysref_vehicle_type fkgnpsd7k5kf7f7xnmp8kpnltc9; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6117,7 +6039,7 @@ ALTER TABLE ONLY manerp.sysref_vehicle_type
 
 
 --
--- TOC entry 3171 (class 2606 OID 25984)
+-- TOC entry 3131 (class 2606 OID 29566)
 -- Name: vendor fkhxvgp7q3vxidnhb7pca0gu1ab; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6126,7 +6048,7 @@ ALTER TABLE ONLY manerp.vendor
 
 
 --
--- TOC entry 3121 (class 2606 OID 25734)
+-- TOC entry 3144 (class 2606 OID 29754)
 -- Name: company fki13ok5m9ho5jl0b68suhef7aa; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6135,7 +6057,7 @@ ALTER TABLE ONLY manerp.company
 
 
 --
--- TOC entry 3180 (class 2606 OID 26029)
+-- TOC entry 3155 (class 2606 OID 29784)
 -- Name: voyage fki3xx0sxrx6nofxvoaj1q4q8s1; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6144,7 +6066,7 @@ ALTER TABLE ONLY manerp.voyage
 
 
 --
--- TOC entry 3124 (class 2606 OID 25749)
+-- TOC entry 3084 (class 2606 OID 29331)
 -- Name: order fki5hhgis61nkcyhxeiw1c1pmu; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6153,7 +6075,7 @@ ALTER TABLE ONLY manerp."order"
 
 
 --
--- TOC entry 3168 (class 2606 OID 25969)
+-- TOC entry 3128 (class 2606 OID 29551)
 -- Name: vehicle fkjtu2eamj8r7kmudrc2whajhav; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6162,7 +6084,7 @@ ALTER TABLE ONLY manerp.vehicle
 
 
 --
--- TOC entry 3114 (class 2606 OID 25699)
+-- TOC entry 3081 (class 2606 OID 29276)
 -- Name: arvento_device fkkkp4eap0kyjtij7v0wsqp7ajp; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6171,7 +6093,7 @@ ALTER TABLE ONLY manerp.arvento_device
 
 
 --
--- TOC entry 3143 (class 2606 OID 25844)
+-- TOC entry 3103 (class 2606 OID 29426)
 -- Name: sys_company fkklrpydnkfwwuh1ncf3nwsouh6; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6180,7 +6102,7 @@ ALTER TABLE ONLY manerp.sys_company
 
 
 --
--- TOC entry 3157 (class 2606 OID 25914)
+-- TOC entry 3117 (class 2606 OID 29496)
 -- Name: sysref_vehicle_owner fkkwt6fl4oibc02ofetsmw04uj9; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6189,7 +6111,7 @@ ALTER TABLE ONLY manerp.sysref_vehicle_owner
 
 
 --
--- TOC entry 3115 (class 2606 OID 25704)
+-- TOC entry 3145 (class 2606 OID 29724)
 -- Name: company fkkwuwsu1mkv531cqahx4jkq5v8; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6198,7 +6120,7 @@ ALTER TABLE ONLY manerp.company
 
 
 --
--- TOC entry 3154 (class 2606 OID 25899)
+-- TOC entry 3114 (class 2606 OID 29481)
 -- Name: sysref_revenue_type fklth6jxbh7t208c2dne3tetgex; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6207,7 +6129,7 @@ ALTER TABLE ONLY manerp.sysref_revenue_type
 
 
 --
--- TOC entry 3117 (class 2606 OID 25714)
+-- TOC entry 3146 (class 2606 OID 29734)
 -- Name: company fklwecsx2m0yh6cqysvtndl32ac; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6216,7 +6138,7 @@ ALTER TABLE ONLY manerp.company
 
 
 --
--- TOC entry 3142 (class 2606 OID 25839)
+-- TOC entry 3102 (class 2606 OID 29421)
 -- Name: sys_company fkmvnk2o1mboqtnj11d3odq5rcl; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6225,7 +6147,7 @@ ALTER TABLE ONLY manerp.sys_company
 
 
 --
--- TOC entry 3151 (class 2606 OID 25884)
+-- TOC entry 3111 (class 2606 OID 29466)
 -- Name: sysref_driving_type fknbqdbmkqlyfodd4x0x3fgeyd9; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6234,7 +6156,7 @@ ALTER TABLE ONLY manerp.sysref_driving_type
 
 
 --
--- TOC entry 3126 (class 2606 OID 25759)
+-- TOC entry 3085 (class 2606 OID 29341)
 -- Name: order fknux5bvbo3r4hd2cl8an6qictn; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6243,7 +6165,7 @@ ALTER TABLE ONLY manerp."order"
 
 
 --
--- TOC entry 3136 (class 2606 OID 25809)
+-- TOC entry 3096 (class 2606 OID 29391)
 -- Name: staff fknwhf6nhacnfkebn3adh37g83e; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6252,7 +6174,7 @@ ALTER TABLE ONLY manerp.staff
 
 
 --
--- TOC entry 3163 (class 2606 OID 25944)
+-- TOC entry 3123 (class 2606 OID 29526)
 -- Name: user fkolj37phcdcwox8njgbyuubcdo; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6261,7 +6183,7 @@ ALTER TABLE ONLY manerp."user"
 
 
 --
--- TOC entry 3172 (class 2606 OID 25989)
+-- TOC entry 3132 (class 2606 OID 29571)
 -- Name: vendor fkp4tiknc9jgvtfiw5hblx07nbs; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6270,7 +6192,7 @@ ALTER TABLE ONLY manerp.vendor
 
 
 --
--- TOC entry 3139 (class 2606 OID 25824)
+-- TOC entry 3099 (class 2606 OID 29406)
 -- Name: staff fkp8y14hi3q79hyx9uf5fs5o9fw; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6279,7 +6201,7 @@ ALTER TABLE ONLY manerp.staff
 
 
 --
--- TOC entry 3131 (class 2606 OID 25784)
+-- TOC entry 3091 (class 2606 OID 29366)
 -- Name: semi_truck fkpljf7t8vfypvl4sx5ei7p93ps; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6288,7 +6210,7 @@ ALTER TABLE ONLY manerp.semi_truck
 
 
 --
--- TOC entry 3123 (class 2606 OID 25744)
+-- TOC entry 3083 (class 2606 OID 29321)
 -- Name: order fkpwaiqe14ogwvbgqc89r3bvkuf; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6297,7 +6219,7 @@ ALTER TABLE ONLY manerp."order"
 
 
 --
--- TOC entry 3183 (class 2606 OID 26044)
+-- TOC entry 3156 (class 2606 OID 29799)
 -- Name: voyage fkq8vi84ygwo2961igchak2efe4; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6306,7 +6228,7 @@ ALTER TABLE ONLY manerp.voyage
 
 
 --
--- TOC entry 3153 (class 2606 OID 25894)
+-- TOC entry 3113 (class 2606 OID 29476)
 -- Name: sysref_order_state fkqvdtv9ahkfui9jpmqku267vey; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6315,7 +6237,7 @@ ALTER TABLE ONLY manerp.sysref_order_state
 
 
 --
--- TOC entry 3152 (class 2606 OID 25889)
+-- TOC entry 3112 (class 2606 OID 29471)
 -- Name: sysref_nace_code fkqvkgn4h4scydhu9af5lyp8bh2; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6324,7 +6246,7 @@ ALTER TABLE ONLY manerp.sysref_nace_code
 
 
 --
--- TOC entry 3164 (class 2606 OID 25949)
+-- TOC entry 3124 (class 2606 OID 29531)
 -- Name: user fkr10evfnmprk2koknf1kl0lknb; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6333,7 +6255,7 @@ ALTER TABLE ONLY manerp."user"
 
 
 --
--- TOC entry 3174 (class 2606 OID 25999)
+-- TOC entry 3134 (class 2606 OID 29581)
 -- Name: vendor fkr31q7tktj9q392owvci0w5dyu; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6342,7 +6264,7 @@ ALTER TABLE ONLY manerp.vendor
 
 
 --
--- TOC entry 3137 (class 2606 OID 25814)
+-- TOC entry 3097 (class 2606 OID 29396)
 -- Name: staff fkr42sy6b9h10c9i9tys8qou4to; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6351,7 +6273,7 @@ ALTER TABLE ONLY manerp.staff
 
 
 --
--- TOC entry 3130 (class 2606 OID 25779)
+-- TOC entry 3090 (class 2606 OID 29361)
 -- Name: semi_trailer fkr81i7x0n5ddjdscrv0walfe5p; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6360,7 +6282,7 @@ ALTER TABLE ONLY manerp.semi_trailer
 
 
 --
--- TOC entry 3189 (class 2606 OID 26074)
+-- TOC entry 3138 (class 2606 OID 29666)
 -- Name: voyage_route fkrbfnxao2jmaq7r403k5l04hex; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6369,7 +6291,7 @@ ALTER TABLE ONLY manerp.voyage_route
 
 
 --
--- TOC entry 3128 (class 2606 OID 25769)
+-- TOC entry 3088 (class 2606 OID 29351)
 -- Name: ref_staff_title fkrwujhao5x02cypy44f7e4bmxa; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6378,7 +6300,7 @@ ALTER TABLE ONLY manerp.ref_staff_title
 
 
 --
--- TOC entry 3173 (class 2606 OID 25994)
+-- TOC entry 3133 (class 2606 OID 29576)
 -- Name: vendor fksc75lbsqobv524ews10gd4sxp; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6387,7 +6309,7 @@ ALTER TABLE ONLY manerp.vendor
 
 
 --
--- TOC entry 3155 (class 2606 OID 25904)
+-- TOC entry 3115 (class 2606 OID 29486)
 -- Name: sysref_staff_contract_type fksfsv3xj9mkh56kyqilcmtm6mc; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6396,16 +6318,7 @@ ALTER TABLE ONLY manerp.sysref_staff_contract_type
 
 
 --
--- TOC entry 3175 (class 2606 OID 26004)
--- Name: vendor fksfx6gf0an0bo7kwscuhi1hoya; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.vendor
-    ADD CONSTRAINT fksfx6gf0an0bo7kwscuhi1hoya FOREIGN KEY (company_id) REFERENCES manerp.company(id);
-
-
---
--- TOC entry 3190 (class 2606 OID 26079)
+-- TOC entry 3139 (class 2606 OID 29829)
 -- Name: voyage_route fksgdyoggeyq0llrp9w703iavvw; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6414,7 +6327,7 @@ ALTER TABLE ONLY manerp.voyage_route
 
 
 --
--- TOC entry 3132 (class 2606 OID 25789)
+-- TOC entry 3092 (class 2606 OID 29371)
 -- Name: staff fkshio5g3xkv41v9ntv58fm5gi5; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6423,16 +6336,7 @@ ALTER TABLE ONLY manerp.staff
 
 
 --
--- TOC entry 3186 (class 2606 OID 26059)
--- Name: voyage fksktbdct3dy9hw6ntjhpdpwie3; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
---
-
-ALTER TABLE ONLY manerp.voyage
-    ADD CONSTRAINT fksktbdct3dy9hw6ntjhpdpwie3 FOREIGN KEY (company_id) REFERENCES manerp.company(id);
-
-
---
--- TOC entry 3176 (class 2606 OID 26009)
+-- TOC entry 3135 (class 2606 OID 29591)
 -- Name: vendor fksoov0aspaj0k35l3fbmwe3cv0; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6441,7 +6345,7 @@ ALTER TABLE ONLY manerp.vendor
 
 
 --
--- TOC entry 3169 (class 2606 OID 25974)
+-- TOC entry 3129 (class 2606 OID 29556)
 -- Name: vehicle fksrfgt5p48r5b6w4498ibw49c9; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6450,7 +6354,7 @@ ALTER TABLE ONLY manerp.vehicle
 
 
 --
--- TOC entry 3158 (class 2606 OID 25919)
+-- TOC entry 3118 (class 2606 OID 29501)
 -- Name: sysref_vehicle_state fkssagp1q0bhk6nb67h0c9dxky5; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6459,7 +6363,7 @@ ALTER TABLE ONLY manerp.sysref_vehicle_state
 
 
 --
--- TOC entry 3167 (class 2606 OID 25964)
+-- TOC entry 3127 (class 2606 OID 29546)
 -- Name: vehicle fkt2kg2ou1fuglec16oyrx9ens3; Type: FK CONSTRAINT; Schema: manerp; Owner: manerp
 --
 
@@ -6467,7 +6371,7 @@ ALTER TABLE ONLY manerp.vehicle
     ADD CONSTRAINT fkt2kg2ou1fuglec16oyrx9ens3 FOREIGN KEY (sysref_vehicle_type_id) REFERENCES manerp.sysref_vehicle_type(id);
 
 
--- Completed on 2019-04-15 17:31:25 +03
+-- Completed on 2019-04-15 23:53:26 +03
 
 --
 -- PostgreSQL database dump complete

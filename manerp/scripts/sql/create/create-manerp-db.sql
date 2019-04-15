@@ -5,7 +5,7 @@
 -- Dumped from database version 11.2 (Debian 11.2-1.pgdg90+1)
 -- Dumped by pg_dump version 11.2 (Ubuntu 11.2-1.pgdg18.04+1)
 
--- Started on 2019-04-15 17:23:11 +03
+-- Started on 2019-04-15 23:54:12 +03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,7 +19,7 @@ SET row_security = off;
 
 DROP DATABASE manerp;
 --
--- TOC entry 3362 (class 1262 OID 16384)
+-- TOC entry 3321 (class 1262 OID 16384)
 -- Name: manerp; Type: DATABASE; Schema: -; Owner: manerp
 --
 
@@ -41,7 +41,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 7 (class 2615 OID 25371)
+-- TOC entry 9 (class 2615 OID 28941)
 -- Name: manerp; Type: SCHEMA; Schema: -; Owner: manerp
 --
 
@@ -59,7 +59,7 @@ CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 3363 (class 0 OID 0)
+-- TOC entry 3322 (class 0 OID 0)
 -- Dependencies: 1
 -- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner: 
 --
@@ -72,7 +72,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 198 (class 1259 OID 25373)
+-- TOC entry 198 (class 1259 OID 28943)
 -- Name: arvento_device; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -93,7 +93,7 @@ CREATE TABLE manerp.arvento_device (
 ALTER TABLE manerp.arvento_device OWNER TO manerp;
 
 --
--- TOC entry 199 (class 1259 OID 25378)
+-- TOC entry 234 (class 1259 OID 29702)
 -- Name: company; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -131,7 +131,7 @@ CREATE TABLE manerp.company (
 ALTER TABLE manerp.company OWNER TO manerp;
 
 --
--- TOC entry 200 (class 1259 OID 25386)
+-- TOC entry 199 (class 1259 OID 28956)
 -- Name: expenditure; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -146,7 +146,7 @@ CREATE TABLE manerp.expenditure (
 ALTER TABLE manerp.expenditure OWNER TO manerp;
 
 --
--- TOC entry 201 (class 1259 OID 25391)
+-- TOC entry 200 (class 1259 OID 28961)
 -- Name: location; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -165,7 +165,7 @@ CREATE TABLE manerp.location (
 ALTER TABLE manerp.location OWNER TO manerp;
 
 --
--- TOC entry 202 (class 1259 OID 25396)
+-- TOC entry 201 (class 1259 OID 28966)
 -- Name: order; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -176,6 +176,7 @@ CREATE TABLE manerp."order" (
     last_updated timestamp without time zone,
     sysref_order_state_id character varying(32) NOT NULL,
     active boolean,
+    voyage_id character varying(32),
     order_date timestamp without time zone NOT NULL,
     sysref_revenue_type_id character varying(32),
     company_id character varying(32) NOT NULL,
@@ -189,7 +190,7 @@ CREATE TABLE manerp."order" (
 ALTER TABLE manerp."order" OWNER TO manerp;
 
 --
--- TOC entry 203 (class 1259 OID 25401)
+-- TOC entry 202 (class 1259 OID 28971)
 -- Name: ref_company_sector; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -208,7 +209,7 @@ CREATE TABLE manerp.ref_company_sector (
 ALTER TABLE manerp.ref_company_sector OWNER TO manerp;
 
 --
--- TOC entry 204 (class 1259 OID 25406)
+-- TOC entry 203 (class 1259 OID 28976)
 -- Name: ref_staff_title; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -227,7 +228,7 @@ CREATE TABLE manerp.ref_staff_title (
 ALTER TABLE manerp.ref_staff_title OWNER TO manerp;
 
 --
--- TOC entry 205 (class 1259 OID 25411)
+-- TOC entry 204 (class 1259 OID 28981)
 -- Name: ref_working_area; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -246,7 +247,7 @@ CREATE TABLE manerp.ref_working_area (
 ALTER TABLE manerp.ref_working_area OWNER TO manerp;
 
 --
--- TOC entry 206 (class 1259 OID 25416)
+-- TOC entry 205 (class 1259 OID 28986)
 -- Name: revenue; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -261,7 +262,7 @@ CREATE TABLE manerp.revenue (
 ALTER TABLE manerp.revenue OWNER TO manerp;
 
 --
--- TOC entry 207 (class 1259 OID 25421)
+-- TOC entry 206 (class 1259 OID 28991)
 -- Name: semi_trailer; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -281,7 +282,7 @@ CREATE TABLE manerp.semi_trailer (
 ALTER TABLE manerp.semi_trailer OWNER TO manerp;
 
 --
--- TOC entry 208 (class 1259 OID 25426)
+-- TOC entry 207 (class 1259 OID 28996)
 -- Name: semi_truck; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -301,7 +302,7 @@ CREATE TABLE manerp.semi_truck (
 ALTER TABLE manerp.semi_truck OWNER TO manerp;
 
 --
--- TOC entry 209 (class 1259 OID 25431)
+-- TOC entry 208 (class 1259 OID 29001)
 -- Name: staff; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -339,7 +340,7 @@ CREATE TABLE manerp.staff (
 ALTER TABLE manerp.staff OWNER TO manerp;
 
 --
--- TOC entry 210 (class 1259 OID 25439)
+-- TOC entry 209 (class 1259 OID 29009)
 -- Name: staff_document; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -358,7 +359,7 @@ CREATE TABLE manerp.staff_document (
 ALTER TABLE manerp.staff_document OWNER TO manerp;
 
 --
--- TOC entry 211 (class 1259 OID 25447)
+-- TOC entry 210 (class 1259 OID 29017)
 -- Name: sys_company; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -393,7 +394,7 @@ CREATE TABLE manerp.sys_company (
 ALTER TABLE manerp.sys_company OWNER TO manerp;
 
 --
--- TOC entry 212 (class 1259 OID 25455)
+-- TOC entry 211 (class 1259 OID 29025)
 -- Name: sysref_city; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -411,25 +412,7 @@ CREATE TABLE manerp.sysref_city (
 ALTER TABLE manerp.sysref_city OWNER TO manerp;
 
 --
--- TOC entry 236 (class 1259 OID 26093)
--- Name: sysref_city_foreign; Type: TABLE; Schema: manerp; Owner: manerp
---
-
-CREATE TABLE manerp.sysref_city_foreign (
-    id bigint NOT NULL,
-    version bigint NOT NULL,
-    active boolean NOT NULL,
-    code character varying(10) NOT NULL,
-    name character varying(100) NOT NULL,
-    op_date timestamp without time zone NOT NULL,
-    sysref_country_id bigint NOT NULL
-);
-
-
-ALTER TABLE manerp.sysref_city_foreign OWNER TO manerp;
-
---
--- TOC entry 213 (class 1259 OID 25460)
+-- TOC entry 212 (class 1259 OID 29030)
 -- Name: sysref_company_type; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -448,7 +431,7 @@ CREATE TABLE manerp.sysref_company_type (
 ALTER TABLE manerp.sysref_company_type OWNER TO manerp;
 
 --
--- TOC entry 214 (class 1259 OID 25465)
+-- TOC entry 213 (class 1259 OID 29035)
 -- Name: sysref_country; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -465,24 +448,7 @@ CREATE TABLE manerp.sysref_country (
 ALTER TABLE manerp.sysref_country OWNER TO manerp;
 
 --
--- TOC entry 235 (class 1259 OID 26086)
--- Name: sysref_country_foreign; Type: TABLE; Schema: manerp; Owner: manerp
---
-
-CREATE TABLE manerp.sysref_country_foreign (
-    id bigint NOT NULL,
-    version bigint NOT NULL,
-    active boolean NOT NULL,
-    code character varying(10) NOT NULL,
-    name character varying(100) NOT NULL,
-    op_date timestamp without time zone NOT NULL
-);
-
-
-ALTER TABLE manerp.sysref_country_foreign OWNER TO manerp;
-
---
--- TOC entry 215 (class 1259 OID 25470)
+-- TOC entry 214 (class 1259 OID 29040)
 -- Name: sysref_delivery_status; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -501,7 +467,7 @@ CREATE TABLE manerp.sysref_delivery_status (
 ALTER TABLE manerp.sysref_delivery_status OWNER TO manerp;
 
 --
--- TOC entry 216 (class 1259 OID 25475)
+-- TOC entry 215 (class 1259 OID 29045)
 -- Name: sysref_district; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -519,25 +485,7 @@ CREATE TABLE manerp.sysref_district (
 ALTER TABLE manerp.sysref_district OWNER TO manerp;
 
 --
--- TOC entry 237 (class 1259 OID 26105)
--- Name: sysref_district_foreign; Type: TABLE; Schema: manerp; Owner: manerp
---
-
-CREATE TABLE manerp.sysref_district_foreign (
-    id bigint NOT NULL,
-    version bigint NOT NULL,
-    active boolean NOT NULL,
-    code character varying(10) NOT NULL,
-    name character varying(100) NOT NULL,
-    op_date timestamp without time zone NOT NULL,
-    sysref_city_id bigint NOT NULL
-);
-
-
-ALTER TABLE manerp.sysref_district_foreign OWNER TO manerp;
-
---
--- TOC entry 217 (class 1259 OID 25480)
+-- TOC entry 216 (class 1259 OID 29050)
 -- Name: sysref_driving_type; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -556,7 +504,7 @@ CREATE TABLE manerp.sysref_driving_type (
 ALTER TABLE manerp.sysref_driving_type OWNER TO manerp;
 
 --
--- TOC entry 218 (class 1259 OID 25485)
+-- TOC entry 217 (class 1259 OID 29055)
 -- Name: sysref_gender; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -573,7 +521,7 @@ CREATE TABLE manerp.sysref_gender (
 ALTER TABLE manerp.sysref_gender OWNER TO manerp;
 
 --
--- TOC entry 219 (class 1259 OID 25490)
+-- TOC entry 218 (class 1259 OID 29060)
 -- Name: sysref_general_hazard_class; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -590,24 +538,7 @@ CREATE TABLE manerp.sysref_general_hazard_class (
 ALTER TABLE manerp.sysref_general_hazard_class OWNER TO manerp;
 
 --
--- TOC entry 238 (class 1259 OID 26117)
--- Name: sysref_general_hazard_class_foreign; Type: TABLE; Schema: manerp; Owner: manerp
---
-
-CREATE TABLE manerp.sysref_general_hazard_class_foreign (
-    id bigint NOT NULL,
-    version bigint NOT NULL,
-    active boolean NOT NULL,
-    code character varying(3) NOT NULL,
-    name character varying(50) NOT NULL,
-    op_date timestamp without time zone NOT NULL
-);
-
-
-ALTER TABLE manerp.sysref_general_hazard_class_foreign OWNER TO manerp;
-
---
--- TOC entry 220 (class 1259 OID 25495)
+-- TOC entry 219 (class 1259 OID 29065)
 -- Name: sysref_nace_code; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -625,25 +556,7 @@ CREATE TABLE manerp.sysref_nace_code (
 ALTER TABLE manerp.sysref_nace_code OWNER TO manerp;
 
 --
--- TOC entry 239 (class 1259 OID 26124)
--- Name: sysref_nace_code_foreign; Type: TABLE; Schema: manerp; Owner: manerp
---
-
-CREATE TABLE manerp.sysref_nace_code_foreign (
-    id bigint NOT NULL,
-    version bigint NOT NULL,
-    active boolean NOT NULL,
-    code character varying(10) NOT NULL,
-    name character varying(500) NOT NULL,
-    op_date timestamp without time zone NOT NULL,
-    sysref_general_hazard_class_id bigint
-);
-
-
-ALTER TABLE manerp.sysref_nace_code_foreign OWNER TO manerp;
-
---
--- TOC entry 221 (class 1259 OID 25500)
+-- TOC entry 220 (class 1259 OID 29070)
 -- Name: sysref_order_state; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -662,7 +575,7 @@ CREATE TABLE manerp.sysref_order_state (
 ALTER TABLE manerp.sysref_order_state OWNER TO manerp;
 
 --
--- TOC entry 222 (class 1259 OID 25505)
+-- TOC entry 221 (class 1259 OID 29075)
 -- Name: sysref_revenue_type; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -681,7 +594,7 @@ CREATE TABLE manerp.sysref_revenue_type (
 ALTER TABLE manerp.sysref_revenue_type OWNER TO manerp;
 
 --
--- TOC entry 223 (class 1259 OID 25510)
+-- TOC entry 222 (class 1259 OID 29080)
 -- Name: sysref_staff_contract_type; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -700,7 +613,7 @@ CREATE TABLE manerp.sysref_staff_contract_type (
 ALTER TABLE manerp.sysref_staff_contract_type OWNER TO manerp;
 
 --
--- TOC entry 224 (class 1259 OID 25515)
+-- TOC entry 223 (class 1259 OID 29085)
 -- Name: sysref_transportation_type; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -719,7 +632,7 @@ CREATE TABLE manerp.sysref_transportation_type (
 ALTER TABLE manerp.sysref_transportation_type OWNER TO manerp;
 
 --
--- TOC entry 225 (class 1259 OID 25520)
+-- TOC entry 224 (class 1259 OID 29090)
 -- Name: sysref_vehicle_owner; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -738,7 +651,7 @@ CREATE TABLE manerp.sysref_vehicle_owner (
 ALTER TABLE manerp.sysref_vehicle_owner OWNER TO manerp;
 
 --
--- TOC entry 226 (class 1259 OID 25525)
+-- TOC entry 225 (class 1259 OID 29095)
 -- Name: sysref_vehicle_state; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -757,7 +670,7 @@ CREATE TABLE manerp.sysref_vehicle_state (
 ALTER TABLE manerp.sysref_vehicle_state OWNER TO manerp;
 
 --
--- TOC entry 227 (class 1259 OID 25530)
+-- TOC entry 226 (class 1259 OID 29100)
 -- Name: sysref_vehicle_type; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -776,7 +689,7 @@ CREATE TABLE manerp.sysref_vehicle_type (
 ALTER TABLE manerp.sysref_vehicle_type OWNER TO manerp;
 
 --
--- TOC entry 228 (class 1259 OID 25535)
+-- TOC entry 227 (class 1259 OID 29105)
 -- Name: sysref_voyage_direction; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -795,7 +708,7 @@ CREATE TABLE manerp.sysref_voyage_direction (
 ALTER TABLE manerp.sysref_voyage_direction OWNER TO manerp;
 
 --
--- TOC entry 229 (class 1259 OID 25540)
+-- TOC entry 228 (class 1259 OID 29110)
 -- Name: user; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -834,7 +747,7 @@ CREATE TABLE manerp."user" (
 ALTER TABLE manerp."user" OWNER TO manerp;
 
 --
--- TOC entry 230 (class 1259 OID 25548)
+-- TOC entry 229 (class 1259 OID 29118)
 -- Name: vehicle; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -870,7 +783,7 @@ CREATE TABLE manerp.vehicle (
 ALTER TABLE manerp.vehicle OWNER TO manerp;
 
 --
--- TOC entry 231 (class 1259 OID 25556)
+-- TOC entry 230 (class 1259 OID 29126)
 -- Name: vehicle_document; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -889,7 +802,7 @@ CREATE TABLE manerp.vehicle_document (
 ALTER TABLE manerp.vehicle_document OWNER TO manerp;
 
 --
--- TOC entry 232 (class 1259 OID 25564)
+-- TOC entry 231 (class 1259 OID 29134)
 -- Name: vendor; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -914,7 +827,7 @@ CREATE TABLE manerp.vendor (
 ALTER TABLE manerp.vendor OWNER TO manerp;
 
 --
--- TOC entry 233 (class 1259 OID 25572)
+-- TOC entry 235 (class 1259 OID 29710)
 -- Name: voyage; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -924,7 +837,6 @@ CREATE TABLE manerp.voyage (
     transport_waybill_no character varying(255),
     active boolean,
     substitude_driver_id character varying(32),
-    order_id character varying(32) NOT NULL,
     trailer_id character varying(32),
     sysref_voyage_direction_id character varying(32) NOT NULL,
     sas_number character varying(255),
@@ -933,10 +845,11 @@ CREATE TABLE manerp.voyage (
     code character varying(8) NOT NULL,
     last_updated timestamp without time zone,
     dumping_location_id character varying(32),
+    end_date timestamp without time zone,
     delivery_note_no character varying(255),
     sysref_delivery_status_id character varying(32),
+    start_date timestamp without time zone NOT NULL,
     driver_id character varying(32) NOT NULL,
-    company_id character varying(32) NOT NULL,
     vehicle_id character varying(32) NOT NULL,
     sys_company_id character varying(32) NOT NULL
 );
@@ -945,7 +858,26 @@ CREATE TABLE manerp.voyage (
 ALTER TABLE manerp.voyage OWNER TO manerp;
 
 --
--- TOC entry 234 (class 1259 OID 25580)
+-- TOC entry 232 (class 1259 OID 29150)
+-- Name: voyage_order; Type: TABLE; Schema: manerp; Owner: manerp
+--
+
+CREATE TABLE manerp.voyage_order (
+    id character varying(32) NOT NULL,
+    date_created timestamp without time zone,
+    code character varying(8) NOT NULL,
+    last_updated timestamp without time zone,
+    active boolean,
+    voyage_id character varying(32) NOT NULL,
+    order_id character varying(32) NOT NULL,
+    sys_company_id character varying(32) NOT NULL
+);
+
+
+ALTER TABLE manerp.voyage_order OWNER TO manerp;
+
+--
+-- TOC entry 233 (class 1259 OID 29155)
 -- Name: voyage_route; Type: TABLE; Schema: manerp; Owner: manerp
 --
 
@@ -961,7 +893,7 @@ CREATE TABLE manerp.voyage_route (
 
 ALTER TABLE manerp.voyage_route OWNER TO manerp;
 
--- Completed on 2019-04-15 17:23:35 +03
+-- Completed on 2019-04-15 23:54:31 +03
 
 --
 -- PostgreSQL database dump complete
