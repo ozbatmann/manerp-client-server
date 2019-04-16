@@ -198,58 +198,6 @@
                     console.log(error);
                 })
             },
-            // getSysrefCountryList() {
-            //     let self = this;
-            //
-            //     this.$http.get("api/v1/sysrefCountry").then((result) => {
-            //         self.sysrefCountryList = result.data.data.items
-            //         self.addEditFields.find(item => {
-            //             return item.key === customerModel.sysrefCountry
-            //         }).props = self.sysrefCountryList
-            //
-            //     }).catch((error) => {
-            //         console.error(error);
-            //     })
-            // },
-            // getSysrefCityList() {
-            //     let self = this;
-            //
-            //     this.$http.get("api/v1/sysrefCity").then((result) => {
-            //         self.sysrefCityList = result.data.data.items
-            //         self.addEditFields.find(item => {
-            //             return item.key === customerModel.sysrefCity
-            //         }).props = self.sysrefCityList
-            //
-            //     }).catch((error) => {
-            //         console.error(error);
-            //     })
-            // },
-            // getSysrefDistrictList() {
-            //     let self = this;
-            //
-            //     this.$http.get("api/v1/sysrefDistrict").then((result) => {
-            //         self.sysrefDistrictList = result.data.data.items
-            //         self.addEditFields.find(item => {
-            //             return item.key === customerModel.sysrefDistrict
-            //         }).props = self.sysrefDistrictList
-            //
-            //     }).catch((error) => {
-            //         console.error(error);
-            //     })
-            // },
-            // getRefCompanySectorList() {
-            //     let self = this;
-            //
-            //     this.$http.get("api/v1/refCompanySector/getListForDropDown").then((result) => {
-            //         self.refCompanySectorList = result.data.data.items
-            //         self.addEditFields.find(item => {
-            //             return item.key === customerModel.refCompanySector
-            //         }).props = self.refCompanySectorList
-            //
-            //     }).catch((error) => {
-            //         console.error(error);
-            //     })
-            // },
             deleteItem(item) {
                 this.$http.delete(`api/v1/customerCompany/${item.id}`).then((result) => {
                     this.getAllCustomers();
@@ -260,12 +208,7 @@
         },
 
         mounted() {
-            console.log('mounted')
-            this.getAllCustomers();
-            // this.getSysrefCountryList();
-            // this.getSysrefCityList();
-            // this.getSysrefDistrictList();
-            // this.getRefCompanySectorList();
+            // this.getAllCustomers();
         }
     }
 </script>
