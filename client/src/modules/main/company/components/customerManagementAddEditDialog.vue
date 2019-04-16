@@ -209,7 +209,6 @@
                     });
 
                     polygonFeatures.forEach((feature) => {
-                        console.log("feature.coords = ", feature.coords)
                         feature.leafletObject = L.polygon(feature.coords)
                             .bindPopup(feature.name);
                     });
@@ -219,23 +218,31 @@
 
                 this.map = L.map('map').setView([39.918836, 32.836816], 12);
                 this.tileLayer = L.tileLayer(
-                    'https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png', {
+                    'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                         maxZoom: 18,
                         attribution: '&copy; <a href="http://team9.bilkent.edu.tr/">MANERP</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                        id: 'mapbox.streets',
+                        accessToken: 'pk.eyJ1IjoiYmVyYXRwb3N0YWxjaSIsImEiOiJjanVpd3RtZmwwaXRsNGVvNDcyd2dvM3lmIn0.nULWCGr3Uad3b9Rqhw2i4A'
                     }
                 );
 
                 this.tileLayer.addTo(this.map);
 
+                // icon for marker
+                var greenIcon = new L.Icon({
+                    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                });
+
                 // get current location
                 navigator.geolocation.getCurrentPosition(location => {
                     let pos = new L.LatLng(location.coords.latitude, location.coords.longitude);
                     this.map.setView(pos, 11);
-                    L.marker(pos).addTo(this.map);
-
-                    this.currentLocation.lat = pos.lat;
-                    this.currentLocation.lng = pos.lng;
-                    this.layers[1].features[0].coords.push([parseFloat(pos.lat.toFixed(5)), parseFloat(pos.lng.toFixed(5))])
+                    L.marker(pos, {icon: greenIcon}).addTo(this.map);
                 })
             }
 
