@@ -37,24 +37,7 @@ export default [
         path: 'drivers/details/:id',
         component: () => import('@/modules/main/shared/components/core/MCoreDetails'),
         children: [
-            {
-                path: '',
-                name: routes.information,
-                component: () => import('@/modules/main/company/pages/MCustomerDetailsInformation'),
-                meta: meta('Ahmet Aliakça')
-            },
-            {
-                path: 'routes',
-                name: routes.orders,
-                component: () => import('@/modules/main/company/pages/MCustomerDetailsOrders'),
-                meta: meta('Ahmet Aliakça')
-            },
-            {
-                path: 'documents',
-                name: routes.documents,
-                component: () => import('@/modules/main/company/pages/MCustomerDetailsDocuments'),
-                meta: meta('Ahmet Aliakça')
-            }
+
         ]
     }
 ]

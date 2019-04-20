@@ -67,24 +67,7 @@ export default [
         path: 'customers/details/:id',
         component: () => import('@/modules/main/shared/components/core/MCoreDetails'),
         children: [
-            {
-                path: '',
-                name: routes.information,
-                component: () => import('@/modules/main/company/pages/MCustomerDetailsInformation'),
-                meta: detailsMeta('Pınar Gıda A.Ş')
-            },
-            {
-                path: 'orders',
-                name: routes.orders,
-                component: () => import('@/modules/main/company/pages/MCustomerDetailsOrders'),
-                meta: detailsMeta('Pınar Gıda A.Ş')
-            },
-            {
-                path: 'documents',
-                name: routes.documents,
-                component: () => import('@/modules/main/company/pages/MCustomerDetailsDocuments'),
-                meta: detailsMeta('Pınar Gıda A.Ş')
-            }
+
         ]
     }
 ]

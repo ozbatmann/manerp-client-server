@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="showDialog" persistent max-width="80%" scrollable>
+    <v-dialog v-model="showDialog" persistent max-width="90%" scrollable>
         <!-- <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn> -->
         <v-card class="pa-3">
             <v-card-title>
@@ -60,7 +60,11 @@
                                     </div>
                                 </v-flex>
                                 <v-flex xs9>
-                                    <div id="map"></div>
+                                    <leaflet-map
+                                        ref="leafletMap"
+                                        @save="addNewVendor"
+                                        @edit="editVendor"
+                                    ></leaflet-map>
                                 </v-flex>
                             </v-layout>
                             <v-card-actions>
@@ -76,20 +80,18 @@
 </template>
 
 <script>
+    import LeafletMap from "../map/leafletMap";
+
     const companyModel = require('@/modules/main/company/models/company-model-add-edit').default;
 
     export default {
+        components: {LeafletMap},
         data() {
             return {
                 tabs: null,
                 showDialog: false,
                 isEdit: false,
                 data: JSON.parse(JSON.stringify(companyModel)),
-
-
-                map: null,
-                tileLayer: null,
-                currentLocation: {lat: null, lng: null},
                 layers: [{
                     id: 0,
                     name: 'Ankara Bayileri',
@@ -143,7 +145,7 @@
                             ],
                         }],
                     }
-                ],
+                ]
             }
         },
         methods: {
@@ -184,80 +186,26 @@
                 // to display all tiles
                 window.dispatchEvent(new Event('resize'));
             },
-
+            addNewVendor() {
+            },
+            editVendor() {
+            },
             layerChanged(layerId, active) {
-                const layer = this.layers.find(layer => layer.id === layerId);
-
-                layer.features.forEach((feature) => {
-                    if (active) {
-                        feature.leafletObject.addTo(this.map);
-                    } else {
-                        feature.leafletObject.removeFrom(this.map);
-                    }
-                });
+                this.$refs.leafletMap.layerChanged(layerId, active);
             },
             initLayers() {
-                this.layers.forEach((layer) => {
-                    const markerFeatures = layer.features.filter(feature => feature.type ===
-                        'marker');
-                    const polygonFeatures = layer.features.filter(feature => feature.type ===
-                        'polygon');
-
-                    markerFeatures.forEach((feature) => {
-                        feature.leafletObject = L.marker(feature.coords)
-                            .bindPopup(feature.name);
-                    });
-
-                    polygonFeatures.forEach((feature) => {
-                        feature.leafletObject = L.polygon(feature.coords)
-                            .bindPopup(feature.name);
-                    });
-                });
-            },
-            initMap() {
-
-                this.map = L.map('map').setView([39.918836, 32.836816], 12);
-                this.tileLayer = L.tileLayer(
-                    'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-                        maxZoom: 18,
-                        attribution: '&copy; <a href="http://team9.bilkent.edu.tr/">MANERP</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                        id: 'mapbox.streets',
-                        accessToken: 'pk.eyJ1IjoiYmVyYXRwb3N0YWxjaSIsImEiOiJjanVpd3RtZmwwaXRsNGVvNDcyd2dvM3lmIn0.nULWCGr3Uad3b9Rqhw2i4A'
-                    }
-                );
-
-                this.tileLayer.addTo(this.map);
-
-                // icon for marker
-                var greenIcon = new L.Icon({
-                    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41]
-                });
-
-                // get current location
-                navigator.geolocation.getCurrentPosition(location => {
-                    let pos = new L.LatLng(location.coords.latitude, location.coords.longitude);
-                    this.map.setView(pos, 11);
-                    L.marker(pos, {icon: greenIcon}).addTo(this.map);
-                })
+                this.$refs.leafletMap.setLayers(this.layers);
             }
-
             // data retrieve methods
-
         },
         mounted() {
-            this.initMap();
             this.initLayers();
         }
     }
 </script>
 <style>
     #map {
-        height: 500px;
+        height: 450px;
     }
 
     #map img {
