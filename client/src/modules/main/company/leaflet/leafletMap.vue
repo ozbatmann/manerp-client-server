@@ -15,40 +15,44 @@
                 tileLayer: null,
                 greenMarker: null,
                 blackMarker: null,
-                layers: []
+                layers: [
+                    {id: 0, name: 'Bayileri Göster', active: false},
+                    {id: 1, name: 'Bayi Sınır Çizgileri', active: false}
+                ],
+                locations: []
             }
         },
         methods: {
             layerChanged(layerId, active) {
                 const layer = this.layers.find(layer => layer.id === layerId);
-                layer.features.forEach((feature) => {
+
+                if (layer.id === 0) {
+                    this.locations.forEach((location) => {
+                        if (active) {
+                            location.leafletMarker.addTo(this.map)
+                        } else {
+                            location.leafletMarker.removeFrom(this.map)
+                        }
+                    });
+                } else if (layer.id === 1) {
                     if (active) {
-                        feature.leafletObject.addTo(this.map);
+                        this.locations.polygon.addTo(this.map)
                     } else {
-                        feature.leafletObject.removeFrom(this.map);
+                        this.locations.polygon.removeFrom(this.map)
                     }
-                });
+                }
             },
-            initLayers() {
-                this.layers.forEach((layer) => {
-                    const markerFeatures = layer.features.filter(feature => feature.type ===
-                        'marker');
-                    const polygonFeatures = layer.features.filter(feature => feature.type ===
-                        'polygon');
+            initObjects() {
+                let coordsArr = [];
+                this.locations.forEach((location) => {
+                    location.leafletMarker = L.marker(location.coords, {icon: this.blackMarker})
+                        .bindPopup(this.popupContent)
+                        .bindTooltip('<p>' + location.name + '</p>')
+                        .on('click', this.onMarkerClick);
 
-                    markerFeatures.forEach((feature) => {
-                        feature.leafletObject = L.marker(feature.coords, {icon: this.blackMarker})
-
-                            .bindPopup(this.popupContent)
-                            .bindTooltip('<h1>' + feature.name + '</h1>')
-                            .on('click', this.onMarkerClick)
-                    });
-
-                    polygonFeatures.forEach((feature) => {
-                        feature.leafletObject = L.polygon(feature.coords)
-                            .bindPopup(feature.name);
-                    });
+                    coordsArr.push(location.coords)
                 });
+                this.locations.polygon = L.polygon(coordsArr);
             },
             initMap() {
                 this.map = L.map('map').setView([39.918836, 32.836816], 12);
@@ -85,7 +89,7 @@
                 });
 
             },
-            initMarkers() {
+            initIcons() {
                 const shadow = require('@/assets/leaflet/icons/marker-shadow.png');
 
                 const greenIcon = require('@/assets/leaflet/icons/marker-icon-2x-green.png');
@@ -113,24 +117,27 @@
                 console.log('latlng:', data.latlng);
 
             },
+            getLayers() {
+                return this.layers;
+            },
             edit() {
             },
-            setLayers(layers) {
-                this.layers = layers;
-                this.initLayers();
+            setLocations(locations) {
+                this.locations = locations;
+                this.initObjects();
             },
             setPopupContent(html) {
                 this.popupContent = html;
-                this.initLayers();
+                this.initObjects();
             },
             onMarkerClick(e) {
                 console.log('e:', e)
             }
         },
         mounted() {
-            this.initMarkers();
+            this.initIcons();
             this.initMap();
-            this.initLayers();
+            this.initObjects();
         }
     }
 </script>

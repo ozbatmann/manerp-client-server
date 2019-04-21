@@ -202,7 +202,7 @@
                         </v-card-title>
                         <v-card-text>
                             <v-layout row wrap>
-                                <v-flex xs3>
+                                <v-flex xs2>
                                     <div class="form-check" v-for="layer in layers" :key="layer.id">
                                         <v-checkbox v-model="layer.active"
                                                     :label="layer.name"
@@ -210,7 +210,7 @@
                                         </v-checkbox>
                                     </div>
                                 </v-flex>
-                                <v-flex xs9>
+                                <v-flex xs10>
                                     <leaflet-map
                                         ref="leafletMap"
                                         @save="addNewVendor"
@@ -248,58 +248,32 @@
                 showDialog: false,
                 isEdit: false,
                 data: JSON.parse(JSON.stringify(companyModel)),
-                layers: [{
-                    id: 0,
-                    name: 'Ankara Bayileri',
-                    active: false,
-                    features: [{
+                layers: [],
+                vendors: [
+                    {
                         id: 0,
                         name: 'Bogart\'s Smokehouse',
-                        type: 'marker',
                         coords: ['39.813119', '32.711207'],
                     },
-                        {
-                            id: 1,
-                            name: 'Pappy\'s Smokehouse',
-                            type: 'marker',
-                            coords: [39.853454, 32.722818],
-                        },
-                        {
-                            id: 2,
-                            name: 'Broadway Oyster Bar',
-                            type: 'marker',
-                            coords: [39.865876, 32.709700],
-                        },
-                        {
-                            id: 3,
-                            name: 'Charlie Gitto\'s On the Hill',
-                            type: 'marker',
-                            coords: [39.862163, 32.764860],
-                        },
-                        {
-                            id: 4,
-                            name: 'Charlie Gitto\'s On the Hill',
-                            type: 'marker',
-                            coords: [39.874472, 32.764193],
-                        }
-                    ],
-                },
                     {
                         id: 1,
-                        name: 'Ankara Bayileri Sınır Çizgileri',
-                        active: false,
-                        features: [{
-                            id: 0,
-                            name: 'City of St. Louis',
-                            type: 'polygon',
-                            coords: [
-                                [39.813119, 32.711207],
-                                [39.853454, 32.722818],
-                                [39.865876, 32.709700],
-                                [39.862163, 32.764860],
-                                [39.874472, 32.764193]
-                            ],
-                        }],
+                        name: 'Pappy\'s Smokehouse',
+                        coords: [39.853454, 32.722818],
+                    },
+                    {
+                        id: 2,
+                        name: 'Broadway Oyster Bar',
+                        coords: [39.865876, 32.709700],
+                    },
+                    {
+                        id: 3,
+                        name: 'Charlie Gitto\'s On the Hill',
+                        coords: [39.862163, 32.764860],
+                    },
+                    {
+                        id: 4,
+                        name: 'Charlie Gitto\'s On the Hill',
+                        coords: [39.874472, 32.764193],
                     }
                 ]
             }
@@ -368,8 +342,9 @@
                 this.$refs.leafletMap.setPopupContent(popupTemplate.template);
             },
             initLeafletMap() {
-                this.$refs.leafletMap.setLayers(this.layers);
+                this.$refs.leafletMap.setLocations(this.vendors);
                 this.setPopupContent();
+                this.layers = this.$refs.leafletMap.getLayers();
             },
             // data retrieve methods
             getSysrefCountries() {
