@@ -3,16 +3,18 @@
         <!-- <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn> -->
         <v-card class="pa-12">
             <v-tabs
+                v-model="currentTab"
                 fixed-tabs
                 slider-color="green accent-2"
             >
                 <v-tab ripple>
                     İş Yeri Bilgileri
                 </v-tab>
-                <v-tab ripple v-on:change="vendorTabChanged">
+                <v-tab :disabled="!isEdit" ripple v-on:change="vendorTabChanged">
                     Bayi Bilgileri
                 </v-tab>
-                <v-tab-item>
+                <v-tab-item :transition="false" :reverse-transition="false"
+                >
                     <v-card class="pa-3">
                         <v-card-title>
                             <span v-if="isEdit" class="headline">Güncelle</span>
@@ -55,6 +57,15 @@
                                                       color="green accent-2"
                                                       full-width>
                                         </v-text-field>
+                                        <v-text-field v-model="data.tradeRegistrationNo"
+                                                      label="Ticari Sicil Numarası"
+                                                      name="tradeRegistrationNo"
+                                                      :counter="30"
+                                                      maxlength="30"
+                                                      background-color="grey lighten-4"
+                                                      color="green accent-2"
+                                                      full-width>
+                                        </v-text-field>
                                         <v-text-field v-model="data.employerRegistrationNo"
                                                       label="İşveren Sicil Numarası"
                                                       name="employerRegistrationNo"
@@ -86,17 +97,17 @@
                                                       color="green accent-2"
                                                       full-width>
                                         </v-text-field>
-<!--                                        <v-combobox v-model="data.sysrefNaceCode"-->
-<!--                                                    :return-object="true"-->
-<!--                                                    :items="sysrefNaceCodes"-->
-<!--                                                    item-value="id"-->
-<!--                                                    label="Nace Kodu"-->
-<!--                                                    item-text="name"-->
-<!--                                                    name="sysrefNaceCode"-->
-<!--                                                    background-color="grey lighten-4"-->
-<!--                                                    color="green accent-2"-->
-<!--                                                    full-width>-->
-<!--                                        </v-combobox>-->
+                                        <!--                                        <v-combobox v-model="data.sysrefNaceCode"-->
+                                        <!--                                                    :return-object="true"-->
+                                        <!--                                                    :items="sysrefNaceCodes"-->
+                                        <!--                                                    item-value="id"-->
+                                        <!--                                                    label="Nace Kodu"-->
+                                        <!--                                                    item-text="name"-->
+                                        <!--                                                    name="sysrefNaceCode"-->
+                                        <!--                                                    background-color="grey lighten-4"-->
+                                        <!--                                                    color="green accent-2"-->
+                                        <!--                                                    full-width>-->
+                                        <!--                                        </v-combobox>-->
                                         <v-combobox v-model="data.sysrefCountry"
                                                     v-on:change="getSysrefCities"
                                                     :return-object="true"
@@ -182,7 +193,8 @@
                         </v-card-actions>
                     </v-card>
                 </v-tab-item>
-                <v-tab-item>
+                <v-tab-item :transition="false" :reverse-transition="false"
+                >
                     <v-card class="pa-3">
                         <v-card-title>
                             <span v-if="isEdit" class="headline">Bayiler</span>
@@ -228,6 +240,7 @@
         components: {LeafletMap},
         data() {
             return {
+                currentTab: 0,
                 sysrefCountries: [],
                 sysrefCities: [],
                 sysrefDistricts: [],
@@ -301,14 +314,28 @@
                     this.clear();
                 }
             },
+            openVendor(data) {
+                this.currentTab = 1;
+                if (data) {
+                    this.data = data;
+                    this.isEdit = true;
+                    this.vendorTabChanged();
+                } else {
+                    this.clear();
+                }
+                this.showDialog = true;
+            },
             close() {
                 this.showDialog = false;
+                this.currentTab = 0;
             },
             save() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         this.$emit("save", this.data);
-                        this.close();
+                        // TODO: spinner should be used
+                        // this.close();
+                        this.isEdit = true;
                     }
                 });
             },

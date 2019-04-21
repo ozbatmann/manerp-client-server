@@ -19,8 +19,8 @@
 
             <!-- Data table action menu slot -->
             <template v-slot:action-menu="item">
-                <v-list-tile>Bayi ekle</v-list-tile>
-                <v-list-tile @click="addDialog(item.bind)">Düzenle</v-list-tile>
+                <v-list-tile @click="editVendorDialog(item.bind)">Bayi ekle</v-list-tile>
+                <v-list-tile @click="editDialog(item.bind)">Düzenle</v-list-tile>
             </template>
         </m-data-table>
 
@@ -133,13 +133,22 @@
             },
             editDialog(data) {
                 if (data !== undefined && data !== null) {
-                    // TODO: implement
-                    // this.$http.get("api/v1/staff/" + data.id).then((result) => {
-                    //     let items = result.data.data;
-                    //     this.$refs.staffManagementAddEditDialog.open(items)
-                    // }).catch((error) => {
-                    //     console.error(error);
-                    // })
+                    this.$http.get("api/v1/company/" + data.id).then((result) => {
+                        let items = result.data.data;
+                        this.$refs.customerManagementAddEditDialog.open(items)
+                    }).catch((error) => {
+                        console.error(error);
+                    })
+                }
+            },
+            editVendorDialog(data) {
+                if (data !== undefined && data !== null) {
+                    this.$http.get("api/v1/company/" + data.id).then((result) => {
+                        let items = result.data.data;
+                        this.$refs.customerManagementAddEditDialog.openVendor(items)
+                    }).catch((error) => {
+                        console.error(error);
+                    })
                 }
             },
             getAllCustomers() {
@@ -158,7 +167,9 @@
             addNewItem(item) {
                 let self = this;
                 this.newItem = item;
-                //TODO: set companyTypeCode
+
+                this.newItem.sysrefCompanyType = 'ff8081816a2261ec016a226283a30005'; // TODO: change
+
                 this.$http.post('api/v1/company', this.newItem).then((result) => {
                     let status = result.data.status;
                     if (status < 299) {
@@ -176,7 +187,6 @@
             },
             editItem(item) {
                 let self = this;
-
                 this.$http.put('api/v1/company', item)
                     .then(result => {
                         let status = result.data.status;

@@ -79,13 +79,22 @@ class CompanyService extends BaseService
     def formatResultForShow(def data)
     {
         return [
-            id       : data.id,
-            code     : data?.code,
-            title    : data?.title,
-            phone    : data?.phone,
-            email    : data?.email,
-            taxNumber: data?.taxNumber,
-            taxOffice: data?.taxOffice
+            id                    : data.id,
+            code                  : data?.code,
+            name                  : data?.name,
+            title                 : data?.title,
+            phone                 : data?.phone,
+            email                 : data?.email,
+            customerRepresentative: data?.customerRepresentative,
+            employerRegistrationNo: data?.employerRegistrationNo,
+            tradeRegistrationNo   : data?.tradeRegistrationNo,
+            taxOffice             : data?.taxOffice,
+            taxNumber             : data?.taxNumber,
+            sysrefNaceCode        : data.sysrefNaceCode ? [id: data.sysrefNaceCode.id, name: data.sysrefNaceCode.name] : null,
+            sysrefCountry         : data.sysrefCountry ? [id: data.sysrefCountry.id, name: data.sysrefCountry.name] : null,
+            sysrefCity            : data.sysrefCity ? [id: data.sysrefCity.id, name: data.sysrefCity.name] : null,
+            sysrefDistrict        : data.sysrefDistrict ? [id: data.sysrefDistrict.id, name: data.sysrefDistrict.name] : null,
+            address               : data?.address
         ]
     }
 
