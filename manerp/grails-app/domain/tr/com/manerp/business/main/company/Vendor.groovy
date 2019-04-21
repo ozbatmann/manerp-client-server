@@ -7,6 +7,7 @@ import tr.com.manerp.business.sysref.SysrefCity
 import tr.com.manerp.business.sysref.SysrefCountry
 import tr.com.manerp.business.sysref.SysrefDistrict
 
+// TODO: locations can be clustered by cities, will reduce space
 class Vendor implements BusinessDomain
 {
 
@@ -19,7 +20,7 @@ class Vendor implements BusinessDomain
     SysrefDistrict sysrefDistrict
     String address
     String phone
-    Location location
+    Location location // location of the container country/city/district
 
     static constraints = {
         sysrefCountry nullable: true, unique: false
@@ -34,6 +35,7 @@ class Vendor implements BusinessDomain
     }
 
     static mapping = {
+        locations cascade: 'all-delete-orphan'
     }
 
     //TODO:change

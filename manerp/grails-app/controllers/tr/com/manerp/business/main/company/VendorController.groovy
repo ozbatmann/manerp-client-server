@@ -6,6 +6,7 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
+import tr.com.manerp.commands.controller.common.ShowCommand
 import tr.com.manerp.commands.controller.vendor.VendorPaginationCommand
 import tr.com.manerp.commands.controller.vendor.VendorSaveCommand
 
@@ -19,7 +20,6 @@ class VendorController extends BaseController
 
     def index()
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
@@ -39,15 +39,21 @@ class VendorController extends BaseController
         render maneResponse
     }
 
-    def show(String id)
+    def show()
     {
-
         ManeResponse maneResponse = new ManeResponse()
-        Vendor vendor = vendorService.getVendor(id)
+        def vendor
 
         try {
 
-            if ( !vendor ) throw new Exception()
+            ShowCommand cmd = new ShowCommand(params)
+
+            if ( cmd.validate() ) {
+                vendor = vendorService.getVendor(cmd.id, cmd.fields)
+            } else {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Parametreler uygun değil')
+            }
 
             maneResponse.data = vendor
             maneResponse.statusCode = StatusCode.OK
@@ -69,7 +75,6 @@ class VendorController extends BaseController
 
     def save(VendorSaveCommand cmd)
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
@@ -107,7 +112,6 @@ class VendorController extends BaseController
 
     def update(VendorSaveCommand cmd)
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
@@ -149,7 +153,6 @@ class VendorController extends BaseController
 
     def delete(String id)
     {
-
         ManeResponse maneResponse = new ManeResponse()
         Vendor vendor = Vendor.get(id)
 

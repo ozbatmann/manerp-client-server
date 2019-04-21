@@ -106,14 +106,6 @@
                         toggleable: true,
                         show: true,
                         search: {chip: false, value: null}
-                    },
-                    {
-                        text: 'Vergi Dairesi',
-                        sortable: true,
-                        value: 'taxOffice',
-                        toggleable: true,
-                        show: true,
-                        search: {chip: false, value: null}
                     }
                 ],
 
@@ -154,7 +146,10 @@
                 let self = this;
                 this.loading = true;
 
-                this.$http.get('api/v1/supplierCompany').then((result) => {
+                let fields = 'fields=id,code,title,phone,email,taxNumber';
+                let pagination = 'limit=10&offset=0';
+                let companyTypeCode = 'companyTypeCode=SPL';
+                this.$http.get('api/v1/company?' + fields + '&' + pagination + '&' + companyTypeCode).then((result) => {
                     self.suppliers = result.data.data.items
                 }).catch((error) => {
                     console.log(error);
@@ -163,8 +158,9 @@
             addNewItem(item) {
                 let self = this;
                 this.newItem = item;
+                //TODO: set companyTypeCode
 
-                this.$http.post('api/v1/supplierCompany', this.newItem).then((result) => {
+                this.$http.post('api/v1/company', this.newItem).then((result) => {
                     let status = result.data.status;
                     if (status < 299) {
                         self.snackbar.textColor = 'green--text text--accent-3';
@@ -182,7 +178,7 @@
             editItem(item) {
                 let self = this;
 
-                this.$http.put('api/v1/supplierCompany', item)
+                this.$http.put('api/v1/company', item)
                     .then(result => {
                         let status = result.data.status;
                         if (status < 299) {
@@ -199,7 +195,7 @@
                 })
             },
             deleteItem(item) {
-                this.$http.delete(`api/v1/supplierCompany/${item.id}`).then((result) => {
+                this.$http.delete(`api/v1/company/${item.id}`).then((result) => {
                     this.getAllSuppliers();
                 }).catch((error) => {
                     console.error(error);

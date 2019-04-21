@@ -3,7 +3,7 @@ package tr.com.manerp.business.main.company
 import grails.testing.web.controllers.ControllerUnitTest
 import spock.lang.Specification
 
-class SupplierCompanyControllerSpec extends Specification implements ControllerUnitTest<SupplierCompanyController> {
+class CompanyControllerSpec extends Specification implements ControllerUnitTest<CompanyController> {
 
     def setup() {
     }

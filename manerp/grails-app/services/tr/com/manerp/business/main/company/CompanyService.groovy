@@ -28,28 +28,28 @@ class CompanyService extends BaseService
 
         }
 
-        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-        return paginate(Company, properties, closure, excludedFields)
+        ManePaginatedResult result = paginate(Company, properties, closure)
+
+        result.data = formatResultForList(result.data as List)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, Company)
+
+        return result
     }
 
-    Company getCompany(String id, String sysrefCompanyTypeCode)
+    def getCompany(String id, String fields)
     {
-        Company company = Company.createCriteria().get {
-
-            sysrefCompanyType {
-                eq('code', sysrefCompanyTypeCode)
-            }
-
+        def company = Company.createCriteria().get {
             eq('id', id)
-
         } as Company
+
+        company = formatResultForShow(company)
+        if ( fields ) company = filterDataByFields(company, fields, Company)
 
         return company
     }
 
     def save(Company company)
     {
-
         company.save(flush: true, failOnError: true)
     }
 
@@ -59,22 +59,34 @@ class CompanyService extends BaseService
         company.delete(flush: true, failOnError: true)
     }
 
-    List formatPaginatedResultForList(def data)
+    List formatResultForList(def data)
     {
-
         List formattedData = data.collect {
             return [
                 id       : it.id,
-                code     : it.code,
-                title    : it.title,
-                phone    : it.phone,
-                email    : it.email,
-                taxNumber: it.taxNumber,
-                taxOffice: it.taxOffice
+                code     : it?.code,
+                title    : it?.title,
+                phone    : it?.phone,
+                email    : it?.email,
+                taxNumber: it?.taxNumber,
+                taxOffice: it?.taxOffice
             ]
         }
 
         return formattedData
+    }
+
+    def formatResultForShow(def data)
+    {
+        return [
+            id       : data.id,
+            code     : data?.code,
+            title    : data?.title,
+            phone    : data?.phone,
+            email    : data?.email,
+            taxNumber: data?.taxNumber,
+            taxOffice: data?.taxOffice
+        ]
     }
 
 }

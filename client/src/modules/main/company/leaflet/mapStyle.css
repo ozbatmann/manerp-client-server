@@ -1,0 +1,13 @@
+.popup-table {
+    width: 100%;
+    border: 1px solid black;
+}
+
+.popup-table-row {
+    background-color: #87ff56;
+}
+
+#button-submit {
+    border: 1px solid black;
+    background: grey;
+}

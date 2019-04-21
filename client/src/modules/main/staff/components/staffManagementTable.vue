@@ -162,9 +162,9 @@
                 let self = this;
                 this.loading = true;
 
-                let fields = 'id,code,firstName,lastName,refStaffTitle=name,sysrefStaffContractType=name,tcIdNumber,gsmNo';
+                let fields = 'fields=id,code,firstName,lastName,refStaffTitle=name,sysrefStaffContractType=name,tcIdNumber,gsmNo';
                 let pagination = 'limit=10&offset=0';
-                this.$http.get('api/v1/staff?fields=' + fields + "&" + pagination).then((result) => {
+                this.$http.get('api/v1/staff?' + fields + "&" + pagination).then((result) => {
                     self.staffs = result.data.data.items;
                 }).catch((error) => {
                     console.log(error);

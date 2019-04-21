@@ -1,7 +1,6 @@
 package tr.com.manerp.business.main.company
 
 import grails.gorm.transactions.Transactional
-import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
@@ -27,31 +26,48 @@ class VendorService extends BaseService
             }
         }
 
-        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-        return paginate(Vendor, properties, closure, excludedFields)
+        ManePaginatedResult result = paginate(Vendor, properties, closure)
+
+        result.data = formatResultForList(result.data as List)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, Vendor)
+
+        return result
     }
 
-    Vendor getVendor(String id)
+    def getVendor(String id, String fields = null)
     {
-        Vendor vendor = Vendor.createCriteria().get {
-
-            eq('id', id)
-
-        } as Vendor
+        def vendor = Vendor.createCriteria().get { eq('id', id) } as Vendor
+        vendor = formatResultForShow(vendor)
+        if ( fields ) vendor = filterDataByFields(vendor, fields, Vendor)
 
         return vendor
     }
 
     def save(Vendor vendor)
     {
-
         vendor.save(flush: true, failOnError: true)
     }
 
     def delete(Vendor vendor)
     {
-
         vendor.delete(flush: true, failOnError: true)
     }
 
+    List formatResultForList(List data)
+    {
+        List formattedData = data.collect {
+            [
+                id: it.id
+            ]
+        }
+
+        formattedData
+    }
+
+    def formatResultForShow(def data)
+    {
+        return [
+            id: data.id
+        ]
+    }
 }

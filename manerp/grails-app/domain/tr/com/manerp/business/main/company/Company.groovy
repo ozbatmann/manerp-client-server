@@ -23,7 +23,6 @@ class Company implements BusinessDomain, MCompany
 
         // MCompany constraints
         name nullable: false, blank: false, unique: false, maxSize: 50
-        title nullable: true, blank: true, unique: false, maxSize: 50
         sysrefCountry nullable: true, unique: false
         sysrefCity nullable: true, unique: false
         sysrefDistrict nullable: true, unique: false

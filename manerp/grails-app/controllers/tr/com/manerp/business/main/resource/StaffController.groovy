@@ -49,11 +49,8 @@ class StaffController extends BaseController
             ShowCommand cmd = new ShowCommand(params)
 
             if ( cmd.validate() ) {
-
                 staff = staffService.getStaff(cmd.id, cmd.fields)
-
             } else {
-
                 maneResponse.statusCode = StatusCode.BAD_REQUEST
                 throw new Exception('Parametreler uygun değil')
             }
@@ -79,7 +76,6 @@ class StaffController extends BaseController
     // TODO: write staff command !important
     def save(Staff staff)
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {

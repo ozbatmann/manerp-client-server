@@ -11,7 +11,7 @@
         data() {
             return {
                 map: null,
-                popup: null,
+                popupContent: '',
                 tileLayer: null,
                 greenMarker: null,
                 blackMarker: null,
@@ -38,7 +38,10 @@
 
                     markerFeatures.forEach((feature) => {
                         feature.leafletObject = L.marker(feature.coords, {icon: this.blackMarker})
-                            .bindPopup(feature.name);
+
+                            .bindPopup(this.popupContent)
+                            .bindTooltip('<h1>' + feature.name + '</h1>')
+                            .on('click', this.onMarkerClick)
                     });
 
                     polygonFeatures.forEach((feature) => {
@@ -49,6 +52,7 @@
             },
             initMap() {
                 this.map = L.map('map').setView([39.918836, 32.836816], 12);
+
                 this.tileLayer = L.tileLayer(
                     'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                         maxZoom: 18,
@@ -57,6 +61,7 @@
                         accessToken: 'pk.eyJ1IjoiYmVyYXRwb3N0YWxjaSIsImEiOiJjanVpd3RtZmwwaXRsNGVvNDcyd2dvM3lmIn0.nULWCGr3Uad3b9Rqhw2i4A'
                     }
                 );
+
                 this.tileLayer.addTo(this.map);
 
                 // get current location
@@ -66,16 +71,17 @@
                     L.marker(pos, {icon: this.greenMarker}).addTo(this.map);
                 });
 
-                // get popup html content
-                const popupTemplate = require('@/modules/main/company/map/leaflet-popup');
                 // register right click popup event handler
                 this.map.on('contextmenu', (e) => {
                     let popup = L.popup({closeOnClick: false, autoClose: true})
                         .setLatLng(e.latlng)
-                        .setContent(popupTemplate.template);
-
+                        .setContent(this.popupContent);
                     this.map.openPopup(popup);
-                    console.log(e.latlng);
+
+                    let buttonSubmit = L.DomUtil.get('button-submit');
+                    if (buttonSubmit) {
+                        L.DomEvent.addListener(buttonSubmit, 'click', () => this.save(e));
+                    }
                 });
 
             },
@@ -102,13 +108,23 @@
                     shadowSize: [41, 41]
                 });
             },
-            save() {
+            save(data) {
+                console.log('data:', data)
+                console.log('latlng:', data.latlng);
+
             },
             edit() {
             },
             setLayers(layers) {
                 this.layers = layers;
                 this.initLayers();
+            },
+            setPopupContent(html) {
+                this.popupContent = html;
+                this.initLayers();
+            },
+            onMarkerClick(e) {
+                console.log('e:', e)
             }
         },
         mounted() {

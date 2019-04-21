@@ -25,8 +25,8 @@
         </m-data-table>
 
         <customer-management-add-edit-dialog ref="customerManagementAddEditDialog"
-                                          @save="addNewItem"
-                                          @edit="editItem">
+                                             @save="addNewItem"
+                                             @edit="editItem">
         </customer-management-add-edit-dialog>
 
         <v-snackbar
@@ -106,14 +106,6 @@
                         toggleable: true,
                         show: true,
                         search: {chip: false, value: null}
-                    },
-                    {
-                        text: 'Vergi Dairesi',
-                        sortable: true,
-                        value: 'taxOffice',
-                        toggleable: true,
-                        show: true,
-                        search: {chip: false, value: null}
                     }
                 ],
 
@@ -154,7 +146,10 @@
                 let self = this;
                 this.loading = true;
 
-                this.$http.get('api/v1/customerCompany').then((result) => {
+                let fields = 'fields=id,code,title,phone,email,taxNumber';
+                let pagination = 'limit=10&offset=0';
+                let companyTypeCode = 'companyTypeCode=CST';
+                this.$http.get('api/v1/company?' + fields + '&' + pagination + '&' + companyTypeCode).then((result) => {
                     self.customers = result.data.data.items
                 }).catch((error) => {
                     console.log(error);
@@ -163,8 +158,8 @@
             addNewItem(item) {
                 let self = this;
                 this.newItem = item;
-
-                this.$http.post('api/v1/customerCompany', this.newItem).then((result) => {
+                //TODO: set companyTypeCode
+                this.$http.post('api/v1/company', this.newItem).then((result) => {
                     let status = result.data.status;
                     if (status < 299) {
                         self.snackbar.textColor = 'green--text text--accent-3';
@@ -182,7 +177,7 @@
             editItem(item) {
                 let self = this;
 
-                this.$http.put('api/v1/customerCompany', item)
+                this.$http.put('api/v1/company', item)
                     .then(result => {
                         let status = result.data.status;
                         if (status < 299) {
@@ -199,7 +194,7 @@
                 })
             },
             deleteItem(item) {
-                this.$http.delete(`api/v1/customerCompany/${item.id}`).then((result) => {
+                this.$http.delete(`api/v1/company/${item.id}`).then((result) => {
                     this.getAllCustomers();
                 }).catch((error) => {
                     console.error(error);
@@ -208,7 +203,7 @@
         },
 
         mounted() {
-            // this.getAllCustomers();
+            this.getAllCustomers();
         }
     }
 </script>

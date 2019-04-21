@@ -1,9 +1,9 @@
-package tr.com.manerp.business.main.company
+package tr.com.manerp.business.sysref
 
 import grails.testing.web.controllers.ControllerUnitTest
 import spock.lang.Specification
 
-class CustomerCompanyControllerSpec extends Specification implements ControllerUnitTest<CustomerCompanyController> {
+class SysrefNaceCodeControllerSpec extends Specification implements ControllerUnitTest<SysrefNaceCodeController> {
 
     def setup() {
     }

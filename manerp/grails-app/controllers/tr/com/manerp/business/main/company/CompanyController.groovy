@@ -7,9 +7,10 @@ import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.business.sysref.SysrefCompanyType
-import tr.com.manerp.commands.controller.common.PaginationCommand
+import tr.com.manerp.commands.controller.common.ShowCommand
+import tr.com.manerp.commands.controller.company.CompanyPaginationCommand
 
-class CustomerCompanyController extends BaseController
+class CompanyController extends BaseController
 {
 
     static namespace = "v1"
@@ -19,14 +20,12 @@ class CustomerCompanyController extends BaseController
 
     def index()
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
+            CompanyPaginationCommand cmd = new CompanyPaginationCommand(params)
 
-            PaginationCommand cmd = new PaginationCommand(params)
-
-            ManePaginatedResult result = companyService.getCompanyList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), 'CST')
+            ManePaginatedResult result = companyService.getCompanyList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), cmd.sysrefCompanyTypeCode)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -39,17 +38,21 @@ class CustomerCompanyController extends BaseController
         render maneResponse
     }
 
-    def show(String id)
+    def show()
     {
 
         ManeResponse maneResponse = new ManeResponse()
-
-        // TODO: request sysrefCompanyTypeCode from client
-        Company company = companyService.getCompany(id, 'CST')
+        def company
 
         try {
+            ShowCommand cmd = new ShowCommand(params)
 
-            if ( !company ) throw new Exception()
+            if ( cmd.validate() ) {
+                company = companyService.getCompany(cmd.id, cmd.fields)
+            } else {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Parametreler uygun değil')
+            }
 
             maneResponse.data = company
             maneResponse.statusCode = StatusCode.OK
@@ -78,7 +81,10 @@ class CustomerCompanyController extends BaseController
 
             company.active = true
             company.setRandomCode()
-            company.sysrefCompanyType = SysrefCompanyType.findByCode('CST')
+            company.sysrefCompanyType = SysrefCompanyType.createCriteria().get {
+                eq('code', 'CST')
+            } as SysrefCompanyType
+
             companyService.save(company)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = company.id
