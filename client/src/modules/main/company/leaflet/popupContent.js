@@ -1,15 +1,17 @@
-export const template = '<form id="popup-form">\
-                                      <label for="input-speed">New speed:</label>\
-                                      <input id="input-speed" class="popup-input" type="number" />\
-                                      <table class="popup-table">\
-                                        <tr class="popup-table-row">\
-                                          <th class="popup-table-header">Arc numer:</th>\
-                                          <td id="value-arc" class="popup-table-data"></td>\
-                                        </tr>\
-                                        <tr class="popup-table-row">\
-                                          <th class="popup-table-header">Current speed:</th>\
-                                          <td id="value-speed" class="popup-table-data"></td>\
-                                        </tr>\
-                                      </table>\
-                                      <button id="button-submit" type="button">Save Changes</button>\
-                                    </form>';
+export const template = '<div class="map-popup-container">\
+                            <form id="map-popup-form" action="" method="post">\
+                                <h3>Bayi</h3>\
+                                <fieldset>\
+                                    <input name="title" placeholder="Unvan" type="text" tabindex="1" required autofocus>\
+                                </fieldset>\
+                                <fieldset>\
+                                    <input name="phone" placeholder="Telefon" type="text" tabindex="3" required>\
+                                </fieldset>\
+                                <fieldset>\
+                                    <textarea name="address" placeholder="Adres" tabindex="3" required></textarea>\
+                                </fieldset>\
+                                <fieldset>\
+                                    <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Kaydet</button>\
+                                </fieldset>\
+                            </form>\
+                        </div>';
