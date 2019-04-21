@@ -10,7 +10,6 @@ import tr.com.manerp.business.main.resource.Staff
 @Transactional
 class CompanyService extends BaseService
 {
-
     ManePaginatedResult getCompanyList(ManePaginationProperties properties, String sysrefCompanyTypeCode)
     {
 

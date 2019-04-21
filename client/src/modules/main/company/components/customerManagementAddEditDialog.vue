@@ -306,13 +306,14 @@
         },
         methods: {
             open(data) {
-                this.showDialog = true;
+                this.currentTab = 0;
                 if (data) {
                     this.data = data;
                     this.isEdit = true;
                 } else {
                     this.clear();
                 }
+                this.showDialog = true;
             },
             openVendor(data) {
                 this.currentTab = 1;
@@ -327,7 +328,6 @@
             },
             close() {
                 this.showDialog = false;
-                this.currentTab = 0;
             },
             save() {
                 this.$validator.validateAll().then((result) => {
