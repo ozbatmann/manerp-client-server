@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="showDialog" persistent max-width="90%" scrollable>
+    <v-dialog v-model="showDialog" persistent max-width="100%" scrollable>
         <!-- <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn> -->
         <v-card class="pa-12">
             <v-tabs
@@ -395,7 +395,7 @@
 </script>
 <style>
     #map {
-        height: 450px;
+        height: 550px;
     }
 
     #map img {
