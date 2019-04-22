@@ -1,17 +1,28 @@
 export const template = '<div class="map-popup-container">\
-                            <form id="map-popup-form" action="" method="post">\
-                                <h3>Bayi</h3>\
+                            <form id="map-popup-form">\
+                                <table>\
+                                    <tr>\
+                                        <td>\
+                                            <h3>Bayi</h3>\
+                                        </td>\
+                                        <td class="map-popup-coords">\
+                                            <span id="map-popup-coords-p"></span>\
+                                        </td>\
+                                    </tr>\
+                                </table>\
                                 <fieldset>\
-                                    <input name="title" placeholder="Unvan" type="text" tabindex="1" required autofocus>\
+                                    <input maxlength="50" id="title" name="title" placeholder="Unvan" type="text" tabindex="1" autofocus>\
+                                    <span id="title-warn">Bu alan gereklidir</span>\
                                 </fieldset>\
                                 <fieldset>\
-                                    <input name="phone" placeholder="Telefon" type="text" tabindex="3" required>\
+                                    <input maxlength="20" id="phone" name="phone" placeholder="Telefon" type="text" tabindex="2">\
                                 </fieldset>\
                                 <fieldset>\
-                                    <textarea name="address" placeholder="Adres" tabindex="3" required></textarea>\
+                                    <textarea maxlength="255" id="address" name="address" placeholder="Adres" tabindex="3"></textarea>\
+                                    <span id="address-warn">Bu alan gereklidir</span>\
                                 </fieldset>\
                                 <fieldset>\
-                                    <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Kaydet</button>\
+                                    <button id="popup-submit" name="submit" type="button">Kaydet</button>\
                                 </fieldset>\
                             </form>\
                         </div>';

@@ -252,27 +252,27 @@
                 vendors: [
                     {
                         id: 0,
-                        name: 'Bogart\'s Smokehouse',
+                        title: 'Bogart\'s Smokehouse',
                         coords: ['39.813119', '32.711207'],
                     },
                     {
                         id: 1,
-                        name: 'Pappy\'s Smokehouse',
+                        title: 'Pappy\'s Smokehouse',
                         coords: [39.853454, 32.722818],
                     },
                     {
                         id: 2,
-                        name: 'Broadway Oyster Bar',
+                        title: 'Broadway Oyster Bar',
                         coords: [39.865876, 32.709700],
                     },
                     {
                         id: 3,
-                        name: 'Charlie Gitto\'s On the Hill',
+                        title: 'Charlie Gitto\'s On the Hill',
                         coords: [39.862163, 32.764860],
                     },
                     {
                         id: 4,
-                        name: 'Charlie Gitto\'s On the Hill',
+                        title: 'Charlie Gitto\'s On the Hill',
                         coords: [39.874472, 32.764193],
                     }
                 ]

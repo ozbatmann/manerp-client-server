@@ -47,7 +47,7 @@
                 this.locations.forEach((location) => {
                     location.leafletMarker = L.marker(location.coords, {icon: this.blackMarker})
                         .bindPopup(this.popupContent)
-                        .bindTooltip('<p>' + location.name + '</p>')
+                        .bindTooltip('<p>' + location.title + '</p>')
                         .on('click', this.onMarkerClick);
 
                     coordsArr.push(location.coords)
@@ -77,13 +77,17 @@
 
                 // register right click popup event handler
                 this.map.on('contextmenu', (e) => {
-                    let popup = L.popup({closeOnClick: false, autoClose: true})
-                        .setLatLng(e.latlng)
-                        .setContent(this.popupContent);
-                    this.map.openPopup(popup);
+                    if (!this.map._popup) {
+                        let popup = L.popup({closeOnClick: false, autoClose: true})
+                            .setLatLng(e.latlng)
+                            .setContent(this.popupContent);
+                        this.map.openPopup(popup);
 
-                    let buttonSubmit = L.DomUtil.get('button-submit');
-                    if (buttonSubmit) {
+                        // display current coords on popup
+                        let coordsEl = L.DomUtil.get('map-popup-coords-p');
+                        coordsEl.innerHTML = parseFloat(e.latlng.lat).toPrecision(5) + ', ' + parseFloat(e.latlng.lng).toPrecision(5);
+
+                        let buttonSubmit = L.DomUtil.get('popup-submit');
                         L.DomEvent.addListener(buttonSubmit, 'click', () => this.save(e));
                     }
                 });
@@ -112,10 +116,49 @@
                     shadowSize: [41, 41]
                 });
             },
+            validateInput() {
+                let valid = true;
+                let title = L.DomUtil.get('title').value;
+                let address = L.DomUtil.get('address').value;
+
+                if (!title) {
+                    console.log('title valid')
+                    valid = false;
+                    L.DomUtil.get('title-warn').style.display = 'block';
+                } else {
+                    console.log('title invalid')
+
+                    L.DomUtil.get('title-warn').style.display = 'none';
+                }
+                if (!address) {
+                    console.log('address valid')
+
+                    valid = false;
+                    L.DomUtil.get('address-warn').style.display = 'block';
+                } else {
+                    console.log('address invalid')
+
+                    L.DomUtil.get('address-warn').style.display = 'none';
+                }
+
+                return valid;
+            },
             save(data) {
+                let title = L.DomUtil.get('title').value;
+                let phone = L.DomUtil.get('phone').value;
+                let address = L.DomUtil.get('address').value;
+
+                let valid = this.validateInput();
+                if (valid) {
+                    //todo:submit
+                }
+
+                this.map.closePopup();
+                console.log('title:', title)
+                console.log('phone:', phone)
+                console.log('address:', address)
                 console.log('data:', data)
                 console.log('latlng:', data.latlng);
-
             },
             getLayers() {
                 return this.layers;
@@ -131,7 +174,9 @@
                 this.initObjects();
             },
             onMarkerClick(e) {
-                console.log('e:', e)
+                console.log('onMarkerClick e:', e)
+            },
+            displayCoordsOnPopup() {
             }
         },
         mounted() {
