@@ -12,6 +12,7 @@
             return {
                 map: null,
                 popupContent: '',
+                currentMarker: null,
                 tileLayer: null,
                 greenMarker: null,
                 blackMarker: null,
@@ -55,7 +56,12 @@
                 this.locations.polygon = L.polygon(coordsArr);
             },
             initMap() {
-                this.map = L.map('map').setView([39.918836, 32.836816], 12);
+                this.map = L.map('map', {
+                    fullscreenControl: true,
+                    fullscreenControlOptions: {
+                        position: 'topleft'
+                    }
+                }).setView([39.918836, 32.836816], 12);
 
                 this.tileLayer = L.tileLayer(
                     'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -75,20 +81,28 @@
                     L.marker(pos, {icon: this.greenMarker}).addTo(this.map);
                 });
 
-                // register right click popup event handler
+                // register right click event handler
                 this.map.on('contextmenu', (e) => {
                     if (!this.map._popup) {
                         let popup = L.popup({closeOnClick: false, autoClose: true})
                             .setLatLng(e.latlng)
                             .setContent(this.popupContent);
-                        this.map.openPopup(popup);
 
-                        // display current coords on popup
-                        let coordsEl = L.DomUtil.get('map-popup-coords-p');
-                        coordsEl.innerHTML = parseFloat(e.latlng.lat).toPrecision(5) + ', ' + parseFloat(e.latlng.lng).toPrecision(5);
+                        this.currentMarker = L.marker(e.latlng, {icon: this.blackMarker, draggable: true});
+                        this.currentMarker.bindPopup(popup).addTo(this.map).openPopup();
 
-                        let buttonSubmit = L.DomUtil.get('popup-submit');
-                        L.DomEvent.addListener(buttonSubmit, 'click', () => this.save(e));
+                        this.currentMarker.on('dragend', () => {
+                            this.currentMarker.openPopup();
+                            this.displayCoordsOnPopup(this.currentMarker.getLatLng());
+                            this.registerPopupSubmit(e);
+                        });
+
+                        this.currentMarker._popup._closeButton.onclick = () => {
+                            this.map.removeLayer(this.currentMarker);
+                        };
+
+                        this.displayCoordsOnPopup(e.latlng);
+                        this.registerPopupSubmit(e);
                     }
                 });
 
@@ -122,22 +136,15 @@
                 let address = L.DomUtil.get('address').value;
 
                 if (!title) {
-                    console.log('title valid')
                     valid = false;
                     L.DomUtil.get('title-warn').style.display = 'block';
                 } else {
-                    console.log('title invalid')
-
                     L.DomUtil.get('title-warn').style.display = 'none';
                 }
                 if (!address) {
-                    console.log('address valid')
-
                     valid = false;
                     L.DomUtil.get('address-warn').style.display = 'block';
                 } else {
-                    console.log('address invalid')
-
                     L.DomUtil.get('address-warn').style.display = 'none';
                 }
 
@@ -153,7 +160,9 @@
                     //todo:submit
                 }
 
-                this.map.closePopup();
+                // this.map.closePopup();
+                // this.map.removeLayer(this.currentMarker);
+
                 console.log('title:', title)
                 console.log('phone:', phone)
                 console.log('address:', address)
@@ -176,7 +185,13 @@
             onMarkerClick(e) {
                 console.log('onMarkerClick e:', e)
             },
-            displayCoordsOnPopup() {
+            displayCoordsOnPopup(latlng) {
+                let coordsEl = L.DomUtil.get('map-popup-coords-p');
+                coordsEl.innerHTML = parseFloat(latlng.lat).toPrecision(5) + ', ' + parseFloat(latlng.lng).toPrecision(5);
+            },
+            registerPopupSubmit(e) {
+                let buttonSubmit = L.DomUtil.get('popup-submit');
+                L.DomEvent.addListener(buttonSubmit, 'click', () => this.save(e));
             }
         },
         mounted() {
