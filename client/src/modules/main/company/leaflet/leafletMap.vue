@@ -16,6 +16,7 @@
                 tileLayer: null,
                 greenMarker: null,
                 blackMarker: null,
+                violetMarker: null,
                 layers: [
                     {id: 0, name: 'Bayileri Göster', active: false},
                     {id: 1, name: 'Bayi Sınır Çizgileri', active: false}
@@ -71,7 +72,6 @@
                         accessToken: 'pk.eyJ1IjoiYmVyYXRwb3N0YWxjaSIsImEiOiJjanVpd3RtZmwwaXRsNGVvNDcyd2dvM3lmIn0.nULWCGr3Uad3b9Rqhw2i4A'
                     }
                 );
-
                 this.tileLayer.addTo(this.map);
 
                 // get current location
@@ -88,7 +88,7 @@
                             .setLatLng(e.latlng)
                             .setContent(this.popupContent);
 
-                        this.currentMarker = L.marker(e.latlng, {icon: this.blackMarker, draggable: true});
+                        this.currentMarker = L.marker(e.latlng, {icon: this.violetMarker, draggable: true});
                         this.currentMarker.bindPopup(popup).addTo(this.map).openPopup();
 
                         this.currentMarker.on('dragend', () => {
@@ -129,6 +129,17 @@
                     popupAnchor: [1, -34],
                     shadowSize: [41, 41]
                 });
+
+                const violetIcon = require('@/assets/leaflet/icons/marker-icon-2x-violet.png');
+                this.violetMarker = new L.Icon({
+                    iconUrl: violetIcon,
+                    shadowUrl: shadow,
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                });
+
             },
             validateInput() {
                 let valid = true;
