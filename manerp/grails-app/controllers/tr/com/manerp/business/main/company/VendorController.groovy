@@ -26,7 +26,7 @@ class VendorController extends BaseController
 
             VendorPaginationCommand cmd = new VendorPaginationCommand(params)
 
-            ManePaginatedResult result = vendorService.getVendorList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), cmd.company)
+            ManePaginatedResult result = vendorService.getVendorList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), cmd.companyId)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -79,6 +79,7 @@ class VendorController extends BaseController
 
         try {
 
+            cmd.active = true
             if ( !cmd.validate() ) {
                 maneResponse.statusCode = StatusCode.BAD_REQUEST
                 maneResponse.message = parseValidationErrors(cmd.errors)

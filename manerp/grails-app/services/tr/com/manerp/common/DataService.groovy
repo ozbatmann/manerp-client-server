@@ -356,6 +356,14 @@ class DataService
 
             vendorPinarEsk = new Vendor()
             vendorPinarEsk.setRandomCode()
+
+            Location location = new Location()
+            location.active = true
+            location.latitude = '40.957'
+            location.longitude = '32.269'
+            location.sysCompany = sysCompanyBumerang
+            vendorPinarEsk.location = location
+
             vendorPinarEsk.sysCompany = sysCompanyBumerang
             vendorPinarEsk.title = 'Pınar Eskişehir Bayi'
             vendorPinarEsk.active = true
@@ -371,6 +379,14 @@ class DataService
 
             vendorPinarKemal = new Vendor()
             vendorPinarKemal.setRandomCode()
+
+            Location location = new Location()
+            location.active = true
+            location.latitude = '40.641'
+            location.longitude = '32.202'
+            location.sysCompany = sysCompanyBumerang
+            vendorPinarKemal.location = location
+
             vendorPinarKemal.sysCompany = sysCompanyBumerang
             vendorPinarKemal.title = 'Pınar Kemalpaşa Bayi'
             vendorPinarKemal.active = true
@@ -390,6 +406,7 @@ class DataService
             customerCompanyKerevitas.sysCompany = sysCompanyBumerang
             customerCompanyKerevitas.sysrefCompanyType = sysrefCompanyTypeCst
             customerCompanyKerevitas.refCompanySector = refCompanySectorGida
+            customerCompanyKerevitas.customerRepresentative = 'Murat Ülker'
             customerCompanyKerevitas.title = 'Kerevitaş Unlu Mamülleri San. A.Ş.'
             customerCompanyKerevitas.address = 'Üniversite Mah. Bağlariçi cad. No:29 Avcılar İstanbul.'
             customerCompanyKerevitas.phone = '(0850) 209 16 16 '
@@ -407,6 +424,14 @@ class DataService
 
             vendorKerevitasAdana = new Vendor()
             vendorKerevitasAdana.setRandomCode()
+
+            Location location = new Location()
+            location.active = true
+            location.latitude = '40.050'
+            location.longitude = '32.653'
+            location.sysCompany = sysCompanyBumerang
+            vendorKerevitasAdana.location = location
+
             vendorKerevitasAdana.sysCompany = sysCompanyBumerang
             vendorKerevitasAdana.title = 'Kerevitaş Adana Bölge Müdürlüğü'
             vendorKerevitasAdana.active = true
@@ -422,6 +447,14 @@ class DataService
 
             vendorKerevitasAnkara = new Vendor()
             vendorKerevitasAnkara.setRandomCode()
+
+            Location location = new Location()
+            location.active = true
+            location.latitude = '40.305'
+            location.longitude = '33.070'
+            location.sysCompany = sysCompanyBumerang
+            vendorKerevitasAnkara.location = location
+
             vendorKerevitasAnkara.sysCompany = sysCompanyBumerang
             vendorKerevitasAnkara.title = 'Kerevitaş Ankara Bölge Müdürlüğü'
             vendorKerevitasAnkara.active = true

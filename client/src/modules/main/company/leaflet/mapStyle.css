@@ -100,3 +100,8 @@
     padding-left: 80px;
     font-weight: bolder;
 }
+
+#map-popup-form #popup-delete {
+    background: rgba(202, 37, 37, 0.671);
+}
+

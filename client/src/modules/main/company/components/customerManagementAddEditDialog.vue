@@ -207,6 +207,7 @@
                                     ref="leafletMap"
                                     @save="addNewVendor"
                                     @edit="editVendor"
+                                    @delete="deleteVendor"
                                 ></leaflet-map>
                             </v-flex>
                         </v-layout>
@@ -247,27 +248,27 @@
                     {
                         id: 0,
                         title: 'Bogart\'s Smokehouse',
-                        coords: ['39.813119', '32.711207'],
+                        location: ['39.813119', '32.711207'],
                     },
                     {
                         id: 1,
                         title: 'Pappy\'s Smokehouse',
-                        coords: [39.853454, 32.722818],
+                        location: [39.853454, 32.722818],
                     },
                     {
                         id: 2,
                         title: 'Broadway Oyster Bar',
-                        coords: [39.865876, 32.709700],
+                        location: [39.865876, 32.709700],
                     },
                     {
                         id: 3,
                         title: 'Charlie Gitto\'s On the Hill',
-                        coords: [39.862163, 32.764860],
+                        location: [39.862163, 32.764860],
                     },
                     {
                         id: 4,
                         title: 'Charlie Gitto\'s On the Hill',
-                        coords: [39.874472, 32.764193],
+                        location: [39.874472, 32.764193],
                     }
                 ]
             }
@@ -278,6 +279,7 @@
                 if (data) {
                     this.data = data;
                     this.isEdit = true;
+                    this.getAllVendors();
                 } else {
                     this.clear();
                 }
@@ -288,6 +290,7 @@
                 if (data) {
                     this.data = data;
                     this.isEdit = true;
+                    this.getAllVendors();
                     this.vendorTabChanged();
                 } else {
                     this.clear();
@@ -324,11 +327,37 @@
                 // to display all tiles
                 window.dispatchEvent(new Event('resize'));
             },
-            addNewVendor() {
+            addNewVendor(data) {
+                data.company = this.data.id;
+                this.$http.post("api/v1/vendor", data).then((result) => {
+                    this.getAllVendors();
+                    this.$refs.leafletMap.closePopup();
+                }).catch((error) => {
+                    console.error(error);
+                }).finally(() => {
+
+                })
             },
-            editVendor() {
+            editVendor(data) {
+                this.$http.put("api/v1/vendor", data).then((result) => {
+                    this.vendors = result.data.data.items
+                }).catch((error) => {
+                    console.error(error);
+                }).finally(() => {
+
+                })
+            },
+            deleteVendor(id) {
+                this.$http.delete(`api/v1/company/${id}`).then((result) => {
+                    this.getAllVendors();
+                    this.$refs.leafletMap.closePopup();
+                }).catch((error) => {
+                    console.error(error);
+                })
             },
             layerChanged(layerId, active) {
+                if (!this.layers[layerId].active && active) this.layers[layerId].active = true;
+                if (this.layers[layerId].active && !active) this.layers[layerId].active = false;
                 this.$refs.leafletMap.layerChanged(layerId, active);
             },
             setPopupContent() {
@@ -378,6 +407,22 @@
                     console.error(error);
                 }).finally(() => {
 
+                })
+            },
+            getAllVendors() {
+                let fields = 'fields=id,code,title,address,phone,location';
+                let pagination = 'limit=200&offset=0';
+                let companyId = 'companyId=' + this.data.id;
+                this.layerChanged(0, false);
+                this.layerChanged(1, false);
+
+                this.$http.get('api/v1/vendor?' + fields + '&' + pagination + '&' + companyId).then((result) => {
+                    this.vendors = result.data.data.items;
+                    this.$refs.leafletMap.setLocations(this.vendors);
+                    this.layerChanged(0, true);
+                }).catch((error) => {
+                    console.log(error);
+                }).finally(() => {
                 })
             }
         },

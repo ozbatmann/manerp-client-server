@@ -57,7 +57,15 @@ class VendorService extends BaseService
     {
         List formattedData = data.collect {
             [
-                id: it.id
+                id            : it.id,
+                title         : it?.title,
+                sysrefCity    : it.sysrefCity ? [id: it.sysrefCity.id, name: it.sysrefCity.name] : null,
+                sysrefCountry : it.sysrefCountry ? [id: it.sysrefCountry.id, name: it.sysrefCountry.name] : null,
+                sysrefDistrict: it.sysrefDistrict ? [id: it.sysrefDistrict.id, name: it.sysrefDistrict.name] : null,
+                address       : it?.address,
+                phone         : it?.phone,
+                code          : it?.code,
+                location      : it.location ? [it.location.latitude, it.location.longitude] : null
             ]
         }
 
@@ -67,7 +75,15 @@ class VendorService extends BaseService
     def formatResultForShow(def data)
     {
         return [
-            id: data.id
+            id            : data.id,
+            title         : data?.title,
+            sysrefCity    : data.sysrefCity ? [id: data.sysrefCity.id, name: data.sysrefCity.name] : null,
+            sysrefCountry : data.sysrefCountry ? [id: data.sysrefCountry.id, name: data.sysrefCountry.name] : null,
+            sysrefDistrict: data.sysrefDistrict ? [id: data.sysrefDistrict.id, name: data.sysrefDistrict.name] : null,
+            address       : data?.address,
+            phone         : data?.phone,
+            code          : data?.code,
+            location      : data.location ? [data.location.latitude, data.location.longitude] : null
         ]
     }
 }

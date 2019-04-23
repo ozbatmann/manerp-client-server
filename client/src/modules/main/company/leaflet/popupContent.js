@@ -24,5 +24,8 @@ export const template = '<div class="map-popup-container">\
                                 <fieldset>\
                                     <button id="popup-submit" name="submit" type="button">Kaydet</button>\
                                 </fieldset>\
+                                <fieldset>\
+                                    <button id="popup-delete" name="delete" type="button">Sil</button>\
+                                </fieldset>\
                             </form>\
                         </div>';

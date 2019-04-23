@@ -35,7 +35,6 @@ class Vendor implements BusinessDomain
     }
 
     static mapping = {
-        locations cascade: 'all-delete-orphan'
     }
 
     //TODO:change

@@ -4,11 +4,11 @@ import tr.com.manerp.commands.controller.common.PaginationCommand
 
 class VendorPaginationCommand extends PaginationCommand {
 
-    String company
+    String companyId
 
     VendorPaginationCommand(def params) {
         super(params)
-        this.company = params.company as String
+        this.companyId = params.companyId as String
     }
 
     static constraints = {

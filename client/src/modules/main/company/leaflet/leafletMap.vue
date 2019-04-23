@@ -1,7 +1,7 @@
 <template>
     <div id="map"></div>
 </template>
-
+<!--TODO: use marker cluster in the future-->
 <script>
     import L from 'leaflet'
     import 'leaflet/dist/leaflet.css'
@@ -47,22 +47,17 @@
             initObjects() {
                 let coordsArr = [];
                 this.locations.forEach((location) => {
-                    location.leafletMarker = L.marker(location.coords, {icon: this.blackMarker})
-                        .bindPopup(this.popupContent)
+                    location.leafletMarker = L.marker(location.location, {icon: this.blackMarker, data: location})
+                        .bindPopup(L.popup({closeOnClick: false, autoClose: true}).setContent(this.popupContent))
                         .bindTooltip('<p>' + location.title + '</p>')
                         .on('click', this.onMarkerClick);
 
-                    coordsArr.push(location.coords)
+                    coordsArr.push(location.location)
                 });
                 this.locations.polygon = L.polygon(coordsArr);
             },
             initMap() {
-                this.map = L.map('map', {
-                    fullscreenControl: true,
-                    fullscreenControlOptions: {
-                        position: 'topleft'
-                    }
-                }).setView([39.918836, 32.836816], 12);
+                this.map = L.map('map').setView([39.918836, 32.836816], 12);
 
                 this.tileLayer = L.tileLayer(
                     'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -88,13 +83,18 @@
                             .setLatLng(e.latlng)
                             .setContent(this.popupContent);
 
-                        this.currentMarker = L.marker(e.latlng, {icon: this.violetMarker, draggable: true});
+                        this.currentMarker = L.marker(e.latlng, {
+                            icon: this.violetMarker,
+                            draggable: true
+                        });
                         this.currentMarker.bindPopup(popup).addTo(this.map).openPopup();
+                        this.displayNoneDeleteButton();
 
                         this.currentMarker.on('dragend', () => {
                             this.currentMarker.openPopup();
                             this.displayCoordsOnPopup(this.currentMarker.getLatLng());
-                            this.registerPopupSubmit(e);
+                            this.registerPopupSubmit(this.currentMarker.getLatLng());
+                            this.displayNoneDeleteButton();
                         });
 
                         this.currentMarker._popup._closeButton.onclick = () => {
@@ -102,7 +102,7 @@
                         };
 
                         this.displayCoordsOnPopup(e.latlng);
-                        this.registerPopupSubmit(e);
+                        this.registerPopupSubmit(this.currentMarker.getLatLng());
                     }
                 });
 
@@ -161,29 +161,43 @@
 
                 return valid;
             },
-            save(data) {
+            save(coords) {
                 let title = L.DomUtil.get('title').value;
                 let phone = L.DomUtil.get('phone').value;
                 let address = L.DomUtil.get('address').value;
 
                 let valid = this.validateInput();
                 if (valid) {
-                    //todo:submit
+                    let vendor = {
+                        title: title,
+                        phone: phone,
+                        address: address,
+                        lat: parseFloat(coords.lat).toPrecision(7),
+                        lng: parseFloat(coords.lng).toPrecision(7)
+                    };
+                    this.$emit('save', vendor);
                 }
+            },
+            edit() {
+                let title = L.DomUtil.get('title').value;
+                let phone = L.DomUtil.get('phone').value;
+                let address = L.DomUtil.get('address').value;
 
-                // this.map.closePopup();
-                // this.map.removeLayer(this.currentMarker);
-
-                console.log('title:', title)
-                console.log('phone:', phone)
-                console.log('address:', address)
-                console.log('data:', data)
-                console.log('latlng:', data.latlng);
+                let valid = this.validateInput();
+                if (valid) {
+                    let vendor = {
+                        title: title,
+                        phone: phone,
+                        address: address
+                    };
+                    this.$emit('edit', vendor);
+                }
+            },
+            delete() {
+                // this.$emit('delete', this.currentMarker.id);
             },
             getLayers() {
                 return this.layers;
-            },
-            edit() {
             },
             setLocations(locations) {
                 this.locations = locations;
@@ -194,15 +208,35 @@
                 this.initObjects();
             },
             onMarkerClick(e) {
-                console.log('onMarkerClick e:', e)
+                L.DomUtil.get('popup-submit').innerHTML = 'Güncelle';
+                L.DomUtil.get('popup-delete').style.display = 'block';
+                let buttonDelete = L.DomUtil.get('popup-delete');
+                L.DomEvent.addListener(buttonDelete, 'click', () => this.delete());
+                let buttonSubmit = L.DomUtil.get('popup-submit');
+                L.DomEvent.addListener(buttonSubmit, 'click', () => this.edit());
+
+                console.log(e.target.options.data)
             },
             displayCoordsOnPopup(latlng) {
                 let coordsEl = L.DomUtil.get('map-popup-coords-p');
                 coordsEl.innerHTML = parseFloat(latlng.lat).toPrecision(5) + ', ' + parseFloat(latlng.lng).toPrecision(5);
             },
-            registerPopupSubmit(e) {
+            registerPopupSubmit(latlng) {
                 let buttonSubmit = L.DomUtil.get('popup-submit');
-                L.DomEvent.addListener(buttonSubmit, 'click', () => this.save(e));
+                L.DomEvent.addListener(buttonSubmit, 'click', () => this.save(latlng));
+            },
+            closePopup() {
+                this.map.closePopup();
+                this.map.removeLayer(this.currentMarker);
+            },
+            displayNoneDeleteButton() {
+                let deleteField = L.DomUtil.get('popup-delete');
+                if (deleteField) deleteField.style.display = 'none';
+            },
+            disableClickOnMarkers() {
+                this.locations.forEach((location) => {
+                    location.leafletMarker.off('click');
+                });
             }
         },
         mounted() {

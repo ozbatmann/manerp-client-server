@@ -9,11 +9,11 @@ import tr.com.manerp.business.sysref.SysrefCity
 import tr.com.manerp.business.sysref.SysrefCountry
 import tr.com.manerp.business.sysref.SysrefDistrict
 
-class VendorSaveCommand implements Validateable {
+class VendorSaveCommand implements Validateable
+{
 
     String id
     Company company
-    SysCompany sysCompany
     String title
     SysrefCity sysrefCity
     SysrefCountry sysrefCountry
@@ -22,29 +22,30 @@ class VendorSaveCommand implements Validateable {
     String phone
     Boolean active
     String locationName
-    String locationLatitude
-    String locationLongitude
+    String lat
+    String lng
 
     static constraints = {
         importFrom(Vendor)
 
         id maxSize: 32
-        locationName nullable: false, maxSize: 100
-        locationLatitude nullable: true, maxSize: 100
-        locationLongitude nullable: true, maxSize: 100
+        locationName nullable: true, maxSize: 100
+        lat nullable: true, maxSize: 100
+        lng nullable: true, maxSize: 100
     }
 
-    Vendor rightShift(Vendor vendor) {
-
+    Vendor rightShift(Vendor vendor)
+    {
         Location location = new Location()
 
+        location.active = true
         location.name = this.locationName
-        location.latitude = this.locationLatitude
-        location.longitude = this.locationLongitude
-        location.sysCompany = this.sysCompany
+        location.latitude = this.lat
+        location.longitude = this.lng
+        location.sysCompany = this.company.sysCompany
 
         vendor.company = this.company
-        vendor.sysCompany = this.sysCompany
+        vendor.sysCompany = this.company.sysCompany
         vendor.title = this.title
         vendor.sysrefCity = this.sysrefCity
         vendor.sysrefCountry = this.sysrefCountry
@@ -52,12 +53,9 @@ class VendorSaveCommand implements Validateable {
         vendor.address = this.address
         vendor.phone = this.phone
         vendor.location = location
+        vendor.active = this.active
 
         vendor
-    }
-
-    def beforeValidate() {
-        this.sysCompany = SysCompany.findByName('Bumerang Lojistik')
     }
 
 }
