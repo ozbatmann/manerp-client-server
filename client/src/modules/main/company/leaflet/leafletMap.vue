@@ -17,6 +17,7 @@
                 greenMarker: null,
                 blackMarker: null,
                 violetMarker: null,
+                zoomLevel: 6,
                 layers: [
                     {id: 0, name: 'Bayileri Göster', active: false},
                     {id: 1, name: 'Bayi Sınır Çizgileri', active: false}
@@ -57,7 +58,7 @@
                 this.locations.polygon = L.polygon(coordsArr);
             },
             initMap() {
-                this.map = L.map('map').setView([39.918836, 32.836816], 12);
+                this.map = L.map('map').setView([39.918836, 32.836816], this.zoomLevel);
 
                 this.tileLayer = L.tileLayer(
                     'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -72,7 +73,7 @@
                 // get current location
                 navigator.geolocation.getCurrentPosition(location => {
                     let pos = new L.LatLng(location.coords.latitude, location.coords.longitude);
-                    this.map.setView(pos, 11);
+                    this.map.setView(pos, this.zoomLevel);
                     L.marker(pos, {icon: this.greenMarker}).addTo(this.map);
                 });
 
@@ -89,12 +90,14 @@
                         });
                         this.currentMarker.bindPopup(popup).addTo(this.map).openPopup();
                         this.displayNoneDeleteButton();
+                        this.displayNoneActiveButton();
 
                         this.currentMarker.on('dragend', () => {
                             this.currentMarker.openPopup();
                             this.displayCoordsOnPopup(this.currentMarker.getLatLng());
                             this.registerPopupSubmit(this.currentMarker.getLatLng());
                             this.displayNoneDeleteButton();
+                            this.displayNoneActiveButton();
                         });
 
                         this.currentMarker._popup._closeButton.onclick = () => {
@@ -178,23 +181,28 @@
                     this.$emit('save', vendor);
                 }
             },
-            edit() {
+            edit(id, coords) {
                 let title = L.DomUtil.get('title').value;
                 let phone = L.DomUtil.get('phone').value;
                 let address = L.DomUtil.get('address').value;
+                let active = L.DomUtil.get('active').checked;
 
                 let valid = this.validateInput();
                 if (valid) {
                     let vendor = {
+                        id: id,
                         title: title,
                         phone: phone,
-                        address: address
+                        address: address,
+                        active: active,
+                        lat: parseFloat(coords.lat).toPrecision(7),
+                        lng: parseFloat(coords.lng).toPrecision(7)
                     };
                     this.$emit('edit', vendor);
                 }
             },
-            delete() {
-                // this.$emit('delete', this.currentMarker.id);
+            delete(id) {
+                this.$emit('delete', id);
             },
             getLayers() {
                 return this.layers;
@@ -211,11 +219,12 @@
                 L.DomUtil.get('popup-submit').innerHTML = 'Güncelle';
                 L.DomUtil.get('popup-delete').style.display = 'block';
                 let buttonDelete = L.DomUtil.get('popup-delete');
-                L.DomEvent.addListener(buttonDelete, 'click', () => this.delete());
+                L.DomEvent.addListener(buttonDelete, 'click', () => this.delete(e.target.options.data.id));
                 let buttonSubmit = L.DomUtil.get('popup-submit');
-                L.DomEvent.addListener(buttonSubmit, 'click', () => this.edit());
+                L.DomEvent.addListener(buttonSubmit, 'click', () => this.edit(e.target.options.data.id, e.latlng));
 
-                console.log(e.target.options.data)
+                this.displayCoordsOnPopup(e.latlng);
+                this.fillFormData(e.target.options.data);
             },
             displayCoordsOnPopup(latlng) {
                 let coordsEl = L.DomUtil.get('map-popup-coords-p');
@@ -227,16 +236,26 @@
             },
             closePopup() {
                 this.map.closePopup();
-                this.map.removeLayer(this.currentMarker);
+                if (this.currentMarker) this.map.removeLayer(this.currentMarker);
             },
             displayNoneDeleteButton() {
                 let deleteField = L.DomUtil.get('popup-delete');
                 if (deleteField) deleteField.style.display = 'none';
             },
+            displayNoneActiveButton() {
+                let activeButton = L.DomUtil.get('checkbox-container');
+                if (activeButton) activeButton.style.display = 'none';
+            },
             disableClickOnMarkers() {
                 this.locations.forEach((location) => {
                     location.leafletMarker.off('click');
                 });
+            },
+            fillFormData(data) {
+                L.DomUtil.get('title').value = data.title;
+                L.DomUtil.get('phone').value = data.phone;
+                L.DomUtil.get('address').value = data.address;
+                L.DomUtil.get('active').checked = data.active;
             }
         },
         mounted() {

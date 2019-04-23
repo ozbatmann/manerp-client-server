@@ -340,7 +340,7 @@ class DataService
             customerCompanyPinar.refCompanySector = refCompanySectorGida
             customerCompanyPinar.title = 'Pınar Süt Mamülleri San. A.Ş.'
             customerCompanyPinar.address = 'Kemalpaşa Caddesi No:317 35060 Pınarbaşı/İzmir P.K. 904 35214 İzmir'
-            customerCompanyPinar.phone = '(0232) 436 15 15'
+            customerCompanyPinar.phone = '232 436 15 15'
             customerCompanyPinar.active = true
             customerCompanyPinar.email = 'pinargida@pinar.com'
             customerCompanyPinar.tradeRegistrationNo = '111222333'
@@ -359,8 +359,8 @@ class DataService
 
             Location location = new Location()
             location.active = true
-            location.latitude = '40.957'
-            location.longitude = '32.269'
+            location.latitude = '39.776'
+            location.longitude = '30.506'
             location.sysCompany = sysCompanyBumerang
             vendorPinarEsk.location = location
 
@@ -369,7 +369,7 @@ class DataService
             vendorPinarEsk.active = true
             vendorPinarEsk.address = 'Eskişehir Fabrika: Org. San. Bölgesi Mümtaz Zeytinoğlu Bulvarı P.K. 55 26001'
             vendorPinarEsk.company = customerCompanyPinar
-            vendorPinarEsk.phone = '0 (222) 236 08 89'
+            vendorPinarEsk.phone = '222 236 08 89'
 
             vendorPinarEsk.save(flush: true, failOnError: true)
         }
@@ -382,8 +382,8 @@ class DataService
 
             Location location = new Location()
             location.active = true
-            location.latitude = '40.641'
-            location.longitude = '32.202'
+            location.latitude = '38.267'
+            location.longitude = '28.219'
             location.sysCompany = sysCompanyBumerang
             vendorPinarKemal.location = location
 
@@ -392,7 +392,7 @@ class DataService
             vendorPinarKemal.active = true
             vendorPinarKemal.address = 'Kemalpaşa Asfaltı No: 4 35060 Pınarbaşı / İZMİR'
             vendorPinarKemal.company = customerCompanyPinar
-            vendorPinarKemal.phone = '0 (232) 436 52 50'
+            vendorPinarKemal.phone = '232 436 52 50'
 
             vendorPinarKemal.save(flush: true, failOnError: true)
         }
@@ -409,7 +409,7 @@ class DataService
             customerCompanyKerevitas.customerRepresentative = 'Murat Ülker'
             customerCompanyKerevitas.title = 'Kerevitaş Unlu Mamülleri San. A.Ş.'
             customerCompanyKerevitas.address = 'Üniversite Mah. Bağlariçi cad. No:29 Avcılar İstanbul.'
-            customerCompanyKerevitas.phone = '(0850) 209 16 16 '
+            customerCompanyKerevitas.phone = '850 209 16 16 '
             customerCompanyKerevitas.active = true
             customerCompanyKerevitas.email = 'info@kerevitas.com.tr'
             customerCompanyKerevitas.tradeRegistrationNo = '333222111'
@@ -427,8 +427,8 @@ class DataService
 
             Location location = new Location()
             location.active = true
-            location.latitude = '40.050'
-            location.longitude = '32.653'
+            location.latitude = '37.002'
+            location.longitude = '35.325'
             location.sysCompany = sysCompanyBumerang
             vendorKerevitasAdana.location = location
 
@@ -437,7 +437,7 @@ class DataService
             vendorKerevitasAdana.active = true
             vendorKerevitasAdana.address = 'Adana Tarsus Karayolu 14. Km. Büyük Dikili Kavşağı No: 800/A Kıvanç Tekstil Karşısı Seyhan / ADANA'
             vendorKerevitasAdana.company = customerCompanyKerevitas
-            vendorKerevitasAdana.phone = '0 (322) 428 11 56 '
+            vendorKerevitasAdana.phone = '0 322 428 11 56 '
 
             vendorKerevitasAdana.save(flush: true, failOnError: true)
         }
@@ -450,8 +450,8 @@ class DataService
 
             Location location = new Location()
             location.active = true
-            location.latitude = '40.305'
-            location.longitude = '33.070'
+            location.latitude = '39.972'
+            location.longitude = '32.745'
             location.sysCompany = sysCompanyBumerang
             vendorKerevitasAnkara.location = location
 
@@ -460,7 +460,7 @@ class DataService
             vendorKerevitasAnkara.active = true
             vendorKerevitasAnkara.address = 'Ostim Organize Sanayi Bölgesi Serhat Mah. 1271.Sok. No:36-38 Ostim - ANKARA'
             vendorKerevitasAnkara.company = customerCompanyKerevitas
-            vendorKerevitasAnkara.phone = '0 (312) 387 08 01'
+            vendorKerevitasAnkara.phone = '0 312 387 08 01'
 
             vendorKerevitasAnkara.save(flush: true, failOnError: true)
         }
