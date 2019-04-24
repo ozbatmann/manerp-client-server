@@ -1,12 +1,9 @@
 package tr.com.manerp.business.main.vehicle
 
 import grails.gorm.transactions.Transactional
-import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
-import tr.com.manerp.business.main.resource.Staff
-
 import java.text.SimpleDateFormat
 
 @Transactional
@@ -97,8 +94,9 @@ class VehicleService extends BaseService
             fuelKit                       : data?.fuelKit,
             description                   : data?.description,
             operationInsuranceNotification: data?.operationInsuranceNotification,
-            annualInsurance               : data?.annualInsurance
-
+            annualInsurance               : data?.annualInsurance,
+            height                        : data?.height,
+            weight                        : data?.weight
         ]
     }
 }

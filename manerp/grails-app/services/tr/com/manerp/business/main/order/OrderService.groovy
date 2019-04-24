@@ -107,4 +107,21 @@ class OrderService extends BaseService
         ]
     }
 
+    List getAllVendorsByCompanyId(String companyId)
+    {
+        VoyageOrder voyageOrderList = VoyageOrder.createCriteria().list {
+            voyage {
+                eq('id', voyageId)
+            }
+
+        }.collect {
+
+            return [
+                id   : it.id,
+                order: orderService.getOrder(it.order.id)
+            ]
+        }
+
+        return voyageOrderList as List
+    }
 }
