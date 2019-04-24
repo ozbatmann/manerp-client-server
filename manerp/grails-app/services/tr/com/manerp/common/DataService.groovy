@@ -691,20 +691,26 @@ class DataService
             sysrefDeliveryStatusBosaltti.save(flush: true, failOnError: true)
         }
 
-        Location loadingLocationPinar = Location.findByName('Karşıyaka')
+        Location loadingLocationPinar = Location.findByName('Karşıyaka Yükleme Noktası')
         if ( loadingLocationPinar == null ) {
 
             loadingLocationPinar = new Location()
+            loadingLocationPinar.active = true
+            loadingLocationPinar.latitude = '38.492'
+            loadingLocationPinar.longitude = '27.112'
             loadingLocationPinar.sysCompany = sysCompanyBumerang
             loadingLocationPinar.name = 'Karşıyaka'
 
             loadingLocationPinar.save(flush: true, failOnError: true)
         }
 
-        Location dumpingLocationPinar = Location.findByName('Eskişehir')
+        Location dumpingLocationPinar = Location.findByName('Eskişehir Boşaltma Noktası')
         if ( dumpingLocationPinar == null ) {
 
             dumpingLocationPinar = new Location()
+            dumpingLocationPinar.active = true
+            dumpingLocationPinar.latitude = '39.766'
+            dumpingLocationPinar.longitude = '30.522'
             dumpingLocationPinar.sysCompany = sysCompanyBumerang
             dumpingLocationPinar.name = 'Eskişehir'
 

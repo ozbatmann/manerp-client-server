@@ -1,4 +1,3 @@
-
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <m-data-table
@@ -143,22 +142,6 @@
                         search: {chip: false, value: null}
                     },
                     {
-                        text: 'sipariş',
-                        sortable: true,
-                        value: voyageModel.order,
-                        toggleable: false,
-                        show: true,
-                        search: { chip: false, value: null },
-                    },
-                    {
-                        text: 'şirket',
-                        sortable: true,
-                        value: voyageModel.company,
-                        toggleable: false,
-                        show: true,
-                        search: {chip: false, value: null}
-                    },
-                    {
                         text: 'araç',
                         sortable: true,
                         value: voyageModel.vehicle,
@@ -202,9 +185,7 @@
 
                 newItem: null,
 
-                snackbar: {
-
-                },
+                snackbar: {},
 
                 // // Data table row click route
                 // to: {
@@ -274,10 +255,10 @@
             },
 
             // Gets waiting orders
-            getSysRefOrder () {
+            getSysRefOrder() {
                 let self = this;
 
-                this.$http.get("api/v1/order/getListForDropDown?WAIT").then((result) => {
+                this.$http.get("api/v1/order?WAIT").then((result) => {
                     self.sysRefOrderList = result.data.data.items;
                     self.addEditFields.find(item => {
                         return item.key === voyageModel.order
@@ -291,7 +272,7 @@
             getSysRefCompany() {
                 let self = this;
 
-                this.$http.get("api/v1/customerCompany/getListForDropDown").then((result) => {
+                this.$http.get("api/v1/company").then((result) => {
                     self.sysRefCompanyList = result.data.data.items;
                     self.addEditFields.find(item => {
                         return item.key === voyageModel.company
@@ -305,7 +286,7 @@
             getSysRefVehicle() {
                 let self = this;
 
-                this.$http.get("api/v1/vehicle/getListForDropDown").then((result) => {
+                this.$http.get("api/v1/vehicle").then((result) => {
                     self.sysRefVehicleList = result.data.data.items;
                     self.addEditFields.find(item => {
                         return item.key === voyageModel.vehicle
@@ -319,7 +300,7 @@
             getSysRefDriver() {
                 let self = this;
 
-                this.$http.get("api/v1/driver/getListForDropDown").then((result) => {
+                this.$http.get("api/v1/driver").then((result) => {
                     self.sysRefDriverList = result.data.data.items;
                     self.addEditFields.find(item => {
                         return item.key === voyageModel.driver
@@ -359,7 +340,7 @@
             },
 
             // Deletes an item
-            deleteItem(item){
+            deleteItem(item) {
                 let self = this;
 
                 this.$http.delete(`api/v1/voyage/${item.id}`).then((result) => {

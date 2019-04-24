@@ -31,9 +31,11 @@ class OrderService extends BaseService
                 }
             }
 
-            sysrefOrderState {
-                eq('active', true)
-                eq('code', orderStateCode)
+            if ( orderStateCode ) {
+                sysrefOrderState {
+                    eq('active', true)
+                    eq('code', orderStateCode)
+                }
             }
         }
 
@@ -59,13 +61,11 @@ class OrderService extends BaseService
 
     def save(Order order)
     {
-
         order.save(flush: true, failOnError: true)
     }
 
     def delete(Order order)
     {
-
         order.delete(flush: true, failOnError: true)
     }
 

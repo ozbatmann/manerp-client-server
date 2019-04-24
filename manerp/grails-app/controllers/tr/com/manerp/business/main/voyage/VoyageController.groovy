@@ -18,6 +18,7 @@ class VoyageController extends BaseController
 
     def voyageService
 
+    // TODO: filtering with company and order
     def index()
     {
 
@@ -27,7 +28,7 @@ class VoyageController extends BaseController
 
             VoyagePaginationCommand cmd = new VoyagePaginationCommand(params)
 
-            ManePaginatedResult result = voyageService.getVoyageList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), cmd.company, cmd.deliveryStatusCode)
+            ManePaginatedResult result = voyageService.getVoyageList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), cmd.deliveryStatusCode)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {

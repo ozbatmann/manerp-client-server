@@ -17,6 +17,7 @@
                 greenMarker: null,
                 blackMarker: null,
                 violetMarker: null,
+                tileType: 'mapbox.streets-basic',
                 zoomLevel: 6,
                 layers: [
                     {id: 0, name: 'Bayileri Göster', active: false},
@@ -64,7 +65,7 @@
                     'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                         maxZoom: 18,
                         attribution: '&copy; <a href="http://team9.bilkent.edu.tr/">MANERP</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                        id: 'mapbox.streets',
+                        id: this.tileType,
                         accessToken: 'pk.eyJ1IjoiYmVyYXRwb3N0YWxjaSIsImEiOiJjanVpd3RtZmwwaXRsNGVvNDcyd2dvM3lmIn0.nULWCGr3Uad3b9Rqhw2i4A'
                     }
                 );

@@ -8,6 +8,7 @@ import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.business.ref.RefStaffTitle
 import tr.com.manerp.commands.controller.common.PaginationCommand
+import tr.com.manerp.commands.controller.common.ShowCommand
 
 class DriverController extends BaseController
 {
@@ -19,7 +20,6 @@ class DriverController extends BaseController
 
     def index()
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
@@ -39,15 +39,20 @@ class DriverController extends BaseController
         render maneResponse
     }
 
-    def show(String id)
+    def show()
     {
-
         ManeResponse maneResponse = new ManeResponse()
-        Staff driver = driverService.getDriver(id)
+        def driver
 
         try {
+            ShowCommand cmd = new ShowCommand(params)
 
-            if ( !driver ) throw new Exception()
+            if ( cmd.validate() ) {
+                driver = driverService.getDriver(cmd.id, cmd.fields)
+            } else {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Parametreler uygun değil')
+            }
 
             maneResponse.data = driver
             maneResponse.statusCode = StatusCode.OK
@@ -69,14 +74,13 @@ class DriverController extends BaseController
 
     def save(Staff driver)
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
+            driver.setRandomCode()
             driver.active = true
             driver.refStaffTitle = RefStaffTitle.findByCode('DRV')
-            driver.setRandomCode()
             driverService.save(driver)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = driver.id
@@ -100,7 +104,6 @@ class DriverController extends BaseController
 
     def update(Staff driver)
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
@@ -132,7 +135,6 @@ class DriverController extends BaseController
 
     def delete(String id)
     {
-
         ManeResponse maneResponse = new ManeResponse()
         Staff driver = Staff.get(id)
 

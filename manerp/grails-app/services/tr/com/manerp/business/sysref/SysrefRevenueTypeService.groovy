@@ -2,6 +2,7 @@ package tr.com.manerp.business.sysref
 
 import grails.gorm.transactions.Transactional
 import grails.util.Holders
+import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.util.FieldParser
 import tr.com.manerp.base.service.BaseService
@@ -20,27 +21,44 @@ class SysrefRevenueTypeService extends BaseService
                 order('dateCreated', 'desc')
             }
         }
+        ManePaginatedResult result = paginate(SysrefRevenueType, properties, closure)
 
-        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-        return paginate(SysrefRevenueType, properties, closure, excludedFields)
+        result.data = formatResultForList(result.data as List)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, SysrefRevenueType)
+        return result
     }
 
     def getSysrefRevenueType(String id, String fields = null)
     {
-        SysrefRevenueType revenueType = SysrefRevenueType.createCriteria().get {
-
+        def revenueType = SysrefRevenueType.createCriteria().get {
             eq('id', id)
-
         } as SysrefRevenueType
 
-        def _revenueType = revenueType
-        if ( fields ) {
+        revenueType = formatResultForShow(revenueType)
+        if ( fields ) revenueType = filterDataByFields(revenueType, fields, SysrefRevenueType)
 
-            FieldParser fieldParser = new FieldParser()
-            List fieldList = fieldParser.parseFieldsToList(fields)
-            HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-            _revenueType = filterDomainInstance(revenueType, fieldList, excludedFields)
+        return revenueType
+    }
+
+    List formatResultForList(List data)
+    {
+        List formattedData = data.collect {
+            [
+                id  : it.id,
+                name: it.name,
+                code: it?.code
+            ]
         }
-        return _revenueType
+
+        formattedData
+    }
+
+    def formatResultForShow(def data)
+    {
+        return [
+            id  : data.id,
+            name: data.name,
+            code: data?.code
+        ]
     }
 }

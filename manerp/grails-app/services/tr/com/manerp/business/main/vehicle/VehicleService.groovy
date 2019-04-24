@@ -22,40 +22,42 @@ class VehicleService extends BaseService
                 order('dateCreated', 'desc')
             }
 
-            sysrefVehicleState {
-                eq('active', true)
-                eq('code', vehicleStateCode)
+            if ( vehicleStateCode ) {
+                sysrefVehicleState {
+                    eq('active', true)
+                    eq('code', vehicleStateCode)
+                }
             }
         }
 
-        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-        return paginate(Vehicle, properties, closure, excludedFields)
+        ManePaginatedResult result = paginate(Vehicle, properties, closure)
+
+        result.data = formatResultForList(result.data as List)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, Vehicle)
+
+        return result
     }
 
-    Vehicle getVehicle(String id)
+    def getVehicle(String id, String fields = null)
     {
-        Vehicle vehicle = Vehicle.createCriteria().get {
-
-            eq('id', id)
-
-        } as Vehicle
+        def vehicle = Vehicle.createCriteria().get { eq('id', id) } as Vehicle
+        vehicle = formatResultForShow(vehicle)
+        if ( fields ) vehicle = filterDataByFields(vehicle, fields, Vehicle)
 
         return vehicle
     }
 
     def save(Vehicle vehicle)
     {
-
         vehicle.save(flush: true, failOnError: true)
     }
 
     def delete(Vehicle vehicle)
     {
-
         vehicle.delete(flush: true, failOnError: true)
     }
 
-    List formatPaginatedResultForList(def data)
+    List formatResultForList(def data)
     {
         List formattedData = data.collect {
             [
@@ -63,12 +65,40 @@ class VehicleService extends BaseService
                 code              : it.code,
                 plateNumber       : it.plateNumber,
                 fleetCardNumber   : it.fleetCardNumber,
-                sysrefVehicleType : [id: it.sysrefVehicleType.id, name: it.sysrefVehicleType.name],
-                sysrefVehicleOwner: [id: it.sysrefVehicleOwner.id, name: it.sysrefVehicleOwner.name]
+                sysrefVehicleType : it.sysrefVehicleType ? [id: it.sysrefVehicleType.id, name: it.sysrefVehicleType.name] : null,
+                sysrefVehicleOwner: it.sysrefVehicleOwner ? [id: it.sysrefVehicleOwner.id, name: it.sysrefVehicleOwner.name] : null
             ]
         }
 
         formattedData
     }
 
+    def formatResultForShow(def data)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy HH:mm')
+        return [
+            id                            : data.id,
+            code                          : data.code,
+            plateNumber                   : data?.plateNumber,
+            fleetCardNumber               : data?.fleetCardNumber,
+            sysrefVehicleType             : data.sysrefVehicleType ? [id: data.sysrefVehicleType.id, name: data.sysrefVehicleType.name] : null,
+            sysrefVehicleOwner            : data.sysrefVehicleOwner ? [id: data.sysrefVehicleOwner.id, name: data.sysrefVehicleOwner.name] : null,
+            brand                         : data?.brand,
+            purchaseDate                  : data.purchaseDate ? sdf.format(data.purchaseDate) : null,
+            numberOfSensors               : data?.numberOfSensors,
+            km                            : data?.km,
+            isDualRegime                  : data?.isDualRegime,
+            refWorkingArea                : data.refWorkingArea ? [id: data.refWorkingArea.id, name: data.refWorkingArea.name] : null,
+            vehicleOwnerFullName          : data?.vehicleOwnerFullName,
+            insuranceStartDate            : data.insuranceStartDate ? sdf.format(data.insuranceStartDate) : null,
+            insuranceEndDate              : data.insuranceEndDate ? sdf.format(data.insuranceEndDate) : null,
+            kgsNo                         : data?.kgsNo,
+            ogsNo                         : data?.ogsNo,
+            fuelKit                       : data?.fuelKit,
+            description                   : data?.description,
+            operationInsuranceNotification: data?.operationInsuranceNotification,
+            annualInsurance               : data?.annualInsurance
+
+        ]
+    }
 }

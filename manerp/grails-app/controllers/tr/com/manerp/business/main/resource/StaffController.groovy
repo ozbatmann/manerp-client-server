@@ -105,7 +105,6 @@ class StaffController extends BaseController
 
     def update(Staff staff)
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {

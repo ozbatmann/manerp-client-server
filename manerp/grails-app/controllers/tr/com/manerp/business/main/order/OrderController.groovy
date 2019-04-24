@@ -21,7 +21,6 @@ class OrderController extends BaseController
 
     def index()
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
@@ -43,12 +42,10 @@ class OrderController extends BaseController
 
     def show()
     {
-
         ManeResponse maneResponse = new ManeResponse()
         def order
 
         try {
-
             ShowCommand cmd = new ShowCommand(params)
 
             if ( cmd.validate() ) {
@@ -81,7 +78,6 @@ class OrderController extends BaseController
 
     def save(Order order)
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
@@ -118,7 +114,6 @@ class OrderController extends BaseController
 
     def update(Order order)
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
@@ -150,7 +145,6 @@ class OrderController extends BaseController
 
     def delete(String id)
     {
-
         ManeResponse maneResponse = new ManeResponse()
         Order order = Order.get(id)
 

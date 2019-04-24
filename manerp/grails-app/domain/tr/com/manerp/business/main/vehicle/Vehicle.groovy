@@ -5,6 +5,7 @@ import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.domain.BusinessDomain
 import tr.com.manerp.business.ref.RefWorkingArea
 import tr.com.manerp.business.sysref.SysrefVehicleOwner
+import tr.com.manerp.business.sysref.SysrefVehicleState
 import tr.com.manerp.business.sysref.SysrefVehicleType
 
 class Vehicle implements BusinessDomain
@@ -22,6 +23,7 @@ class Vehicle implements BusinessDomain
     RefWorkingArea refWorkingArea
     SysrefVehicleType sysrefVehicleType
     SysrefVehicleOwner sysrefVehicleOwner
+    SysrefVehicleState sysrefVehicleState
     String vehicleOwnerFullName
     @BindingFormat('dd/MM/yyyy HH:mm')
     Date insuranceStartDate
@@ -61,6 +63,7 @@ class Vehicle implements BusinessDomain
         description nullable: true, blank: true, unique: false
         operationInsuranceNotification nullable: true, unique: false
         annualInsurance nullable: true, unique: false
+        sysrefVehicleState nullable: true, unique: false
     }
 
     static mapping = {
