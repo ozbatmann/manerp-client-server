@@ -13,9 +13,6 @@ class VendorService extends BaseService
     {
 
         def closure = {
-
-            eq('active', true)
-
             company {
                 eq('active', true)
                 eq('id', companyId)
@@ -58,6 +55,7 @@ class VendorService extends BaseService
         List formattedData = data.collect {
             [
                 id            : it.id,
+                active        : it.active,
                 title         : it?.title,
                 sysrefCity    : it.sysrefCity ? [id: it.sysrefCity.id, name: it.sysrefCity.name] : null,
                 sysrefCountry : it.sysrefCountry ? [id: it.sysrefCountry.id, name: it.sysrefCountry.name] : null,
@@ -76,6 +74,7 @@ class VendorService extends BaseService
     {
         return [
             id            : data.id,
+            active        : data.active,
             title         : data?.title,
             sysrefCity    : data.sysrefCity ? [id: data.sysrefCity.id, name: data.sysrefCity.name] : null,
             sysrefCountry : data.sysrefCountry ? [id: data.sysrefCountry.id, name: data.sysrefCountry.name] : null,

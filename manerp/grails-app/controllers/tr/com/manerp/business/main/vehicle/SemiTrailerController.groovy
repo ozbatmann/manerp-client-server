@@ -7,6 +7,7 @@ import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
+import tr.com.manerp.commands.controller.common.ShowCommand
 
 class SemiTrailerController extends BaseController
 {
@@ -38,15 +39,22 @@ class SemiTrailerController extends BaseController
         render maneResponse
     }
 
-    def show(String id)
+    def show()
     {
 
         ManeResponse maneResponse = new ManeResponse()
-        SemiTrailer semiTrailer = semiTrailerService.getSemiTrailer(id)
+        def semiTrailer
 
         try {
 
-            if ( !semiTrailer ) throw new Exception()
+            ShowCommand cmd = new ShowCommand(params)
+
+            if ( cmd.validate() ) {
+                semiTrailer = semiTrailerService.getSemiTrailer(cmd.id, cmd.fields)
+            } else {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Parametreler uygun değil')
+            }
 
             maneResponse.data = semiTrailer
             maneResponse.statusCode = StatusCode.OK
@@ -68,7 +76,6 @@ class SemiTrailerController extends BaseController
 
     def save(SemiTrailer trailer)
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {

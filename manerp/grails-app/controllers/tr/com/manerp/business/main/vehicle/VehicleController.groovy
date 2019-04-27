@@ -6,6 +6,7 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
+import tr.com.manerp.commands.controller.common.ShowCommand
 import tr.com.manerp.commands.controller.vehicle.VehiclePaginationCommand
 
 class VehicleController extends BaseController
@@ -37,15 +38,22 @@ class VehicleController extends BaseController
         render maneResponse
     }
 
-    def show(String id)
+    def show()
     {
 
         ManeResponse maneResponse = new ManeResponse()
-        Vehicle vehicle = vehicleService.getVehicle(id)
+        def vehicle
 
         try {
 
-            if ( !vehicle ) throw new Exception()
+            ShowCommand cmd = new ShowCommand(params)
+
+            if ( cmd.validate() ) {
+                vehicle = vehicleService.getVehicle(cmd.id, cmd.fields)
+            } else {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Parametreler uygun değil')
+            }
 
             maneResponse.data = vehicle
             maneResponse.statusCode = StatusCode.OK

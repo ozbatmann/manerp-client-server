@@ -2,6 +2,7 @@ package tr.com.manerp.business.sysref
 
 import grails.gorm.transactions.Transactional
 import grails.util.Holders
+import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.util.FieldParser
 import tr.com.manerp.base.service.BaseService
@@ -21,26 +22,43 @@ class SysrefVehicleStateService extends BaseService
             }
         }
 
-        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-        return paginate(SysrefVehicleState, properties, closure, excludedFields)
+        ManePaginatedResult result = paginate(SysrefVehicleState, properties, closure)
+
+        result.data = formatResultForList(result.data as List)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, SysrefVehicleState)
+
+        return result
     }
 
     def getSysrefVehicleState(String id, String fields = null)
     {
-        SysrefVehicleState vehicleState = SysrefVehicleState.createCriteria().get {
-
+        def vehicleState = SysrefVehicleState.createCriteria().get {
             eq('id', id)
-
         } as SysrefVehicleState
 
-        def _vehicleState = vehicleState
-        if ( fields ) {
+        vehicleState = formatResultForShow(vehicleState)
+        if ( fields ) vehicleState = filterDataByFields(vehicleState, fields, SysrefVehicleState)
 
-            FieldParser fieldParser = new FieldParser()
-            List fieldList = fieldParser.parseFieldsToList(fields)
-            HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-            _vehicleState = filterDomainInstance(vehicleState, fieldList, excludedFields)
+        return vehicleState
+    }
+
+    List formatResultForList(List data)
+    {
+        List formattedData = data.collect {
+            return [
+                id  : it.id,
+                name: it.name
+            ]
         }
-        return _vehicleState
+
+        formattedData
+    }
+
+    def formatResultForShow(def data)
+    {
+        return [
+            id  : data.id,
+            name: data.name
+        ]
     }
 }

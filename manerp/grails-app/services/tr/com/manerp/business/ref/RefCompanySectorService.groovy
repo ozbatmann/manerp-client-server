@@ -1,10 +1,8 @@
 package tr.com.manerp.business.ref
 
 import grails.gorm.transactions.Transactional
-import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
-import manerp.response.plugin.util.FieldParser
 import tr.com.manerp.base.service.BaseService
 
 @Transactional
@@ -22,40 +20,57 @@ class RefCompanySectorService extends BaseService
             }
         }
 
-        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-        return paginate(RefCompanySector, properties, closure, excludedFields)
+        ManePaginatedResult result = paginate(RefCompanySector, properties, closure)
+
+        result.data = formatResultForList(result.data as List)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, RefCompanySector)
+
+        return result
     }
 
-    def getRefCompanySector(String id, String fields=null)
+    def getRefCompanySector(String id, String fields = null)
     {
-        RefCompanySector refCompanySector = RefCompanySector.createCriteria().get {
-
+        def refCompanySector = RefCompanySector.createCriteria().get {
             eq('id', id)
-
         } as RefCompanySector
 
-        def _refCompanySector = refCompanySector
-        if ( fields ) {
+        refCompanySector = formatResultForShow(refCompanySector)
+        if ( fields ) refCompanySector = filterDataByFields(refCompanySector, fields, RefCompanySector)
 
-            FieldParser fieldParser = new FieldParser()
-            List fieldList = fieldParser.parseFieldsToList(fields)
-            HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-            _refCompanySector = filterDomainInstance(refCompanySector, fieldList, excludedFields)
-        }
-
-        return _refCompanySector
+        return refCompanySector
     }
 
     def save(RefCompanySector refCompanySector)
     {
-
         refCompanySector.save(flush: true, failOnError: true)
     }
 
     def delete(RefCompanySector refCompanySector)
     {
-
         refCompanySector.delete(flush: true, failOnError: true)
     }
 
+    List formatResultForList(List data)
+    {
+        List formattedData = data.collect {
+            [
+                id         : it.id,
+                name       : it.name,
+                code       : it?.code,
+                description: it?.description
+            ]
+        }
+
+        formattedData
+    }
+
+    def formatResultForShow(def data)
+    {
+        return [
+            id         : data.id,
+            name       : data.name,
+            code       : data?.code,
+            description: data?.description
+        ]
+    }
 }

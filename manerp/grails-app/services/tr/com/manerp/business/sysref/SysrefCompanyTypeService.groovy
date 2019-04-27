@@ -2,6 +2,7 @@ package tr.com.manerp.business.sysref
 
 import grails.gorm.transactions.Transactional
 import grails.util.Holders
+import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.util.FieldParser
 import tr.com.manerp.base.service.BaseService
@@ -21,26 +22,44 @@ class SysrefCompanyTypeService extends BaseService
             }
         }
 
-        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-        return paginate(SysrefCompanyType, properties, closure, excludedFields)
+        ManePaginatedResult result = paginate(SysrefCompanyType, properties, closure)
+
+        result.data = formatResultForList(result.data as List)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, SysrefCompanyType)
+        return result
     }
 
     def getSysrefCompanyType(String id, String fields = null)
     {
-        SysrefCompanyType companyType = SysrefCompanyType.createCriteria().get {
-
+        def companyType = SysrefCompanyType.createCriteria().get {
             eq('id', id)
-
         } as SysrefCompanyType
 
-        def _companyType = companyType
-        if ( fields ) {
+        companyType = formatResultForShow(companyType)
+        if ( fields ) companyType = filterDataByFields(companyType, fields, SysrefCompanyType)
 
-            FieldParser fieldParser = new FieldParser()
-            List fieldList = fieldParser.parseFieldsToList(fields)
-            HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-            _companyType = filterDomainInstance(companyType, fieldList, excludedFields)
+        return companyType
+    }
+
+    List formatResultForList(List data)
+    {
+        List formattedData = data.collect {
+            [
+                id  : it.id,
+                name: it.name,
+                code: it?.code
+            ]
         }
-        return _companyType
+
+        formattedData
+    }
+
+    def formatResultForShow(def data)
+    {
+        return [
+            id  : data.id,
+            name: data.name,
+            code: data?.code
+        ]
     }
 }

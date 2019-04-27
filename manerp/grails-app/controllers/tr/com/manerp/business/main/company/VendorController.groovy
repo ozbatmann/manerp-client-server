@@ -45,7 +45,6 @@ class VendorController extends BaseController
         def vendor
 
         try {
-
             ShowCommand cmd = new ShowCommand(params)
 
             if ( cmd.validate() ) {

@@ -26,7 +26,8 @@
 
         <customer-management-add-edit-dialog ref="customerManagementAddEditDialog"
                                              @save="addNewItem"
-                                             @edit="editItem">
+                                             @edit="editItem"
+                                             @displayMessage="displaySnackMessage">
         </customer-management-add-edit-dialog>
 
         <v-snackbar
@@ -168,18 +169,10 @@
                 let self = this;
                 this.newItem = item;
 
-                this.newItem.sysrefCompanyType = 'ff8081816a2261ec016a226283a30005'; // TODO: change
+                this.newItem.sysrefCompanyType = 'ff8081816a2261ec016a226283a30005'; // TODO: change - companyType customer
 
                 this.$http.post('api/v1/company', this.newItem).then((result) => {
-                    let status = result.data.status;
-                    if (status < 299) {
-                        self.snackbar.textColor = 'green--text text--accent-3';
-                    } else {
-                        self.snackbar.textColor = 'red--text';
-                    }
-
-                    self.snackbar.text = result.data.message;
-                    self.snackbar.active = true;
+                    self.displaySnackMessage(result);
                     self.getAllCustomers();
                 }).catch((error) => {
                     console.log(error);
@@ -189,15 +182,7 @@
                 let self = this;
                 this.$http.put('api/v1/company', item)
                     .then(result => {
-                        let status = result.data.status;
-                        if (status < 299) {
-                            self.snackbar.textColor = 'green--text text--accent-3';
-                        } else {
-                            self.snackbar.textColor = 'red--text';
-                        }
-
-                        self.snackbar.text = result.data.message;
-                        self.snackbar.active = true;
+                        self.displaySnackMessage(result);
                         self.getAllCustomers()
                     }).catch(error => {
                     console.log(error);
@@ -209,6 +194,17 @@
                 }).catch((error) => {
                     console.error(error);
                 })
+            },
+            displaySnackMessage(result) {
+                let status = result.data.status;
+                if (status < 299) {
+                    this.snackbar.textColor = 'green--text text--accent-3';
+                } else {
+                    this.snackbar.textColor = 'red--text';
+                }
+
+                this.snackbar.text = result.data.message;
+                this.snackbar.active = true;
             }
         },
 

@@ -21,31 +21,59 @@ class ArventoDeviceService extends BaseService
             }
         }
 
-        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-        return paginate(ArventoDevice, properties, closure, excludedFields)
+        ManePaginatedResult result = paginate(ArventoDevice, properties, closure)
+
+        result.data = formatResultForList(result.data as List)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, ArventoDevice)
+
+        return result
     }
 
-    ArventoDevice getArventoDevice(String id)
+    def getArventoDevice(String id, String fields = null)
     {
-        ArventoDevice arventoDevice = ArventoDevice.createCriteria().get {
-
+        def arventoDevice = ArventoDevice.createCriteria().get {
             eq('id', id)
-
         } as ArventoDevice
+
+        arventoDevice = formatResultForShow(arventoDevice)
+        if ( fields ) arventoDevice = filterDataByFields(arventoDevice, fields, ArventoDevice)
 
         return arventoDevice
     }
 
     def save(ArventoDevice arventoDevice)
     {
-
         arventoDevice.save(flush: true, failOnError: true)
     }
 
     def delete(ArventoDevice arventoDevice)
     {
-
         arventoDevice.delete(flush: true, failOnError: true)
     }
 
+    List formatResultForList(List data)
+    {
+        List formattedData = data.collect {
+            return [
+                id      : it.id,
+                code    : it.code,
+                deviceId: it?.deviceId,
+                name    : it?.name,
+                vehicle : it.vehicle ? [id: it.vehicle.id, name: it.vehicle.name] : null
+            ]
+        }
+
+        formattedData
+    }
+
+    def formatResultForShow(def data)
+    {
+        return [
+            id      : data.id,
+            code    : data.code,
+            deviceId: data?.deviceId,
+            name    : data?.name,
+            vehicle : data.vehicle ? [id: data.vehicle.id, name: data.vehicle.name] : null
+        ]
+    }
 }

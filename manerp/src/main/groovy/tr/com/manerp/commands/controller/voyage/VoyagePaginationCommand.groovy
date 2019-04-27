@@ -10,8 +10,8 @@ class VoyagePaginationCommand extends PaginationCommand
     VoyagePaginationCommand(def params)
     {
         super(params)
-        this.companyId = params.companyId as String
-        this.deliveryStatusCode = params.deliveryStatusCode as String
+        this.companyId = params.companyId as String ?: null
+        this.deliveryStatusCode = params.deliveryStatusCode as String ?: null
     }
 
     static constraints = {
