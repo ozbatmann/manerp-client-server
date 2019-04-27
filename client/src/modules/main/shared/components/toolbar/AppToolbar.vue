@@ -60,6 +60,12 @@
             <v-icon>notifications</v-icon>
         </v-btn>
 
+        <router-link :to="{ name: require('@/modules/main/settings/route/index.js').routes.userInfo }" active="">
+            <v-btn icon>
+                <v-icon>settings</v-icon>
+            </v-btn>
+        </router-link>
+
         <v-btn @click="handleFullScreen()" icon>
 
             <v-icon>fullscreen</v-icon>
