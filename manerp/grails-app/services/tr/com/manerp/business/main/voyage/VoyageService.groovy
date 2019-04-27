@@ -15,7 +15,7 @@ class VoyageService extends BaseService
 
     def orderService
 
-    ManePaginatedResult getVoyageList(ManePaginationProperties properties, String companyId, String deliveryStatusCode)
+    ManePaginatedResult getVoyageList(ManePaginationProperties properties, String deliveryStatusCode)
     {
 
         def closure = {
@@ -23,14 +23,6 @@ class VoyageService extends BaseService
 
             if ( !properties.sortPairList ) {
                 order('dateCreated', 'desc')
-            }
-
-            if ( companyId ) {
-
-                company {
-                    eq('active', true)
-                    eq('id', companyId)
-                }
             }
 
             if ( deliveryStatusCode ) {
@@ -50,7 +42,7 @@ class VoyageService extends BaseService
         return result
     }
 
-    def getVoyage(String id, String fields=null)
+    def getVoyage(String id, String fields = null)
     {
         def voyage = Voyage.createCriteria().get {
             eq('id', id)
@@ -64,27 +56,25 @@ class VoyageService extends BaseService
 
     def save(Voyage voyage)
     {
-
         voyage.save(flush: true, failOnError: true)
     }
 
     def delete(Voyage voyage)
     {
-
         voyage.delete(flush: true, failOnError: true)
     }
 
     List formatResultForList(def data)
     {
-        // TODO : collect assigned orders and voyageRoutes
+        // TODO : collect assigned orders and voyageRoutes and companies
         List formattedData = data.collect {
             [
                 id                      : it.id,
                 code                    : it.code,
-                company                 : it.company ? [id: it.company.id, name: it.company.title] : null,
                 driver                  : it.driver ? [id: it.driver.id, name: it.driver.getFullName()] : null,
                 sysrefTransportationType: it.sysrefTransportationType ? [id: it.sysrefTransportationType.id, name: it.sysrefTransportationType.name] : null,
-                sysrefVoyageDirection   : it.sysrefVoyageDirection ? [id: it.sysrefVoyageDirection.id, name: it.sysrefVoyageDirection.name] : null
+                sysrefVoyageDirection   : it.sysrefVoyageDirection ? [id: it.sysrefVoyageDirection.id, name: it.sysrefVoyageDirection.name] : null,
+                vehicle                 : it.vehicle ? [id: it.vehicle.id, plateNumber: it.vehicle.plateNumber] : null
             ]
         }
 
@@ -96,10 +86,10 @@ class VoyageService extends BaseService
         return [
             id                      : data.id,
             code                    : data.code,
-            company                 : data.company ? [id: data.company.id, name: data.company.title] : null,
             driver                  : data.driver ? [id: data.driver.id, name: data.driver.getFullName()] : null,
             sysrefTransportationType: data.sysrefTransportationType ? [id: data.sysrefTransportationType.id, name: data.sysrefTransportationType.name] : null,
-            sysrefVoyageDirection   : data.sysrefVoyageDirection ? [id: data.sysrefVoyageDirection.id, name: data.sysrefVoyageDirection.name] : null
+            sysrefVoyageDirection   : data.sysrefVoyageDirection ? [id: data.sysrefVoyageDirection.id, name: data.sysrefVoyageDirection.name] : null,
+            vehicle                 : data.vehicle ? [id: data.vehicle.id, plateNumber: data.vehicle.plateNumber] : null
         ]
     }
 

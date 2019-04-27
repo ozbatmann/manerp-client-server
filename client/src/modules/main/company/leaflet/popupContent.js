@@ -11,7 +11,7 @@ export const template = '<div class="map-popup-container">\
                                     </tr>\
                                 </table>\
                                 <fieldset>\
-                                    <input maxlength="50" id="title" name="title" placeholder="Unvan" type="text" tabindex="1" autofocus>\
+                                    <input maxlength="150" id="title" name="title" placeholder="Unvan" type="text" tabindex="1" autofocus>\
                                     <span id="title-warn">Bu alan gereklidir</span>\
                                 </fieldset>\
                                 <fieldset>\
@@ -20,6 +20,12 @@ export const template = '<div class="map-popup-container">\
                                 <fieldset>\
                                     <textarea maxlength="255" id="address" name="address" placeholder="Adres" tabindex="3"></textarea>\
                                     <span id="address-warn">Bu alan gereklidir</span>\
+                                </fieldset>\
+                                <fieldset>\
+                                    <label id="checkbox-container">Aktif\
+                                      <input type="checkbox" id="active" checked="checked">\
+                                      <span class="checkmark"></span>\
+                                    </label>\
                                 </fieldset>\
                                 <fieldset>\
                                     <button id="popup-submit" name="submit" type="button">Kaydet</button>\

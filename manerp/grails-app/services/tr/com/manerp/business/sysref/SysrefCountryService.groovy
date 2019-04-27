@@ -29,9 +29,7 @@ class SysrefCountryService extends BaseService
     def getSysrefCountry(String id, String fields = null)
     {
         def country = SysrefCountry.createCriteria().get {
-
             eq('id', id)
-
         } as SysrefCountry
 
         country = formatResultForShow(country)

@@ -42,7 +42,7 @@ class Company implements BusinessDomain, MCompany
         taxNumber nullable: false, blank: false, unique: false, maxSize: 50
         sysrefNaceCode nullable: true, unique: false
 
-        title nullable: false, blank: false, unique: ['sysCompany', 'sysrefCompanyType'], maxSize: 50
+        title nullable: false, blank: false, unique: ['sysCompany', 'sysrefCompanyType'], maxSize: 150
         sysCompany nullable: false, unique: false
         sysrefCompanyType nullable: false, blank: false, unique: false
     }

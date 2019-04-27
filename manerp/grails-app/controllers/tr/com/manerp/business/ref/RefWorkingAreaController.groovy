@@ -7,6 +7,7 @@ import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
+import tr.com.manerp.commands.controller.common.ShowCommand
 
 class RefWorkingAreaController extends BaseController
 {
@@ -38,15 +39,20 @@ class RefWorkingAreaController extends BaseController
         render maneResponse
     }
 
-    def show(String id)
+    def show()
     {
-
         ManeResponse maneResponse = new ManeResponse()
-        RefWorkingArea refWorkingArea = refWorkingAreaService.getRefWorkingArea(id)
+        def refWorkingArea
 
         try {
+            ShowCommand cmd = new ShowCommand(params)
 
-            if ( !refWorkingArea ) throw new Exception()
+            if ( cmd.validate() ) {
+                refWorkingArea = refWorkingAreaService.getRefWorkingArea(cmd.id, cmd.fields)
+            } else {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Parametreler uygun değil')
+            }
 
             maneResponse.data = refWorkingArea
             maneResponse.statusCode = StatusCode.OK
@@ -68,7 +74,6 @@ class RefWorkingAreaController extends BaseController
 
     def save(RefWorkingArea refWorkingArea)
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
@@ -97,7 +102,6 @@ class RefWorkingAreaController extends BaseController
 
     def update(RefWorkingArea refWorkingArea)
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
@@ -129,7 +133,6 @@ class RefWorkingAreaController extends BaseController
 
     def delete(String id)
     {
-
         ManeResponse maneResponse = new ManeResponse()
         RefWorkingArea refWorkingArea = RefWorkingArea.get(id)
 

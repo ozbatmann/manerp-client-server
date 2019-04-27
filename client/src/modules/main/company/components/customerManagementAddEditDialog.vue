@@ -46,8 +46,8 @@
                                                   v-model="data.title"
                                                   label="Unvan"
                                                   name="title"
-                                                  :counter="50"
-                                                  maxlength="50"
+                                                  :counter="150"
+                                                  maxlength="150"
                                                   background-color="grey lighten-4"
                                                   color="green accent-2"
                                                   full-width>
@@ -244,33 +244,7 @@
                 isEdit: false,
                 data: JSON.parse(JSON.stringify(companyModel)),
                 layers: [],
-                vendors: [
-                    {
-                        id: 0,
-                        title: 'Bogart\'s Smokehouse',
-                        location: ['39.813119', '32.711207'],
-                    },
-                    {
-                        id: 1,
-                        title: 'Pappy\'s Smokehouse',
-                        location: [39.853454, 32.722818],
-                    },
-                    {
-                        id: 2,
-                        title: 'Broadway Oyster Bar',
-                        location: [39.865876, 32.709700],
-                    },
-                    {
-                        id: 3,
-                        title: 'Charlie Gitto\'s On the Hill',
-                        location: [39.862163, 32.764860],
-                    },
-                    {
-                        id: 4,
-                        title: 'Charlie Gitto\'s On the Hill',
-                        location: [39.874472, 32.764193],
-                    }
-                ]
+                vendors: []
             }
         },
         methods: {
@@ -330,8 +304,11 @@
             addNewVendor(data) {
                 data.company = this.data.id;
                 this.$http.post("api/v1/vendor", data).then((result) => {
-                    this.getAllVendors();
-                    this.$refs.leafletMap.closePopup();
+                    if (result.data.status < 299) {
+                        this.getAllVendors();
+                        this.$refs.leafletMap.closePopup();
+                    }
+                    this.displayMessage(result);
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
@@ -339,8 +316,13 @@
                 })
             },
             editVendor(data) {
+                data.company = this.data.id;
                 this.$http.put("api/v1/vendor", data).then((result) => {
-                    this.vendors = result.data.data.items
+                    if (result.data.status < 299) {
+                        this.getAllVendors();
+                        this.$refs.leafletMap.closePopup();
+                    }
+                    this.displayMessage(result);
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
@@ -348,9 +330,12 @@
                 })
             },
             deleteVendor(id) {
-                this.$http.delete(`api/v1/company/${id}`).then((result) => {
-                    this.getAllVendors();
-                    this.$refs.leafletMap.closePopup();
+                this.$http.delete(`api/v1/vendor/${id}`).then((result) => {
+                    if (result.data.status < 299) {
+                        this.getAllVendors();
+                        this.$refs.leafletMap.closePopup();
+                    }
+                    this.displayMessage(result);
                 }).catch((error) => {
                     console.error(error);
                 })
@@ -376,7 +361,6 @@
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
-
                 })
             },
             getSysrefCities() {
@@ -386,7 +370,6 @@
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
-
                 })
             },
             getSysrefDistricts() {
@@ -396,7 +379,6 @@
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
-
                 })
             },
             getSysrefNaceCodes() {
@@ -406,11 +388,10 @@
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
-
                 })
             },
             getAllVendors() {
-                let fields = 'fields=id,code,title,address,phone,location';
+                let fields = 'fields=id,code,title,address,phone,location,active';
                 let pagination = 'limit=200&offset=0';
                 let companyId = 'companyId=' + this.data.id;
                 this.layerChanged(0, false);
@@ -424,6 +405,9 @@
                     console.log(error);
                 }).finally(() => {
                 })
+            },
+            displayMessage(result) {
+                this.$emit('displayMessage', result);
             }
         },
         mounted() {

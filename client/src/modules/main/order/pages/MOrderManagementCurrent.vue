@@ -281,7 +281,7 @@
             getCustomerCompanyList() {
                 let self = this;
 
-                this.$http.get('api/v1/customerCompany/getListForDropDown/').then((result) => {
+                this.$http.get('api/v1/customerCompany').then((result) => {
                     self.customerCompanyList = result.data.data.items
 
                     self.addEditFields.find(item => {

@@ -1,18 +1,18 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <m-data-table
-                :headers="headers"
-                :items="vehicles"
-                :loading="loading"
-                @deleteItem="deleteItem"
+            :headers="headers"
+            :items="vehicles"
+            :loading="loading"
+            @deleteItem="deleteItem"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
 
                 <!-- Add customer button -->
                 <m-data-table-action
-                        title="araç ekle"
-                        @click="addDialog"
+                    title="araç ekle"
+                    @click="addDialog"
                 ></m-data-table-action>
             </template>
 
@@ -26,25 +26,25 @@
 
         <!-- Data table add-edit form -->
         <m-data-table-add-new-form
-                ref="addEditDialog"
-                :data="addEditData"
-                :inputs="addEditFields"
-                title="Yeni Araç"
-                @save="addNewItem"
+            ref="addEditDialog"
+            :data="addEditData"
+            :inputs="addEditFields"
+            title="Yeni Araç"
+            @save="addNewItem"
         ></m-data-table-add-new-form>
 
         <v-snackbar
-                v-model="snackbar.active"
-                color="grey darken-4"
-                :class="snackbar.textColor"
-                top
-                right
+            v-model="snackbar.active"
+            color="grey darken-4"
+            :class="snackbar.textColor"
+            top
+            right
         >
             {{ snackbar.text }}
             <v-btn
-                    dark
-                    flat
-                    @click="snackbar.active = false"
+                dark
+                flat
+                @click="snackbar.active = false"
             >
                 geri al
             </v-btn>
@@ -334,7 +334,7 @@
             getRefWorkingAreaList() {
                 let self = this;
 
-                this.$http.get('api/v1/refWorkingArea/getListForDropDown').then((result) => {
+                this.$http.get('api/v1/refWorkingArea').then((result) => {
                     self.refWorkingAreaList = result.data.data.items
 
                     self.addEditFields.find(item => {
@@ -345,8 +345,7 @@
                     console.log(error);
                 })
             },
-            deleteItem(item){
-                debugger;
+            deleteItem(item) {
                 this.$http.delete(`api/v1/vehicle/${item.id}`).then((result) => {
                     this.getAllVehicles()
                 }).catch((error) => {

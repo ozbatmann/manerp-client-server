@@ -323,7 +323,7 @@
             getRefWorkingAreaList() {
                 let self = this;
 
-                this.$http.get('api/v1/refWorkingArea/getListForDropDown').then((result) => {
+                this.$http.get('api/v1/refWorkingArea').then((result) => {
                     self.refWorkingAreaList = result.data.data.items
 
                     self.addEditFields.find(item => {

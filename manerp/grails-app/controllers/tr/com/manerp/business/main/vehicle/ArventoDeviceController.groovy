@@ -7,6 +7,7 @@ import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
+import tr.com.manerp.commands.controller.common.ShowCommand
 
 class ArventoDeviceController extends BaseController
 {
@@ -38,15 +39,21 @@ class ArventoDeviceController extends BaseController
         render maneResponse
     }
 
-    def show(String id)
+    def show()
     {
 
         ManeResponse maneResponse = new ManeResponse()
-        ArventoDevice arventoDevice = arventoDeviceService.getArventoDevice(id)
+        def arventoDevice
 
         try {
+            ShowCommand cmd = new ShowCommand(params)
 
-            if ( !arventoDevice ) throw new Exception()
+            if ( cmd.validate() ) {
+                arventoDevice = arventoDeviceService.getArventoDevice(cmd.id, cmd.fields)
+            } else {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception('Parametreler uygun değil')
+            }
 
             maneResponse.data = arventoDevice
             maneResponse.statusCode = StatusCode.OK

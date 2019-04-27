@@ -2,6 +2,7 @@ package tr.com.manerp.business.sysref
 
 import grails.gorm.transactions.Transactional
 import grails.util.Holders
+import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.util.FieldParser
 import tr.com.manerp.base.service.BaseService
@@ -21,26 +22,43 @@ class SysrefVoyageDirectionService extends BaseService
             }
         }
 
-        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-        return paginate(SysrefVoyageDirection, properties, closure, excludedFields)
+        ManePaginatedResult result = paginate(SysrefVoyageDirection, properties, closure)
+
+        result.data = formatResultForList(result.data as List)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, SysrefVoyageDirection)
+
+        return result
     }
 
     def getSysrefVoyageDirection(String id, String fields = null)
     {
-        SysrefVoyageDirection voyageDirection = SysrefVoyageDirection.createCriteria().get {
-
+        def voyageDirection = SysrefVoyageDirection.createCriteria().get {
             eq('id', id)
-
         } as SysrefVoyageDirection
 
-        def _voyageDirection = voyageDirection
-        if ( fields ) {
+        voyageDirection = formatResultForShow(voyageDirection)
+        if ( fields ) voyageDirection = filterDataByFields(voyageDirection, fields, SysrefVoyageDirection)
 
-            FieldParser fieldParser = new FieldParser()
-            List fieldList = fieldParser.parseFieldsToList(fields)
-            HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-            _voyageDirection = filterDomainInstance(voyageDirection, fieldList, excludedFields)
+        return voyageDirection
+    }
+
+    List formatResultForList(List data)
+    {
+        List formattedData = data.collect {
+            return [
+                id  : it.id,
+                name: it.name
+            ]
         }
-        return _voyageDirection
+
+        formattedData
+    }
+
+    def formatResultForShow(def data)
+    {
+        return [
+            id  : data.id,
+            name: data.name
+        ]
     }
 }

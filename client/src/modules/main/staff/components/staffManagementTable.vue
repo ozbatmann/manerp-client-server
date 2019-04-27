@@ -176,14 +176,7 @@
 
                 this.$http.post('api/v1/staff', this.newItem)
                     .then((result) => {
-                        let status = result.data.status;
-                        if (status < 299) {
-                            self.snackbar.textColor = 'green--text text--accent-3';
-                        } else {
-                            self.snackbar.textColor = 'red--text';
-                        }
-                        self.snackbar.text = result.data.message;
-                        self.snackbar.active = true;
+                        self.displaySnackMessage(result);
                         self.getAllStaffs();
                     }).catch((error) => {
                     console.log(error);
@@ -194,15 +187,7 @@
 
                 this.$http.put('api/v1/staff/', item)
                     .then(result => {
-                        let status = result.data.status;
-                        if (status < 299) {
-                            self.snackbar.textColor = 'green--text text--accent-3';
-                        } else {
-                            self.snackbar.textColor = 'red--text';
-                        }
-
-                        self.snackbar.text = result.data.message;
-                        self.snackbar.active = true;
+                        self.displaySnackMessage(result);
                         self.getAllStaffs();
                     }).catch(error => {
                     console.log(error)
@@ -212,19 +197,22 @@
                 let self = this;
 
                 this.$http.delete(`api/v1/staff/${item.id}`).then((result) => {
-                    let status = result.data.status;
-                    if (status < 299) {
-                        self.snackbar.textColor = 'green--text text--accent-3';
-                    } else {
-                        self.snackbar.textColor = 'red--text';
-                    }
-
-                    self.snackbar.text = result.data.message;
-                    self.snackbar.active = true;
-                    self.getAllStaffs()
+                    self.displaySnackMessage(result);
+                    self.getAllStaffs();
                 }).catch((error) => {
                     console.error(error);
                 })
+            },
+            displaySnackMessage(result) {
+                let status = result.data.status;
+                if (status < 299) {
+                    this.snackbar.textColor = 'green--text text--accent-3';
+                } else {
+                    this.snackbar.textColor = 'red--text';
+                }
+
+                this.snackbar.text = result.data.message;
+                this.snackbar.active = true;
             }
         },
         mounted() {

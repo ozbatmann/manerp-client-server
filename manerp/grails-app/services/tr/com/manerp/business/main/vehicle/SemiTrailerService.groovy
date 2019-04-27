@@ -22,31 +22,59 @@ class SemiTrailerService extends BaseService
             }
         }
 
-        HashSet excludedFields = Holders.config.manerp.domain.excludedFields
-        return paginate(SemiTrailer, properties, closure, excludedFields)
+        ManePaginatedResult result = paginate(SemiTrailer, properties, closure)
+
+        result.data = formatResultForList(result.data as List)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, SemiTrailer)
+
+        return result
     }
 
-    SemiTrailer getSemiTrailer(String id)
+    def getSemiTrailer(String id, String fields = null)
     {
-        SemiTrailer trailer = SemiTrailer.createCriteria().get {
-
+        def trailer = SemiTrailer.createCriteria().get {
             eq('id', id)
-
         } as SemiTrailer
+
+        trailer = formatResultForShow(trailer)
+        if ( fields ) trailer = filterDataByFields(trailer, fields, SemiTrailer)
 
         return trailer
     }
 
     def save(SemiTrailer trailer)
     {
-
-        trailer.save(fflush: true, ailOnError: true)
+        trailer.save(flush: true, failOnError: true)
     }
 
     def delete(SemiTrailer trailer)
     {
-
         trailer.delete(flush: true, failOnError: true)
     }
 
+    List formatResultForList(List data)
+    {
+        List formattedData = data.collect {
+            return [
+                id         : it.id,
+                code       : it.code,
+                plateNumber: it?.plateNumber,
+                brand      : it?.brand,
+                name       : it?.name
+            ]
+        }
+
+        formattedData
+    }
+
+    def formatResultForShow(def data)
+    {
+        return [
+            id         : data.id,
+            code       : data.code,
+            plateNumber: data?.plateNumber,
+            brand      : data?.brand,
+            name       : data?.name
+        ]
+    }
 }

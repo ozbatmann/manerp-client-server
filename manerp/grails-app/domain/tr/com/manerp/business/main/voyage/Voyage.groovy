@@ -3,7 +3,6 @@ package tr.com.manerp.business.main.voyage
 import grails.databinding.BindingFormat
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.domain.BusinessDomain
-import tr.com.manerp.business.main.company.Company
 import tr.com.manerp.business.main.resource.Staff
 import tr.com.manerp.business.main.vehicle.SemiTrailer
 import tr.com.manerp.business.main.vehicle.Vehicle
