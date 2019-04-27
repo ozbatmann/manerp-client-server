@@ -1,7 +1,10 @@
 <template>
-    <v-app>
-        <router-view></router-view>
-    </v-app>
+    <div>
+        <span class="m-found" v-if="$route.fullPath.indexOf('login') > -1">Beni buldun!</span>
+        <v-app>
+            <router-view></router-view>
+        </v-app>
+    </div>
 </template>
 
 <script>
@@ -16,6 +19,11 @@
 </script>
 
 <style>
+    .m-found {
+        position: fixed;
+        z-index: 50;
+    }
+
     .custom-font {
         font-family: 'Poppins', sans-serif !important;
     }
@@ -134,5 +142,10 @@
 
     .m-active-date input {
         color: #13d893 !important;
+    }
+
+    .m-settings__label .v-label,
+    .m-settings__label input {
+        font-size: 14px;
     }
 </style>

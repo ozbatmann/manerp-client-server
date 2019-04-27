@@ -47,7 +47,10 @@ const router = new VueRouter({
                         ...require('@/modules/main/vehicle/route/index').default,
 
                         // Parameter routes
-                        ...require('@/modules/main/parameter/route/index').default
+                        ...require('@/modules/main/parameter/route/index').default,
+
+                        // Settings routes
+                        ...require('@/modules/main/settings/route/index').default
                     ],
                 },
 
