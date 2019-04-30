@@ -3,9 +3,11 @@ package tr.com.manerp.base.controller
 import manerp.response.plugin.response.ManeResponseController
 import org.springframework.validation.Errors
 
-class BaseController extends ManeResponseController {
+class BaseController extends ManeResponseController
+{
 
-    private static String parseDefaultMessage(String defaultMessage) {
+    private static String parseDefaultMessage(String defaultMessage)
+    {
 
         String result = ''
         String uniquePattern = 'unique'
@@ -33,7 +35,8 @@ class BaseController extends ManeResponseController {
         return result
     }
 
-    protected static String parseValidationErrors(Errors errors) {
+    protected static String parseValidationErrors(Errors errors)
+    {
 
         StringBuilder stringBuilder = new StringBuilder()
 
