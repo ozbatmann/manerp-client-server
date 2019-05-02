@@ -60,7 +60,7 @@
             <v-icon>notifications</v-icon>
         </v-btn>
 
-        <router-link :to="{ name: require('@/modules/main/settings/route/index.js').routes.userInfo }" active="">
+        <router-link :to="{ name: require('@/modules/main/settings/route/index.js').routes.profile }" active="">
             <v-btn icon>
                 <v-icon>settings</v-icon>
             </v-btn>
@@ -110,6 +110,8 @@
 
         data() {
             return {
+                activeTab: 0,
+
                 title: null,
                 tabs: null,
 
@@ -161,6 +163,10 @@
 
             value () {
                 this.localDrawerState = this.value
+            },
+
+            '$route.meta.title' (newValue, oldValue) {
+                //if (newValue !== oldValue) this.activeTab = 0;
             }
         }
     }

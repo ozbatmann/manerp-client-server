@@ -7,7 +7,8 @@
                         type="info"
                         dismissible
                 >
-                    Yeni kullanıcı ekleyin, kullanıcı izinlerini yönetin, yeni izin ekleyin ve kullanıcıları yetkilendirin.
+                    Yeni kullanıcı ekleyin, kullanıcı izinlerini yönetin, yeni izin ekleyin ve kullanıcıları
+                    yetkilendirin.
                 </v-alert>
             </v-flex>
         </v-layout>
@@ -44,19 +45,18 @@
                         </v-tooltip>
                     </v-subheader>
 
-                    <v-autocomplete
-                            cache-items
+                    <v-text-field
+                            v-model="filter.role"
                             class="mx-3 mb-2 m-settings__label"
                             flat
                             hide-details
-                            hide-no-data
                             background-color="grey lighten-3"
                             label="İzinler arasında arayın"
                             solo
-                    ></v-autocomplete>
+                    ></v-text-field>
 
                     <v-list-tile
-                            v-for="(item, index) in items"
+                            v-for="(item, index) in filteredItems(items, 'role')"
                             :key="`permission-list-item-${index}`"
                             :class="activeClass(index)"
                             @click="select(index)"
@@ -70,13 +70,12 @@
                         </v-list-tile-content>
 
                         <v-list-tile-action class="m-settings__action">
-                            <v-btn
-                                    class="ma-0"
-                                    icon
-                                    @click="showMenu(index)"
+                            <v-icon
+                                    size="16"
+                                    class="mr-2 black--text"
                             >
-                                <v-icon size="16">edit</v-icon>
-                            </v-btn>
+                                edit
+                            </v-icon>
                         </v-list-tile-action>
                     </v-list-tile>
                 </v-list>
@@ -108,19 +107,18 @@
                         </v-tooltip>
                     </v-subheader>
 
-                    <v-autocomplete
-                            cache-items
+                    <v-text-field
+                            v-model="filter.user"
                             class="mx-3 mb-2 m-settings__label"
                             flat
                             hide-details
-                            hide-no-data
                             background-color="grey lighten-3"
                             label="Kullanıcılar arasında arayın"
                             solo
-                    ></v-autocomplete>
+                    ></v-text-field>
 
                     <v-list-tile
-                            v-for="(user, index) in users"
+                            v-for="(user, index) in filteredItems(users, 'user', 'name')"
                             :key="`settings-user-item-${index}`"
                     >
                         <v-list-tile-avatar>
@@ -155,8 +153,9 @@
 
                             <!-- Title -->
                             <v-card-title class="text-uppercase font-weight-medium">
-                                <span class="white--text">{{selectedPermissionTitle}} iznine ait yetkiler</span><br>
+                                <span class="white--text">{{selectedPermissionTitle}} iznine ait yetkiler</span>
                             </v-card-title>
+
                             <v-card-text class="py-0 my-0">
                                 <span class="d-block caption green--text text--accent-2">
                                     <span class="text-capitalize">
@@ -165,28 +164,64 @@
                                 </span>
                             </v-card-text>
 
+                            <v-card-text class="pb-1">
+
+                                <v-text-field
+                                        v-model="filter.permission"
+                                        class="m-settings__label"
+                                        flat
+                                        hide-details
+                                        background-color="deep-purple darken-2"
+                                        label="Yetkiler arasında arayın"
+                                        solo
+                                ></v-text-field>
+                            </v-card-text>
                             <!-- Permission checkboxes -->
-                            <v-card-text>
+                            <v-card-text class="px-0 pt-0">
                                 <v-layout
                                         justify-start
                                         wrap
                                 >
                                     <v-flex
-                                            v-for="(permission, index) in permissions"
-                                            :key="`permission-item-${index}`"
                                             shrink
-                                            ma-2
+                                            xs12
                                     >
-                                        <!-- Checkbox items -->
-                                        <!-- Toggles data table columns -->
-                                        <v-checkbox
-                                                v-model="permission.active"
-                                                :label="permission.title"
-                                                class="mt-0 text-capitalize font-weight-regular m-settings__label"
-                                                color="green accent-2"
-                                                hide-details
-                                                :ref="`permission-checkbox-${index}`"
-                                        ></v-checkbox>
+                                        <!-- Permission types expansion panel -->
+                                        <v-expansion-panel class="elevation-0">
+                                            <v-expansion-panel-content
+                                                    v-for="(permission, index) in filteredItems(permissions, 'permission')"
+                                                    :key="`permission-item-${index}`"
+                                                    class="deep-purple px-0"
+                                            >
+                                                <template v-slot:header>
+                                                    <div class="text-capitalize">{{permission.title}}</div>
+                                                </template>
+
+                                                <v-layout
+                                                        wrap
+                                                        deep-purple
+                                                        darken-2
+                                                        px-3
+                                                        py-2
+                                                >
+                                                    <v-flex
+                                                            v-for="(type, i) in permission.types"
+                                                            :key="`${permission.title}-item-${i}`"
+                                                            pa-2
+                                                            shrink
+                                                    >
+                                                        <!-- Checkbox items -->
+                                                        <v-checkbox
+                                                                v-model="type.active"
+                                                                :label="type.title"
+                                                                class="mt-0 text-capitalize font-weight-regular m-settings__label"
+                                                                color="green accent-2"
+                                                                hide-details
+                                                        ></v-checkbox>
+                                                    </v-flex>
+                                                </v-layout>
+                                            </v-expansion-panel-content>
+                                        </v-expansion-panel>
                                     </v-flex>
                                 </v-layout>
                             </v-card-text>
@@ -206,95 +241,30 @@
 </template>
 
 <script>
-    import MDataTable from "../../shared/components/data/components/MDataTable";
-    import MDataTableAction from "../../shared/components/data/components/MDataTableAction";
 
     export default {
         name: "MSettingsUserPermission",
-        components: {MDataTableAction, MDataTable},
 
         data() {
             return {
-                data: [
-                    {
-                        id: 0,
-                        firstname: 'Tunahan',
-                        lastname: 'Bayındır',
-                        department: 'Operasyon'
-                    },
-                    {
-                        id: 0,
-                        firstname: 'Tunahan',
-                        lastname: 'Bayındır',
-                        department: 'Operasyon'
-                    },
-                    {
-                        id: 0,
-                        firstname: 'Tunahan',
-                        lastname: 'Bayındır',
-                        department: 'Operasyon'
-                    },
-                    {
-                        id: 0,
-                        firstname: 'Tunahan',
-                        lastname: 'Bayındır',
-                        department: 'Operasyon'
-                    },
-                    {
-                        id: 0,
-                        firstname: 'Tunahan',
-                        lastname: 'Bayındır',
-                        department: 'Operasyon'
-                    }
-                ],
+                filter: {
+                    role: null,
+                    user: null,
+                    permission: null
+                },
 
                 items: [
                     {
+                        id: '',
                         title: 'Operasyon',
-                        value: 0,
                     },
                     {
+                        id: '',
                         title: 'Mutabakat',
-                        value: 1,
                     },
                     {
+                        id: '',
                         title: 'Muhasebe',
-                        value: 2,
-                    },
-                ],
-
-                // Data-table headers
-                headers: [
-                    {
-                        text: 'ID',
-                        sortable: true,
-                        value: 'id',
-                        toggleable: false,
-                        show: true,
-                        search: {chip: false, value: null}
-                    },
-                    {
-                        text: 'ad',
-                        sortable: true,
-                        value: 'firstname',
-                        toggleable: false,
-                        show: true,
-                        search: {chip: false, value: null}
-                    },
-                    {
-                        text: 'soyad',
-                        sortable: true,
-                        value: 'lastname',
-                        toggleable: false,
-                        show: true,
-                        search: {chip: false, value: null}
-                    },
-                    {
-                        text: 'birim',
-                        sortable: true,
-                        value: 'department',
-                        toggleable: false,
-                        show: true
                     },
                 ],
 
@@ -304,44 +274,219 @@
                     {
                         title: 'operasyon',
                         value: 'operations',
-                        active: true,
+                        types: [
+                            {
+                                title: 'Ekle',
+                                value: 'create',
+                                active: false,
+                            },
+                            {
+                                title: 'Görüntüle',
+                                value: 'read',
+                                active: false,
+                            },
+                            {
+                                title: 'Düzenle',
+                                value: 'update',
+                                active: false,
+                            },
+                            {
+                                title: 'Sil',
+                                value: 'delete',
+                                active: false,
+                            }
+                        ]
                     },
                     {
                         title: 'mutabakat',
                         value: 'operations',
-                        active: true,
+                        types: [
+                            {
+                                title: 'Ekle',
+                                value: 'create',
+                                active: false,
+                            },
+                            {
+                                title: 'Görüntüle',
+                                value: 'read',
+                                active: false,
+                            },
+                            {
+                                title: 'Düzenle',
+                                value: 'update',
+                                active: false,
+                            },
+                            {
+                                title: 'Sil',
+                                value: 'delete',
+                                active: false,
+                            }
+                        ]
                     },
                     {
                         title: 'şoför ekle/düzenle',
                         value: 'operations',
-                        active: true,
+                        types: [
+                            {
+                                title: 'Ekle',
+                                value: 'create',
+                                active: false,
+                            },
+                            {
+                                title: 'Görüntüle',
+                                value: 'read',
+                                active: false,
+                            },
+                            {
+                                title: 'Düzenle',
+                                value: 'update',
+                                active: false,
+                            },
+                            {
+                                title: 'Sil',
+                                value: 'delete',
+                                active: false,
+                            }
+                        ]
                     },
                     {
-                        title: 'iş yeri ekle/düzenle',
-                        value: 'operations',
-                        active: true,
+                        id: '',
+                        title: 'iş yeri',
+                        types: [
+                            {
+                                title: 'Ekle',
+                                value: 'create',
+                                active: false,
+                            },
+                            {
+                                title: 'Görüntüle',
+                                value: 'read',
+                                active: false,
+                            },
+                            {
+                                title: 'Düzenle',
+                                value: 'update',
+                                active: false,
+                            },
+                            {
+                                title: 'Sil',
+                                value: 'delete',
+                                active: false,
+                            }
+                        ]
                     },
                     {
                         title: 'tedarikçi ekle/düzenle',
                         value: 'operations',
-                        active: true,
+                        types: [
+                            {
+                                title: 'Ekle',
+                                value: 'create',
+                                active: false,
+                            },
+                            {
+                                title: 'Görüntüle',
+                                value: 'read',
+                                active: false,
+                            },
+                            {
+                                title: 'Düzenle',
+                                value: 'update',
+                                active: false,
+                            },
+                            {
+                                title: 'Sil',
+                                value: 'delete',
+                                active: false,
+                            }
+                        ]
                     },
                     {
                         title: 'araç ekle/düzenle',
                         value: 'operations',
-                        active: true,
+                        types: [
+                            {
+                                title: 'Ekle',
+                                value: 'create',
+                                active: false,
+                            },
+                            {
+                                title: 'Görüntüle',
+                                value: 'read',
+                                active: false,
+                            },
+                            {
+                                title: 'Düzenle',
+                                value: 'update',
+                                active: false,
+                            },
+                            {
+                                title: 'Sil',
+                                value: 'delete',
+                                active: false,
+                            }
+                        ]
                     },
                     {
                         title: 'sipariş ekle/düzenle',
                         value: 'operations',
-                        active: true,
+                        types: [
+                            {
+                                title: 'Ekle',
+                                value: 'create',
+                                active: false,
+                            },
+                            {
+                                title: 'Görüntüle',
+                                value: 'read',
+                                active: false,
+                            },
+                            {
+                                title: 'Düzenle',
+                                value: 'update',
+                                active: false,
+                            },
+                            {
+                                title: 'Sil',
+                                value: 'delete',
+                                active: false,
+                            }
+                        ]
                     },
                     {
                         title: 'sevkiyat ekle/düzenle',
                         value: 'operations',
-                        active: true,
+                        types: [
+                            {
+                                title: 'Ekle',
+                                value: 'create',
+                                active: false,
+                            },
+                            {
+                                title: 'Görüntüle',
+                                value: 'read',
+                                active: false,
+                            },
+                            {
+                                title: 'Düzenle',
+                                value: 'update',
+                                active: false,
+                            },
+                            {
+                                title: 'Sil',
+                                value: 'delete',
+                                active: false,
+                            }
+                        ]
                     }
                 ],
+
+                permissionTypes: {
+                    create: false,
+                    read: false,
+                    update: false,
+                    delete: false
+                },
 
                 selected: 0,
 
@@ -371,6 +516,7 @@
         },
 
         computed: {
+
             selectedPermissionTitle() {
                 return this.permissions[this.selected].title;
             }
@@ -382,7 +528,19 @@
                 return this.selected === index ? 'm-settings__active' : ''
             },
 
-            showMenu (index) {
+            filteredItems (items, type, prop = null) {
+                let filterText = this.filter[type];
+                let filterProp = prop ? prop : 'title';
+
+                if (!filterText) return items;
+
+                return items.filter(item => {
+                    return item[filterProp].toLocaleLowerCase()
+                        .includes(filterText.toLocaleLowerCase());
+                });
+            },
+
+            showMenu(index) {
                 this.menuActive = true;
             },
 

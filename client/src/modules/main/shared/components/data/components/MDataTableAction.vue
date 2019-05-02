@@ -3,6 +3,7 @@
             depressed
             :disabled="disabled"
             class="mx-0"
+            :class="[background, `${textColor}--text`]"
             @click="onClick"
             @hover="onHover"
     >
@@ -32,6 +33,11 @@
                 default: 'add'
             },
 
+            background: {
+                type: String,
+                default: 'deep-purple'
+            },
+
             color: {
                 type: String,
                 default: 'green accent-3'
@@ -40,6 +46,11 @@
             disabled: {
                 type: Boolean,
                 default: false
+            },
+
+            textColor: {
+                type: String,
+                default: 'white'
             }
         },
 

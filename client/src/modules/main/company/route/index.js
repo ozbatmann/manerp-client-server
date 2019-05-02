@@ -23,31 +23,11 @@ const meta = (title) => {
     }
 };
 
-const detailsMeta = (title) => {
-    return {
-        title: title,
-        tabbed: true,
-        tabs: [
-            {
-                text: 'genel',
-                to: {name: routes.information}
-            },
-            {
-                text: 'geçmiş siparişler',
-                to: {name: routes.orders}
-            },
-            {
-                text: 'dokümanlar',
-                to: {name: routes.documents}
-            }
-        ]
-    }
-};
-
 export default [
     {
         path: 'companies',
         component: () => import('@/modules/main/shared/components/core/MCoreDetails'),
+        redirect: { name: routes.customer },
         children: [
             {
                 path: '',

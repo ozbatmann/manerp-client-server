@@ -1,19 +1,29 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
+        <v-dialog>
+            <m-order-add-edit-form
+                    ref="addEditDialog"
+                    :data="addEditData"
+                    :inputs="addEditFields"
+                    title="Yeni Sipariş"
+                    @save="addNewItem"
+                    @edit="editItem"
+            ></m-order-add-edit-form>
+        </v-dialog>
         <m-data-table
-            :headers="headers"
-            :items="orders"
-            :to="to"
-            :loading="loading"
-            :deleteItem="deleteItem"
+                :headers="headers"
+                :items="orders"
+                :to="to"
+                :loading="loading"
+                :deleteItem="deleteItem"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
 
                 <!-- Add customer button -->
                 <m-data-table-action
-                    title="sipariş ekle"
-                    @click="addDialog"
+                        title="sipariş ekle"
+                        @click="addDialog"
                 ></m-data-table-action>
             </template>
 
@@ -25,28 +35,18 @@
             </template>
         </m-data-table>
 
-        <!-- Data table add-edit form -->
-        <m-data-table-add-new-form
-            ref="addEditDialog"
-            :data="addEditData"
-            :inputs="addEditFields"
-            title="Yeni Sipariş"
-            @save="addNewItem"
-            @edit="editItem"
-        ></m-data-table-add-new-form>
-
         <v-snackbar
-            v-model="snackbar.active"
-            color="grey darken-4"
-            :class="snackbar.textColor"
-            top
-            right
+                v-model="snackbar.active"
+                color="grey darken-4"
+                :class="snackbar.textColor"
+                top
+                right
         >
             {{ snackbar.text }}
             <v-btn
-                dark
-                flat
-                @click="snackbar.active = false"
+                    dark
+                    flat
+                    @click="snackbar.active = false"
             >
                 geri al
             </v-btn>
@@ -58,6 +58,7 @@
     import MDataTable from '../../shared/components/data/components/MDataTable'
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction"
     import MDataTableAddNewForm from "../../shared/components/data/components/MDataTableAddNewForm"
+    import MOrderAddEditForm from "../components/MOrderAddEditForm";
 
     const orderModel = require('@/modules/main/order/models/order-model').default;
 
@@ -65,6 +66,7 @@
         name: "MOrderManagementCurrent",
 
         components: {
+            MOrderAddEditForm,
             MDataTable,
             MDataTableAction,
             MDataTableAddNewForm
@@ -217,7 +219,8 @@
                 let self = this;
 
                 this.$http.get('api/v1/order?WAIT').then((result) => {
-                    self.orders = result.data.data.items
+                    self.orders = result.data.data.items;
+                    console.log(result);
                 }).catch((error) => {
                     console.log(error);
                 }).finally(() => this.loading = false)
@@ -243,7 +246,7 @@
                 })
             },
 
-            editItem (item) {
+            editItem(item) {
                 let self = this;
 
                 this.$http.put('api/v1/order', item)
@@ -292,7 +295,7 @@
                     console.log(error);
                 })
             },
-            deleteItem(item){
+            deleteItem(item) {
                 this.$http.delete(`api/v1/order/${item.id}`).then((result) => {
                     this.getAllVehicles()
                 }).catch((error) => {

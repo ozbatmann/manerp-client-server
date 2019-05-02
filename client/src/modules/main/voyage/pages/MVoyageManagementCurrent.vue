@@ -4,23 +4,20 @@
             :headers="headers"
             :items="voyages"
             :loading="loading"
+            :alert-text="`Yeni sevkiyat eklemek için Sipariş Yönetimi
+                            ekranına gidin, daha sonra sevkiyat atamak istediginiz siparişi seçin.`"
             @deleteItem="deleteItem"
+            @editItem="addDialog"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
-
                 <!-- Add customer button -->
-                <m-data-table-action
-                    title="sevkiyat ekle"
-                    @click="addDialog"
-                ></m-data-table-action>
-            </template>
-
-            <!-- Data-table action menu slot -->
-            <template v-slot:action-menu="item">
-
-                <!-- Edit button -->
-                <v-list-tile @click="addDialog(item.bind)">Düzenle</v-list-tile>
+                <!--<m-data-table-action-->
+                    <!--title="sevkiyat ekle"-->
+                    <!--background="deep-purple"-->
+                    <!--text-color="white"-->
+                    <!--@click="addDialog"-->
+                <!--&gt;</m-data-table-action>-->
             </template>
         </m-data-table>
 

@@ -5,10 +5,10 @@
     <v-menu
             v-model="isActive"
             :attach="attach"
-            left
+            right
             light
             z-index=5
-            nudge-left=10
+            nudge-right=135
             :nudge-width="300"
             :close-on-content-click="false"
             transition="slide-x-reverse-transition"
@@ -53,9 +53,9 @@
                                     max-width="290"
                                     min-width="290"
                                     :attach="attach"
-                                    left
+                                    right
                                     offset-x
-                                    nudge-left=321
+                                    nudge-right=445
                                     :close-on-content-click="false"
                                     :close-on-click="false"
                                     transition="slide-x-reverse-transition"
@@ -251,7 +251,7 @@
                             block
                             class="ma-0"
                             color="primary-green"
-                            @click.stop="filter"
+                            @click.stop="filter(options)"
                     >
                         TAMAM
                     </v-btn>
@@ -447,7 +447,7 @@
 
             // Toggles date-picker mode
             toggleDatePicker(mode) {
-                this.options.date.mode = mode
+                this.options.date.mode = mode;
                 this.currentExpandedPanel = 0
             },
         },
@@ -465,8 +465,6 @@
             'options.search.value' (newValue) {
                 this.options.search.chip = newValue !== null
                     && newValue.length > 0;
-                
-                this.$emit('options', this.options)
             },
 
             // Watches table search chip
@@ -475,14 +473,20 @@
                 if (!newValue) this.options.search.value = null
             },
 
-            // Watches date for changes
-            'options.date': {
-                handler () {
-                    this.options.date.chip = true
-                    this.$emit('options', this.options)
-                },
+            'options.date.start' (newValue) {
+                if (newValue) this.options.date.chip = true;
+            },
 
-                deep: true
+            'options.date.end' (newValue) {
+                if (newValue) this.options.date.chip = true;
+            },
+
+            'options.date.chip' (newValue) {
+                if (!newValue) {
+                    this.options.date.start = null;
+                    this.options.date.end = null;
+                    this.options.date.mode = this.date__mode.START;
+                }
             },
 
             // Watches filter menu for

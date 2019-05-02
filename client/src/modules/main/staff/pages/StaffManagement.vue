@@ -1,7 +1,5 @@
 <template>
-    <v-container fluid>
-        <staff-management-table></staff-management-table>
-    </v-container>
+    <staff-management-table></staff-management-table>
 </template>
 
 <script>

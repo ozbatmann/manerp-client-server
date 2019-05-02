@@ -19,6 +19,10 @@
 </script>
 
 <style>
+    html, body {
+        min-height: 100%;
+    }
+
     .m-found {
         position: fixed;
         z-index: 50;

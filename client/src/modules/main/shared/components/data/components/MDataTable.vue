@@ -1,21 +1,107 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
+        <v-layout>
+            <v-flex>
+                <v-alert
+                        v-if="alertText"
+                        :value="showAlert"
+                        type="info"
+                        dismissible
+                >
+                    {{alertText}}
+                </v-alert>
+            </v-flex>
+        </v-layout>
         <v-layout row align-center>
 
-            <!-- Data-table header slot -->
-            <slot name="header"></slot>
 
-            <v-flex
+            <!-- Filter menu -->
+            <!-- Will be shown if filtering mode is on-->
+            <m-data-table-filter-menu
                     v-if="!noFiltering"
-                    mx-2
-            >
+                    v-model="filterMenuShowing"
+                    attach="#filterButton"
+                    :headers="headers"
+                    :filter="filterTable"
+            ></m-data-table-filter-menu>
+
+            <!-- Filter menu button -->
+            <!-- Will be shown if filtering mode is on -->
+            <m-data-table-action
+                    v-if="!noFiltering"
+                    title="FİLTRELE"
+                    icon="filter_list"
+                    id="filterButton"
+                    background="white"
+                    text-color="black"
+                    :class="filterButtonClass"
+                    @click="filterMenuShowing = !filterMenuShowing"
+            ></m-data-table-action>
+
+            <!--<v-flex shrink ml-2>-->
+                <!--<v-icon size="18">sort</v-icon>-->
+            <!--</v-flex>-->
+
+            <!--&lt;!&ndash; Data-table header slot &ndash;&gt;-->
+            <!--<v-flex shrink mx-2>-->
+                <!--<h4 class="subheading d-inline-block ml-2">Toplam 3.550 kayıt</h4>-->
+                <!--<span v-if="false" class="primary-green&#45;&#45;text"> - 45 seçildi</span>-->
+            <!--</v-flex>-->
+            <v-spacer></v-spacer>
+
+            <m-data-table-action
+                    title="sil"
+                    icon="delete_sweep"
+                    class="mr-2"
+                    color="red"
+                    background="white"
+                    text-color="black"
+                    :disabled="!selected.length"
+            ></m-data-table-action>
+
+            <m-data-table-action
+                    title="dışa aktar"
+                    icon="import_export"
+                    class="mr-2"
+                    color="primary-green"
+                    background="white"
+                    text-color="black"
+                    @click="onexport"
+                    :disabled="!selected.length"
+            ></m-data-table-action>
+
+            <m-data-table-action
+                    title="içe aktar"
+                    icon="import_export"
+                    :class="{ 'mr-2' : !!this.$slots.header }"
+                    color="primary-green"
+                    background="white"
+                    text-color="black"
+                    @click="onexport"
+            ></m-data-table-action>
+
+            <slot name="header"></slot>
+        </v-layout>
+
+        <!-- Filter chips section -->
+        <!-- Will be shown if filtering mode is on -->
+        <v-layout
+                align-center
+                v-if="!noFiltering"
+                mt-1
+                mb-2
+        >
+
+
+            <v-flex>
                 <!-- Search in table chip -->
                 <v-chip
                         v-if="filterOptions.search !== undefined"
                         v-model="filterOptions.search.chip"
-                        class="mx-0 mt-0 mr-1"
+                        class="ma-0 mr-2"
                         height="56"
                         close
+                        label
                 >
                     {{ filterOptions.search.value }}
                 </v-chip>
@@ -24,9 +110,10 @@
                 <v-chip
                         v-if="filterOptions.date !== undefined"
                         v-model="filterOptions.date.chip"
-                        class="mx-0 mt-0 mr-1"
+                        class="ma-0 mr-2"
                         height="56"
                         close
+                        label
                 >
                     <!-- Start date -->
                     {{ formatDate(filterOptions.date.start) }}
@@ -46,48 +133,18 @@
                         v-for="(header, index) in columnWiseSearchChips"
                         :key="`filter-chip-item-${index}`"
                         v-model="header.search.chip"
-                        class="mx-1 mt-0"
+                        class="mx-1 my-0"
                         height="56"
                         close
+                        label
                 >
                     {{ header.search.value }}
                 </v-chip>
             </v-flex>
-            <v-spacer></v-spacer>
-
-            <!-- Filter menu -->
-            <!-- Will be shown if filtering mode is on-->
-            <m-data-table-filter-menu
-                    v-if="!noFiltering"
-                    v-model="filterMenuShowing"
-                    attach="#filterButton"
-                    :headers="headers"
-                    @options="filterTable"
-            ></m-data-table-filter-menu>
-
-            <!-- Filter menu button -->
-            <!-- Will be shown if filtering mode is on -->
-            <m-data-table-action
-                    v-if="!noFiltering"
-                    title="FİLTRE"
-                    icon="filter_list"
-                    id="filterButton"
-                    class="mt-0"
-                    :class="filterButtonClass"
-                    @click="filterMenuShowing = !filterMenuShowing"
-            ></m-data-table-action>
-        </v-layout>
-
-        <!-- Filter chips section -->
-        <!-- Will be shown if filtering mode is on -->
-        <v-layout
-                align-center
-                v-if="!noFiltering"
-        >
         </v-layout>
 
         <!-- Data table section -->
-        <v-layout mt-2 white>
+        <v-layout white>
             <v-flex>
 
                 <!-- Data table structure -->
@@ -206,6 +263,7 @@
                                                 name="action-menu"
                                                 :bind="props.item"
                                         ></slot>
+                                        <v-list-tile @click="editItem(props.item)">Düzenle</v-list-tile>
                                         <v-list-tile @click="deleteItem(props.item)">Sil</v-list-tile>
                                         <v-list-tile>Dışa aktar</v-list-tile>
                                     </v-list>
@@ -232,7 +290,8 @@
 </template>
 
 <script>
-    import moment from 'moment'
+    import moment from 'moment';
+    import XLSX from 'xlsx';
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction";
     import MDataTableFilterMenu from "@/modules/main/shared/components/data/components/MDataTableFilterMenu";
 
@@ -240,6 +299,10 @@
         name: "MDataTable",
         components: {MDataTableFilterMenu, MDataTableAction},
         props: {
+            alertText: {
+                type: String,
+                default: null,
+            },
 
             // A Boolean indicating
             // whether filter mode is enabled or not
@@ -305,6 +368,21 @@
                 // Holds search text and
                 // feeds data table :search prop
                 search: null,
+
+                showAlert: true,
+
+                tempItems: [
+                    {
+                        id: 0,
+                        name: 'Temp Item',
+                        order: 1
+                    },
+                    {
+                        id: 1,
+                        name: 'Another Temp Item',
+                        order: 2
+                    }
+                ]
             }
         },
 
@@ -366,7 +444,9 @@
 
             // Welcomes filter emit
             filterTable(newValue) {
-                this.filterOptions = newValue
+                this.filterOptions = newValue;
+                this.filterMenuShowing = false;
+                this.showAlert = false;
             },
 
             // Formats given date
@@ -408,6 +488,32 @@
             // Emits delete action to the parent
             deleteItem(item) {
                 this.$emit('deleteItem', item)
+            },
+
+            editItem (item) {
+                this.$emit('editItem', item);
+            },
+
+            onexport () { // On Click Excel download button
+
+                let today = moment(new Date());
+                // export json to Worksheet of Excel
+                // only array possible
+                var animalWS = XLSX.utils.json_to_sheet(this.items);
+
+                // A workbook is the name given to an Excel file
+                var wb = XLSX.utils.book_new(); // make Workbook of Excel
+
+                // add Worksheet to Workbook
+                // Workbook contains one or more worksheets
+                XLSX.utils.book_append_sheet(wb, animalWS, ''); // sheetAName is name of Worksheet
+
+                // export Excel file
+                XLSX.writeFile(wb, `${today}.xlsx`) // name of the file is 'book.xlsx'
+            },
+
+            onimport () {
+
             }
         },
 

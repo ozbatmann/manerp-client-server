@@ -24,10 +24,11 @@
             </template>
         </m-data-table>
 
-        <staff-management-add-edit-dialog ref="staffManagementAddEditDialog"
-                                          @save="addNewItem"
-                                          @edit="editItem">
-        </staff-management-add-edit-dialog>
+        <staff-management-add-edit-dialog
+                ref="staffManagementAddEditDialog"
+                @save="addNewItem"
+                @edit="editItem"
+        ></staff-management-add-edit-dialog>
 
         <v-snackbar
             v-model="snackbar.active"

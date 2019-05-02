@@ -9,8 +9,8 @@
                 <v-btn
                         small
                         depressed
-                        color="rgba(0, 0, 0, .54)"
-                        class="m-upload__button white--text ml-1"
+                        color="rgba(0, 0, 0, .72)"
+                        class="m-upload__button white--text ml-2 mt-2"
                 >
                     FOTOĞRAF YÜKLE
                 </v-btn>
@@ -63,44 +63,41 @@
                     </v-list-tile>
                 </v-list>
             </v-flex>
-            <v-flex ml-2 lg9>
-                <v-card
-                        class="elevation-0 white"
-                        style="border: 1px solid #d5d5d5;"
-                >
-                    <v-tabs
-                            light
-                            style="border-bottom: 1px solid #eee;"
-                    >
-                        <v-tabs-slider color="green accent-2"></v-tabs-slider>
-
-                        <v-tab
-                                v-for="(tab, index) in tabs"
-                                :key="`profile-tab-${index}`"
-                                :to="tab.to"
-                        >
-                            {{tab.title}}
-                        </v-tab>
-                    </v-tabs>
-                    <router-view></router-view>
-                </v-card>
+            <v-flex
+                    ml-2
+                    lg9
+            >
+                <v-layout column>
+                    <v-flex>
+                        <m-settings-profile-information></m-settings-profile-information>
+                    </v-flex>
+                    <v-flex mt-3>
+                        <m-settings-profile-account></m-settings-profile-account>
+                    </v-flex>
+                    <v-flex mt-3>
+                        <m-settings-profile-notifications></m-settings-profile-notifications>
+                    </v-flex>
+                </v-layout>
             </v-flex>
         </v-layout>
     </div>
 </template>
 
 <script>
+    import MSettingsProfileAccount from "../components/MSettingsProfileAccount";
+    import MSettingsProfileInformation from "../components/MSettingsProfileInformation";
+    import MSettingsProfileNotifications from "../components/MSettingsProfileNotifications";
     const tabRoutes = require('@/modules/main/settings/route/index.js').routes;
 
     export default {
         name: "MSettingsProfile",
-
+        components: {MSettingsProfileNotifications, MSettingsProfileInformation, MSettingsProfileAccount},
         data () {
             return {
                 tabs: [
                     {
                         title: 'kişisel bilgiler',
-                        to: { name: tabRoutes.userInfo }
+                        to: { name: tabRoutes.profile }
                     },
                     {
                         title: 'parola değişikliği',

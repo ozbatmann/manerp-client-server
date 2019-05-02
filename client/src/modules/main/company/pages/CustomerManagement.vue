@@ -1,7 +1,5 @@
 <template>
-    <v-container fluid>
-        <customer-management-table></customer-management-table>
-    </v-container>
+    <customer-management-table></customer-management-table>
 </template>
 
 <script>

@@ -1,0 +1,21 @@
+export default {
+    id: null,
+    code: null,
+    firstName: null,
+    middleName: null,
+    lastName: null,
+    refStaffTitle: null,
+    tcIdNumber: null,
+    birthDate:null,
+    gsmNo: null,
+    homePhone: null,
+    email: null,
+    sysrefCountry: null,
+    sysrefCity: null,
+    sysrefDistrict: null,
+    address: null,
+    sysrefStaffContractType: null,
+    drivingLicenseNumber: null,
+    sysrefDrivingType: null,
+    active: true
+}

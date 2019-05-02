@@ -1,6 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-app>
-        <main>
+        <main style="min-height: 100%">
             <app-menu v-model="menu"></app-menu>
 
             <app-toolbar v-model="menu"></app-toolbar>
@@ -9,9 +9,9 @@
                                 :temporary=true>
             </app-chat-drawer>
 
-            <v-content>
+            <v-content style="min-height: 100%;">
 
-                <v-container>
+                <v-container style="padding-bottom: 126px;">
 
                     <v-fade-transition mode="out-in">
 
@@ -42,6 +42,8 @@
                         <span>Mesaj penceresini göster</span>
                     </v-tooltip>
                 </v-container>
+
+                <app-footer></app-footer>
             </v-content>
         </main>
     </v-app>
@@ -51,10 +53,12 @@
     import AppMenu from './shared/components/menu/AppMenu'
     import AppToolbar from './shared/components/toolbar/AppToolbar'
     import AppChatDrawer from '@/modules/main/shared/components/chat/AppChatDrawer'
+    import AppFooter from "./AppFooter";
 
     export default {
         name: "AppMain",
         components: {
+            AppFooter,
             AppChatDrawer,
             AppMenu,
             AppToolbar

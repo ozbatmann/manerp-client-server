@@ -41,11 +41,11 @@ Vue.directive('click-outside', {
 });
 
 //http.defaults.baseURL = "http://139.179.232.32:8082/";
-http.defaults.baseURL = "http://localhost:8082/";
+http.defaults.baseURL = "http://172.20.10.3:8082/";
 
 window.instance = new Vue({
     router,
     store,
     i18n,
     render: h => h(App),
-}).$mount('#app')
+}).$mount('#app');

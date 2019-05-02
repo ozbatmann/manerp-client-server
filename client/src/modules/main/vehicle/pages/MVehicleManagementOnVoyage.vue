@@ -6,15 +6,6 @@
             @deleteItem="deleteItem"
             :loading="loading"
         >
-            <!-- Data table header slot -->
-            <template v-slot:header>
-
-                <!-- Add customer button -->
-                <m-data-table-action
-                    title="araç ekle"
-                    disabled
-                ></m-data-table-action>
-            </template>
 
             <!-- Data-table action menu slot -->
             <template v-slot:action-menu="item">

@@ -9,10 +9,10 @@
             <template v-slot:header>
 
                 <!-- Add customer button -->
-                <m-data-table-action
-                    title="sipariş ekle"
-                    disabled
-                ></m-data-table-action>
+                <!--<m-data-table-action-->
+                    <!--title="sipariş ekle"-->
+                    <!--disabled-->
+                <!--&gt;</m-data-table-action>-->
             </template>
 
             <!-- Data-table action menu slot -->

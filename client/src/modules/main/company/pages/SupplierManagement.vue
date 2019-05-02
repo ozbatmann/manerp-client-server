@@ -1,7 +1,5 @@
 <template>
-    <v-container fluid>
-        <supplier-management-table></supplier-management-table>
-    </v-container>
+    <supplier-management-table></supplier-management-table>
 </template>
 
 <script>

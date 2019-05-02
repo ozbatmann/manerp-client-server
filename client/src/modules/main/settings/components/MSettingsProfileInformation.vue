@@ -1,8 +1,36 @@
 <template>
-    <v-layout wrap pa-2>
+    <v-layout
+            white
+            wrap
+            align-center
+    >
         <v-flex
                 xs6
-                pa-2
+                px-3
+        >
+            <h4 class="d-inline-block subheading font-weight-light text-uppercase">kişisel bilgiler</h4>
+        </v-flex>
+        <v-flex
+                xs6
+                px-2
+                py-1
+                text-xs-right
+        >
+            <v-btn
+                    flat
+                    class="d-inline-block primary-green--text"
+            >
+                KAYDET
+            </v-btn>
+        </v-flex>
+        <v-flex xs12>
+            <v-divider></v-divider>
+        </v-flex>
+        <v-flex
+                xs6
+                pl-3
+                pr-2
+                mt-3
         >
             <v-text-field
                     flat
@@ -19,7 +47,9 @@
 
         <v-flex
                 xs6
-                pa-2
+                pl-2
+                pr-3
+                mt-3
         >
             <v-text-field
                     flat
@@ -36,7 +66,9 @@
 
         <v-flex
                 xs6
-                pa-2
+                pl-3
+                pr-2
+                mt-3
         >
             <v-text-field
                     flat
@@ -53,7 +85,9 @@
 
         <v-flex
                 xs6
-                pa-2
+                pl-2
+                pr-3
+                mt-3
         >
             <v-text-field
                     flat
@@ -70,7 +104,7 @@
 
         <v-flex
                 xs12
-                pa-2
+                pa-3
         >
             <v-textarea
                     flat
@@ -83,17 +117,6 @@
                     label="Adres"
                     row="5"
             ></v-textarea>
-        </v-flex>
-        <v-flex
-                xs12
-                text-xs-right
-        >
-            <v-btn
-                    depressed
-                    class="primary-green--text"
-            >
-                KAYDET
-            </v-btn>
         </v-flex>
     </v-layout>
 </template>

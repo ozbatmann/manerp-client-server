@@ -2,9 +2,7 @@ export const routes = {
     settings: 'settings',
     permission: 'settings.permissions',
     billing: 'settings.billing',
-    userInfo: 'settings.profile.information',
-    accountInfo: 'settings.profile.account',
-    notification: 'settings.profile.notifications'
+    profile: 'settings.profile',
 };
 
 const meta = (title) => {
@@ -14,7 +12,7 @@ const meta = (title) => {
         tabs: [
             {
                 text: 'profil',
-                to: { name: routes.userInfo }
+                to: { name: routes.profile }
             },
             {
                 text: 'kullanıcılar ve izinler',
@@ -34,34 +32,13 @@ export default [
         name: '',
         component: () => import('@/modules/main/settings/pages/MSettingsCore'),
         meta: meta('Ayarlar'),
-        redirect: { name: routes.userInfo },
+        redirect: { name: routes.profile },
         children: [
             {
                 path: 'profile',
-                name: '',
+                name: routes.profile,
                 component: () => import('@/modules/main/settings/pages/MSettingsProfile'),
                 meta: meta('Ayarlar'),
-                redirect: { name: routes.userInfo },
-                children: [
-                    {
-                        path: 'user',
-                        name: routes.userInfo,
-                        component: () => import('@/modules/main/settings/pages/MSettingsProfileInformation'),
-                        meta: meta('Ayarlar')
-                    },
-                    {
-                        path: 'account',
-                        name: routes.accountInfo,
-                        component: () => import('@/modules/main/settings/pages/MSettingsProfileAccount'),
-                        meta: meta('Ayarlar')
-                    },
-                    {
-                        path: 'notifications',
-                        name: routes.notification,
-                        component: () => import('@/modules/main/settings/pages/MSettingsProfileNotifications'),
-                        meta: meta('Ayarlar')
-                    }
-                ]
             },
             {
                 path: 'permissions',

@@ -30,7 +30,7 @@
             <v-flex pr-2 lg4>
 
                 <m-index-overview-component
-                        number=10
+                        :number=10
                         title="Siparişleriniz"
                         text="adet bekleyen siparişiniz var"
                         empty-text="Bekleyen sipariş bulunmuyor"
@@ -42,7 +42,7 @@
             <v-flex pl-1 pr-1 lg4>
 
                 <m-index-overview-component
-                        number=5
+                        :number=5
                         title="Sevkiyatlarınız"
                         text="adet devam eden sevkiyatınız var"
                         empty-text="Bekleyen sevkiyat bulunmuyor"

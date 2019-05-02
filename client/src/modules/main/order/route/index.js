@@ -24,6 +24,7 @@ export default [
     {
         path: 'orders',
         component: () => import('@/modules/main/shared/components/core/MCoreDetails'),
+        redirect: { name: routes.current },
         children: [
             {
                 path: '',
