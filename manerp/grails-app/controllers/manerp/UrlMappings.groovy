@@ -14,8 +14,8 @@ class UrlMappings
         }
 
         // TODO: find better solution. conflict with show
-        "/api/$namespace/$controller/getListForDropDown"() {
-            action = [GET: "getListForDropDown"]
+        "/api/$namespace/$controller/getAllVendorsByOrderId"() {
+            action = [GET: "getAllVendorsByOrderId"]
         }
 
         "/api/$namespace/$controller/$id"() {

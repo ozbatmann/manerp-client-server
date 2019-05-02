@@ -1,6 +1,7 @@
 export default {
     id: null,
     code: null,
+    _order: null,
     startDate: null,
     endDate: null,
     vehicle: null,

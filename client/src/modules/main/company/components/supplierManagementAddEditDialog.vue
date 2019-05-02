@@ -3,6 +3,7 @@
         <!-- <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn> -->
         <v-card class="pa-12">
             <v-tabs
+                id="supplier_tabs"
                 v-model="currentTab"
                 fixed-tabs
                 slider-color="green accent-2"
@@ -427,5 +428,9 @@
 
     #map img {
         max-height: none;
+    }
+
+    #supplier_tabs .tab-item {
+        margin-top: 20px;
     }
 </style>

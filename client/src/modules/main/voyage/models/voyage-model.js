@@ -1,6 +1,7 @@
 export default {
     id: "id",
     code: "code",
+    _order: "order",
     startDate: "startDate",
     endDate: "endDate",
     vehicle: "vehicle",

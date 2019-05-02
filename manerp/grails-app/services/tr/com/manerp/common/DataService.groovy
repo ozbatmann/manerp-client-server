@@ -8,6 +8,7 @@ import tr.com.manerp.auth.User
 import tr.com.manerp.business.main.company.Company
 import tr.com.manerp.business.main.company.Vendor
 import tr.com.manerp.business.main.order.Order
+import tr.com.manerp.business.main.order.OrderVendor
 import tr.com.manerp.business.main.order.VoyageOrder
 import tr.com.manerp.business.main.resource.Staff
 import tr.com.manerp.business.main.vehicle.SemiTrailer
@@ -701,6 +702,30 @@ class DataService
             orderPinar.sysrefOrderState = sysrefOrderStateComp
 
             orderPinar.save(flush: true, failOnError: true)
+        }
+
+        OrderVendor orderVendorPinarEsk = OrderVendor.findByVendor(vendorPinarEsk)
+        if ( orderVendorPinarEsk == null ) {
+
+            orderVendorPinarEsk = new OrderVendor()
+            orderVendorPinarEsk._order = orderPinar
+            orderVendorPinarEsk.vendor = vendorPinarEsk
+            orderVendorPinarEsk.active = true
+            orderVendorPinarEsk.sysCompany = sysCompanyBumerang
+            orderVendorPinarEsk.setRandomCode()
+            orderVendorPinarEsk.save(flush: true, failOnError: true)
+        }
+
+        OrderVendor orderVendorPinarKemal = OrderVendor.findByVendor(vendorPinarKemal)
+        if ( orderVendorPinarKemal == null ) {
+
+            orderVendorPinarKemal = new OrderVendor()
+            orderVendorPinarKemal._order = orderPinar
+            orderVendorPinarKemal.vendor = vendorPinarKemal
+            orderVendorPinarKemal.active = true
+            orderVendorPinarKemal.sysCompany = sysCompanyBumerang
+            orderVendorPinarKemal.setRandomCode()
+            orderVendorPinarKemal.save(flush: true, failOnError: true)
         }
 
         SysrefTransportationType sysrefTransportationTypeGidis = SysrefTransportationType.findByName('Komple')

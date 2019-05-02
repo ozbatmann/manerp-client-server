@@ -14,6 +14,7 @@
             </v-card-title>
             <v-card-text>
                 <v-tabs
+                    id="customer_tabs"
                     v-model="currentTab"
                     fixed-tabs
                     slider-color="green accent-2"
@@ -418,14 +419,14 @@
 </script>
 <style>
     #map {
-        height: 550px;
+        height: 450px;
     }
 
     #map img {
         max-height: none;
     }
 
-    .tab-item {
+    #customer_tabs .tab-item {
         margin-top: 20px;
     }
 </style>

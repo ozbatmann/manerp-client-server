@@ -5,6 +5,7 @@ import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
+import tr.com.manerp.business.main.company.VendorService
 import tr.com.manerp.business.main.resource.Staff
 
 import java.text.SimpleDateFormat
@@ -12,6 +13,7 @@ import java.text.SimpleDateFormat
 @Transactional
 class OrderService extends BaseService
 {
+    VendorService vendorService
 
     ManePaginatedResult getOrderList(ManePaginationProperties properties, String orderStateCode, String companyId)
     {
@@ -38,7 +40,7 @@ class OrderService extends BaseService
         ManePaginatedResult result = paginate(Order, properties, closure)
 
         result.data = formatResultForList(result.data as List)
-        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, Order)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, Order, ["fullName"] as HashSet)
 
         return result
     }
@@ -72,6 +74,7 @@ class OrderService extends BaseService
         List formattedData = data.collect {
             [
                 id               : it.id,
+                fullName         : it.getFullName(),
                 name             : it?.name,
                 code             : it.code,
                 sysrefRevenueType: it.sysrefRevenueType ? [id: it.sysrefRevenueType.id, name: it.sysrefRevenueType.name] : null,
@@ -92,6 +95,7 @@ class OrderService extends BaseService
 
         return [
             id               : data.id,
+            fullName         : data.getFullName(),
             name             : data?.name,
             code             : data.code,
             sysrefRevenueType: data.sysrefRevenueType ? [id: data.sysrefRevenueType.id, name: data.sysrefRevenueType.name] : null,
@@ -103,21 +107,19 @@ class OrderService extends BaseService
         ]
     }
 
-    List getAllVendorsByCompanyId(String companyId)
+    List getAllVendorsByOrderId(String orderId)
     {
-        VoyageOrder voyageOrderList = VoyageOrder.createCriteria().list {
-            voyage {
-                eq('id', voyageId)
+        OrderVendor orderVendorList = OrderVendor.createCriteria().list {
+            _order {
+                eq('id', orderId)
             }
-
         }.collect {
-
             return [
-                id   : it.id,
-                order: orderService.getOrder(it.order.id)
+                id    : it.id,
+                vendor: vendorService.getVendor(it.vendor.id, "title,address,location")
             ]
         }
 
-        return voyageOrderList as List
+        return orderVendorList as List
     }
 }

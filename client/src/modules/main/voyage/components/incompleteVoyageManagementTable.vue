@@ -52,12 +52,12 @@
     import MDataTable from '../../shared/components/data/components/MDataTable'
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction"
     import voyageManagementAddEditDialog
-        from "@/modules/main/voyage/components/incompleteVoyageManagementAddEditDialog"
+        from "@/modules/main/voyage/components/completedVoyageManagementAddEditDialog"
 
     const voyageModel = require('@/modules/main/voyage/models/voyage-model').default;
 
     export default {
-        name: "incompleteVoyageManagementTable",
+        name: "completedVoyageManagementTable",
         components: {
             MDataTable,
             MDataTableAction,
@@ -94,7 +94,7 @@
                     {
                         text: 'ulaşım türü',
                         sortable: true,
-                        value: voyageModel.sysRefTransportationType,
+                        value: voyageModel.sysrefTransportationType,
                         toggleable: false,
                         show: true,
                         search: {chip: false, value: null}
@@ -102,7 +102,7 @@
                     {
                         text: 'sevkiyat yönü',
                         sortable: true,
-                        value: voyageModel.sysRefVoyageDirection,
+                        value: voyageModel.sysrefVoyageDirection,
                         toggleable: false,
                         show: true,
                         search: {chip: false, value: null}
@@ -147,7 +147,7 @@
                 let self = this;
                 this.loading = true;
 
-                let fields = 'fields=id,code';
+                let fields = 'fields=id,code,vehicle,driver,sysrefTransportationType,sysrefVoyageDirection';
                 let pagination = 'limit=10&offset=0';
                 this.$http.get('api/v1/voyage?' + fields + "&" + pagination).then((result) => {
                     self.voyages = result.data.data.items;

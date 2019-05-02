@@ -6,13 +6,13 @@ import tr.com.manerp.business.main.company.Vendor
 class OrderVendor implements BusinessDomain
 {
     Vendor vendor
-    Order order
+    Order _order
 
     static constraints = {
         code nullable: false, blank: false, unique: ['sysCompany'], maxSize: 8
         sysCompany nullable: false, unique: false
         vendor nullable: false, unique: false
-        order nullable: false, unique: false
+        _order nullable: false, unique: false
     }
 
     @Override
