@@ -113,6 +113,19 @@
                                               color="green accent-2"
                                               full-width>
                                 </v-text-field>
+                                <v-combobox v-validate="'required'"
+                                            :error-messages="errors.collect('sysrefDriverState')"
+                                            v-model="data.sysrefDriverState"
+                                            :return-object="true"
+                                            :items="sysrefDriverStates"
+                                            item-value="id"
+                                            label="Durum"
+                                            item-text="name"
+                                            name="sysrefDriverState"
+                                            background-color="grey lighten-4"
+                                            color="green accent-2"
+                                            full-width>
+                                </v-combobox>
                             </div>
                             <v-combobox v-validate="'required'"
                                         :error-messages="errors.collect('sysrefStaffContractType')"
@@ -204,7 +217,8 @@
                 sysrefCities: [],
                 sysrefDistricts: [],
                 refStaffTitles: [],
-                sysrefStaffContractTypes: []
+                sysrefStaffContractTypes: [],
+                sysrefDriverStates: []
             }
         },
         methods: {
@@ -298,6 +312,15 @@
                 }).finally(() => {
 
                 })
+            },
+            getSysrefDriverStates() {
+                this.$http.get("api/v1/sysrefDriverState?fields=id,name&limit=100").then((result) => {
+                    this.sysrefDriverStates = result.data.data.items
+                }).catch((error) => {
+                    console.error(error);
+                }).finally(() => {
+
+                })
             }
         },
         mounted() {
@@ -305,6 +328,7 @@
             this.getSysrefCountries();
             this.getRefStaffTitles();
             this.getSysrefStaffContractTypes();
+            this.getSysrefDriverStates();
         }
     }
 </script>

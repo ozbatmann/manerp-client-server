@@ -17,5 +17,6 @@ export default {
     sysrefStaffContractType: 'sysrefStaffContractType',
     drivingLicenseNumber: 'drivingLicenseNumber',
     sysrefDrivingType: 'sysrefDrivingType',
-    active: 'active'
+    active: 'active',
+    sysrefDriverState: 'sysrefDriverState'
 }

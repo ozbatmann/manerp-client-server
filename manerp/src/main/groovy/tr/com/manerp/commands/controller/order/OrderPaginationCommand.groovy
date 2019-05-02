@@ -11,7 +11,7 @@ class OrderPaginationCommand extends PaginationCommand
     {
         super(params)
         this.orderStateCode = params.orderStateCode as String ?: 'COMP'
-        this.company = params.company as String
+        this.company = params.company as String ?: null
     }
 
     static constraints = {

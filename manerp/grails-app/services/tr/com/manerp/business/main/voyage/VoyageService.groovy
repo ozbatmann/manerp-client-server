@@ -7,13 +7,16 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
 import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.order.VoyageOrder
+import tr.com.manerp.business.sysref.SysrefDriverState
+import tr.com.manerp.business.sysref.SysrefVehicleState
 import tr.com.manerp.commands.controller.common.PaginationCommand
 
 @Transactional
 class VoyageService extends BaseService
 {
-
     def orderService
+    def driverService
+    def vehicleService
 
     ManePaginatedResult getVoyageList(ManePaginationProperties properties, String deliveryStatusCode)
     {
@@ -56,6 +59,8 @@ class VoyageService extends BaseService
 
     def save(Voyage voyage)
     {
+        driverService.saveDriverWithState(voyage.driver, SysrefDriverState.findByCode('ONVOYAGE'))
+        vehicleService.saveVehicleWithState(voyage.vehicle, SysrefVehicleState.findByCode('ONVOYAGE'))
         voyage.save(flush: true, failOnError: true)
     }
 
@@ -74,7 +79,7 @@ class VoyageService extends BaseService
                 driver                  : it.driver ? [id: it.driver.id, name: it.driver.getFullName()] : null,
                 sysrefTransportationType: it.sysrefTransportationType ? [id: it.sysrefTransportationType.id, name: it.sysrefTransportationType.name] : null,
                 sysrefVoyageDirection   : it.sysrefVoyageDirection ? [id: it.sysrefVoyageDirection.id, name: it.sysrefVoyageDirection.name] : null,
-                vehicle                 : it.vehicle ? [id: it.vehicle.id, plateNumber: it.vehicle.plateNumber] : null
+                vehicle                 : it.vehicle ? [id: it.vehicle.id, name: it.vehicle.plateNumber] : null
             ]
         }
 
@@ -89,7 +94,7 @@ class VoyageService extends BaseService
             driver                  : data.driver ? [id: data.driver.id, name: data.driver.getFullName()] : null,
             sysrefTransportationType: data.sysrefTransportationType ? [id: data.sysrefTransportationType.id, name: data.sysrefTransportationType.name] : null,
             sysrefVoyageDirection   : data.sysrefVoyageDirection ? [id: data.sysrefVoyageDirection.id, name: data.sysrefVoyageDirection.name] : null,
-            vehicle                 : data.vehicle ? [id: data.vehicle.id, plateNumber: data.vehicle.plateNumber] : null
+            vehicle                 : data.vehicle ? [id: data.vehicle.id, name: data.vehicle.plateNumber] : null
         ]
     }
 

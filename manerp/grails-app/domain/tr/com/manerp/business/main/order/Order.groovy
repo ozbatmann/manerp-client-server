@@ -38,6 +38,11 @@ class Order implements BusinessDomain
         sysrefOrderState nullable: false, blank: false, unique: false
     }
 
+    String getFullName()
+    {
+        return "${this.name} / ${this.billingNo}"
+    }
+
     // TODO: change
     def beforeValidate()
     {

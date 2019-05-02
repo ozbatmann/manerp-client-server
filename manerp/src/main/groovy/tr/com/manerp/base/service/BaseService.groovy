@@ -7,24 +7,25 @@ import manerp.response.plugin.util.FieldParser
 class BaseService extends ManePaginationService
 {
     // TODO: A class can be created like ManePaginationProperties
-    def filterDataByFields(def data, String fields, Class clss)
+    def filterDataByFields(def data, String fields, Class clss, Set otherProperties = null)
     {
         FieldParser fieldParser = new FieldParser()
         List fieldList = fieldParser.parseFieldsToList(fields)
-        fieldList = filterFieldList(fieldList, clss)
+        fieldList = filterFieldList(fieldList, clss, otherProperties)
         return filterItem(data, fieldList)
     }
 
-    List filterList(List fieldList, List paginatedList, Class clss)
+    List filterList(List fieldList, List paginatedList, Class clss, Set otherProperties = null)
     {
         // first filter fields
-        List fields = filterFieldList(fieldList, clss)
+        List fields = filterFieldList(fieldList, clss, otherProperties)
         return filterPaginatedList(fields, paginatedList)
     }
 
-    private List filterFieldList(List fieldList, Class clss)
+    private List filterFieldList(List fieldList, Class clss, Set otherProperties)
     {
         HashSet clssPropertiesSet = clss.constrainedProperties.keySet()
+        if ( otherProperties ) clssPropertiesSet.addAll(otherProperties)
         clssPropertiesSet.add('id')
 
         HashSet excludedFieldSet = Holders.config.manerp.domain.excludedFields

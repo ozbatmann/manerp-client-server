@@ -18,11 +18,9 @@ class VoyageSaveCommand implements Validateable {
     String id
     String code
     SysCompany sysCompany
-    Company company
     Vehicle vehicle
     Staff driver
     SemiTrailer trailer
-    Order order
     SysrefTransportationType sysrefTransportationType
     SysrefVoyageDirection sysrefVoyageDirection
     Staff substitudeDriver // yedek sofor
@@ -66,11 +64,9 @@ class VoyageSaveCommand implements Validateable {
         voyage.dumpingLocation = dumpingLocation
         voyage.sysCompany = this.sysCompany
         voyage.code = this.code
-        voyage.company = this.company
         voyage.vehicle = this.vehicle
         voyage.driver = this.driver
         voyage.trailer = this.trailer
-        voyage.order = this.order
         voyage.sysrefTransportationType = this.sysrefTransportationType
         voyage.sysrefVoyageDirection = this.sysrefVoyageDirection
         voyage.substitudeDriver = this.substitudeDriver

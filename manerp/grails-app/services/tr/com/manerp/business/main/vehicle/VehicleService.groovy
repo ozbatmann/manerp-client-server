@@ -4,6 +4,8 @@ import grails.gorm.transactions.Transactional
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
+import tr.com.manerp.business.sysref.SysrefVehicleState
+
 import java.text.SimpleDateFormat
 
 @Transactional
@@ -54,16 +56,40 @@ class VehicleService extends BaseService
         vehicle.delete(flush: true, failOnError: true)
     }
 
+    def saveVehicleWithState(Vehicle vehicle, SysrefVehicleState state)
+    {
+        vehicle.sysrefVehicleState = state
+        save(vehicle)
+    }
+
     List formatResultForList(def data)
     {
+        SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy HH:mm')
         List formattedData = data.collect {
             [
-                id                : it.id,
-                code              : it.code,
-                plateNumber       : it.plateNumber,
-                fleetCardNumber   : it.fleetCardNumber,
-                sysrefVehicleType : it.sysrefVehicleType ? [id: it.sysrefVehicleType.id, name: it.sysrefVehicleType.name] : null,
-                sysrefVehicleOwner: it.sysrefVehicleOwner ? [id: it.sysrefVehicleOwner.id, name: it.sysrefVehicleOwner.name] : null
+                id                            : it.id,
+                code                          : it.code,
+                plateNumber                   : it?.plateNumber,
+                fleetCardNumber               : it?.fleetCardNumber,
+                sysrefVehicleType             : it.sysrefVehicleType ? [it: it.sysrefVehicleType.id, name: it.sysrefVehicleType.name] : null,
+                sysrefVehicleOwner            : it.sysrefVehicleOwner ? [it: it.sysrefVehicleOwner.id, name: it.sysrefVehicleOwner.name] : null,
+                brand                         : it?.brand,
+                purchaseDate                  : it.purchaseDate ? sdf.format(it.purchaseDate) : null,
+                numberOfSensors               : it?.numberOfSensors,
+                km                            : it?.km,
+                isDualRegime                  : it?.isDualRegime,
+                refWorkingArea                : it.refWorkingArea ? [id: it.refWorkingArea.id, name: it.refWorkingArea.name] : null,
+                vehicleOwnerFullName          : it?.vehicleOwnerFullName,
+                insuranceStartDate            : it.insuranceStartDate ? sdf.format(it.insuranceStartDate) : null,
+                insuranceEndDate              : it.insuranceEndDate ? sdf.format(it.insuranceEndDate) : null,
+                kgsNo                         : it?.kgsNo,
+                ogsNo                         : it?.ogsNo,
+                fuelKit                       : it?.fuelKit,
+                description                   : it?.description,
+                operationInsuranceNotification: it?.operationInsuranceNotification,
+                annualInsurance               : it?.annualInsurance,
+                height                        : it?.height,
+                weight                        : it?.weight
             ]
         }
 

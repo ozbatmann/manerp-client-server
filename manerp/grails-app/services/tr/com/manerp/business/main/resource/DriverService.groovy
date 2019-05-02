@@ -5,6 +5,7 @@ import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
+import tr.com.manerp.business.sysref.SysrefDriverState
 
 import java.text.SimpleDateFormat
 
@@ -12,7 +13,7 @@ import java.text.SimpleDateFormat
 class DriverService extends BaseService
 {
 
-    ManePaginatedResult getDriverList(ManePaginationProperties properties)
+    ManePaginatedResult getDriverList(ManePaginationProperties properties, String driverStateCode)
     {
 
         def closure = {
@@ -24,6 +25,12 @@ class DriverService extends BaseService
                 eq('code', 'DRV')
             }
 
+            if ( driverStateCode ) {
+                sysrefDriverState {
+                    eq('code', driverStateCode)
+                }
+            }
+
             if ( !properties.sortPairList ) {
                 order('dateCreated', 'desc')
             }
@@ -32,7 +39,7 @@ class DriverService extends BaseService
         ManePaginatedResult result = paginate(Staff, properties, closure)
 
         result.data = formatResultForList(result.data as List)
-        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, Staff)
+        if ( properties.fieldList ) result.data = filterList(properties.fieldList, result.data as List, Staff, ['fullName'] as HashSet)
 
         return result
     }
@@ -62,6 +69,12 @@ class DriverService extends BaseService
         driver.delete(flush: true, failOnError: true)
     }
 
+    def saveDriverWithState(Staff driver, SysrefDriverState state)
+    {
+        driver.sysrefDriverState = state
+        save(driver)
+    }
+
     List formatResultForList(List data)
     {
         SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy')
@@ -70,6 +83,7 @@ class DriverService extends BaseService
                 id                     : it.id,
                 drivingLicenseNumber   : it?.drivingLicenseNumber,
                 dateCreated            : it?.dateCreated,
+                fullName               : it.getFullName(),
                 firstName              : it?.firstName,
                 middleName             : it?.middleName,
                 lastName               : it?.lastName,
@@ -101,6 +115,7 @@ class DriverService extends BaseService
             id                     : data.id,
             drivingLicenseNumber   : data?.drivingLicenseNumber,
             dateCreated            : data?.dateCreated,
+            fullName               : data.getFullName(),
             firstName              : data?.firstName,
             middleName             : data?.middleName,
             lastName               : data?.lastName,

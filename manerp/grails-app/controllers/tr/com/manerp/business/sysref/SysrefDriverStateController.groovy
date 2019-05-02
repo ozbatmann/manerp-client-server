@@ -8,23 +8,23 @@ import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.PaginationCommand
 import tr.com.manerp.commands.controller.common.ShowCommand
 
-class SysrefDeliveryStatusController extends BaseController
+class SysrefDriverStateController extends BaseController
 {
-
     static namespace = "v1"
     static allowedMethods = [index: "GET"]
 
-    def sysrefDeliveryStatusService
+    def sysrefDriverStateService
 
     def index()
     {
+
         ManeResponse maneResponse = new ManeResponse()
 
         try {
 
             PaginationCommand cmd = new PaginationCommand(params)
 
-            ManePaginatedResult result = sysrefDeliveryStatusService.getSysrefDeliveryStatusList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields))
+            ManePaginatedResult result = sysrefDriverStateService.getSysrefDriverStateList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields))
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -41,7 +41,7 @@ class SysrefDeliveryStatusController extends BaseController
     {
 
         ManeResponse maneResponse = new ManeResponse()
-        def deliveryStatus
+        def driverState
 
         try {
 
@@ -49,8 +49,7 @@ class SysrefDeliveryStatusController extends BaseController
 
             if ( cmd.validate() ) {
 
-                deliveryStatus = sysrefDeliveryStatusService.getSysrefDeliveryStatus(cmd.id, cmd.fields)
-                if ( !deliveryStatus ) throw new Exception()
+                driverState = sysrefDriverStateService.getSysrefDriverState(cmd.id, cmd.fields)
 
             } else {
 
@@ -58,14 +57,14 @@ class SysrefDeliveryStatusController extends BaseController
                 throw new Exception('Parametreler uygun değil')
             }
 
-            maneResponse.data = deliveryStatus
+            maneResponse.data = driverState
             maneResponse.statusCode = StatusCode.OK
 
         } catch (Exception ex) {
 
-            if ( !deliveryStatus ) {
+            if ( !driverState ) {
                 maneResponse.statusCode = StatusCode.BAD_REQUEST
-                maneResponse.message = 'Görüntülenmek istenen teslimat durumu sistemde bulunmamaktadır.'
+                maneResponse.message = 'Görüntülenmek istenen şoför durumu sistemde bulunmamaktadır.'
             }
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR

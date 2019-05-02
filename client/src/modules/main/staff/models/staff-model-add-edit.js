@@ -6,7 +6,7 @@ export default {
     lastName: null,
     refStaffTitle: null,
     tcIdNumber: null,
-    birthDate:null,
+    birthDate: null,
     gsmNo: null,
     homePhone: null,
     email: null,
@@ -17,5 +17,6 @@ export default {
     sysrefStaffContractType: null,
     drivingLicenseNumber: null,
     sysrefDrivingType: null,
-    active: true
+    active: true,
+    sysrefDriverState: null
 }
