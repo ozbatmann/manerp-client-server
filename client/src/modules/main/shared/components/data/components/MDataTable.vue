@@ -6,33 +6,33 @@
             <slot name="header"></slot>
 
             <v-flex
-                    v-if="!noFiltering"
-                    mx-2
+                v-if="!noFiltering"
+                mx-2
             >
                 <!-- Search in table chip -->
                 <v-chip
-                        v-if="filterOptions.search !== undefined"
-                        v-model="filterOptions.search.chip"
-                        class="mx-0 mt-0 mr-1"
-                        height="56"
-                        close
+                    v-if="filterOptions.search !== undefined"
+                    v-model="filterOptions.search.chip"
+                    class="mx-0 mt-0 mr-1"
+                    height="56"
+                    close
                 >
                     {{ filterOptions.search.value }}
                 </v-chip>
 
                 <!-- Filter date option chip -->
                 <v-chip
-                        v-if="filterOptions.date !== undefined"
-                        v-model="filterOptions.date.chip"
-                        class="mx-0 mt-0 mr-1"
-                        height="56"
-                        close
+                    v-if="filterOptions.date !== undefined"
+                    v-model="filterOptions.date.chip"
+                    class="mx-0 mt-0 mr-1"
+                    height="56"
+                    close
                 >
                     <!-- Start date -->
                     {{ formatDate(filterOptions.date.start) }}
                     <v-icon
-                            size="16"
-                            class="mx-1 black--text text--accent-3"
+                        size="16"
+                        class="mx-1 black--text text--accent-3"
                     >
                         arrow_forward
                     </v-icon>
@@ -43,12 +43,12 @@
 
                 <!-- Filter column search chips -->
                 <v-chip
-                        v-for="(header, index) in columnWiseSearchChips"
-                        :key="`filter-chip-item-${index}`"
-                        v-model="header.search.chip"
-                        class="mx-1 mt-0"
-                        height="56"
-                        close
+                    v-for="(header, index) in columnWiseSearchChips"
+                    :key="`filter-chip-item-${index}`"
+                    v-model="header.search.chip"
+                    class="mx-1 mt-0"
+                    height="56"
+                    close
                 >
                     {{ header.search.value }}
                 </v-chip>
@@ -58,31 +58,31 @@
             <!-- Filter menu -->
             <!-- Will be shown if filtering mode is on-->
             <m-data-table-filter-menu
-                    v-if="!noFiltering"
-                    v-model="filterMenuShowing"
-                    attach="#filterButton"
-                    :headers="headers"
-                    @options="filterTable"
+                v-if="!noFiltering"
+                v-model="filterMenuShowing"
+                attach="#filterButton"
+                :headers="headers"
+                @options="filterTable"
             ></m-data-table-filter-menu>
 
             <!-- Filter menu button -->
             <!-- Will be shown if filtering mode is on -->
             <m-data-table-action
-                    v-if="!noFiltering"
-                    title="FİLTRE"
-                    icon="filter_list"
-                    id="filterButton"
-                    class="mt-0"
-                    :class="filterButtonClass"
-                    @click="filterMenuShowing = !filterMenuShowing"
+                v-if="!noFiltering"
+                title="FİLTRE"
+                icon="filter_list"
+                id="filterButton"
+                class="mt-0"
+                :class="filterButtonClass"
+                @click="filterMenuShowing = !filterMenuShowing"
             ></m-data-table-action>
         </v-layout>
 
         <!-- Filter chips section -->
         <!-- Will be shown if filtering mode is on -->
         <v-layout
-                align-center
-                v-if="!noFiltering"
+            align-center
+            v-if="!noFiltering"
         >
         </v-layout>
 
@@ -92,15 +92,15 @@
 
                 <!-- Data table structure -->
                 <v-data-table
-                        v-model="selected"
-                        :headers="headers"
-                        :items="items"
-                        :search="dataTableSearchModel"
-                        :pagination.sync="pagination"
-                        :loading="localLoading"
-                        select-all
-                        item-key="id"
-                        class="m-data-table"
+                    v-model="selected"
+                    :headers="headers"
+                    :items="items"
+                    :search="dataTableSearchModel"
+                    :pagination.sync="pagination"
+                    :loading="localLoading"
+                    select-all
+                    item-key="id"
+                    class="m-data-table"
                 >
                     <!-- Template for data table header -->
                     <template v-slot:headers="props">
@@ -109,23 +109,23 @@
                                 <!-- Checkbox -->
                                 <!-- Selects all data table rows -->
                                 <v-checkbox
-                                        primary
-                                        hide-details
-                                        :input-value="props.all"
-                                        :indeterminate="props.indeterminate"
-                                        color="green accent-2"
-                                        @click.stop="toggleAll"
+                                    primary
+                                    hide-details
+                                    :input-value="props.all"
+                                    :indeterminate="props.indeterminate"
+                                    color="green accent-2"
+                                    @click.stop="toggleAll"
                                 ></v-checkbox>
                             </th>
 
                             <!-- Item headers -->
                             <th
-                                    v-for="(header, index) in props.headers"
-                                    v-show="header.show"
-                                    :class="dataTableHeaderClass(header)"
-                                    class="text-uppercase"
-                                    :key="`data-table-header-item-${index}`"
-                                    @click="changeSort(header.value)"
+                                v-for="(header, index) in props.headers"
+                                v-show="header.show"
+                                :class="dataTableHeaderClass(header)"
+                                class="text-uppercase"
+                                :key="`data-table-header-item-${index}`"
+                                @click="changeSort(header.value)"
                             >
                                 <!-- Header text -->
                                 <span class="text-xs-left">
@@ -134,8 +134,8 @@
 
                                 <!-- Header sort icon -->
                                 <v-icon
-                                        v-show="header.sortable"
-                                        small
+                                    v-show="header.sortable"
+                                    small
                                 >
                                     arrow_upward
                                 </v-icon>
@@ -154,28 +154,28 @@
 
                                 <!-- Checkbox for row selection -->
                                 <v-checkbox
-                                        v-model="props.selected"
-                                        :input-value="props.selected"
-                                        primary
-                                        hide-details
-                                        color="green accent-2"
+                                    v-model="props.selected"
+                                    :input-value="props.selected"
+                                    primary
+                                    hide-details
+                                    color="green accent-2"
                                 ></v-checkbox>
                             </td>
                             <td
-                                    v-for="(header, index) in headers"
-                                    v-show="header.show"
-                                    :key="`data-table-row-item-${index}`"
-                                    class="text-xs-left m-data-table-row"
-                                    @click="goTo(props.item)"
+                                v-for="(header, index) in headers"
+                                v-show="header.show"
+                                :key="`data-table-row-item-${index}`"
+                                class="text-xs-left m-data-table-row"
+                                @click="goTo(props.item)"
                             >
                                 <span v-html="field(props.item[header.value])"></span>
 
                                 <!-- Expand button -->
                                 <!-- Will be shown only if cell is expandable -->
                                 <v-btn
-                                        v-if="header.expandable"
-                                        icon
-                                        @click="props.expanded = !props.expanded"
+                                    v-if="header.expandable"
+                                    icon
+                                    @click="props.expanded = !props.expanded"
                                 >
                                     <v-icon size="16">{{expandIcon(props.expanded)}}</v-icon>
                                 </v-btn>
@@ -184,17 +184,17 @@
 
                                 <!-- Row action menu -->
                                 <v-menu
-                                        left
-                                        offset-x
-                                        :nudge-width="140"
-                                        content-class="v-shadow-lg"
-                                        transition="slide-x-reverse-transition"
+                                    left
+                                    offset-x
+                                    :nudge-width="140"
+                                    content-class="v-shadow-lg"
+                                    transition="slide-x-reverse-transition"
                                 >
                                     <!-- Row action button -->
                                     <!-- Activates the menu -->
                                     <v-btn
-                                            slot="activator"
-                                            icon
+                                        slot="activator"
+                                        icon
                                     >
                                         <v-icon size="16">more_vert</v-icon>
                                     </v-btn>
@@ -203,8 +203,8 @@
                                         <!-- Slot for adding extra options -->
                                         <!-- from parent component -->
                                         <slot
-                                                name="action-menu"
-                                                :bind="props.item"
+                                            name="action-menu"
+                                            :bind="props.item"
                                         ></slot>
                                         <v-list-tile @click="deleteItem(props.item)">Sil</v-list-tile>
                                         <v-list-tile>Dışa aktar</v-list-tile>
@@ -354,13 +354,13 @@
 
             // Changes expandable icon
             // relatively to expand state
-            expandIcon (expanded) {
+            expandIcon(expanded) {
                 return expanded ? 'arrow_drop_up' : 'arrow_drop_down'
             },
 
             // Checks whether item has name prop or not
             // Used for differentiating sysRefs and regular text props
-            field (item) {
+            field(item) {
                 return item ? item.name ? item.name : item : '-'
             },
 
@@ -375,7 +375,7 @@
             },
 
             // Appends item to route object
-            goTo (item) {
+            goTo(item) {
                 if (this.to === undefined) return;
 
                 let routeObject = this.to;
@@ -414,7 +414,7 @@
         watch: {
             // Watches loading state and
             // informs data-table accordingly
-            loading (newVal) {
+            loading(newVal) {
                 this.localLoading = newVal
             }
         }

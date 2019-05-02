@@ -1,12 +1,12 @@
 <!-- Default application menu component -->
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-navigation-drawer
-            app
-            light
-            :mini-variant="localDrawer"
-            floating
-            width="240"
-            class="grey lighten-4"
+        app
+        light
+        :mini-variant="localDrawer"
+        floating
+        width="240"
+        class="grey lighten-4"
     >
         <v-layout fill-height>
             <v-list class="grow pt-0">
@@ -34,27 +34,27 @@
                 </v-toolbar>
 
                 <div
-                        v-for="menuItem in menuItems"
-                        :key="`menu-` + menuItem.title"
-                        class="mt-2"
+                    v-for="menuItem in menuItems"
+                    :key="`menu-` + menuItem.title"
+                    class="mt-2"
                 >
                     <v-subheader class="px-4">{{ menuItem.title }}</v-subheader>
 
                     <v-list-tile
-                            v-for="item in menuItem.items"
-                            :key="`menu-item-${item.title}`"
-                            :to="item.to"
-                            outline
-                            active-class="grey lighten-2">
+                        v-for="item in menuItem.items"
+                        :key="`menu-item-${item.title}`"
+                        :to="item.to"
+                        outline
+                        active-class="grey lighten-2">
 
                         <v-tooltip
-                                right
-                                :disabled="!localDrawer"
+                            right
+                            :disabled="!localDrawer"
                         >
                             <template v-slot:activator="{ on }">
                                 <v-list-tile-action
-                                        v-on="on"
-                                        class="px-2"
+                                    v-on="on"
+                                    class="px-2"
                                 >
                                     <v-icon color="grey darken-3">{{ item.icon }}</v-icon>
                                 </v-list-tile-action>
@@ -64,9 +64,9 @@
 
                         <v-slide-x-transition>
                             <v-list-tile-title
-                                    v-if="!localDrawer"
-                                    v-text="item.title"
-                                    class="body-1 text--secondary px-2">
+                                v-if="!localDrawer"
+                                v-text="item.title"
+                                class="body-1 text--secondary px-2">
 
                             </v-list-tile-title>
                         </v-slide-x-transition>
@@ -120,17 +120,17 @@
                             {
                                 title: 'Araç Yönetimi',
                                 icon: 'directions_bus',
-                                to: { name: require('@/modules/main/vehicle/route/index').routes.idle }
+                                to: {name: require('@/modules/main/vehicle/route/index').routes.idle}
                             },
                             {
                                 title: 'İş Yeri Yönetimi',
                                 icon: 'business',
-                                to: { name: require('@/modules/main/company/route/index').routes.customer }
+                                to: {name: require('@/modules/main/company/route/index').routes.customer}
                             },
                             {
                                 title: 'Personel Yönetimi',
                                 icon: 'group',
-                                to: { name: require('@/modules/main/staff/route/index').routes.staffs }
+                                to: {name: require('@/modules/main/staff/route/index').routes.staffs}
                             },
                             // {
                             //     title: 'Parametre Yönetimi',
@@ -140,17 +140,17 @@
                             {
                                 title: 'Sevkiyat Yönetimi',
                                 icon: 'local_shipping',
-                                to: {name: 'voyages.current'}
+                                to: {name: 'voyages.incomplete'}
                             },
                             {
                                 title: 'Sipariş Yönetimi',
                                 icon: 'work',
-                                to: { name: require('@/modules/main/order/route/index').routes.current }
+                                to: {name: require('@/modules/main/order/route/index').routes.current}
                             },
                             {
                                 title: 'Şoför Yönetimi',
                                 icon: 'account_circle',
-                                to: { name: require('@/modules/main/driver/route/index').routes.drivers }
+                                to: {name: require('@/modules/main/driver/route/index').routes.drivers}
                             }
                         ]
                     }

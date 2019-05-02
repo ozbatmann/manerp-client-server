@@ -5,6 +5,7 @@ import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.auth.User
 import tr.com.manerp.base.domain.BusinessDomain
 import tr.com.manerp.business.ref.RefStaffTitle
+import tr.com.manerp.business.sysref.SysrefDriverState
 import tr.com.manerp.business.sysref.SysrefDrivingType
 import tr.com.manerp.business.sysref.SysrefStaffContractType
 import tr.com.manerp.common.Person
@@ -19,6 +20,7 @@ class Staff implements BusinessDomain, Person
     SysrefStaffContractType sysrefStaffContractType
     String drivingLicenseNumber
     SysrefDrivingType sysrefDrivingType
+    SysrefDriverState sysrefDriverState
 
     static hasMany = [
         staffDocuments: StaffDocument
@@ -58,6 +60,7 @@ class Staff implements BusinessDomain, Person
                 obj?.refStaffTitle?.code == 'DRV' ? val != null : true
             }
         sysrefDrivingType nullable: true, unique: false
+        sysrefDriverState nullable: true, unique: false
     }
 
     static mapping = {

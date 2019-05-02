@@ -1,6 +1,6 @@
 export const routes = {
-    current: 'voyages.current',
-    completed: 'voyages.completed'
+    completed: 'voyages.complete',
+    incomplete: 'voyages.incomplete'
 };
 
 const meta = (title) => {
@@ -10,7 +10,7 @@ const meta = (title) => {
         tabs: [
             {
                 text: 'devam eden sevkiyatlar',
-                to: {name: routes.current}
+                to: {name: routes.incomplete}
             },
             {
                 text: 'tamamlanmış sevkiyatlar',
@@ -27,14 +27,14 @@ export default [
         children: [
             {
                 path: '',
-                name: routes.current,
-                component: () => import('@/modules/main/voyage/pages/MVoyageManagementCurrent'),
+                name: routes.completed,
+                component: () => import('@/modules/main/voyage/pages/CompletedVoyageManagement'),
                 meta: meta('Sevkiyat Yönetimi')
             },
             {
                 path: 'completed',
-                name: routes.completed,
-                component: () => import('@/modules/main/voyage/pages/MVoyageManagementCompleted'),
+                name: routes.incomplete,
+                component: () => import('@/modules/main/voyage/pages/IncompleteVoyageManagement'),
                 meta: meta('Sevkiyat Yönetimi')
             },
         ]

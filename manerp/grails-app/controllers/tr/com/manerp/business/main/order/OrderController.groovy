@@ -81,7 +81,6 @@ class OrderController extends BaseController
         ManeResponse maneResponse = new ManeResponse()
 
         try {
-
             order.active = true
             order.setRandomCode()
 

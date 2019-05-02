@@ -22,12 +22,14 @@ import tr.com.manerp.business.sysref.SysrefCompanyType
 import tr.com.manerp.business.sysref.SysrefCountry
 import tr.com.manerp.business.sysref.SysrefDeliveryStatus
 import tr.com.manerp.business.sysref.SysrefDistrict
+import tr.com.manerp.business.sysref.SysrefDriverState
 import tr.com.manerp.business.sysref.SysrefGender
 import tr.com.manerp.business.sysref.SysrefOrderState
 import tr.com.manerp.business.sysref.SysrefRevenueType
 import tr.com.manerp.business.sysref.SysrefStaffContractType
 import tr.com.manerp.business.sysref.SysrefTransportationType
 import tr.com.manerp.business.sysref.SysrefVehicleOwner
+import tr.com.manerp.business.sysref.SysrefVehicleState
 import tr.com.manerp.business.sysref.SysrefVehicleType
 import tr.com.manerp.business.sysref.SysrefVoyageDirection
 import java.nio.charset.StandardCharsets
@@ -238,6 +240,33 @@ class DataService
             sysrefStaffContractTypeKadrolu.save(flush: true, failOnError: true)
         }
 
+        SysrefDriverState sysrefDriverStateIdle = SysrefDriverState.findByName('Boşta')
+        if ( sysrefDriverStateIdle == null ) {
+
+            sysrefDriverStateIdle = new SysrefDriverState()
+            sysrefDriverStateIdle.sysCompany = sysCompanyBumerang
+            sysrefDriverStateIdle.name = 'Boşta'
+            sysrefDriverStateIdle.active = true
+            sysrefDriverStateIdle.code = 'IDLE'
+            sysrefDriverStateIdle.description = 'Boşta olan şoför durumları'
+
+            sysrefDriverStateIdle.save(flush: true, failOnError: true)
+        }
+
+        SysrefDriverState sysrefDriverStateOnVoyage = SysrefDriverState.findByName('Sevkiyatta')
+        if ( sysrefDriverStateOnVoyage == null ) {
+
+            sysrefDriverStateOnVoyage = new SysrefDriverState()
+            sysrefDriverStateOnVoyage.sysCompany = sysCompanyBumerang
+            sysrefDriverStateOnVoyage.name = 'Sevkiyatta'
+            sysrefDriverStateOnVoyage.active = true
+            sysrefDriverStateOnVoyage.code = 'ONVOYAGE'
+            sysrefDriverStateOnVoyage.description = 'Sevkiyatta olan şoför durumları'
+
+            sysrefDriverStateOnVoyage.save(flush: true, failOnError: true)
+        }
+
+
         Staff staffBerat = Staff.findByFirstName('Berat')
         if ( staffBerat == null ) {
 
@@ -253,6 +282,7 @@ class DataService
             staffBerat.email = 'beratpostalci@gmail.com'
             staffBerat.drivingLicenseNumber = '314159'
             staffBerat.refStaffTitle = refStaffTitleDriver
+            staffBerat.sysrefDriverState = sysrefDriverStateIdle
             staffBerat.sysrefStaffContractType = sysrefStaffContractTypeKadrolu
             staffBerat.save(flush: true, failOnError: true)
         }
@@ -272,6 +302,7 @@ class DataService
             staffMurat.email = 'muratcanbalikk@gmail.com'
             staffMurat.drivingLicenseNumber = '987654'
             staffMurat.refStaffTitle = refStaffTitleDriver
+            staffMurat.sysrefDriverState = sysrefDriverStateOnVoyage
             staffMurat.sysrefStaffContractType = sysrefStaffContractTypeSozlesmeli
 
             staffMurat.save(flush: true, failOnError: true)
@@ -491,6 +522,32 @@ class DataService
             sysrefVehicleTypeCekici.save(flush: true, failOnError: true)
         }
 
+        SysrefVehicleState sysrefVehicleStateIdle = SysrefVehicleState.findByName('Boşta')
+        if ( sysrefVehicleStateIdle == null ) {
+
+            sysrefVehicleStateIdle = new SysrefVehicleState()
+            sysrefVehicleStateIdle.sysCompany = sysCompanyBumerang
+            sysrefVehicleStateIdle.name = 'Boşta'
+            sysrefVehicleStateIdle.active = true
+            sysrefVehicleStateIdle.code = 'IDLE'
+            sysrefVehicleStateIdle.description = 'Boşta olan araç durumları'
+
+            sysrefVehicleStateIdle.save(flush: true, failOnError: true)
+        }
+
+        SysrefVehicleState sysrefVehicleStateOnVoyage = SysrefVehicleState.findByName('Sevkiyatta')
+        if ( sysrefVehicleStateOnVoyage == null ) {
+
+            sysrefVehicleStateOnVoyage = new SysrefVehicleState()
+            sysrefVehicleStateOnVoyage.sysCompany = sysCompanyBumerang
+            sysrefVehicleStateOnVoyage.name = 'Sevkiyatta'
+            sysrefVehicleStateOnVoyage.active = true
+            sysrefVehicleStateOnVoyage.code = 'ONVOYAGE'
+            sysrefVehicleStateOnVoyage.description = 'Sevkiyatta olan araç durumları'
+
+            sysrefVehicleStateOnVoyage.save(flush: true, failOnError: true)
+        }
+
         SysrefVehicleOwner sysrefVehicleOwnerOzmal = SysrefVehicleOwner.findByName('Özmal')
         if ( sysrefVehicleOwnerOzmal == null ) {
 
@@ -517,14 +574,15 @@ class DataService
             sysrefVehicleOwnerKiralik.save(flush: true, failOnError: true)
         }
 
-        Vehicle vehicle1 = Vehicle.findByPlateNumber('35 123 321')
+        Vehicle vehicle1 = Vehicle.findByPlateNumber('35 MAS 321')
         if ( vehicle1 == null ) {
 
             vehicle1 = new Vehicle()
             vehicle1.setRandomCode()
+            vehicle1.sysrefVehicleState = sysrefVehicleStateIdle
             vehicle1.sysCompany = sysCompanyBumerang
             vehicle1.active = true
-            vehicle1.plateNumber = '35 123 321'
+            vehicle1.plateNumber = '35 MAS 321'
             vehicle1.brand = 'Volvo'
             vehicle1.fleetCardNumber = '111222333'
             vehicle1.km = 12300
@@ -532,17 +590,46 @@ class DataService
             vehicle1.refWorkingArea = refWorkingAreaEge
             vehicle1.sysrefVehicleType = sysrefVehicleTypeCekici
             vehicle1.sysrefVehicleOwner = sysrefVehicleOwnerOzmal
-            vehicle1.vehicleOwnerFullName = 'Tunahan Bayındır'
-            vehicle1.insuranceStartDate = new Date('05/06/2011')
-            vehicle1.insuranceEndDate = new Date('05/06/2020')
-            vehicle1.kgsNo = 'KGS-111222'
-            vehicle1.ogsNo = 'OGS-111222'
+            vehicle1.vehicleOwnerFullName = 'Muratcan Balık'
+            vehicle1.insuranceStartDate = new Date('05/08/2009')
+            vehicle1.insuranceEndDate = new Date('05/06/2025')
+            vehicle1.kgsNo = 'KGS-222111'
+            vehicle1.ogsNo = 'OGS-222111'
             vehicle1.fuelKit = 'FUELKIT'
-            vehicle1.description = 'Özmal Çekici'
+            vehicle1.description = 'Özmal Mercedes Çekici'
             vehicle1.operationInsuranceNotification = true
             vehicle1.annualInsurance = true
 
             vehicle1.save(flush: true, failOnError: true)
+        }
+
+        Vehicle vehicle2 = Vehicle.findByPlateNumber('06 AS 8367')
+        if ( vehicle2 == null ) {
+
+            vehicle2 = new Vehicle()
+            vehicle2.setRandomCode()
+            vehicle2.sysrefVehicleState = sysrefVehicleStateOnVoyage
+            vehicle2.sysCompany = sysCompanyBumerang
+            vehicle2.active = true
+            vehicle2.plateNumber = '06 AS 8367'
+            vehicle2.brand = 'Mercedes'
+            vehicle2.fleetCardNumber = '111222333'
+            vehicle2.km = 90540
+            vehicle2.isDualRegime = true
+            vehicle2.refWorkingArea = refWorkingAreaEge
+            vehicle2.sysrefVehicleType = sysrefVehicleTypeCekici
+            vehicle2.sysrefVehicleOwner = sysrefVehicleOwnerOzmal
+            vehicle2.vehicleOwnerFullName = 'Tunahan Bayındır'
+            vehicle2.insuranceStartDate = new Date('05/06/2011')
+            vehicle2.insuranceEndDate = new Date('05/06/2020')
+            vehicle2.kgsNo = 'KGS-111222'
+            vehicle2.ogsNo = 'OGS-111222'
+            vehicle2.fuelKit = 'FUELKIT'
+            vehicle2.description = 'Özmal Çekici'
+            vehicle2.operationInsuranceNotification = true
+            vehicle2.annualInsurance = true
+
+            vehicle2.save(flush: true, failOnError: true)
         }
 
         SemiTrailer trailer1 = SemiTrailer.findByPlateNumber('35 963 852')

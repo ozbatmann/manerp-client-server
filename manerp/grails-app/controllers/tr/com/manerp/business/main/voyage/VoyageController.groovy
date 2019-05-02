@@ -94,7 +94,6 @@ class VoyageController extends BaseController
 
             Voyage voyage = new Voyage()
             cmd >> voyage
-
             voyage.active = true
             voyage.setRandomCode()
             voyageService.save(voyage)
@@ -133,7 +132,6 @@ class VoyageController extends BaseController
 
             Voyage voyage = new Voyage()
             cmd >> voyage
-
             voyageService.save(voyage)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Sevkiyat başarıyla güncellendi.'

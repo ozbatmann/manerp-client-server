@@ -17,20 +17,16 @@ class OrderService extends BaseService
     {
 
         def closure = {
-
             eq('active', true)
-
             if ( !properties.sortPairList ) {
                 order('dateCreated', 'desc')
             }
-
             if ( companyId ) {
                 company {
                     eq('active', true)
                     eq('id', companyId)
                 }
             }
-
             if ( orderStateCode ) {
                 sysrefOrderState {
                     eq('active', true)
