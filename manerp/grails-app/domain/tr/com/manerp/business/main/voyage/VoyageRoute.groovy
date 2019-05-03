@@ -2,8 +2,8 @@ package tr.com.manerp.business.main.voyage
 
 import tr.com.manerp.base.domain.BaseDomain
 
-class VoyageRoute implements BaseDomain {
-
+class VoyageRoute implements BaseDomain
+{
     static auditable = true
 
     Location location

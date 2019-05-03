@@ -55,8 +55,10 @@ class StaffService extends BaseService
         List formattedData = data.collect {
             [
                 id                     : it.id,
+                sysrefDriverState      : it.sysrefDriverState ? [id: it.sysrefDriverState.id, name: it.sysrefDriverState.name] : null,
                 drivingLicenseNumber   : it?.drivingLicenseNumber,
                 dateCreated            : it?.dateCreated,
+                fullName               : it.getFullName(),
                 firstName              : it?.firstName,
                 middleName             : it?.middleName,
                 lastName               : it?.lastName,
@@ -73,8 +75,7 @@ class StaffService extends BaseService
                 code                   : it?.code,
                 refStaffTitle          : it.refStaffTitle ? [id: it.refStaffTitle.id, name: it.refStaffTitle.name] : null,
                 sysrefStaffContractType: it.sysrefStaffContractType ? [id: it.sysrefStaffContractType.id, name: it.sysrefStaffContractType.name] : null,
-                sysrefDrivingType      : it.sysrefDrivingType ? [id: it.sysrefDrivingType.id, name: it.sysrefDrivingType.name] : null,
-                sysrefDriverState      : it.sysrefDriverState ? [id: it.sysrefDriverState.id, name: it.sysrefDriverState.name] : null
+                sysrefDrivingType      : it.sysrefDrivingType ? [id: it.sysrefDrivingType.id, name: it.sysrefDrivingType.name] : null
             ]
         }
 
@@ -87,8 +88,10 @@ class StaffService extends BaseService
         // TODO: handle photo, photoName, photoMimeType
         return [
             id                     : data.id,
+            sysrefDriverState      : data.sysrefDriverState ? [id: data.sysrefDriverState.id, name: data.sysrefDriverState.name] : null,
             drivingLicenseNumber   : data?.drivingLicenseNumber,
             dateCreated            : data?.dateCreated,
+            fullName               : data.getFullName(),
             firstName              : data?.firstName,
             middleName             : data?.middleName,
             lastName               : data?.lastName,
@@ -105,8 +108,7 @@ class StaffService extends BaseService
             code                   : data?.code,
             refStaffTitle          : data.refStaffTitle ? [id: data.refStaffTitle.id, name: data.refStaffTitle.name] : null,
             sysrefStaffContractType: data.sysrefStaffContractType ? [id: data.sysrefStaffContractType.id, name: data.sysrefStaffContractType.name] : null,
-            sysrefDrivingType      : data.sysrefDrivingType ? [id: data.sysrefDrivingType.id, name: data.sysrefDrivingType.name] : null,
-            sysrefDriverState      : data.sysrefDriverState ? [id: data.sysrefDriverState.id, name: data.sysrefDriverState.name] : null
+            sysrefDrivingType      : data.sysrefDrivingType ? [id: data.sysrefDrivingType.id, name: data.sysrefDrivingType.name] : null
         ]
     }
 }

@@ -2,6 +2,7 @@ package tr.com.manerp.business.main.vehicle
 
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.domain.BusinessDomain
+import tr.com.manerp.business.sysref.SysrefVehicleState
 
 class SemiTrailer implements BusinessDomain
 {
@@ -10,6 +11,7 @@ class SemiTrailer implements BusinessDomain
     String plateNumber
     String brand
     String name
+    SysrefVehicleState sysrefVehicleState
     // TODO: sysrefVehicleOwner gerekli mi??? Ozmal, kiralik
 
     static constraints = {
@@ -18,6 +20,7 @@ class SemiTrailer implements BusinessDomain
         plateNumber nullable: false, blank: false, unique: false
         name nullable: true, blank: true, unique: false, maxSize: 50
         brand nullable: true, blank: true, unique: false, maxSize: 50
+        sysrefVehicleState nullable: false, unique: false
     }
 
     // TODO: change

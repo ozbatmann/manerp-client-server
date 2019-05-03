@@ -93,10 +93,12 @@ class VoyageController extends BaseController
             }
 
             Voyage voyage = new Voyage()
+            voyage.startDate = new Date()
             cmd >> voyage
             voyage.active = true
             voyage.setRandomCode()
-            voyageService.save(voyage)
+
+            voyageService.saveVoyageWithOrder(voyage, cmd._order)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = voyage.id
             maneResponse.message = 'Sevkiyat başarıyla kaydedildi.'
@@ -119,7 +121,6 @@ class VoyageController extends BaseController
 
     def update(VoyageUpdateCommand cmd)
     {
-
         ManeResponse maneResponse = new ManeResponse()
         Voyage voyage
 
@@ -131,9 +132,19 @@ class VoyageController extends BaseController
                 throw new Exception(maneResponse.message)
             }
 
+            if ( !cmd.validate() ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = parseValidationErrors(cmd.errors)
+                throw new Exception(maneResponse.message)
+            }
+
             voyage = Voyage.get(cmd.id)
+            voyage.startDate = new Date()
             cmd >> voyage
-            voyageService.save(voyage)
+            voyage.active = true
+            voyage.setRandomCode()
+
+            voyageService.saveVoyageWithOrder(voyage, cmd._order)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Sevkiyat başarıyla güncellendi.'
 

@@ -1,6 +1,7 @@
 package tr.com.manerp.business.main.voyage
 
 import grails.databinding.BindingFormat
+import net.kaleidos.hibernate.usertype.JsonbMapType
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.domain.BusinessDomain
 import tr.com.manerp.business.main.resource.Staff
@@ -26,12 +27,13 @@ class Voyage implements BusinessDomain
     SysrefVoyageDirection sysrefVoyageDirection
     Location loadingLocation
     Location dumpingLocation
-    Staff substitudeDriver // yedek sofor
+    Staff substitudeDriver
     String transportWaybillNo
     String deliveryNoteNo
     String sasNumber
     SysrefDeliveryStatus sysrefDeliveryStatus
     OptimizationParameters optimizationParameters
+    Map calculatedRoute // calculated according to optimizationParameters.waypoints
 
 //    static hasMany = [orders: Order] many-to-many relationship with Voyage defined in VoyageOrder cross domain
     static hasMany = [
@@ -56,10 +58,12 @@ class Voyage implements BusinessDomain
         sasNumber nullable: true, blank: true, unique: false
         sysrefDeliveryStatus nullable: true, unique: false
         optimizationParameters nullable: true, unique: false
+        calculatedRoute nullable: true, blank: true, unique: false
     }
 
     static mapping = {
         routes cascade: 'all-delete-orphan'
+        calculatedRoute type: JsonbMapType
     }
 
     // TODO: change

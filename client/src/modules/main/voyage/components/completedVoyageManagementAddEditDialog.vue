@@ -39,7 +39,7 @@
                                                 :items="orders"
                                                 item-value="id"
                                                 label="Sipariş"
-                                                item-text="name"
+                                                item-text="fullName"
                                                 name="order"
                                                 background-color="grey lighten-4"
                                                 color="green accent-2"
@@ -52,7 +52,7 @@
                                                 :items="vehicles"
                                                 item-value="id"
                                                 label="Araç"
-                                                item-text="name"
+                                                item-text="plateNumber"
                                                 name="vehicle"
                                                 background-color="grey lighten-4"
                                                 color="green accent-2"
@@ -65,7 +65,7 @@
                                                 :items="drivers"
                                                 item-value="id"
                                                 label="Şoför"
-                                                item-text="name"
+                                                item-text="fullName"
                                                 name="driver"
                                                 background-color="grey lighten-4"
                                                 color="green accent-2"
@@ -435,8 +435,9 @@
                 window.dispatchEvent(new Event('resize'));
             },
             getVehicles() {
-                this.$http.get("api/v1/vehicle?limit=100&fields=id,plateNumber&vehicleStateCode=IDLE").then((result) => {
+                this.$http.get("api/v1/vehicle?limit=100&fields=id,plateNumber,spec&vehicleStateCode=IDLE").then((result) => {
                     this.vehicles = result.data.data.items
+                    console.log("vehicles:", this.vehicles)
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
@@ -446,6 +447,7 @@
             getDrivers() {
                 this.$http.get("api/v1/driver?fields=id,fullName&driverStateCode=IDLE").then((result) => {
                     this.drivers = result.data.data.items
+                    console.log("drivers:", this.drivers)
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
@@ -487,6 +489,11 @@
                 }).finally(() => {
 
                 })
+            },
+            getDropdownData() {
+                this.getDrivers();
+                this.getVehicles();
+                this.getOrders();
             },
             orderChanged() {
                 this.layerChanged(0, false);
@@ -556,9 +563,7 @@
             }
         },
         mounted() {
-            this.getOrders();
-            this.getVehicles();
-            this.getDrivers();
+            this.getDropdownData();
             this.getSysrefTransportationTypes();
             this.getSysrefVoyageDirections();
             this.getSysrefDeliveryStatuses();

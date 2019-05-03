@@ -7,7 +7,6 @@ import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.resource.Staff
 import tr.com.manerp.business.main.vehicle.SemiTrailer
 import tr.com.manerp.business.main.vehicle.Vehicle
-import tr.com.manerp.business.main.voyage.Location
 import tr.com.manerp.business.main.voyage.Voyage
 import tr.com.manerp.business.sysref.SysrefDeliveryStatus
 import tr.com.manerp.business.sysref.SysrefTransportationType
@@ -15,6 +14,7 @@ import tr.com.manerp.business.sysref.SysrefVoyageDirection
 
 class VoyageSaveCommand implements Validateable
 {
+    Order _order
     Vehicle vehicle
     Staff driver
     SemiTrailer trailer

@@ -81,6 +81,7 @@ class DriverService extends BaseService
         List formattedData = data.collect {
             [
                 id                     : it.id,
+                sysrefDriverState      : it.sysrefDriverState ? [id: it.sysrefDriverState.id, name: it.sysrefDriverState.name] : null,
                 drivingLicenseNumber   : it?.drivingLicenseNumber,
                 dateCreated            : it?.dateCreated,
                 fullName               : it.getFullName(),
@@ -113,6 +114,7 @@ class DriverService extends BaseService
         // TODO: handle photo, photoName, photoMimeType
         return [
             id                     : data.id,
+            sysrefDriverState      : data.sysrefDriverState ? [id: data.sysrefDriverState.id, name: data.sysrefDriverState.name] : null,
             drivingLicenseNumber   : data?.drivingLicenseNumber,
             dateCreated            : data?.dateCreated,
             fullName               : data.getFullName(),

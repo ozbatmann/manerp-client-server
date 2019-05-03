@@ -63,15 +63,35 @@ class VoyageService extends BaseService
 
     def save(Voyage voyage)
     {
-        driverService.saveDriverWithState(voyage.driver, SysrefDriverState.findByCode('ONVOYAGE'))
-        vehicleService.saveVehicleWithState(voyage.vehicle, SysrefVehicleState.findByCode('ONVOYAGE'))
+        setDriverAndVehicleStateOnVoyage(voyage)
         voyage.save(flush: true, failOnError: true)
+    }
+
+    def saveVoyageWithOptimizationParameters(Voyage voyage, OptimizationParameters parameters)
+    {
+        voyage.optimizationParameters = parameters
+        setDriverAndVehicleStateOnVoyage(voyage)
+        save(voyage)
+    }
+
+    def saveVoyageWithOrder(Voyage voyage, Order order)
+    {
+        VoyageOrder voyageOrder = new VoyageOrder()
+        voyageOrder.voyage = voyage
+        voyageOrder.order = order
+        voyageOrder.sysCompany = order.sysCompany
+        voyageOrder.setRandomCode()
+
+        save(voyage)
+
+        setDriverAndVehicleStateOnVoyage(voyage)
+        voyageOrder.save(flush: true, failOnError: true)
     }
 
     def delete(Voyage voyage)
     {
-        driverService.saveDriverWithState(voyage.driver, SysrefDriverState.findByCode('IDLE'))
-        vehicleService.saveVehicleWithState(voyage.vehicle, SysrefVehicleState.findByCode('IDLE'))
+        setDriverAndVehicleStateIdle(voyage)
+        deleteVoyageOrderByVoyage(voyage)
         voyage.delete(flush: true, failOnError: true)
     }
 
@@ -95,17 +115,17 @@ class VoyageService extends BaseService
     def formatResultForShow(def data)
     {
         SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy hh:MM')
-        Order order = VoyageOrder.findByVoyage(Voyage.get(data.id)).order
+        Order order = VoyageOrder.findByVoyage(Voyage.get(data.id))?.order
         return [
             id                      : data.id,
             code                    : data.code,
-            driver                  : data.driver ? [id: data.driver.id, name: data.driver.getFullName()] : null,
+            driver                  : data.driver ? [id: data.driver.id, fullName: data.driver.getFullName()] : null,
             sysrefTransportationType: data.sysrefTransportationType ? [id: data.sysrefTransportationType.id, name: data.sysrefTransportationType.name] : null,
             sysrefVoyageDirection   : data.sysrefVoyageDirection ? [id: data.sysrefVoyageDirection.id, name: data.sysrefVoyageDirection.name] : null,
-            vehicle                 : data.vehicle ? [id: data.vehicle.id, name: data.vehicle.plateNumber] : null,
-            _order                  : order ? [id: order.id, name: order.name] : null,
-            trailer                 : data.trailer ? [id: data.trailer.id, name: data.trailer.plateNumber] : null,
-            substitudeDriver        : data.substitudeDriver ? [id: data.substitudeDriver.id, name: data.substitudeDriver.getFullName()] : null,
+            vehicle                 : data.vehicle ? [id: data.vehicle.id, plateNumber: data.vehicle.plateNumber] : null,
+            _order                  : order ? [id: order.id, fullName: order.getFullName()] : null,
+            trailer                 : data.trailer ? [id: data.trailer.id, plateNumber: data.trailer.plateNumber] : null,
+            substitudeDriver        : data.substitudeDriver ? [id: data.substitudeDriver.id, fullName: data.substitudeDriver.getFullName()] : null,
             transportWaybillNo      : data?.transportWaybillNo,
             deliveryNoteNo          : data?.deliveryNoteNo,
             sasNumber               : data?.sasNumber,
@@ -134,10 +154,25 @@ class VoyageService extends BaseService
         return voyageOrderList as List
     }
 
-    def saveVoyageWithOptimizationParameters(Voyage voyage, OptimizationParameters parameters)
+    def deleteVoyageOrderByVoyage(Voyage voyage)
     {
-        voyage.optimizationParameters = parameters
-        save(voyage)
+        VoyageOrder.createCriteria().list {
+            eq('voyage', voyage)
+        }.each {
+            it.delete(flush: true, failOnError: true)
+        }
+    }
+
+    def setDriverAndVehicleStateIdle(Voyage voyage)
+    {
+        driverService.saveDriverWithState(voyage.driver, SysrefDriverState.findByCode('IDLE'))
+        vehicleService.saveVehicleWithState(voyage.vehicle, SysrefVehicleState.findByCode('IDLE'))
+    }
+
+    def setDriverAndVehicleStateOnVoyage(Voyage voyage)
+    {
+        driverService.saveDriverWithState(voyage.driver, SysrefDriverState.findByCode('ONVOYAGE'))
+        vehicleService.saveVehicleWithState(voyage.vehicle, SysrefVehicleState.findByCode('ONVOYAGE'))
     }
 
 }

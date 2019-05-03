@@ -6,6 +6,7 @@ import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
 import tr.com.manerp.business.main.resource.Staff
+import tr.com.manerp.business.sysref.SysrefVehicleState
 
 @Transactional
 class SemiTrailerService extends BaseService
@@ -50,6 +51,12 @@ class SemiTrailerService extends BaseService
     def delete(SemiTrailer trailer)
     {
         trailer.delete(flush: true, failOnError: true)
+    }
+
+    def saveVehicleWithState(SemiTrailer trailer, SysrefVehicleState state)
+    {
+        trailer.sysrefVehicleState = state
+        save(trailer)
     }
 
     List formatResultForList(List data)

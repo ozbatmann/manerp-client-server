@@ -6,6 +6,7 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
+import tr.com.manerp.business.sysref.SysrefDriverState
 import tr.com.manerp.commands.controller.common.PaginationCommand
 import tr.com.manerp.commands.controller.common.ShowCommand
 
@@ -82,6 +83,7 @@ class StaffController extends BaseController
 
             staff.setRandomCode()
             staff.active = true
+            staff.sysrefDriverState = SysrefDriverState.findByCode('IDLE')
             staffService.save(staff)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = staff.id

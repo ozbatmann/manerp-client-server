@@ -2,6 +2,7 @@ package tr.com.manerp.commands.controller.voyage
 
 import grails.validation.Validateable
 import tr.com.manerp.auth.SysCompany
+import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.resource.Staff
 import tr.com.manerp.business.main.vehicle.SemiTrailer
 import tr.com.manerp.business.main.vehicle.Vehicle
@@ -13,6 +14,7 @@ import tr.com.manerp.business.sysref.SysrefVoyageDirection
 class VoyageUpdateCommand implements Validateable
 {
     String id
+    Order _order
     Vehicle vehicle
     Staff driver
     SemiTrailer trailer

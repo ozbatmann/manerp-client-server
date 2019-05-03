@@ -1,8 +1,8 @@
 package tr.com.manerp.optimization
 
+import net.kaleidos.hibernate.usertype.JsonbMapType
 import tr.com.manerp.base.domain.BaseDomain
 import tr.com.manerp.business.main.vehicle.VehicleSpec
-import tr.com.manerp.business.main.voyage.Location
 
 class OptimizationParameters implements BaseDomain
 {
@@ -11,8 +11,7 @@ class OptimizationParameters implements BaseDomain
     String routeAttributes
     String distanceUnit
     VehicleSpec vehicleSpec
-
-    static hasMany = [waypoints: Location] // waypoints to be optimized (vendors)
+    Map waypoints // waypoints to be optimized in lat lng
 
     static constraints = {
         avoid nullable: false, blank: false
@@ -20,5 +19,10 @@ class OptimizationParameters implements BaseDomain
         routeAttributes nullable: false, blank: false
         distanceUnit nullable: false, blank: false
         vehicleSpec nullable: false
+        waypoints nullable: false, blank: false, unique: false
+    }
+
+    static mapping = {
+        waypoints type: JsonbMapType
     }
 }
