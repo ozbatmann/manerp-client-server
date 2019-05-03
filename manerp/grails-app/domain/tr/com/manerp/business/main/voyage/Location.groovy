@@ -5,7 +5,6 @@ import tr.com.manerp.base.domain.BaseDomain
 
 class Location implements BaseDomain
 {
-
     static auditable = true
 
     String name

@@ -87,9 +87,7 @@ class VehicleService extends BaseService
                 fuelKit                       : it?.fuelKit,
                 description                   : it?.description,
                 operationInsuranceNotification: it?.operationInsuranceNotification,
-                annualInsurance               : it?.annualInsurance,
-                height                        : it?.height,
-                weight                        : it?.weight
+                annualInsurance               : it?.annualInsurance
             ]
         }
 
@@ -120,9 +118,7 @@ class VehicleService extends BaseService
             fuelKit                       : data?.fuelKit,
             description                   : data?.description,
             operationInsuranceNotification: data?.operationInsuranceNotification,
-            annualInsurance               : data?.annualInsurance,
-            height                        : data?.height,
-            weight                        : data?.weight
+            annualInsurance               : data?.annualInsurance
         ]
     }
 }

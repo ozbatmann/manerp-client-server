@@ -22,6 +22,7 @@ import tr.com.manerp.business.sysref.SysrefCity
 import tr.com.manerp.business.sysref.SysrefCompanyType
 import tr.com.manerp.business.sysref.SysrefCountry
 import tr.com.manerp.business.sysref.SysrefDeliveryStatus
+import tr.com.manerp.business.sysref.SysrefDimensionUnit
 import tr.com.manerp.business.sysref.SysrefDistrict
 import tr.com.manerp.business.sysref.SysrefDriverState
 import tr.com.manerp.business.sysref.SysrefGender
@@ -33,6 +34,8 @@ import tr.com.manerp.business.sysref.SysrefVehicleOwner
 import tr.com.manerp.business.sysref.SysrefVehicleState
 import tr.com.manerp.business.sysref.SysrefVehicleType
 import tr.com.manerp.business.sysref.SysrefVoyageDirection
+import tr.com.manerp.business.sysref.SysrefWeightUnit
+
 import java.nio.charset.StandardCharsets
 
 @Transactional
@@ -575,6 +578,51 @@ class DataService
             sysrefVehicleOwnerKiralik.save(flush: true, failOnError: true)
         }
 
+        SysrefDimensionUnit sysrefDimensionUnitMeter = SysrefDimensionUnit.findByName("meter")
+        if ( sysrefDimensionUnitMeter == null ) {
+
+            sysrefDimensionUnitMeter = new SysrefDimensionUnit()
+            sysrefDimensionUnitMeter.name = "meter"
+            sysrefDimensionUnitMeter.code = "m"
+            sysrefDimensionUnitMeter.active = true
+
+            sysrefDimensionUnitMeter.save(flush: true, failOnError: true)
+        }
+
+        SysrefDimensionUnit sysrefDimensionUnitFoot = SysrefDimensionUnit.findByName("foot")
+        if ( sysrefDimensionUnitFoot == null ) {
+
+            sysrefDimensionUnitFoot = new SysrefDimensionUnit()
+            sysrefDimensionUnitFoot.name = "foot"
+            sysrefDimensionUnitFoot.code = "ft"
+            sysrefDimensionUnitFoot.active = true
+
+            sysrefDimensionUnitFoot.save(flush: true, failOnError: true)
+        }
+
+        SysrefWeightUnit sysrefWeightUnitKg = SysrefWeightUnit.findByName("kilogram")
+        if ( sysrefWeightUnitKg == null ) {
+
+            sysrefWeightUnitKg = new SysrefWeightUnit()
+            sysrefWeightUnitKg.name = "kilogram"
+            sysrefWeightUnitKg.code = "kg"
+            sysrefWeightUnitKg.active = true
+
+            sysrefWeightUnitKg.save(flush: true, failOnError: true)
+        }
+
+        SysrefWeightUnit sysrefWeightUnitPound = SysrefWeightUnit.findByName("pound")
+        if ( sysrefWeightUnitPound == null ) {
+
+            sysrefWeightUnitPound = new SysrefWeightUnit()
+            sysrefWeightUnitPound.name = "pound"
+            sysrefWeightUnitPound.code = "lb"
+            sysrefWeightUnitPound.active = true
+
+            sysrefWeightUnitPound.save(flush: true, failOnError: true)
+        }
+
+
         Vehicle vehicle1 = Vehicle.findByPlateNumber('35 MAS 321')
         if ( vehicle1 == null ) {
 
@@ -699,7 +747,7 @@ class DataService
             orderPinar.sysrefRevenueType = sysrefRevenueTypeTicari
             orderPinar.workOrderNo = 'SIPARIS-111222'
             orderPinar.billingNo = 'FATURA-111222'
-            orderPinar.sysrefOrderState = sysrefOrderStateComp
+            orderPinar.sysrefOrderState = sysrefOrderStateWait
 
             orderPinar.save(flush: true, failOnError: true)
         }

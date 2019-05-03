@@ -9,7 +9,7 @@
                 </div>
                 <div v-else>
                     <span v-if="isEdit" class="headline">Rota Yönetimi</span>
-                    <span v-else class="headline">Rota Oluştur</span>
+                    <span v-else class="headline"><b>{{this.data._order.fullName}}</b> için Rota Oluştur</span>
                 </div>
             </v-card-title>
             <v-card-text>
@@ -144,15 +144,57 @@
                     <v-tab-item class="tab-item" :transition="false" :reverse-transition="false"
                     >
                         <v-layout row wrap>
-                            <v-flex xs2>
-                                <div class="form-check" v-for="layer in layers" :key="layer.id">
-                                    <v-checkbox v-model="layer.active"
-                                                :label="layer.name"
-                                                @change="layerChanged(layer.id, layer.active)">
-                                    </v-checkbox>
+                            <v-flex xs4>
+                                <div id="voyage_map_left_side">
+                                    <v-layout row wrap justify-space-around>
+                                        <div v-for="layer in layers" :key="layer.id">
+                                            <v-flex xs12>
+                                                <v-checkbox v-model="layer.active"
+                                                            :label="layer.name"
+                                                            @change="layerChanged(layer.id, layer.active)">
+                                                </v-checkbox>
+                                            </v-flex>
+                                        </div>
+                                    </v-layout>
+                                    <template>
+                                        <v-expansion-panel>
+                                            <v-expansion-panel-content>
+                                                <template v-slot:header>
+                                                    <div>Rota Optimizasyon Parametreleri</div>
+                                                </template>
+                                                <v-card>
+
+                                                </v-card>
+                                            </v-expansion-panel-content>
+                                            <v-expansion-panel-content>
+                                                <template v-slot:header>
+                                                    <div>Bayiler <span style="color: grey">(Sürükleyerek sırayı değiştir)</span>
+                                                    </div>
+                                                </template>
+                                                <v-card>
+                                                    <draggable
+                                                        :list="vendors"
+                                                        ghost-class="draggable-ghost"
+                                                        class="draggable-list"
+                                                        @start="dragging = true"
+                                                        @end="dragging = false"
+                                                    >
+                                                        <div
+                                                            class="draggable-list-item"
+                                                            v-for="element in vendors"
+                                                            :key="element.id"
+                                                        >
+                                                            {{ element.title }}
+                                                        </div>
+                                                    </draggable>
+                                                </v-card>
+                                            </v-expansion-panel-content>
+                                        </v-expansion-panel>
+                                    </template>
+
                                 </div>
                             </v-flex>
-                            <v-flex xs10>
+                            <v-flex xs8>
                                 <leaflet-map
                                     ref="leafletMap"
                                     @save="saveWaypoints"
@@ -174,13 +216,14 @@
 </template>
 
 <script>
-    import LeafletMap from "../leaflet/leafletMap";
+    import LeafletMap from "../leaflet/voyageLeafletMap";
     import '../leaflet/mapStyle.css';
+    import draggable from 'vuedraggable'
 
     const voyageModel = require('@/modules/main/voyage/models/voyage-model-add-edit').default;
 
     export default {
-        components: {LeafletMap},
+        components: {LeafletMap, draggable},
         data() {
             return {
                 currentTab: 0,
@@ -194,7 +237,51 @@
                 sysrefDeliveryStatuses: [],
                 layers: [],
                 vendors: [],
-                orders: []
+                orders: [],
+                routingParameters: {
+                    "waypoints": [],
+                    "avoid": null,
+                    "optimize": null,
+                    "routeAttributes": null,
+                    "distanceUnit": null,
+                    "vehicleSpec": {
+                        "dimensionUnit": null,
+                        "weightUnit": null,
+                        "vehicleHeight": null,
+                        "vehicleWidth": null,
+                        "vehicleLength": null,
+                        "vehicleWeight": null,
+                        "vehicleAxles": null,
+                        "vehicleTrailers": null,
+                        "vehicleSemi": true
+                    }
+                },
+                myArray: [
+                    {
+                        "name": "beraafdgfdsgfdsgfdsjdshgkjdfssgfdsgfdsjdshgkjdfssgfdsgfdsjdshgkjdfshgjkfdhsjkgfdhsjkgdst",
+                        "id": 1
+                    },
+                    {"name": "samet", "id": 2},
+                    {"name": "fdsdfsafaf", "id": 2},
+                    {"name": "fdsa", "id": 2},
+                    {"name": "fdsdfas", "id": 2},
+                    {"name": "fd", "id": 2},
+                    {"name": "sasdffdsmet", "id": 2},
+                    {"name": "safdsmet", "id": 2},
+                    {"name": "afdsa", "id": 2},
+                    {"name": "dsafdsa", "id": 2},
+                    {"name": "fdsafds", "id": 2},
+                    {"name": "samfdsafsafdsaet", "id": 2},
+                    {"name": "safdsafdsafdsafdsamet", "id": 2},
+                    {"name": "safdsafdsafdsamet", "id": 2},
+                    {"name": "samfdsafdsafdsaet", "id": 2},
+                    {"name": "samfdsafdsafdsafdsaet", "id": 2},
+                    {"name": "safdsafdsfmet", "id": 2},
+                    {"name": "sadsafdsfdsmet", "id": 2},
+                    {"name": "safsdfsfmet", "id": 2},
+                    {"name": "samsdfsdfet", "id": 2},
+                    {"name": "fdsfsfdsafdsa", "id": 2},
+                ]
             }
         },
         methods: {
@@ -283,7 +370,6 @@
             getOrders() {
                 this.$http.get("api/v1/order?fields=id,fullName&orderStateCode=WAIT").then((result) => {
                     this.orders = result.data.data.items
-                    console.log(this.orders)
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
@@ -291,10 +377,11 @@
                 })
             },
             orderChanged() {
-                console.log(this.data._order);
-                this.$http.get("api/v1/vendor?fields=id,fullName&orderStateCode=WAIT").then((result) => {
-                    this.orders = result.data.data.items
-                    console.log(this.orders)
+                this.layerChanged(0, false);
+
+                this.$http.get("api/v1/order/getAllVendorsByOrderId/" + this.data._order.id).then((result) => {
+                    this.vendors = result.data.data;
+                    this.initLeafletMap();
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
@@ -306,7 +393,22 @@
             },
             initLeafletMap() {
                 this.$refs.leafletMap.setLocations(this.vendors);
+                this.layerChanged(0, true);
+            },
+            getMapLayers() {
                 this.layers = this.$refs.leafletMap.getLayers();
+            },
+            layerChanged(layerId, active) {
+                if (!this.layers[layerId].active && active) this.layers[layerId].active = true;
+                if (this.layers[layerId].active && !active) this.layers[layerId].active = false;
+                this.$refs.leafletMap.layerChanged(layerId, active);
+            },
+            getOptimizedPath() {
+                this.$http.post('https://dev.virtualearth.net/REST/v1/Routes/Truck?key=AhWheMPRKfucF4QUSzDJ7avIMgpQDwL6t0C_NufIKUUeOJHwgpMiAWV3tE0Qhiw1', this.routingParameters).then((result) => {
+                    console.log(result)
+                }).catch((error) => {
+                    console.log(error);
+                }).finally(() => this.loading = false)
             }
         },
         mounted() {
@@ -316,7 +418,7 @@
             this.getSysrefTransportationTypes();
             this.getSysrefVoyageDirections();
             this.getSysrefDeliveryStatuses();
-            this.initLeafletMap();
+            this.getMapLayers();
         }
     }
 </script>
@@ -331,5 +433,55 @@
 
     #voyage_tabs .tab-item {
         margin-top: 20px;
+    }
+
+    #voyage_map_left_side {
+        overflow: auto;
+        width: 460px;
+        height: 500px;
+    }
+
+    .draggable-list {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        font-size: 0.9rem;
+        font-weight: 400;
+        line-height: 2.3;
+        color: #212529;
+        text-align: left;
+    }
+
+    .draggable-list-item {
+        word-wrap: break-word;
+        cursor: move;
+        position: relative;
+        display: block;
+        padding: .75rem 1.25rem;
+        margin-bottom: 0;
+        background-color: #fff9f2;
+        border: 1px solid rgba(0, 0, 0, .125);
+
+    }
+
+    .draggable-list-item:hover {
+        background: #fbf6f7;
+    }
+
+    .draggable-list-item:first-child {
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+    }
+
+    .draggable-list-item:last-child {
+        border-bottom-left-radius: .25rem;
+        border-bottom-right-radius: .25rem;
+    }
+
+    .draggable-ghost {
+        opacity: 0.5;
+        background: #c8ebfb;
     }
 </style>

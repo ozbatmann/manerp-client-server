@@ -1,0 +1,20 @@
+{
+    "listHeader": "Bilgi Sağlayıcı Listesi",
+    "tableHeaders": {
+        "label": {
+            "name": "Adı",
+            "description": "Tanım",
+            "email": "E-mail",
+            "sms": "SMS",
+            "voiceMessage": "Sesli Mesaj",
+            "pushMessage": "Bildirim"
+        }
+    },
+    "tooltips": {
+        "addNewInformationProvider": "Yeni Bilgi Sağlayıcı Ekle"
+    },
+    "messages": {
+        "addInformationProvider": "Bilgi Sağlayıcı Ekle",
+        "updateInformationProvider": "Bilgi Sağlayıcı Güncelle"
+    }
+}

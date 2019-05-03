@@ -9,6 +9,7 @@ import tr.com.manerp.business.main.vehicle.Vehicle
 import tr.com.manerp.business.sysref.SysrefDeliveryStatus
 import tr.com.manerp.business.sysref.SysrefTransportationType
 import tr.com.manerp.business.sysref.SysrefVoyageDirection
+import tr.com.manerp.optimization.OptimizationParameters
 
 class Voyage implements BusinessDomain
 {
@@ -30,9 +31,12 @@ class Voyage implements BusinessDomain
     String deliveryNoteNo
     String sasNumber
     SysrefDeliveryStatus sysrefDeliveryStatus
+    OptimizationParameters optimizationParameters
 
 //    static hasMany = [orders: Order] many-to-many relationship with Voyage defined in VoyageOrder cross domain
-    static hasMany = [routes: VoyageRoute]
+    static hasMany = [
+        routes: VoyageRoute // waypoints
+    ]
 
     static constraints = {
         code nullable: false, blank: false, unique: ['sysCompany'], maxSize: 8
@@ -51,6 +55,7 @@ class Voyage implements BusinessDomain
         deliveryNoteNo nullable: true, blank: true, unique: false
         sasNumber nullable: true, blank: true, unique: false
         sysrefDeliveryStatus nullable: true, unique: false
+        optimizationParameters nullable: true, unique: false
     }
 
     static mapping = {

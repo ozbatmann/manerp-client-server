@@ -22,6 +22,9 @@ manerp {
     domain {
         excludedFields = ['sysCompany'] as HashSet
     }
+    routing {
+        key = "AhWheMPRKfucF4QUSzDJ7avIMgpQDwL6t0C_NufIKUUeOJHwgpMiAWV3tE0Qhiw1"
+    }
 }
 
 environments {

@@ -173,7 +173,7 @@
 </template>
 
 <script>
-    import LeafletMap from "../leaflet/leafletMap";
+    import LeafletMap from "../leaflet/voyageLeafletMap";
     import '../leaflet/mapStyle.css';
 
     const voyageModel = require('@/modules/main/voyage/models/voyage-model-add-edit').default;

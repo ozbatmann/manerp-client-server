@@ -5,6 +5,7 @@ import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
+import tr.com.manerp.business.main.company.Vendor
 import tr.com.manerp.business.main.company.VendorService
 import tr.com.manerp.business.main.resource.Staff
 
@@ -109,15 +110,12 @@ class OrderService extends BaseService
 
     List getAllVendorsByOrderId(String orderId)
     {
-        OrderVendor orderVendorList = OrderVendor.createCriteria().list {
+        def orderVendorList = OrderVendor.createCriteria().list {
             _order {
                 eq('id', orderId)
             }
         }.collect {
-            return [
-                id    : it.id,
-                vendor: vendorService.getVendor(it.vendor.id, "title,address,location")
-            ]
+            vendorService.getVendor(it.vendor.id, "title,address,location")
         }
 
         return orderVendorList as List

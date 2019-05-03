@@ -9,6 +9,7 @@ import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.ShowCommand
 import tr.com.manerp.commands.controller.voyage.VoyagePaginationCommand
 import tr.com.manerp.commands.controller.voyage.VoyageSaveCommand
+import tr.com.manerp.commands.controller.voyage.VoyageUpdateCommand
 
 class VoyageController extends BaseController
 {
@@ -21,7 +22,6 @@ class VoyageController extends BaseController
     // TODO: filtering with company and order
     def index()
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
@@ -117,10 +117,11 @@ class VoyageController extends BaseController
         render maneResponse
     }
 
-    def update(VoyageSaveCommand cmd)
+    def update(VoyageUpdateCommand cmd)
     {
 
         ManeResponse maneResponse = new ManeResponse()
+        Voyage voyage
 
         try {
 
@@ -130,7 +131,7 @@ class VoyageController extends BaseController
                 throw new Exception(maneResponse.message)
             }
 
-            Voyage voyage = new Voyage()
+            voyage = Voyage.get(cmd.id)
             cmd >> voyage
             voyageService.save(voyage)
             maneResponse.statusCode = StatusCode.NO_CONTENT
@@ -144,11 +145,10 @@ class VoyageController extends BaseController
 
         } catch (Exception ex) {
 
-            //TODO
-//            if ( !voyage ) {
-//                maneResponse.statusCode = StatusCode.BAD_REQUEST
-//                maneResponse.message = 'Güncellenmek istenen sevkiyat sistemde bulunmamaktadır.'
-//            }
+            if ( !voyage ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Güncellenmek istenen sevkiyat sistemde bulunmamaktadır.'
+            }
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             maneResponse.message = maneResponse.message ?: ex.getMessage()
