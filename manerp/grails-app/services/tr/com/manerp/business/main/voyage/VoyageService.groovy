@@ -13,6 +13,8 @@ import tr.com.manerp.commands.controller.common.PaginationCommand
 import tr.com.manerp.commands.controller.voyage.OptimizationParametersSaveCommand
 import tr.com.manerp.optimization.OptimizationParameters
 
+import java.text.SimpleDateFormat
+
 @Transactional
 class VoyageService extends BaseService
 {
@@ -92,13 +94,25 @@ class VoyageService extends BaseService
 
     def formatResultForShow(def data)
     {
+        SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy hh:MM')
+        Order order = VoyageOrder.findByVoyage(Voyage.get(data.id)).order
         return [
             id                      : data.id,
             code                    : data.code,
             driver                  : data.driver ? [id: data.driver.id, name: data.driver.getFullName()] : null,
             sysrefTransportationType: data.sysrefTransportationType ? [id: data.sysrefTransportationType.id, name: data.sysrefTransportationType.name] : null,
             sysrefVoyageDirection   : data.sysrefVoyageDirection ? [id: data.sysrefVoyageDirection.id, name: data.sysrefVoyageDirection.name] : null,
-            vehicle                 : data.vehicle ? [id: data.vehicle.id, name: data.vehicle.plateNumber] : null
+            vehicle                 : data.vehicle ? [id: data.vehicle.id, name: data.vehicle.plateNumber] : null,
+            _order                  : order ? [id: order.id, name: order.name] : null,
+            trailer                 : data.trailer ? [id: data.trailer.id, name: data.trailer.plateNumber] : null,
+            substitudeDriver        : data.substitudeDriver ? [id: data.substitudeDriver.id, name: data.substitudeDriver.getFullName()] : null,
+            transportWaybillNo      : data?.transportWaybillNo,
+            deliveryNoteNo          : data?.deliveryNoteNo,
+            sasNumber               : data?.sasNumber,
+            sysrefDeliveryStatus    : data.sysrefDeliveryStatus ? [id: data.sysrefDeliveryStatus.id, name: data.sysrefDeliveryStatus.name] : null,
+            optimizationParameters  : data.optimizationParameters ? [id: data.optimizationParameters.id, name: data.optimizationParameters.name] : null,
+            startDate               : data.startDate ? sdf.format(data.startDate) : null,
+            endDate                 : data.endDate ? sdf.format(data.endDate) : null
         ]
     }
 

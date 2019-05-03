@@ -9,7 +9,7 @@
                 </div>
                 <div v-else>
                     <span v-if="isEdit" class="headline">Rota Yönetimi</span>
-                    <span v-else class="headline"><b>{{this.data._order.fullName}}</b> için Rota Oluştur</span>
+                    <span v-else class="headline"><b>{{this.data._order ? this.data._order.fullName : ""}}</b> için Rota Oluştur</span>
                 </div>
             </v-card-title>
             <v-card-text>
@@ -22,7 +22,7 @@
                     <v-tab ripple>
                         Sevkiyat Bilgileri
                     </v-tab>
-                    <v-tab ripple v-on:change="tabChanged">
+                    <v-tab ripple v-on:change="tabChanged" :disabled="!data._order || !data.vehicle">
                         Rota Bilgileri
                     </v-tab>
 
@@ -39,7 +39,7 @@
                                                 :items="orders"
                                                 item-value="id"
                                                 label="Sipariş"
-                                                item-text="fullName"
+                                                item-text="name"
                                                 name="order"
                                                 background-color="grey lighten-4"
                                                 color="green accent-2"
@@ -52,7 +52,7 @@
                                                 :items="vehicles"
                                                 item-value="id"
                                                 label="Araç"
-                                                item-text="plateNumber"
+                                                item-text="name"
                                                 name="vehicle"
                                                 background-color="grey lighten-4"
                                                 color="green accent-2"
@@ -65,7 +65,7 @@
                                                 :items="drivers"
                                                 item-value="id"
                                                 label="Şoför"
-                                                item-text="fullName"
+                                                item-text="name"
                                                 name="driver"
                                                 background-color="grey lighten-4"
                                                 color="green accent-2"
@@ -157,23 +157,118 @@
                                         </div>
                                     </v-layout>
                                     <template>
-                                        <v-expansion-panel>
+                                        <v-expansion-panel v-model="panel" expand>
                                             <v-expansion-panel-content>
                                                 <template v-slot:header>
-                                                    <div>Rota Optimizasyon Parametreleri</div>
+                                                    <div class="expansion-header">Rota Optimizasyon Parametreleri</div>
                                                 </template>
                                                 <v-card>
-
+                                                    <v-combobox class="parameter-input"
+                                                                v-model="avoidsModel"
+                                                                :items="avoids"
+                                                                item-value="id"
+                                                                label="Yol Parametresi"
+                                                                item-text="name"
+                                                                name="avoid"
+                                                                background-color="grey lighten-4"
+                                                                color="green accent-2"
+                                                                full-width
+                                                                hide-details>
+                                                    </v-combobox>
+                                                    <v-combobox class="parameter-input"
+                                                                v-model="optimizeModel"
+                                                                :items="optimizes"
+                                                                item-value="id"
+                                                                label="Optimizasyon"
+                                                                item-text="name"
+                                                                name="optimize"
+                                                                background-color="grey lighten-4"
+                                                                color="green accent-2"
+                                                                full-width
+                                                                hide-details>
+                                                    </v-combobox>
+                                                    <v-text-field
+                                                        class="parameter-input"
+                                                        type="number"
+                                                        v-model="routingParameters.vehicleSpec.vehicleLength"
+                                                        label="Aracın Yatay Uzunluğu (metre)"
+                                                        name="vehicleLength"
+                                                        max=1000
+                                                        background-color="grey lighten-4"
+                                                        color="green accent-2"
+                                                        full-width
+                                                        hide-details>
+                                                    </v-text-field>
+                                                    <v-text-field
+                                                        class="parameter-input"
+                                                        type="number"
+                                                        v-model="routingParameters.vehicleSpec.vehicleHeight"
+                                                        label="Aracın Boyuna Uzunluğu (metre)"
+                                                        name="vehicleHeight"
+                                                        max=1000
+                                                        background-color="grey lighten-4"
+                                                        color="green accent-2"
+                                                        full-width
+                                                        hide-details>
+                                                    </v-text-field>
+                                                    <v-text-field
+                                                        class="parameter-input"
+                                                        type="number"
+                                                        v-model="routingParameters.vehicleSpec.vehicleWidth"
+                                                        label="Araç Genişliği (metre)"
+                                                        name="vehicleWidth"
+                                                        max=1000
+                                                        background-color="grey lighten-4"
+                                                        color="green accent-2"
+                                                        full-width
+                                                        hide-details>
+                                                    </v-text-field>
+                                                    <v-text-field
+                                                        class="parameter-input"
+                                                        type="number"
+                                                        v-model="routingParameters.vehicleSpec.vehicleWeight"
+                                                        label="Araç Ağırlığı (kg)"
+                                                        name="vehicleWeight"
+                                                        max=1000
+                                                        background-color="grey lighten-4"
+                                                        color="green accent-2"
+                                                        full-width
+                                                        hide-details>
+                                                    </v-text-field>
+                                                    <v-text-field
+                                                        class="parameter-input"
+                                                        type="number"
+                                                        v-model="routingParameters.vehicleSpec.vehicleAxles"
+                                                        label="Araç Dingil Sayısı"
+                                                        name="vehicleAxles"
+                                                        max=20
+                                                        background-color="grey lighten-4"
+                                                        color="green accent-2"
+                                                        full-width
+                                                        hide-details>
+                                                    </v-text-field>
+                                                    <v-text-field
+                                                        class="parameter-input"
+                                                        type="number"
+                                                        v-model="routingParameters.vehicleSpec.vehicleTrailers"
+                                                        label="Araç Römork Sayısı"
+                                                        name="vehicleTrailers"
+                                                        max=20
+                                                        background-color="grey lighten-4"
+                                                        color="green accent-2"
+                                                        full-width
+                                                        hide-details>
+                                                    </v-text-field>
                                                 </v-card>
                                             </v-expansion-panel-content>
                                             <v-expansion-panel-content>
                                                 <template v-slot:header>
-                                                    <div>Bayiler <span style="color: grey">(Sürükleyerek sırayı değiştir)</span>
+                                                    <div class="expansion-header">Bayiler <span style="color: grey">(Sürükleyerek sırayı değiştir)</span>
                                                     </div>
                                                 </template>
                                                 <v-card>
                                                     <draggable
-                                                        :list="vendors"
+                                                        :list="vendorsForSort"
                                                         ghost-class="draggable-ghost"
                                                         class="draggable-list"
                                                         @start="dragging = true"
@@ -181,7 +276,7 @@
                                                     >
                                                         <div
                                                             class="draggable-list-item"
-                                                            v-for="element in vendors"
+                                                            v-for="element in vendorsForSort"
                                                             :key="element.id"
                                                         >
                                                             {{ element.title }}
@@ -191,13 +286,30 @@
                                             </v-expansion-panel-content>
                                         </v-expansion-panel>
                                     </template>
-
+                                    <v-btn v-on:click="getOptimizedPath"
+                                           class="optimize-btn"
+                                           outline
+                                           block
+                                           round
+                                           color="cyan"
+                                    >Parametrelere Göre
+                                        Optimize Et
+                                    </v-btn>
+                                    <v-btn v-on:click="getOptimizedOrder"
+                                           class="optimize-btn"
+                                           outline
+                                           block
+                                           round
+                                           color="blue-grey"
+                                    >Durak Sırasını
+                                        Optimize Et
+                                    </v-btn>
                                 </div>
                             </v-flex>
                             <v-flex xs8>
                                 <leaflet-map
                                     ref="leafletMap"
-                                    @save="saveWaypoints"
+                                    @save="saveRoute"
                                 ></leaflet-map>
                             </v-flex>
                         </v-layout>
@@ -209,6 +321,9 @@
                 <v-btn v-if="isEdit && currentTab === 0" color="blue darken-1" outline @click.native="edit">Düzenle
                 </v-btn>
                 <v-btn v-else-if="currentTab === 0" color="blue darken-1" outline @click.native="save">Kaydet</v-btn>
+                <v-btn v-if="isEdit && currentTab === 1" color="blue darken-1" outline @click.native="saveRoute">Rotayı
+                    Kaydet
+                </v-btn>
                 <v-btn color="orange darken-1" outline @click.native="close">Kapat</v-btn>
             </v-card-actions>
         </v-card>
@@ -226,6 +341,7 @@
         components: {LeafletMap, draggable},
         data() {
             return {
+                panel: [],
                 currentTab: 0,
                 showDialog: false,
                 isEdit: false,
@@ -237,16 +353,17 @@
                 sysrefDeliveryStatuses: [],
                 layers: [],
                 vendors: [],
+                vendorsForSort: [],
                 orders: [],
                 routingParameters: {
                     "waypoints": [],
                     "avoid": null,
                     "optimize": null,
-                    "routeAttributes": null,
-                    "distanceUnit": null,
+                    "routeAttributes": "routePath",
+                    "distanceUnit": "km",
                     "vehicleSpec": {
-                        "dimensionUnit": null,
-                        "weightUnit": null,
+                        "dimensionUnit": "m",
+                        "weightUnit": "kg",
                         "vehicleHeight": null,
                         "vehicleWidth": null,
                         "vehicleLength": null,
@@ -256,31 +373,17 @@
                         "vehicleSemi": true
                     }
                 },
-                myArray: [
-                    {
-                        "name": "beraafdgfdsgfdsgfdsjdshgkjdfssgfdsgfdsjdshgkjdfssgfdsgfdsjdshgkjdfshgjkfdhsjkgfdhsjkgdst",
-                        "id": 1
-                    },
-                    {"name": "samet", "id": 2},
-                    {"name": "fdsdfsafaf", "id": 2},
-                    {"name": "fdsa", "id": 2},
-                    {"name": "fdsdfas", "id": 2},
-                    {"name": "fd", "id": 2},
-                    {"name": "sasdffdsmet", "id": 2},
-                    {"name": "safdsmet", "id": 2},
-                    {"name": "afdsa", "id": 2},
-                    {"name": "dsafdsa", "id": 2},
-                    {"name": "fdsafds", "id": 2},
-                    {"name": "samfdsafsafdsaet", "id": 2},
-                    {"name": "safdsafdsafdsafdsamet", "id": 2},
-                    {"name": "safdsafdsafdsamet", "id": 2},
-                    {"name": "samfdsafdsafdsaet", "id": 2},
-                    {"name": "samfdsafdsafdsafdsaet", "id": 2},
-                    {"name": "safdsafdsfmet", "id": 2},
-                    {"name": "sadsafdsfdsmet", "id": 2},
-                    {"name": "safsdfsfmet", "id": 2},
-                    {"name": "samsdfsdfet", "id": 2},
-                    {"name": "fdsfsfdsafdsa", "id": 2},
+                optimizeModel: {id: null, name: null},
+                avoidsModel: {id: null, name: null},
+                avoids: [
+                    {id: "highways", name: "Otoban kullanma"},
+                    {id: "tolls", name: "Paralı yol kullanma"},
+                    {id: "minimizeHighways", name: "Otoban kullanımı minimum"},
+                    {id: "minimizeTolls", name: "Paralı yol kullanımı minimum"}
+                ],
+                optimizes: [
+                    {id: "time", name: "Minimum zaman"},
+                    {id: "timeWithTraffic", name: "Güncel trafik durumuna göre"}
                 ]
             }
         },
@@ -296,6 +399,15 @@
             },
             close() {
                 this.showDialog = false;
+                this.vendorsForSort = null;
+                this.vendors = null;
+                this.layerChanged(0, false);
+                this.layerChanged(1, false);
+                this.$refs.leafletMap.cleanData();
+                this.optimizeModel = {id: null, name: null};
+                this.avoidsModel = {id: null, name: null};
+                this.currentTab = 0;
+                this.panel = []
             },
             save() {
                 this.$validator.validateAll().then((result) => {
@@ -380,6 +492,7 @@
                 this.layerChanged(0, false);
 
                 this.$http.get("api/v1/order/getAllVendorsByOrderId/" + this.data._order.id).then((result) => {
+                    this.vendorsForSort = JSON.parse(JSON.stringify(result.data.data));
                     this.vendors = result.data.data;
                     this.initLeafletMap();
                 }).catch((error) => {
@@ -388,7 +501,7 @@
 
                 })
             },
-            saveWaypoints() {
+            saveRoute() {
 
             },
             initLeafletMap() {
@@ -404,11 +517,42 @@
                 this.$refs.leafletMap.layerChanged(layerId, active);
             },
             getOptimizedPath() {
-                this.$http.post('https://dev.virtualearth.net/REST/v1/Routes/Truck?key=AhWheMPRKfucF4QUSzDJ7avIMgpQDwL6t0C_NufIKUUeOJHwgpMiAWV3tE0Qhiw1', this.routingParameters).then((result) => {
-                    console.log(result)
-                }).catch((error) => {
-                    console.log(error);
-                }).finally(() => this.loading = false)
+                let vendorLen = this.vendorsForSort.length;
+                for (let i = 0; i < vendorLen - 1; i++) {
+                    let waypoints = [];
+                    waypoints[0] = {
+                        "latitude": this.vendorsForSort[i].location[0],
+                        "longitude": this.vendorsForSort[i].location[1]
+                    };
+                    waypoints[1] = {
+                        "latitude": this.vendorsForSort[i + 1].location[0],
+                        "longitude": this.vendorsForSort[i + 1].location[1]
+                    };
+
+                    this.routingParameters.waypoints = waypoints;
+                    this.routingParameters.avoid = this.avoidsModel.id;
+                    this.routingParameters.optimize = this.optimizeModel.id;
+                    this.$http.post('https://dev.virtualearth.net/REST/v1/Routes/Truck?key=AhWheMPRKfucF4QUSzDJ7avIMgpQDwL6t0C_NufIKUUeOJHwgpMiAWV3tE0Qhiw1', this.routingParameters).then((result) => {
+                        if (result.status <= 299) {
+                            this.$refs.leafletMap.setWaypoints(result.data.resourceSets[0].resources[0].routePath.line.coordinates);
+                            this.layerChanged(1, true);
+                        } else {
+                            console.log(result.data.statusDescription)
+                        }
+                    }).catch((error) => {
+                        console.log(error);
+                    }).finally(() => {
+                        this.loading = false;
+                    })
+                }
+            },
+            getOptimizedOrder() {
+                // TODO: use mapbox optimization API
+                let clonedVendors = JSON.parse(JSON.stringify(this.vendorsForSort));
+                let tmp = clonedVendors[0];
+                clonedVendors[0] = clonedVendors[1];
+                clonedVendors[1] = tmp;
+                this.vendorsForSort = clonedVendors;
             }
         },
         mounted() {
@@ -422,7 +566,7 @@
         }
     }
 </script>
-<style>
+<style scoped>
     #voyage_map {
         height: 450px;
     }
@@ -442,6 +586,8 @@
     }
 
     .draggable-list {
+        transform: scale(0.950);
+        transform-origin: center;
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
         flex-direction: column;
@@ -478,10 +624,30 @@
     .draggable-list-item:last-child {
         border-bottom-left-radius: .25rem;
         border-bottom-right-radius: .25rem;
+        margin-bottom: 1rem;
     }
 
     .draggable-ghost {
         opacity: 0.5;
         background: #c8ebfb;
+    }
+
+    .expansion-header {
+        font-weight: 400;
+        font-size: 1.3rem;
+    }
+
+    .parameter-input {
+        transform: scale(0.950);
+        transform-origin: center;
+        margin-top: 0 !important;
+    }
+
+    .parameter-input:last-child {
+        margin-bottom: 1rem;
+    }
+
+    .optimize-btn {
+        transform: scale(0.850);
     }
 </style>

@@ -1,16 +1,16 @@
 <template>
     <v-container fluid>
-        <voyage-management-table></voyage-management-table>
+        <completed-voyage-management-table></completed-voyage-management-table>
     </v-container>
 </template>
 
 <script>
-    import voyageManagementTable from '@/modules/main/voyage/components/completedVoyageManagementTable'
+    import completedVoyageManagementTable from '@/modules/main/voyage/components/completedVoyageManagementTable'
 
     export default {
         name: "VoyageManagement",
         components: {
-            voyageManagementTable
+            completedVoyageManagementTable
         }
     }
 </script>

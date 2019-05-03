@@ -210,7 +210,6 @@
 
         mounted() {
             this.getAllCustomers();
-            this.tmp();
         }
     }
 </script>
