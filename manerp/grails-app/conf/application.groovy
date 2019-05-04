@@ -22,6 +22,20 @@ manerp {
     domain {
         excludedFields = ['sysCompany'] as HashSet
     }
+    rest{
+        manerpPortal{
+            url = 'http://localhost:8091'
+        }
+    }
+    auth{
+        organizationId = "123"
+        restMethod {
+            synchronizeRedisWithDB = "api/v1/redis/synchronizeRedisWithDB"
+        }
+    }
+    routing {
+        key = "AhWheMPRKfucF4QUSzDJ7avIMgpQDwL6t0C_NufIKUUeOJHwgpMiAWV3tE0Qhiw1"
+    }
 }
 
 environments {
@@ -32,8 +46,22 @@ environments {
         }
         dataSource {
             dbCreate = 'update'
-            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
+//            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
+            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://localhost:5432/manerp'
         }
+        grails{
+            redis {
+                database = System.getenv('REDIS_DB')?.toInteger() ?: 1
+                host = System.getenv('REDIS_HOST') ?: '157.230.125.223'
+                port = System.getenv('REDIS_PORT')?.toInteger() ?: 6379
+                timeout = System.getenv('REDIS_TIMEOUT')?.toInteger() ?: 15000
+                poolConfig {
+                    maxIdle = System.getenv('REDIS_POOL_MAX_IDLE')?.toInteger() ?: 20
+                    doesnotexist = System.getenv('REDIS_POOL_DOES_NOT_EXIST')?.toBoolean() ?: true
+                }
+            }
+        }
+
     }
     production {
 
@@ -42,7 +70,8 @@ environments {
         }
         dataSource {
             dbCreate = 'update'
-            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
+//            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
+            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://localhost:5432/manerp'
         }
     }
 }

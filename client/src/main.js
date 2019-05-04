@@ -2,7 +2,10 @@ import Vue from 'vue'
 import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
-import {bus, http, i18n, store} from "manerp-vue-base"
+import base,{bus, http, i18n, store} from 'manerp-vue-base'
+import auth from 'manerp-vue-auth'
+
+base.use(auth);
 
 const langFiles = require.context("./../../client/src/modules/", true, /.*\/i18n\/(.*)\.json$/);
 langFiles.keys().forEach(function (fileName) {
@@ -41,11 +44,12 @@ Vue.directive('click-outside', {
 });
 
 //http.defaults.baseURL = "http://139.179.232.32:8082/";
-http.defaults.baseURL = "http://192.168.1.39:8082/";
+http.defaults.baseURL = "http://172.20.10.3:8082/";
 
 window.instance = new Vue({
     router,
     store,
     i18n,
+    bus,
     render: h => h(App),
 }).$mount('#app');

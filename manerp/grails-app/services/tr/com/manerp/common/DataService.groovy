@@ -6,22 +6,34 @@ import tr.com.manerp.auth.SaltGenerator
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.auth.User
 import tr.com.manerp.business.main.company.Company
+import tr.com.manerp.business.main.company.CompanyService
 import tr.com.manerp.business.main.company.Vendor
+import tr.com.manerp.business.main.company.VendorService
 import tr.com.manerp.business.main.order.Order
+import tr.com.manerp.business.main.order.OrderService
 import tr.com.manerp.business.main.order.OrderVendor
 import tr.com.manerp.business.main.order.VoyageOrder
+import tr.com.manerp.business.main.resource.DriverService
 import tr.com.manerp.business.main.resource.Staff
+import tr.com.manerp.business.main.resource.StaffService
 import tr.com.manerp.business.main.vehicle.SemiTrailer
+import tr.com.manerp.business.main.vehicle.SemiTrailerService
 import tr.com.manerp.business.main.vehicle.Vehicle
+import tr.com.manerp.business.main.vehicle.VehicleService
+import tr.com.manerp.business.main.vehicle.VehicleSpec
 import tr.com.manerp.business.main.voyage.Location
 import tr.com.manerp.business.main.voyage.Voyage
+import tr.com.manerp.business.main.voyage.VoyageService
 import tr.com.manerp.business.ref.RefCompanySector
+import tr.com.manerp.business.ref.RefCompanySectorService
 import tr.com.manerp.business.ref.RefStaffTitle
 import tr.com.manerp.business.ref.RefWorkingArea
+import tr.com.manerp.business.ref.RefWorkingAreaService
 import tr.com.manerp.business.sysref.SysrefCity
 import tr.com.manerp.business.sysref.SysrefCompanyType
 import tr.com.manerp.business.sysref.SysrefCountry
 import tr.com.manerp.business.sysref.SysrefDeliveryStatus
+import tr.com.manerp.business.sysref.SysrefDimensionUnit
 import tr.com.manerp.business.sysref.SysrefDistrict
 import tr.com.manerp.business.sysref.SysrefDriverState
 import tr.com.manerp.business.sysref.SysrefGender
@@ -33,11 +45,23 @@ import tr.com.manerp.business.sysref.SysrefVehicleOwner
 import tr.com.manerp.business.sysref.SysrefVehicleState
 import tr.com.manerp.business.sysref.SysrefVehicleType
 import tr.com.manerp.business.sysref.SysrefVoyageDirection
+import tr.com.manerp.business.sysref.SysrefWeightUnit
+
 import java.nio.charset.StandardCharsets
 
 @Transactional
 class DataService
 {
+    VoyageService voyageService
+    StaffService staffService
+    RefCompanySectorService refCompanySectorService
+    CompanyService companyService
+    VendorService vendorService
+    RefWorkingAreaService refWorkingAreaService
+    VehicleService vehicleService
+    SemiTrailerService semiTrailerService
+    OrderService orderService
+    DriverService driverService
 
     def initApplicationData()
     {
@@ -283,9 +307,9 @@ class DataService
             staffBerat.email = 'beratpostalci@gmail.com'
             staffBerat.drivingLicenseNumber = '314159'
             staffBerat.refStaffTitle = refStaffTitleDriver
-            staffBerat.sysrefDriverState = sysrefDriverStateIdle
             staffBerat.sysrefStaffContractType = sysrefStaffContractTypeKadrolu
-            staffBerat.save(flush: true, failOnError: true)
+
+            driverService.saveDriverWithState(staffBerat, SysrefDriverState.findByCode('IDLE'))
         }
 
         Staff staffMurat = Staff.findByFirstName('Muratcan')
@@ -303,10 +327,9 @@ class DataService
             staffMurat.email = 'muratcanbalikk@gmail.com'
             staffMurat.drivingLicenseNumber = '987654'
             staffMurat.refStaffTitle = refStaffTitleDriver
-            staffMurat.sysrefDriverState = sysrefDriverStateOnVoyage
             staffMurat.sysrefStaffContractType = sysrefStaffContractTypeSozlesmeli
 
-            staffMurat.save(flush: true, failOnError: true)
+            driverService.saveDriverWithState(staffMurat, SysrefDriverState.findByCode('IDLE'))
         }
 
         Staff staffTuna = Staff.findByFirstName('Tunahan')
@@ -325,7 +348,7 @@ class DataService
             staffTuna.refStaffTitle = refStaffTitleOp
             staffTuna.sysrefStaffContractType = sysrefStaffContractTypeSozlesmeli
 
-            staffTuna.save(flush: true, failOnError: true)
+            staffService.save(staffTuna)
         }
 
         Staff staffAli = Staff.findByFirstName('Ali')
@@ -345,7 +368,7 @@ class DataService
             staffAli.refStaffTitle = refStaffTitleOp
             staffAli.sysrefStaffContractType = sysrefStaffContractTypeKadrolu
 
-            staffAli.save(flush: true, failOnError: true)
+            staffService.save(staffAli)
         }
 
         RefCompanySector refCompanySectorGida = RefCompanySector.findByName('Gıda')
@@ -358,7 +381,7 @@ class DataService
             refCompanySectorGida.active = true
             refCompanySectorGida.sysCompany = sysCompanyBumerang
 
-            refCompanySectorGida.save(flush: true, failOnError: true)
+            refCompanySectorService.save(refCompanySectorGida)
         }
 
         Company customerCompanyPinar = Company.findByName('Pınar')
@@ -380,7 +403,7 @@ class DataService
             customerCompanyPinar.taxOffice = 'İzmir Ödemiş Vergi Dairesi'
             customerCompanyPinar.customerRepresentative = 'Samet Aybaba'
 
-            customerCompanyPinar.save(flush: true, failOnError: true)
+            companyService.save(customerCompanyPinar)
         }
 
         Vendor vendorPinarEsk = Vendor.findByTitle('Pınar Eskişehir Bayi')
@@ -403,7 +426,7 @@ class DataService
             vendorPinarEsk.company = customerCompanyPinar
             vendorPinarEsk.phone = '222 236 08 89'
 
-            vendorPinarEsk.save(flush: true, failOnError: true)
+            vendorService.save(vendorPinarEsk)
         }
 
         Vendor vendorPinarKemal = Vendor.findByTitle('Pınar Kemalpaşa Bayi')
@@ -426,7 +449,53 @@ class DataService
             vendorPinarKemal.company = customerCompanyPinar
             vendorPinarKemal.phone = '232 436 52 50'
 
-            vendorPinarKemal.save(flush: true, failOnError: true)
+            vendorService.save(vendorPinarKemal)
+        }
+
+        Vendor vendorPinarDuden = Vendor.findByTitle('Pınar Antalya Düden Bayi')
+        if ( vendorPinarDuden == null ) {
+
+            vendorPinarDuden = new Vendor()
+            vendorPinarDuden.setRandomCode()
+
+            Location location = new Location()
+            location.active = true
+            location.latitude = '36.855'
+            location.longitude = '30.780'
+            location.sysCompany = sysCompanyBumerang
+            vendorPinarDuden.location = location
+
+            vendorPinarDuden.sysCompany = sysCompanyBumerang
+            vendorPinarDuden.title = 'Pınar Antalya Düden Bayi'
+            vendorPinarDuden.active = true
+            vendorPinarDuden.address = 'Çağlayan Mahallesi, Barınaklar Blv. No:146, 07230 Muratpaşa/Antalya'
+            vendorPinarDuden.company = customerCompanyPinar
+            vendorPinarDuden.phone = '232 436 99 99'
+
+            vendorService.save(vendorPinarDuden)
+        }
+
+        Vendor vendorPinarAfyon = Vendor.findByTitle('Pınar Afyon Merkez Bayi')
+        if ( vendorPinarAfyon == null ) {
+
+            vendorPinarAfyon = new Vendor()
+            vendorPinarAfyon.setRandomCode()
+
+            Location location = new Location()
+            location.active = true
+            location.latitude = '38.756'
+            location.longitude = '30.538'
+            location.sysCompany = sysCompanyBumerang
+            vendorPinarAfyon.location = location
+
+            vendorPinarAfyon.sysCompany = sysCompanyBumerang
+            vendorPinarAfyon.title = 'Pınar Afyon Merkez Bayi'
+            vendorPinarAfyon.active = true
+            vendorPinarAfyon.address = 'Dumlupınar Mahallesi, İzmir Karayolu 8. Km. Anemon Afyon, Anemon Afyon İçinde, Afyonkarahisar Merkez, Afyonkarahisar, 03100 Afyonkarahisar Merkez/Afyonkarahisar'
+            vendorPinarAfyon.company = customerCompanyPinar
+            vendorPinarAfyon.phone = '232 888 31 33'
+
+            vendorService.save(vendorPinarAfyon)
         }
 
         Company customerCompanyKerevitas = Company.findByName('Kerevitaş')
@@ -448,7 +517,7 @@ class DataService
             customerCompanyKerevitas.taxNumber = 'VERGI-KRV112233'
             customerCompanyKerevitas.taxOffice = 'İstanbul Bağlariçi Vergi Dairesi'
 
-            customerCompanyKerevitas.save(flush: true, failOnError: true)
+            companyService.save(customerCompanyKerevitas)
         }
 
         Vendor vendorKerevitasAdana = Vendor.findByTitle('Kerevitaş Adana Bölge Müdürlüğü')
@@ -471,7 +540,7 @@ class DataService
             vendorKerevitasAdana.company = customerCompanyKerevitas
             vendorKerevitasAdana.phone = '0 322 428 11 56 '
 
-            vendorKerevitasAdana.save(flush: true, failOnError: true)
+            vendorService.save(vendorKerevitasAdana)
         }
 
         Vendor vendorKerevitasAnkara = Vendor.findByTitle('Kerevitaş Ankara Bölge Müdürlüğü')
@@ -494,7 +563,7 @@ class DataService
             vendorKerevitasAnkara.company = customerCompanyKerevitas
             vendorKerevitasAnkara.phone = '0 312 387 08 01'
 
-            vendorKerevitasAnkara.save(flush: true, failOnError: true)
+            vendorService.save(vendorKerevitasAnkara)
         }
 
         RefWorkingArea refWorkingAreaEge = RefWorkingArea.findByName('Ege Bölgesi')
@@ -507,7 +576,7 @@ class DataService
             refWorkingAreaEge.code = 'EGE'
             refWorkingAreaEge.description = 'Ege Bölgesinde çalışacak olan araçlar'
 
-            refWorkingAreaEge.save(flush: true, failOnError: true)
+            refWorkingAreaService.save(refWorkingAreaEge)
         }
 
         SysrefVehicleType sysrefVehicleTypeCekici = SysrefVehicleType.findByName('Çekici')
@@ -575,12 +644,56 @@ class DataService
             sysrefVehicleOwnerKiralik.save(flush: true, failOnError: true)
         }
 
+        SysrefDimensionUnit sysrefDimensionUnitMeter = SysrefDimensionUnit.findByName("meter")
+        if ( sysrefDimensionUnitMeter == null ) {
+
+            sysrefDimensionUnitMeter = new SysrefDimensionUnit()
+            sysrefDimensionUnitMeter.name = "meter"
+            sysrefDimensionUnitMeter.code = "m"
+            sysrefDimensionUnitMeter.active = true
+
+            sysrefDimensionUnitMeter.save(flush: true, failOnError: true)
+        }
+
+        SysrefDimensionUnit sysrefDimensionUnitFoot = SysrefDimensionUnit.findByName("foot")
+        if ( sysrefDimensionUnitFoot == null ) {
+
+            sysrefDimensionUnitFoot = new SysrefDimensionUnit()
+            sysrefDimensionUnitFoot.name = "foot"
+            sysrefDimensionUnitFoot.code = "ft"
+            sysrefDimensionUnitFoot.active = true
+
+            sysrefDimensionUnitFoot.save(flush: true, failOnError: true)
+        }
+
+        SysrefWeightUnit sysrefWeightUnitKg = SysrefWeightUnit.findByName("kilogram")
+        if ( sysrefWeightUnitKg == null ) {
+
+            sysrefWeightUnitKg = new SysrefWeightUnit()
+            sysrefWeightUnitKg.name = "kilogram"
+            sysrefWeightUnitKg.code = "kg"
+            sysrefWeightUnitKg.active = true
+
+            sysrefWeightUnitKg.save(flush: true, failOnError: true)
+        }
+
+        SysrefWeightUnit sysrefWeightUnitPound = SysrefWeightUnit.findByName("pound")
+        if ( sysrefWeightUnitPound == null ) {
+
+            sysrefWeightUnitPound = new SysrefWeightUnit()
+            sysrefWeightUnitPound.name = "pound"
+            sysrefWeightUnitPound.code = "lb"
+            sysrefWeightUnitPound.active = true
+
+            sysrefWeightUnitPound.save(flush: true, failOnError: true)
+        }
+
+
         Vehicle vehicle1 = Vehicle.findByPlateNumber('35 MAS 321')
         if ( vehicle1 == null ) {
 
             vehicle1 = new Vehicle()
             vehicle1.setRandomCode()
-            vehicle1.sysrefVehicleState = sysrefVehicleStateIdle
             vehicle1.sysCompany = sysCompanyBumerang
             vehicle1.active = true
             vehicle1.plateNumber = '35 MAS 321'
@@ -601,7 +714,19 @@ class DataService
             vehicle1.operationInsuranceNotification = true
             vehicle1.annualInsurance = true
 
-            vehicle1.save(flush: true, failOnError: true)
+            VehicleSpec spec = new VehicleSpec()
+            spec.sysrefDimensionUnit = sysrefDimensionUnitMeter
+            spec.sysrefWeightUnit = sysrefWeightUnitKg
+            spec.vehicleHeight = 4
+            spec.vehicleWeight = 25000
+            spec.vehicleWidth = 3
+            spec.vehicleLength = 8
+            spec.vehicleAxles = 4
+            spec.vehicleTrailers = 1
+
+            vehicle1.vehicleSpec = spec
+
+            vehicleService.saveVehicleWithState(vehicle1, SysrefVehicleState.findByCode('IDLE'))
         }
 
         Vehicle vehicle2 = Vehicle.findByPlateNumber('06 AS 8367')
@@ -609,7 +734,6 @@ class DataService
 
             vehicle2 = new Vehicle()
             vehicle2.setRandomCode()
-            vehicle2.sysrefVehicleState = sysrefVehicleStateOnVoyage
             vehicle2.sysCompany = sysCompanyBumerang
             vehicle2.active = true
             vehicle2.plateNumber = '06 AS 8367'
@@ -630,7 +754,19 @@ class DataService
             vehicle2.operationInsuranceNotification = true
             vehicle2.annualInsurance = true
 
-            vehicle2.save(flush: true, failOnError: true)
+            VehicleSpec spec = new VehicleSpec()
+            spec.sysrefDimensionUnit = sysrefDimensionUnitMeter
+            spec.sysrefWeightUnit = sysrefWeightUnitKg
+            spec.vehicleHeight = 4
+            spec.vehicleWeight = 30000
+            spec.vehicleWidth = 3
+            spec.vehicleLength = 8
+            spec.vehicleAxles = 8
+            spec.vehicleTrailers = 1
+
+            vehicle2.vehicleSpec = spec
+
+            vehicleService.saveVehicleWithState(vehicle2, SysrefVehicleState.findByCode('IDLE'))
         }
 
         SemiTrailer trailer1 = SemiTrailer.findByPlateNumber('35 963 852')
@@ -644,7 +780,7 @@ class DataService
             trailer1.name = 'Çekici römorku'
             trailer1.brand = 'Volvo'
 
-            trailer1.save(flush: true, failOnError: true)
+            semiTrailerService.saveVehicleWithState(trailer1, SysrefVehicleState.findByCode('IDLE'))
         }
 
         SysrefRevenueType sysrefRevenueTypeTicari = SysrefRevenueType.findByName('Ticari')
@@ -699,9 +835,9 @@ class DataService
             orderPinar.sysrefRevenueType = sysrefRevenueTypeTicari
             orderPinar.workOrderNo = 'SIPARIS-111222'
             orderPinar.billingNo = 'FATURA-111222'
-            orderPinar.sysrefOrderState = sysrefOrderStateComp
+            orderPinar.sysrefOrderState = sysrefOrderStateWait
 
-            orderPinar.save(flush: true, failOnError: true)
+            orderService.save(orderPinar)
         }
 
         OrderVendor orderVendorPinarEsk = OrderVendor.findByVendor(vendorPinarEsk)
@@ -726,6 +862,30 @@ class DataService
             orderVendorPinarKemal.sysCompany = sysCompanyBumerang
             orderVendorPinarKemal.setRandomCode()
             orderVendorPinarKemal.save(flush: true, failOnError: true)
+        }
+
+        OrderVendor orderVendorPinarDuden = OrderVendor.findByVendor(vendorPinarDuden)
+        if ( orderVendorPinarDuden == null ) {
+
+            orderVendorPinarDuden = new OrderVendor()
+            orderVendorPinarDuden._order = orderPinar
+            orderVendorPinarDuden.vendor = vendorPinarDuden
+            orderVendorPinarDuden.active = true
+            orderVendorPinarDuden.sysCompany = sysCompanyBumerang
+            orderVendorPinarDuden.setRandomCode()
+            orderVendorPinarDuden.save(flush: true, failOnError: true)
+        }
+
+        OrderVendor orderVendorPinarAfyon = OrderVendor.findByVendor(vendorPinarAfyon)
+        if ( orderVendorPinarAfyon == null ) {
+
+            orderVendorPinarAfyon = new OrderVendor()
+            orderVendorPinarAfyon._order = orderPinar
+            orderVendorPinarAfyon.vendor = vendorPinarAfyon
+            orderVendorPinarAfyon.active = true
+            orderVendorPinarAfyon.sysCompany = sysCompanyBumerang
+            orderVendorPinarAfyon.setRandomCode()
+            orderVendorPinarAfyon.save(flush: true, failOnError: true)
         }
 
         SysrefTransportationType sysrefTransportationTypeGidis = SysrefTransportationType.findByName('Komple')
@@ -837,7 +997,7 @@ class DataService
             voyagePinar.setRandomCode()
             voyagePinar.sysCompany = sysCompanyBumerang
             voyagePinar.active = true
-            voyagePinar.driver = staffBerat
+            voyagePinar.driver = staffMurat
             voyagePinar.vehicle = vehicle1
             voyagePinar.trailer = trailer1
             voyagePinar.sysrefTransportationType = sysrefTransportationTypeGidis
@@ -849,7 +1009,7 @@ class DataService
             voyagePinar.deliveryNoteNo = 'TESLIMAT-NOT-111222333'
             voyagePinar.sasNumber = 'SAS-111222333'
 
-            voyagePinar.save(flush: true, failOnError: true)
+            voyageService.save(voyagePinar)
         }
 
         VoyageOrder voyageOrder = VoyageOrder.findByVoyage(voyagePinar)

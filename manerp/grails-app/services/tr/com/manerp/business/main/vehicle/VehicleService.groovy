@@ -88,8 +88,17 @@ class VehicleService extends BaseService
                 description                   : it?.description,
                 operationInsuranceNotification: it?.operationInsuranceNotification,
                 annualInsurance               : it?.annualInsurance,
-                height                        : it?.height,
-                weight                        : it?.weight
+                vehicleSpec                   : it.vehicleSpec ? [
+                    id             : it.vehicleSpec.id,
+                    dimensionUnit  : it?.vehicleSpec?.sysrefDimensionUnitName,
+                    weightUnit     : it?.vehicleSpec?.sysrefWeightUnitName,
+                    vehicleHeight  : it?.vehicleSpec?.vehicleHeight,
+                    vehicleWeight  : it?.vehicleSpec?.vehicleWeight,
+                    vehicleWidth   : it?.vehicleSpec?.vehicleWidth,
+                    vehicleLength  : it?.vehicleSpec?.vehicleLength,
+                    vehicleAxles   : it?.vehicleSpec?.vehicleAxles,
+                    vehicleTrailers: it?.vehicleSpec?.vehicleTrailers
+                ] : null
             ]
         }
 
@@ -121,8 +130,17 @@ class VehicleService extends BaseService
             description                   : data?.description,
             operationInsuranceNotification: data?.operationInsuranceNotification,
             annualInsurance               : data?.annualInsurance,
-            height                        : data?.height,
-            weight                        : data?.weight
+            vehicleSpec                   : data.vehicleSpec ? [
+                id             : data.vehicleSpec.id,
+                dimensionUnit  : data?.vehicleSpec?.sysrefDimensionUnitName,
+                weightUnit     : data?.vehicleSpec?.sysrefWeightUnitName,
+                vehicleHeight  : data?.vehicleSpec?.vehicleHeight,
+                vehicleWeight  : data?.vehicleSpec?.vehicleWeight,
+                vehicleWidth   : data?.vehicleSpec?.vehicleWidth,
+                vehicleLength  : data?.vehicleSpec?.vehicleLength,
+                vehicleAxles   : data?.vehicleSpec?.vehicleAxles,
+                vehicleTrailers: data?.vehicleSpec?.vehicleTrailers
+            ] : null
         ]
     }
 }

@@ -100,6 +100,7 @@
 </template>
 
 <script>
+    import AuthService from 'manerp-vue-auth/src/service/AuthService'
     export default {
         name: "AppToolbar",
 
@@ -154,8 +155,7 @@
             },
 
             logout () {
-                this.$store.commit('shared/change', false);
-                this.$router.push({ name: 'login' })
+                AuthService.logout()
             },
 
             search(state) {

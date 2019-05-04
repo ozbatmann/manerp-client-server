@@ -19,23 +19,23 @@ class OrderController extends BaseController
 
     def orderService
 
-//    def getAllVendorsByOrderId(String id)
-//    {
-//        ManeResponse maneResponse = new ManeResponse()
-//
-//        try {
-//            List result = orderService.getAllVendorsByOrderId(id)
-//            maneResponse.data = result
-//
-//        } catch (Exception ex) {
-//
-//            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-//            maneResponse.message = ex.getMessage()
-//            ex.printStackTrace()
-//        }
-//
-//        render maneResponse
-//    }
+    def getAllVendorsByOrderId(String id)
+    {
+        ManeResponse maneResponse = new ManeResponse()
+
+        try {
+            List result = orderService.getAllVendorsByOrderId(id)
+            maneResponse.data = result
+
+        } catch (Exception ex) {
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
+    }
 
     def index()
     {

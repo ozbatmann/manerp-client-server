@@ -2,6 +2,7 @@
     <div>
         <v-app>
             <router-view></router-view>
+            <vue-snotify></vue-snotify>
         </v-app>
     </div>
 </template>
@@ -9,7 +10,7 @@
 <script>
     export default {
         name: 'App',
-        data () {
+        data() {
             return {
                 //
             }
@@ -32,22 +33,22 @@
     }
 
     .toolbar-shadow {
-        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10) !important;
-        -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10) !important;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10) !important;
+        -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10) !important;
     }
 
     .max-lines-2 {
-        line-height: 1.5 !important;        /* fallback */
+        line-height: 1.5 !important; /* fallback */
         height: 3em !important;
     }
 
     .v-shadow-lg {
-        box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11),
-        0 5px 15px 0 rgba(0,0,0,0.08) !important;
-        -webkit-box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11),
-        0 5px 15px 0 rgba(0,0,0,0.08) !important;
-        -moz-box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11),
-        0 5px 15px 0 rgba(0,0,0,0.08) !important;
+        box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11),
+        0 5px 15px 0 rgba(0, 0, 0, 0.08) !important;
+        -webkit-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11),
+        0 5px 15px 0 rgba(0, 0, 0, 0.08) !important;
+        -moz-box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11),
+        0 5px 15px 0 rgba(0, 0, 0, 0.08) !important;
     }
 
     .m-active-breadcrumb {

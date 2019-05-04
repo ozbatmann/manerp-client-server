@@ -16,5 +16,8 @@ export default {
     deliveryNoteNo: "deliveryNoteNo",
     sasNumber: "sasNumber",
     sysrefDeliveryStatus: "sysrefDeliveryStatus",
-    active: "active"
+    active: "active",
+    calculatedRoute: "calculatedRoute",
+    optimizationParameters: 'optimizationParameters',
+    sortedVendors: 'sortedVendors'
 }

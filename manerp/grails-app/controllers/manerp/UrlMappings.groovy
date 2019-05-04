@@ -13,8 +13,12 @@ class UrlMappings
             action = [GET: "index", POST: "save", PUT: "update", PATCH: "patch", DELETE: "delete"]
         }
 
+        "/api/$namespace/$controller/action"() {
+            action = [POST: "index"]
+        }
+
         // TODO: find better solution. conflict with show
-        "/api/$namespace/$controller/getAllVendorsByOrderId"() {
+        "/api/$namespace/$controller/getAllVendorsByOrderId/$id"() {
             action = [GET: "getAllVendorsByOrderId"]
         }
 

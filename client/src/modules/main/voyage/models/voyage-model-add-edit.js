@@ -16,5 +16,8 @@ export default {
     deliveryNoteNo: null,
     sasNumber: null,
     sysrefDeliveryStatus: null,
-    active: true
+    active: true,
+    calculatedRoute: [],
+    optimizationParameters: null,
+    sortedVendors: []
 }

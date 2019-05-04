@@ -7,6 +7,7 @@ import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.business.ref.RefStaffTitle
+import tr.com.manerp.business.sysref.SysrefDriverState
 import tr.com.manerp.commands.controller.common.PaginationCommand
 import tr.com.manerp.commands.controller.common.ShowCommand
 
@@ -81,7 +82,7 @@ class DriverController extends BaseController
             driver.setRandomCode()
             driver.active = true
             driver.refStaffTitle = RefStaffTitle.findByCode('DRV')
-            driverService.save(driver)
+            driverService.saveDriverWithState(driver, SysrefDriverState.findByCode('IDLE'))
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = driver.id
             maneResponse.message = 'Şoför başarıyla kaydedildi.'

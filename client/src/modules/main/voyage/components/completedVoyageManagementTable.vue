@@ -132,7 +132,6 @@
             },
             editItem(item) {
                 let self = this;
-
                 this.$http.put('api/v1/voyage/', item)
                     .then(result => {
                         self.displaySnackMessage(result);

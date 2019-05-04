@@ -1,3 +1,4 @@
+
 <!-- Login component -->
 <!-- Handles authentication and login system -->
 <template>
@@ -69,7 +70,7 @@
     export default {
         name: "MLogin",
 
-        data() {
+        data () {
             return {
                 // An Object that holds
                 // username information of the user
@@ -87,23 +88,24 @@
         },
 
         methods: {
-            login() {
+            login () {
                 let loginData = {
                     username: this.username,
                     password: this.password
                 };
 
-                this.$http.post('v1/auth/signIn', loginData)
+                this.$http.post('http://localhost:8082/api/v1/auth/login', loginData)
                     .then(result => {
-                        if (result.data.status === 202) {
-
-                            console.log(this.$store)
-                            this.$store.commit('shared/change', true)
-                            this.$router.push({name: 'overview'})
+                        if(result.data.status === 200){
+                            console.log(this.$store);
+                            this.$store.state.shared['username'] = result.data.data.user.username
+                            this.$store.state.shared['organization'] = result.data.data.organization
+                            this.$bus.$emit("userLoaded",result)
+                            this.$router.push({name:'overview'})
                         }
                         console.log(result)
                     }).catch(error => {
-                    console.log(`Error is here: ${error}`)
+                        console.log(`Error is here: ${error}`)
                 })
             }
         }

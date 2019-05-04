@@ -55,8 +55,10 @@ class StaffService extends BaseService
         List formattedData = data.collect {
             [
                 id                     : it.id,
+                sysrefDriverState      : it.sysrefDriverState ? [id: it.sysrefDriverState.id, name: it.sysrefDriverState.name] : null,
                 drivingLicenseNumber   : it?.drivingLicenseNumber,
                 dateCreated            : it?.dateCreated,
+                fullName               : it.getFullName(),
                 firstName              : it?.firstName,
                 middleName             : it?.middleName,
                 lastName               : it?.lastName,
@@ -86,8 +88,10 @@ class StaffService extends BaseService
         // TODO: handle photo, photoName, photoMimeType
         return [
             id                     : data.id,
+            sysrefDriverState      : data.sysrefDriverState ? [id: data.sysrefDriverState.id, name: data.sysrefDriverState.name] : null,
             drivingLicenseNumber   : data?.drivingLicenseNumber,
             dateCreated            : data?.dateCreated,
+            fullName               : data.getFullName(),
             firstName              : data?.firstName,
             middleName             : data?.middleName,
             lastName               : data?.lastName,

@@ -60,14 +60,20 @@ dependencies {
     compile "org.grails.plugins:views-json-templates"
 
     // postgresql
-    compile 'org.grails.plugins:postgresql-extensions:6.1.0'
+    compile 'org.grails.plugins:postgresql-extensions:4.8.0'
     runtime 'org.postgresql:postgresql:42.2.2'
 
     // manerp response plugin
     compile "tr.com.manerp:manerp-response-plugin:0.4.4"
+    // manerp auth plugin
+    compile "tr.com.manerp:manerp-auth-plugin:0.4.7"
 
     // encryption plugin
     compile group: 'at.favre.lib', name: 'bcrypt', version: '0.7.0'
+
+    compile "org.grails:grails-datastore-rest-client"
+
+
 }
 
 bootRun {

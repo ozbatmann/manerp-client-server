@@ -2,6 +2,7 @@ Thumbs.db
 .DS_Store
 .gradle
 manerp/build/
+manerp/out/
 out/
 .idea
 *.iml

@@ -35,8 +35,7 @@ class Vehicle implements BusinessDomain
     String description
     Boolean operationInsuranceNotification
     Boolean annualInsurance
-    Double height
-    Double weight
+    VehicleSpec vehicleSpec
 
     static hasMany = [
         vehicleDocuments: VehicleDocument
@@ -65,9 +64,8 @@ class Vehicle implements BusinessDomain
         description nullable: true, blank: true, unique: false
         operationInsuranceNotification nullable: true, unique: false
         annualInsurance nullable: true, unique: false
-        sysrefVehicleState nullable: true, unique: false
-        height nullable: true, unique: false
-        weight nullable: true, unique: false
+        sysrefVehicleState nullable: false, unique: false
+        vehicleSpec nullable: true, unique: false
     }
 
     static mapping = {

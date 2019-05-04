@@ -60,7 +60,10 @@ class Staff implements BusinessDomain, Person
                 obj?.refStaffTitle?.code == 'DRV' ? val != null : true
             }
         sysrefDrivingType nullable: true, unique: false
-        sysrefDriverState nullable: true, unique: false
+        sysrefDriverState nullable: true, unique: false,
+            validator: { val, obj ->
+                obj?.refStaffTitle?.code == 'DRV' ? val != null : true
+            }
     }
 
     static mapping = {

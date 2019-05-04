@@ -9,6 +9,7 @@ import tr.com.manerp.base.controller.BaseController
 import tr.com.manerp.commands.controller.common.ShowCommand
 import tr.com.manerp.commands.controller.voyage.VoyagePaginationCommand
 import tr.com.manerp.commands.controller.voyage.VoyageSaveCommand
+import tr.com.manerp.commands.controller.voyage.VoyageUpdateCommand
 
 class VoyageController extends BaseController
 {
@@ -21,7 +22,6 @@ class VoyageController extends BaseController
     // TODO: filtering with company and order
     def index()
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
@@ -81,7 +81,6 @@ class VoyageController extends BaseController
 
     def save(VoyageSaveCommand cmd)
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
@@ -93,10 +92,12 @@ class VoyageController extends BaseController
             }
 
             Voyage voyage = new Voyage()
+            voyage.startDate = new Date()
             cmd >> voyage
             voyage.active = true
             voyage.setRandomCode()
-            voyageService.save(voyage)
+
+            voyageService.saveVoyageWithOrder(voyage, cmd._order)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = voyage.id
             maneResponse.message = 'Sevkiyat başarıyla kaydedildi.'
@@ -117,10 +118,10 @@ class VoyageController extends BaseController
         render maneResponse
     }
 
-    def update(VoyageSaveCommand cmd)
+    def update(VoyageUpdateCommand cmd)
     {
-
         ManeResponse maneResponse = new ManeResponse()
+        Voyage voyage
 
         try {
 
@@ -130,9 +131,19 @@ class VoyageController extends BaseController
                 throw new Exception(maneResponse.message)
             }
 
-            Voyage voyage = new Voyage()
+            if ( !cmd.validate() ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = parseValidationErrors(cmd.errors)
+                throw new Exception(maneResponse.message)
+            }
+
+            voyage = Voyage.get(cmd.id)
+            voyage.startDate = new Date()
             cmd >> voyage
-            voyageService.save(voyage)
+            voyage.active = true
+            voyage.setRandomCode()
+
+            voyageService.saveVoyageWithOrder(voyage, cmd._order)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Sevkiyat başarıyla güncellendi.'
 
@@ -144,11 +155,10 @@ class VoyageController extends BaseController
 
         } catch (Exception ex) {
 
-            //TODO
-//            if ( !voyage ) {
-//                maneResponse.statusCode = StatusCode.BAD_REQUEST
-//                maneResponse.message = 'Güncellenmek istenen sevkiyat sistemde bulunmamaktadır.'
-//            }
+            if ( !voyage ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = 'Güncellenmek istenen sevkiyat sistemde bulunmamaktadır.'
+            }
 
             if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
             maneResponse.message = maneResponse.message ?: ex.getMessage()
