@@ -34,6 +34,7 @@ class Voyage implements BusinessDomain
     SysrefDeliveryStatus sysrefDeliveryStatus
     OptimizationParameters optimizationParameters
     Map calculatedRoute // calculated according to optimizationParameters.waypoints
+    Map sortedVendors // sorted vendors json array
 
 //    static hasMany = [orders: Order] many-to-many relationship with Voyage defined in VoyageOrder cross domain
     static hasMany = [
@@ -58,12 +59,15 @@ class Voyage implements BusinessDomain
         sasNumber nullable: true, blank: true, unique: false
         sysrefDeliveryStatus nullable: true, unique: false
         optimizationParameters nullable: true, unique: false
-        calculatedRoute nullable: true, blank: true, unique: false
+        calculatedRoute nullable: true, blank: true
+        sortedVendors nullable: true, blank: true
     }
 
     static mapping = {
         routes cascade: 'all-delete-orphan'
+        optimizationParameters cascade: 'all-delete-orphan'
         calculatedRoute type: JsonbMapType
+        sortedVendors type: JsonbMapType
     }
 
     // TODO: change

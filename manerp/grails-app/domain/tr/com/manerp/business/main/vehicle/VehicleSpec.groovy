@@ -14,6 +14,7 @@ class VehicleSpec implements BaseDomain
     Double vehicleLength
     Integer vehicleAxles
     Integer vehicleTrailers
+    String vehicleHazardousMaterials
 
     static constraints = {
         vehicleHeight scale: 4

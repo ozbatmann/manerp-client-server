@@ -130,7 +130,7 @@ class VehicleService extends BaseService
             description                   : data?.description,
             operationInsuranceNotification: data?.operationInsuranceNotification,
             annualInsurance               : data?.annualInsurance,
-            vehicleSpec                   : data.spec ? [
+            vehicleSpec                   : data.vehicleSpec ? [
                 id             : data.vehicleSpec.id,
                 dimensionUnit  : data?.vehicleSpec?.sysrefDimensionUnitName,
                 weightUnit     : data?.vehicleSpec?.sysrefWeightUnitName,

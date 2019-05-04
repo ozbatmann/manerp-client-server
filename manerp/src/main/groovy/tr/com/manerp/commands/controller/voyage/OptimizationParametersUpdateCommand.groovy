@@ -4,6 +4,8 @@ import grails.validation.Validateable
 import tr.com.manerp.business.main.vehicle.VehicleSpec
 import tr.com.manerp.business.main.voyage.Location
 import tr.com.manerp.business.main.voyage.Voyage
+import tr.com.manerp.business.sysref.SysrefDimensionUnit
+import tr.com.manerp.business.sysref.SysrefWeightUnit
 import tr.com.manerp.optimization.OptimizationParameters
 
 class OptimizationParametersUpdateCommand implements Validateable
@@ -14,17 +16,16 @@ class OptimizationParametersUpdateCommand implements Validateable
     String optimize
     String routeAttributes
     String distanceUnit
-    VehicleSpec vehicleSpec
-    List<Location> waypoints
+    Map waypoints
 
-//    SysrefDimensionUnit sysrefDimensionUnit
-//    SysrefWeightUnit sysrefWeightUnit
-//    Double vehicleHeight
-//    Double vehicleWeight
-//    Double vehicleWidth
-//    Double vehicleLength
-//    Integer vehicleAxles
-//    Integer vehicleTrailers
+    SysrefDimensionUnit sysrefDimensionUnit
+    SysrefWeightUnit sysrefWeightUnit
+    Double vehicleHeight
+    Double vehicleWeight
+    Double vehicleWidth
+    Double vehicleLength
+    Integer vehicleAxles
+    Integer vehicleTrailers
 
 
     static constraints = {
@@ -33,11 +34,20 @@ class OptimizationParametersUpdateCommand implements Validateable
 
     OptimizationParameters rightShift(OptimizationParameters parameters)
     {
-        parameters.avoid = this.avoid ?: null
-        parameters.optimize = this.optimize ?: null
-        parameters.routeAttributes = this.routeAttributes ?: null
-        parameters.distanceUnit = this.distanceUnit ?: null
-        parameters.vehicleSpec = this.vehicleSpec ?: null
+        if ( this.avoid ) parameters.avoid = this.avoid ?: null
+        if ( this.optimize ) parameters.optimize = this.optimize ?: null
+        if ( this.routeAttributes ) parameters.routeAttributes = this.routeAttributes ?: null
+        if ( this.distanceUnit ) parameters.distanceUnit = this.distanceUnit ?: null
+        if ( this.waypoints ) parameters.waypoints = this.waypoints ?: null
+
+        if ( this.vehicleHeight ) parameters.vehicleSpec.vehicleHeight = this.vehicleHeight
+        if ( this.vehicleWeight ) parameters.vehicleSpec.vehicleWeight = this.vehicleWeight
+        if ( this.vehicleWidth ) parameters.vehicleSpec.vehicleWidth = this.vehicleWidth
+        if ( this.vehicleLength ) parameters.vehicleSpec.vehicleLength = this.vehicleLength
+        if ( this.vehicleAxles ) parameters.vehicleSpec.vehicleAxles = this.vehicleAxles
+        if ( this.vehicleTrailers ) parameters.vehicleSpec.vehicleTrailers = this.vehicleTrailers
+
+        parameters.vehicleSpec.save(flush: true, failOnError: true)
 
         parameters
     }

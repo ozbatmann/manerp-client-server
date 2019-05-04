@@ -25,6 +25,7 @@ class VoyageUpdateCommand implements Validateable
     String transportWaybillNo
     String deliveryNoteNo
     String sasNumber
+    Map calculatedRoute
 
     static constraints = {
         id nullable: false, blank: false, maxSize: 32
@@ -32,17 +33,17 @@ class VoyageUpdateCommand implements Validateable
 
     Voyage rightShift(Voyage voyage)
     {
-        voyage.vehicle = this.vehicle
-        voyage.driver = this.driver
-        voyage.trailer = this.trailer
-        voyage.sysrefTransportationType = this.sysrefTransportationType
-        voyage.sysrefVoyageDirection = this.sysrefVoyageDirection
-        voyage.substitudeDriver = this.substitudeDriver
-        voyage.transportWaybillNo = this.transportWaybillNo
-        voyage.deliveryNoteNo = this.deliveryNoteNo
-        voyage.sasNumber = this.sasNumber
-        voyage.sysrefDeliveryStatus = this.sysrefDeliveryStatus
-
+        if ( this.vehicle ) voyage.vehicle = this.vehicle
+        if ( this.driver ) voyage.driver = this.driver
+        if ( this.trailer ) voyage.trailer = this.trailer
+        if ( this.sysrefTransportationType ) voyage.sysrefTransportationType = this.sysrefTransportationType
+        if ( this.sysrefVoyageDirection ) voyage.sysrefVoyageDirection = this.sysrefVoyageDirection
+        if ( this.substitudeDriver ) voyage.substitudeDriver = this.substitudeDriver
+        if ( this.transportWaybillNo ) voyage.transportWaybillNo = this.transportWaybillNo
+        if ( this.deliveryNoteNo ) voyage.deliveryNoteNo = this.deliveryNoteNo
+        if ( this.sasNumber ) voyage.sasNumber = this.sasNumber
+        if ( this.sysrefDeliveryStatus ) voyage.sysrefDeliveryStatus = this.sysrefDeliveryStatus
+        if ( this.calculatedRoute ) voyage.calculatedRoute = calculatedRoute
         voyage
     }
 }

@@ -1,8 +1,6 @@
 package tr.com.manerp.commands.controller.voyage
 
 import grails.validation.Validateable
-import tr.com.manerp.auth.SysCompany
-import tr.com.manerp.business.main.company.Company
 import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.resource.Staff
 import tr.com.manerp.business.main.vehicle.SemiTrailer
@@ -11,6 +9,7 @@ import tr.com.manerp.business.main.voyage.Voyage
 import tr.com.manerp.business.sysref.SysrefDeliveryStatus
 import tr.com.manerp.business.sysref.SysrefTransportationType
 import tr.com.manerp.business.sysref.SysrefVoyageDirection
+import tr.com.manerp.optimization.OptimizationParameters
 
 class VoyageSaveCommand implements Validateable
 {
@@ -25,6 +24,10 @@ class VoyageSaveCommand implements Validateable
     String transportWaybillNo
     String deliveryNoteNo
     String sasNumber
+    Map<List, List> calculatedRoute
+    Map sortedVendors
+    Map waypoints
+    OptimizationParameters optimizationParameters
 
     static constraints = {
 
@@ -42,6 +45,9 @@ class VoyageSaveCommand implements Validateable
         voyage.deliveryNoteNo = this.deliveryNoteNo
         voyage.sasNumber = this.sasNumber
         voyage.sysrefDeliveryStatus = this.sysrefDeliveryStatus
+        voyage.calculatedRoute = this.calculatedRoute
+        voyage.optimizationParameters = this.optimizationParameters
+        voyage.sortedVendors = this.sortedVendors
 
         voyage
     }

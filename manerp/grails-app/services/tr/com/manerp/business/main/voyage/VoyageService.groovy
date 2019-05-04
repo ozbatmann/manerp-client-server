@@ -7,6 +7,7 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
 import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.order.VoyageOrder
+import tr.com.manerp.business.sysref.SysrefDeliveryStatus
 import tr.com.manerp.business.sysref.SysrefDriverState
 import tr.com.manerp.business.sysref.SysrefVehicleState
 import tr.com.manerp.commands.controller.common.PaginationCommand
@@ -70,7 +71,11 @@ class VoyageService extends BaseService
     def saveVoyageWithOptimizationParameters(Voyage voyage, OptimizationParameters parameters)
     {
         voyage.optimizationParameters = parameters
-        setDriverAndVehicleStateOnVoyage(voyage)
+        if ( voyage.sysrefDeliveryStatus == SysrefDeliveryStatus.findByCode("BOS") ) {
+            setDriverAndVehicleStateIdle(voyage)
+        } else {
+            setDriverAndVehicleStateOnVoyage(voyage)
+        }
         save(voyage)
     }
 
@@ -83,8 +88,11 @@ class VoyageService extends BaseService
         voyageOrder.setRandomCode()
 
         save(voyage)
-
-        setDriverAndVehicleStateOnVoyage(voyage)
+        if ( voyage.sysrefDeliveryStatus == SysrefDeliveryStatus.findByCode("BOS") ) {
+            setDriverAndVehicleStateIdle(voyage)
+        } else {
+            setDriverAndVehicleStateOnVoyage(voyage)
+        }
         voyageOrder.save(flush: true, failOnError: true)
     }
 
@@ -122,7 +130,19 @@ class VoyageService extends BaseService
             driver                  : data.driver ? [id: data.driver.id, fullName: data.driver.getFullName()] : null,
             sysrefTransportationType: data.sysrefTransportationType ? [id: data.sysrefTransportationType.id, name: data.sysrefTransportationType.name] : null,
             sysrefVoyageDirection   : data.sysrefVoyageDirection ? [id: data.sysrefVoyageDirection.id, name: data.sysrefVoyageDirection.name] : null,
-            vehicle                 : data.vehicle ? [id: data.vehicle.id, plateNumber: data.vehicle.plateNumber] : null,
+            vehicle                 : data.vehicle ? [id         : data.vehicle.id,
+                                                      plateNumber: data.vehicle.plateNumber,
+                                                      vehicleSpec: data.vehicle.vehicleSpec ? [
+                                                          id             : data.vehicle.vehicleSpec.id,
+                                                          dimensionUnit  : data.vehicle?.vehicleSpec?.sysrefDimensionUnitName,
+                                                          weightUnit     : data.vehicle?.vehicleSpec?.sysrefWeightUnitName,
+                                                          vehicleHeight  : data.vehicle?.vehicleSpec?.vehicleHeight,
+                                                          vehicleWeight  : data.vehicle?.vehicleSpec?.vehicleWeight,
+                                                          vehicleWidth   : data.vehicle?.vehicleSpec?.vehicleWidth,
+                                                          vehicleLength  : data.vehicle?.vehicleSpec?.vehicleLength,
+                                                          vehicleAxles   : data.vehicle?.vehicleSpec?.vehicleAxles,
+                                                          vehicleTrailers: data.vehicle?.vehicleSpec?.vehicleTrailers
+                                                      ] : null] : null,
             _order                  : order ? [id: order.id, fullName: order.getFullName()] : null,
             trailer                 : data.trailer ? [id: data.trailer.id, plateNumber: data.trailer.plateNumber] : null,
             substitudeDriver        : data.substitudeDriver ? [id: data.substitudeDriver.id, fullName: data.substitudeDriver.getFullName()] : null,
@@ -130,9 +150,19 @@ class VoyageService extends BaseService
             deliveryNoteNo          : data?.deliveryNoteNo,
             sasNumber               : data?.sasNumber,
             sysrefDeliveryStatus    : data.sysrefDeliveryStatus ? [id: data.sysrefDeliveryStatus.id, name: data.sysrefDeliveryStatus.name] : null,
-            optimizationParameters  : data.optimizationParameters ? [id: data.optimizationParameters.id, name: data.optimizationParameters.name] : null,
+            optimizationParameters  : data.optimizationParameters ? [
+                id             : data.optimizationParameters.id,
+                avoid          : data?.optimizationParameters?.avoid,
+                optimize       : data?.optimizationParameters?.optimize,
+                routeAttributes: data?.optimizationParameters?.routeAttributes,
+                distanceUnit   : data?.optimizationParameters?.distanceUnit,
+                waypoints      : data?.optimizationParameters?.waypoints,
+                vehicleSpec    : data?.optimizationParameters?.vehicleSpec
+            ] : null,
             startDate               : data.startDate ? sdf.format(data.startDate) : null,
-            endDate                 : data.endDate ? sdf.format(data.endDate) : null
+            endDate                 : data.endDate ? sdf.format(data.endDate) : null,
+            calculatedRoute         : data?.calculatedRoute,
+            sortedVendors           : data?.sortedVendors
         ]
     }
 
@@ -174,5 +204,6 @@ class VoyageService extends BaseService
         driverService.saveDriverWithState(voyage.driver, SysrefDriverState.findByCode('ONVOYAGE'))
         vehicleService.saveVehicleWithState(voyage.vehicle, SysrefVehicleState.findByCode('ONVOYAGE'))
     }
+
 
 }

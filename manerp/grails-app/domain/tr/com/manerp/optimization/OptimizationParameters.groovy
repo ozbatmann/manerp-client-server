@@ -11,18 +11,15 @@ class OptimizationParameters implements BaseDomain
     String routeAttributes
     String distanceUnit
     VehicleSpec vehicleSpec
-    Map waypoints // waypoints to be optimized in lat lng
 
     static constraints = {
-        avoid nullable: false, blank: false
-        optimize nullable: false, blank: false
-        routeAttributes nullable: false, blank: false
-        distanceUnit nullable: false, blank: false
-        vehicleSpec nullable: false
-        waypoints nullable: false, blank: false, unique: false
+        avoid nullable: true, blank: false
+        optimize nullable: true, blank: false
+        routeAttributes nullable: true, blank: false
+        distanceUnit nullable: true, blank: false
+        vehicleSpec nullable: true
     }
 
     static mapping = {
-        waypoints type: JsonbMapType
     }
 }

@@ -452,6 +452,52 @@ class DataService
             vendorService.save(vendorPinarKemal)
         }
 
+        Vendor vendorPinarDuden = Vendor.findByTitle('Pınar Antalya Düden Bayi')
+        if ( vendorPinarDuden == null ) {
+
+            vendorPinarDuden = new Vendor()
+            vendorPinarDuden.setRandomCode()
+
+            Location location = new Location()
+            location.active = true
+            location.latitude = '36.855'
+            location.longitude = '30.780'
+            location.sysCompany = sysCompanyBumerang
+            vendorPinarDuden.location = location
+
+            vendorPinarDuden.sysCompany = sysCompanyBumerang
+            vendorPinarDuden.title = 'Pınar Antalya Düden Bayi'
+            vendorPinarDuden.active = true
+            vendorPinarDuden.address = 'Çağlayan Mahallesi, Barınaklar Blv. No:146, 07230 Muratpaşa/Antalya'
+            vendorPinarDuden.company = customerCompanyPinar
+            vendorPinarDuden.phone = '232 436 99 99'
+
+            vendorService.save(vendorPinarDuden)
+        }
+
+        Vendor vendorPinarAfyon = Vendor.findByTitle('Pınar Afyon Merkez Bayi')
+        if ( vendorPinarAfyon == null ) {
+
+            vendorPinarAfyon = new Vendor()
+            vendorPinarAfyon.setRandomCode()
+
+            Location location = new Location()
+            location.active = true
+            location.latitude = '38.756'
+            location.longitude = '30.538'
+            location.sysCompany = sysCompanyBumerang
+            vendorPinarAfyon.location = location
+
+            vendorPinarAfyon.sysCompany = sysCompanyBumerang
+            vendorPinarAfyon.title = 'Pınar Afyon Merkez Bayi'
+            vendorPinarAfyon.active = true
+            vendorPinarAfyon.address = 'Dumlupınar Mahallesi, İzmir Karayolu 8. Km. Anemon Afyon, Anemon Afyon İçinde, Afyonkarahisar Merkez, Afyonkarahisar, 03100 Afyonkarahisar Merkez/Afyonkarahisar'
+            vendorPinarAfyon.company = customerCompanyPinar
+            vendorPinarAfyon.phone = '232 888 31 33'
+
+            vendorService.save(vendorPinarAfyon)
+        }
+
         Company customerCompanyKerevitas = Company.findByName('Kerevitaş')
         if ( customerCompanyKerevitas == null ) {
 
@@ -816,6 +862,30 @@ class DataService
             orderVendorPinarKemal.sysCompany = sysCompanyBumerang
             orderVendorPinarKemal.setRandomCode()
             orderVendorPinarKemal.save(flush: true, failOnError: true)
+        }
+
+        OrderVendor orderVendorPinarDuden = OrderVendor.findByVendor(vendorPinarDuden)
+        if ( orderVendorPinarDuden == null ) {
+
+            orderVendorPinarDuden = new OrderVendor()
+            orderVendorPinarDuden._order = orderPinar
+            orderVendorPinarDuden.vendor = vendorPinarDuden
+            orderVendorPinarDuden.active = true
+            orderVendorPinarDuden.sysCompany = sysCompanyBumerang
+            orderVendorPinarDuden.setRandomCode()
+            orderVendorPinarDuden.save(flush: true, failOnError: true)
+        }
+
+        OrderVendor orderVendorPinarAfyon = OrderVendor.findByVendor(vendorPinarAfyon)
+        if ( orderVendorPinarAfyon == null ) {
+
+            orderVendorPinarAfyon = new OrderVendor()
+            orderVendorPinarAfyon._order = orderPinar
+            orderVendorPinarAfyon.vendor = vendorPinarAfyon
+            orderVendorPinarAfyon.active = true
+            orderVendorPinarAfyon.sysCompany = sysCompanyBumerang
+            orderVendorPinarAfyon.setRandomCode()
+            orderVendorPinarAfyon.save(flush: true, failOnError: true)
         }
 
         SysrefTransportationType sysrefTransportationTypeGidis = SysrefTransportationType.findByName('Komple')

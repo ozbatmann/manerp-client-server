@@ -81,7 +81,6 @@ class VoyageController extends BaseController
 
     def save(VoyageSaveCommand cmd)
     {
-
         ManeResponse maneResponse = new ManeResponse()
 
         try {
