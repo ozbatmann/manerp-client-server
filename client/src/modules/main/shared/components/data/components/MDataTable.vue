@@ -77,6 +77,7 @@
                     ref="file"
                     accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                     style="display: none"
+                    :disabled="selected.length"
                     @change="onimport($event)"
             >
 
@@ -88,6 +89,7 @@
                     color="primary-green"
                     background="white"
                     text-color="black"
+                    :disabled="selected.length"
                     @click="$refs.file.click()"
             ></m-data-table-action>
 
@@ -255,10 +257,12 @@
                                         :nudge-width="140"
                                         content-class="v-shadow-lg"
                                         transition="slide-x-reverse-transition"
+                                        :disabled="selected.length"
                                 >
                                     <!-- Row action button -->
                                     <!-- Activates the menu -->
                                     <v-btn
+                                            :disabled="selected.length"
                                             slot="activator"
                                             icon
                                     >
