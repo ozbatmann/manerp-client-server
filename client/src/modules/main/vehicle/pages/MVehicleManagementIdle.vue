@@ -4,6 +4,7 @@
             :headers="headers"
             :items="vehicles"
             :loading="loading"
+            @editItem="addDialog"
             @deleteItem="deleteItem"
         >
             <!-- Data table header slot -->
@@ -14,13 +15,6 @@
                     title="araç ekle"
                     @click="addDialog"
                 ></m-data-table-action>
-            </template>
-
-            <!-- Data-table action menu slot -->
-            <template v-slot:action-menu="item">
-
-                <!-- Edit button -->
-                <v-list-tile @click="addDialog(item.bind)">Düzenle</v-list-tile>
             </template>
         </m-data-table>
 

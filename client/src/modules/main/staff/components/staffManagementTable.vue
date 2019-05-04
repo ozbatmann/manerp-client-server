@@ -5,6 +5,7 @@
             :items="staffs"
             :loading="loading"
             :to="to"
+            @editItem="editDialog"
             @deleteItem="deleteItem"
         >
             <!-- Data table header slot -->
@@ -15,12 +16,6 @@
                     title="personel ekle"
                     @click="addDialog"
                 ></m-data-table-action>
-            </template>
-
-            <!-- Data-table action menu slot -->
-            <template v-slot:action-menu="item">
-                <!-- Edit button -->
-                <v-list-tile @click="editDialog(item.bind)">Düzenle</v-list-tile>
             </template>
         </m-data-table>
 
