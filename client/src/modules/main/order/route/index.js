@@ -22,6 +22,7 @@ const meta = (title) => {
 
 export default [
     {
+        requiresAuth: true,
         path: 'orders',
         component: () => import('@/modules/main/shared/components/core/MCoreDetails'),
         redirect: { name: routes.current },

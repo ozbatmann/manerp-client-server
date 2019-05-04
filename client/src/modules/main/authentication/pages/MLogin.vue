@@ -98,13 +98,16 @@
                     .then(result => {
                         if(result.data.status === 200){
                             console.log(this.$store);
-                            this.$store.state.shared['username'] = result.data.data.user.username
+                            this.$store.state.shared['user'] = result.data.data.user
                             this.$store.state.shared['organization'] = result.data.data.organization
                             this.$bus.$emit("userLoaded",result)
-                            this.$router.push({name:'overview'})
+
+                            this.$bus.$on('userDetailsSet', ()=>{
+                                this.$router.push({name:'overview'})
+                            })
                         }
                         console.log(result)
-                    }).catch(error => {
+                }).catch(error => {
                         console.log(`Error is here: ${error}`)
                 })
             }

@@ -10,7 +10,7 @@
   "dependencies": {
     "leaflet": "^1.4.0",
     "manerp-vue-base": "0.0.16",
-    "manerp-vue-auth": "0.0.3",
+    "manerp-vue-auth": "0.1.3",
     "moment": "^2.24.0",
     "vue": "^2.6.6",
     "vue-json-excel": "^0.2.98",

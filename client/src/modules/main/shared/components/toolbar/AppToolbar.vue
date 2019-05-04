@@ -155,6 +155,8 @@
             },
 
             logout () {
+                AuthService.clearLoginDetails()
+                this.$router.push({ name: 'login' })
                 AuthService.logout()
             },
 

@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import {store} from 'manerp-vue-base'
 
+import {snotify} from 'manerp-vue-base'
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -10,6 +12,11 @@ const router = new VueRouter({
             path: '/404',
             name: '404',
             component: () => import('@/modules/main/AppNotFound')
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: () => import('@/modules/main/authentication/pages/MLogin')
         },
         {
             path: '*',
@@ -73,7 +80,16 @@ const router = new VueRouter({
 // }
 
 router.beforeEach((to, from, next) => {
-    next()
+    debugger;
+    if(to.matched.some(record => record.meta.requiresAuth)) {
+        if (!store.state.shared['auth-token']) {
+            next({
+                path: '/login',
+                params: { nextUrl: to.fullPath }
+            })
+        }
+    }
+    next();
 });
 
 export default router

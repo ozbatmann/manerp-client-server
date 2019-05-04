@@ -24,11 +24,10 @@ manerp {
     }
     rest{
         manerpPortal{
-            url = 'http://localhost:8091'
+            url = 'http://157.230.125.223:8091'
         }
     }
     auth{
-        organizationId = "123"
         restMethod {
             synchronizeRedisWithDB = "api/v1/redis/synchronizeRedisWithDB"
         }
