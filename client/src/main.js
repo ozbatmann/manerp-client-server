@@ -2,7 +2,10 @@ import Vue from 'vue'
 import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
-import {bus, http, i18n, store} from "manerp-vue-base"
+import base,{bus, http, i18n, store} from 'manerp-vue-base'
+import auth from 'manerp-vue-auth'
+
+base.use(auth);
 
 const langFiles = require.context("./../../client/src/modules/", true, /.*\/i18n\/(.*)\.json$/);
 langFiles.keys().forEach(function (fileName) {
@@ -47,5 +50,6 @@ window.instance = new Vue({
     router,
     store,
     i18n,
+    bus,
     render: h => h(App),
 }).$mount('#app');

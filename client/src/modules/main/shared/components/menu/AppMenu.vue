@@ -45,7 +45,9 @@
                         :key="`menu-item-${item.title}`"
                         :to="item.to"
                         outline
-                        active-class="grey lighten-2">
+                        active-class="grey lighten-2"
+                        v-auth-permission="item.permission"
+                    >
 
                         <v-tooltip
                             right
@@ -80,9 +82,11 @@
 </template>
 
 <script>
+    import {AuthPermission} from "manerp-vue-auth/src/directives/auth-permission/auth-permission";
+
     export default {
         name: "AppMenu",
-
+        directive: {AuthPermission},
         props: {
             value: {
                 type: Boolean,
@@ -120,17 +124,21 @@
                             {
                                 title: 'Araç Yönetimi',
                                 icon: 'directions_bus',
-                                to: {name: require('@/modules/main/vehicle/route/index').routes.idle}
+                                to: {name: require('@/modules/main/vehicle/route/index').routes.idle},
+                                permission: "vehicle:show"
                             },
                             {
                                 title: 'İş Yeri Yönetimi',
                                 icon: 'business',
-                                to: {name: require('@/modules/main/company/route/index').routes.customer}
+                                to: {name: require('@/modules/main/company/route/index').routes.customer},
+                                permission: "company:show"
+
                             },
                             {
                                 title: 'Personel Yönetimi',
                                 icon: 'group',
-                                to: {name: require('@/modules/main/staff/route/index').routes.staffs}
+                                to: {name: require('@/modules/main/staff/route/index').routes.staffs},
+                                permission: "staff:show"
                             },
                             // {
                             //     title: 'Parametre Yönetimi',
@@ -140,17 +148,20 @@
                             {
                                 title: 'Sevkiyat Yönetimi',
                                 icon: 'local_shipping',
-                                to: {name: 'voyages.incomplete'}
+                                to: {name: 'voyages.incomplete'},
+                                permission: "voyage:show"
                             },
                             {
                                 title: 'Sipariş Yönetimi',
                                 icon: 'work',
-                                to: {name: require('@/modules/main/order/route/index').routes.current}
+                                to: {name: require('@/modules/main/order/route/index').routes.current},
+                                permission: "order:show"
                             },
                             {
                                 title: 'Şoför Yönetimi',
                                 icon: 'account_circle',
-                                to: {name: require('@/modules/main/driver/route/index').routes.drivers}
+                                to: {name: require('@/modules/main/driver/route/index').routes.drivers},
+                                permission: "driver:show"
                             }
                         ]
                     }
@@ -159,7 +170,8 @@
                 mini: false
             }
         },
-
+        methods: {
+        },
         watch: {
             value() {
                 this.localDrawer = this.value
