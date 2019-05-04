@@ -4964,6 +4964,11 @@ make-dir@^2.0.0:
     pify "^4.0.1"
     semver "^5.6.0"
 
+manerp-vue-auth@0.0.3:
+  version "0.0.3"
+  resolved "http://157.230.125.223:8081/repository/npm-group/manerp-vue-auth/-/manerp-vue-auth-0.0.3.tgz#6cbce841d15a2b8d94a56ce8c7c0a6ba3084a326"
+  integrity sha512-BH1L4c4hi9VmTI20l2468hKuinu4s0H4fOaewts7tUNmwZYEIeDooNnPPchoRABbSaFedDGZaoXXXK8LBL07lQ==
+
 manerp-vue-base@0.0.16:
   version "0.0.16"
   resolved "http://157.230.125.223:8081/repository/npm-group/manerp-vue-base/-/manerp-vue-base-0.0.16.tgz#969fd7080db7cf51a065af14273911bc46964146"

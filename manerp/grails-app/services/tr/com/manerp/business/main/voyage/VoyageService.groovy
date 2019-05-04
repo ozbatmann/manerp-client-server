@@ -156,7 +156,6 @@ class VoyageService extends BaseService
                 optimize       : data?.optimizationParameters?.optimize,
                 routeAttributes: data?.optimizationParameters?.routeAttributes,
                 distanceUnit   : data?.optimizationParameters?.distanceUnit,
-                waypoints      : data?.optimizationParameters?.waypoints,
                 vehicleSpec    : data?.optimizationParameters?.vehicleSpec
             ] : null,
             startDate               : data.startDate ? sdf.format(data.startDate) : null,

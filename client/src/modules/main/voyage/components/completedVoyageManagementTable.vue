@@ -163,7 +163,6 @@
                     .then((result) => {
                         self.displaySnackMessage(result);
                         self.getAllVoyages();
-                        self.$refs.voyageManagementAddEditDialog.getDropdownData();
                     }).catch((error) => {
                     console.log(error);
                 })
@@ -174,7 +173,6 @@
                     .then(result => {
                         self.displaySnackMessage(result);
                         self.getAllVoyages();
-                        self.$refs.voyageManagementAddEditDialog.getDropdownData();
                     }).catch(error => {
                     console.log(error)
                 })
@@ -185,7 +183,6 @@
                 this.$http.delete(`api/v1/voyage/${item.id}`).then((result) => {
                     self.displaySnackMessage(result);
                     self.getAllVoyages();
-                    self.$refs.voyageManagementAddEditDialog.getDropdownData();
                 }).catch((error) => {
                     console.error(error);
                 })

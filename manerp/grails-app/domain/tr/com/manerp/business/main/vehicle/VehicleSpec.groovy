@@ -1,5 +1,6 @@
 package tr.com.manerp.business.main.vehicle
 
+import net.kaleidos.hibernate.usertype.JsonbMapType
 import tr.com.manerp.base.domain.BaseDomain
 import tr.com.manerp.business.sysref.SysrefDimensionUnit
 import tr.com.manerp.business.sysref.SysrefWeightUnit
@@ -14,7 +15,7 @@ class VehicleSpec implements BaseDomain
     Double vehicleLength
     Integer vehicleAxles
     Integer vehicleTrailers
-    String vehicleHazardousMaterials
+    Map vehicleHazardousMaterials
 
     static constraints = {
         vehicleHeight scale: 4
@@ -23,6 +24,10 @@ class VehicleSpec implements BaseDomain
         vehicleLength scale: 4
         vehicleAxles max: 50
         vehicleTrailers max: 20
+    }
+
+    static mapping = {
+        vehicleHazardousMaterials type: JsonbMapType
     }
 
     String getSysrefDimensionUnitName()

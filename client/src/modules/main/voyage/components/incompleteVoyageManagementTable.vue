@@ -137,6 +137,7 @@
                 if (data !== undefined && data !== null) {
                     this.$http.get("api/v1/voyage/" + data.id).then((result) => {
                         let items = result.data.data;
+                        console.log(items)
                         this.$refs.voyageManagementAddEditDialog.open(items)
                     }).catch((error) => {
                         console.error(error);
@@ -158,7 +159,6 @@
             addNewItem(item) {
                 this.newItem = item;
                 let self = this;
-
                 this.$http.post('api/v1/voyage', this.newItem)
                     .then((result) => {
                         self.displaySnackMessage(result);
@@ -169,7 +169,6 @@
             },
             editItem(item) {
                 let self = this;
-
                 this.$http.put('api/v1/voyage/', item)
                     .then(result => {
                         self.displaySnackMessage(result);

@@ -49,6 +49,7 @@ class VoyageSaveCommand implements Validateable
         voyage.optimizationParameters = this.optimizationParameters
         voyage.sortedVendors = this.sortedVendors
 
+        voyage.optimizationParameters.save(flush: true, failOnError: true)
         voyage
     }
 

@@ -6,8 +6,8 @@ import tr.com.manerp.business.main.vehicle.VehicleSpec
 
 class OptimizationParameters implements BaseDomain
 {
-    String avoid
-    String optimize
+    Map avoid
+    Map optimize
     String routeAttributes
     String distanceUnit
     VehicleSpec vehicleSpec
@@ -21,5 +21,7 @@ class OptimizationParameters implements BaseDomain
     }
 
     static mapping = {
+        avoid type: JsonbMapType
+        optimize type: JsonbMapType
     }
 }

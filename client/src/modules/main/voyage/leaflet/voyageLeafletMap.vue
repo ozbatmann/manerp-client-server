@@ -23,11 +23,46 @@
                 ],
                 locations: [],
                 waypointPolyline: null,
-                waypoints: [],
-                waypointsArr: []
+                waypointsArr: [],
+                colorSet: {
+                    aqua: "#00ffff",
+                    black: "#000000",
+                    blue: "#0000ff",
+                    brown: "#a52a2a",
+                    cyan: "#00ffff",
+                    darkblue: "#00008b",
+                    darkcyan: "#008b8b",
+                    darkgreen: "#006400",
+                    darkmagenta: "#8b008b",
+                    darkolivegreen: "#556b2f",
+                    darkorchid: "#9932cc",
+                    darkred: "#8b0000",
+                    darksalmon: "#e9967a",
+                    darkviolet: "#9400d3",
+                    fuchsia: "#ff00ff",
+                    green: "#008000",
+                    indigo: "#4b0082",
+                    lightgreen: "#90ee90",
+                    lime: "#00ff00",
+                    magenta: "#ff00ff",
+                    maroon: "#800000",
+                    navy: "#000080",
+                    olive: "#808000",
+                    purple: "#800080",
+                    violet: "#800080",
+                    red: "#ff0000",
+                }
             }
         },
         methods: {
+            pickRandomColor() {
+                let result;
+                let count = 0;
+                for (let prop in this.colorSet)
+                    if (Math.random() < 1 / ++count)
+                        result = prop;
+                return result;
+            },
             layerChanged(layerId, active) {
                 const layer = this.layers.find(layer => layer.id === layerId);
 
@@ -55,10 +90,9 @@
                         .bindTooltip('<p>' + location.title + '</p>')
                         .on('click', this.onMarkerClick);
                 });
-
             },
             initPolyline() {
-                this.waypointPolyline = L.polyline(this.waypoints);
+                this.waypointPolyline = L.polyline(this.waypoints).setStyle({color: this.pickRandomColor()});
             },
             initMap() {
                 this.map = L.map('voyage_map').setView([39.918836, 32.836816], this.zoomLevel);
@@ -66,7 +100,6 @@
                 this.tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="http://team9.bilkent.edu.tr/">MANERP</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
                 }).addTo(this.map);
-
 
                 this.tileLayer.addTo(this.map);
 
@@ -99,7 +132,6 @@
                     popupAnchor: [1, -34],
                     shadowSize: [41, 41]
                 });
-
             },
             save() {
 
@@ -113,15 +145,14 @@
             },
             setWaypoints(waypoints) {
                 this.waypoints = waypoints;
-                this.waypointsArr.push(waypoints);
                 this.initPolyline();
             },
             onMarkerClick(e) {
 
             },
             cleanData() {
+                this.waypointPolyline = null;
                 this.waypoints = [];
-                this.waypointsArr = [];
                 this.locations = [];
             }
         },
