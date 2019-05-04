@@ -257,12 +257,12 @@
                                         :nudge-width="140"
                                         content-class="v-shadow-lg"
                                         transition="slide-x-reverse-transition"
-                                        :disabled="!!selected.length"
+                                        :disabled="selected.length !== 0"
                                 >
                                     <!-- Row action button -->
                                     <!-- Activates the menu -->
                                     <v-btn
-                                            :disabled="!!selected.length"
+                                            :disabled="selected.length !== 0"
                                             slot="activator"
                                             icon
                                     >
@@ -276,9 +276,18 @@
                                                 name="action-menu"
                                                 :bind="props.item"
                                         ></slot>
-                                        <v-list-tile @click="editItem(props.item)">Düzenle</v-list-tile>
-                                        <v-list-tile @click="deleteItem(props.item)">Sil</v-list-tile>
-                                        <v-list-tile>Dışa aktar</v-list-tile>
+                                        <v-list-tile
+                                                v-if="!noEdit"
+                                                @click="editItem(props.item)"
+                                        >
+                                            Düzenle
+                                        </v-list-tile>
+                                        <v-list-tile
+                                                v-if="!noDelete"
+                                                @click="deleteItem(props.item)"
+                                        >
+                                            Sil
+                                        </v-list-tile>
                                     </v-list>
                                 </v-menu>
                             </td>
@@ -326,6 +335,16 @@
             // A Boolean indicating
             // whether filter mode is enabled or not
             noFiltering: {
+                type: Boolean,
+                default: false
+            },
+
+            noEdit: {
+                type: Boolean,
+                default: false
+            },
+
+            noDelete: {
                 type: Boolean,
                 default: false
             },

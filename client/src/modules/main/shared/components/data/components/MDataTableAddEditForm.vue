@@ -4,9 +4,10 @@
             lazy
             persistent
             scrollable
-            max-width="60%"
+            max-width="820"
             @keydown.enter.prevent="save"
             @keydown.esc.stop="show = false"
+            content-class="transition-height"
     >
         <v-card>
             <v-card-title
@@ -46,7 +47,6 @@
                         <v-tab
                                 v-for="(tab, index) in tabs"
                                 :key="`dialog-tab-item-${index}`"
-                                :disabled="active !== index"
                                 ripple
                         >
                             {{ tab }}
@@ -57,19 +57,17 @@
                     <v-divider></v-divider>
                 </v-flex>
             </v-layout>
-            <v-card-text>
-                <div v-if="!tabbed">
-                    <slot name="form"></slot>
-                </div>
-                <div v-else>
+            <v-card-text class="transition-height">
+                    <div v-if="active === 0">
+                        <slot name="form"></slot>
+                    </div>
                     <div
                             v-for="(tab, index) in tabs"
-                            v-show="index === active"
+                            v-show="index + 1 === active"
                             :key="`tab-${index}`"
                     >
-                        <slot :name="`tab-${index + 1}`"></slot>
+                        <slot :name="`tab-${index + 2}`"></slot>
                     </div>
-                </div>
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions>
@@ -87,7 +85,6 @@
                         <v-btn
                                 depressed
                                 color="deep-purple white--text mr-0"
-                                :disabled="!nextRule"
                                 @click="save"
                         >
                             {{ saveButtonTitle }}
@@ -131,8 +128,7 @@
             },
 
             nextRule: {
-                type: Boolean,
-                default: true,
+                type: [Function, Object, Boolean]
             }
         },
 
@@ -147,19 +143,34 @@
 
         computed: {
             saveButtonTitle() {
-                return this.tabbed && this.active !== this.tabs.length - 1 ? 'SONRAKİ' : 'KAYDET'
+                // return this.tabbed && this.active !== this.tabs.length - 1 ? 'SONRAKİ' :
+                return 'KAYDET';
             }
         },
 
         methods: {
+            enableTab () {
+                if (this.next instanceof Function) {
+                    return this.next();
+                } else if (this.next instanceof Object) {
+                    this.veeFields = this.next;
+
+                    this.$validator.validateAll(valid => {
+                        return valid;
+                    });
+                }
+
+                return this.next;
+            },
+
             clear() {
                 this.$emit('clear');
             },
 
             save() {
-                if (this.tabbed && this.active !== this.tabs.length - 1) {
-                    if (this.next) this.active += 1;
-                } else
+                // if (this.tabbed && this.active !== this.tabs.length - 1) {
+                //     if (this.enableTab()) this.active += 1;
+                // } else
                     this.$emit(this.edit ? 'edit' : 'save');
             }
         },
@@ -189,5 +200,11 @@
 </script>
 
 <style scoped>
-
+    .transition-height {
+        -webkit-transition: height 300ms ease-in-out;
+        -moz-transition: height 300ms ease-in-out;
+        -ms-transition: height 300ms ease-in-out;
+        -o-transition: height 300ms ease-in-out;
+        transition: height 300ms ease-in-out;
+    }
 </style>
