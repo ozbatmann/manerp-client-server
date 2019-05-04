@@ -1,15 +1,11 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
-        <v-dialog>
-            <m-order-add-edit-form
-                    ref="addEditDialog"
-                    :data="addEditData"
-                    :inputs="addEditFields"
-                    title="Yeni Sipariş"
-                    @save="addNewItem"
-                    @edit="editItem"
-            ></m-order-add-edit-form>
-        </v-dialog>
+        <m-order-add-edit-form
+                ref="addEditDialog"
+                title="Yeni Sipariş"
+                @save="addNewItem"
+                @edit="editItem"
+        ></m-order-add-edit-form>
         <m-data-table
                 :headers="headers"
                 :items="orders"

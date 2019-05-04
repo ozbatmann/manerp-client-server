@@ -62,22 +62,33 @@
             <m-data-table-action
                     title="dışa aktar"
                     icon="import_export"
-                    class="mr-2"
+                    :class="{ 'mr-2' : !noImport }"
                     color="primary-green"
                     background="white"
                     text-color="black"
-                    @click="onexport"
                     :disabled="!selected.length"
+                    @click="onexport"
             ></m-data-table-action>
 
+            <!-- Import xlsx file -->
+            <input
+                    v-if="!noImport"
+                    type="file"
+                    ref="file"
+                    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    style="display: none"
+                    @change="onimport($event)"
+            >
+
             <m-data-table-action
+                    v-if="!noImport"
                     title="içe aktar"
                     icon="import_export"
                     :class="{ 'mr-2' : !!this.$slots.header }"
                     color="primary-green"
                     background="white"
                     text-color="black"
-                    @click="onexport"
+                    @click="$refs.file.click()"
             ></m-data-table-action>
 
             <slot name="header"></slot>
@@ -91,8 +102,6 @@
                 mt-1
                 mb-2
         >
-
-
             <v-flex>
                 <!-- Search in table chip -->
                 <v-chip
@@ -299,9 +308,15 @@
         name: "MDataTable",
         components: {MDataTableFilterMenu, MDataTableAction},
         props: {
+
             alertText: {
                 type: String,
                 default: null,
+            },
+
+            noImport: {
+                type: Boolean,
+                default: false
             },
 
             // A Boolean indicating
@@ -495,11 +510,16 @@
             },
 
             onexport () { // On Click Excel download button
+                let title = this.$route.meta.tabbed ? this.$route.meta.tabs.find(tab => {
+                        return tab.to.name === this.$route.name
+                    }).text.replace(/\b\w/g, function(l){ return l.toUpperCase() }) : this.$route.meta.title;
 
-                let today = moment(new Date());
+                title = title.replace(/\s/g,'').toLocaleString('en');
+
+                let today = moment(new Date()).locale('tr').format('ddd-Do-MMM-YYYY_HH-mm');
                 // export json to Worksheet of Excel
                 // only array possible
-                var animalWS = XLSX.utils.json_to_sheet(this.items);
+                var animalWS = XLSX.utils.json_to_sheet(this.tempItems);
 
                 // A workbook is the name given to an Excel file
                 var wb = XLSX.utils.book_new(); // make Workbook of Excel
@@ -509,11 +529,25 @@
                 XLSX.utils.book_append_sheet(wb, animalWS, ''); // sheetAName is name of Worksheet
 
                 // export Excel file
-                XLSX.writeFile(wb, `${today}.xlsx`) // name of the file is 'book.xlsx'
+                XLSX.writeFile(wb, `${title}_${today}.xlsx`) // name of the file is 'book.xlsx'
             },
 
-            onimport () {
+            onimport (e) {
+                let files = e.target.files, f = files[0];
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    let data = new Uint8Array(e.target.result);
+                    let workbook = XLSX.read(data, {type: 'array'});
+                    let sheet_name_list = workbook.SheetNames;
+                    let json = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
 
+                    console.log(sheet_name_list);
+                    console.log(json);
+
+                    // Post data to server
+                };
+
+                reader.readAsArrayBuffer(f);
             }
         },
 
@@ -523,7 +557,7 @@
             loading (newVal) {
                 this.localLoading = newVal
             }
-        }
+        },
     }
 </script>
 

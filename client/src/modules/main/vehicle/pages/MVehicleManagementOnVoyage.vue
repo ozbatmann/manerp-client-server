@@ -3,8 +3,9 @@
         <m-data-table
             :headers="headers"
             :items="vehicles"
-            @deleteItem="deleteItem"
             :loading="loading"
+            no-import
+            @deleteItem="deleteItem"
         >
 
             <!-- Data-table action menu slot -->

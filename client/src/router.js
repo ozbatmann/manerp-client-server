@@ -25,6 +25,9 @@ const router = new VueRouter({
                     component: () => import('@/modules/main/AppMain'),
                     //beforeEnter: authenticated(),
                     children: [
+                        // Search route
+                        ...require('@/modules/main/search/route/index').default,
+
                         // Index overview routes
                         ...require('@/modules/main/index/route/index').default,
 

@@ -1,6 +1,5 @@
 <template>
     <div>
-        <span class="m-found" v-if="$route.fullPath.indexOf('login') > -1">Beni buldun!</span>
         <v-app>
             <router-view></router-view>
         </v-app>

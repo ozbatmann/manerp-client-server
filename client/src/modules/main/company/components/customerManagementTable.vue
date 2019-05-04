@@ -25,10 +25,11 @@
         </m-data-table>
 
         <customer-management-add-edit-dialog ref="customerManagementAddEditDialog"
+                                             dealer
                                              @save="addNewItem"
                                              @edit="editItem"
-                                             @displayMessage="displaySnackMessage">
-        </customer-management-add-edit-dialog>
+                                             @displayMessage="displaySnackMessage"
+        ></customer-management-add-edit-dialog>
 
         <v-snackbar
             v-model="snackbar.active"

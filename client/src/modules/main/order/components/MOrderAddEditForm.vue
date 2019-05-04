@@ -1,222 +1,170 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-    <v-dialog
-            v-model="showDialog"
-            max-width="750"
-            persistent
-            @keydown.enter.prevent="save"
-            @keydown.esc.stop="close"
-            class="overflow-hidden"
-            lazy
-            scrollable
+    <m-data-table-add-edit-form
+            v-model="show"
+            title="sipariş ekle"
+            :editing="isEdit"
+            @clear="clear"
+            @edit="edit"
+            @save="save"
     >
-        <v-card>
-            <v-card-title class="py-2">
-                <v-flex>
-                    <v-layout align-center>
-                        <v-flex>
-                            <h4 class="headline font-weight-light">Yeni Sipariş</h4>
-                        </v-flex>
-                        <v-spacer></v-spacer>
-                        <v-flex shrink>
-                            <v-btn
-                                    icon
-                                    class="mx-0"
-                            >
-                                <v-icon>close</v-icon>
-                            </v-btn>
-                        </v-flex>
-                    </v-layout>
+        <template v-slot:form>
+            <v-layout wrap>
+                <v-flex xs6 pr-2>
+                    <v-text-field
+                            solo
+                            flat
+                            v-validate="'required'"
+                            :error-messages="errors.collect('order.description')"
+                            label="Sipariş Tanımı"
+                            name="order.description"
+                            :counter="30"
+                            maxlength="30"
+                            background-color="grey lighten-4"
+                            color="green accent-2"
+                            class="m-settings__label"
+                    ></v-text-field>
                 </v-flex>
-            </v-card-title>
-            <v-divider></v-divider>
-            <v-card-text>
-
-                <v-flex>
-                    <v-layout wrap>
-                        <v-flex xs6 pr-2>
-                            <v-text-field
-                                    solo
-                                    flat
-                                    v-validate="'required'"
-                                    :error-messages="errors.collect('firstName')"
-                                    label="Sipariş Tanımı"
-                                    name="firstName"
-                                    :counter="30"
-                                    maxlength="30"
-                                    background-color="grey lighten-4"
-                                    color="green accent-2"
-                                    class="m-settings__label"
-                            ></v-text-field>
-                        </v-flex>
-                        <v-flex xs6 pl-2>
-                            <v-select
-                                    solo
-                                    flat
-                                    v-validate="'required'"
-                                    :error-messages="errors.collect('firstName')"
-                                    label="Gelir Tipi"
-                                    name="firstName"
-                                    :counter="30"
-                                    maxlength="30"
-                                    background-color="grey lighten-4"
-                                    color="green accent-2"
-                                    class="m-settings__label"
-                            ></v-select>
-                        </v-flex>
-                        <v-flex xs6 pr-2>
-                            <v-text-field
-                                    solo
-                                    flat
-                                    v-validate="'required'"
-                                    :error-messages="errors.collect('firstName')"
-                                    label="Fatura Numarası"
-                                    name="firstName"
-                                    :counter="30"
-                                    maxlength="30"
-                                    background-color="grey lighten-4"
-                                    color="green accent-2"
-                                    class="m-settings__label"
-                            ></v-text-field>
-                        </v-flex>
-                        <v-flex xs6 pl-2>
-                            <v-select
-                                    solo
-                                    flat
-                                    v-validate="'required'"
-                                    :error-messages="errors.collect('firstName')"
-                                    label="Müşteri İş Yeri"
-                                    name="firstName"
-                                    :counter="30"
-                                    maxlength="30"
-                                    background-color="grey lighten-4"
-                                    color="green accent-2"
-                                    class="m-settings__label"
-                            ></v-select>
-                        </v-flex>
-                        <v-flex xs6 pr-2>
-                            <v-select
-                                    solo
-                                    flat
-                                    v-validate="'required'"
-                                    :error-messages="errors.collect('firstName')"
-                                    label="Bayi"
-                                    name="firstName"
-                                    :counter="30"
-                                    maxlength="30"
-                                    background-color="grey lighten-4"
-                                    color="green accent-2"
-                                    class="m-settings__label"
-                            ></v-select>
-                        </v-flex>
-                        <v-flex xs6 pl-2>
-                            <v-text-field
-                                    solo
-                                    flat
-                                    v-validate="'required'"
-                                    :error-messages="errors.collect('firstName')"
-                                    label="İş Emri Numarası"
-                                    name="firstName"
-                                    :counter="30"
-                                    maxlength="30"
-                                    background-color="grey lighten-4"
-                                    color="green accent-2"
-                                    class="m-settings__label"
-                            ></v-text-field>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout
-                            v-if="dealers.length"
-                            wrap
-                            align-center
-                    >
-                        <v-flex
-                                grow
-                                pr-2
-                        >
-                            <v-divider></v-divider>
-                        </v-flex>
-                        <v-flex
-                                shrink
-                                px-2
-                                py-3
-                        >
-                            <h4 class="subheading text-xs-center">Gidilecek Bayiler</h4>
-                        </v-flex>
-                        <v-flex
-                                grow
-                                pl-2
-                        >
-                            <v-divider></v-divider>
-                        </v-flex>
-
-                        <v-flex pt-2 xs12>
-                            <v-data-table
-                                    :headers="headers"
-                                    :items="dealers"
-                                    hide-actions
-                                    style="border: 1px solid #f4f4f4"
-                            >
-                                <template v-slot:items="props">
-                                    <td>{{ props.index + 1 }}.</td>
-                                    <td class="text-xs-left">{{ props.item.name }}</td>
-                                    <td class="text-xs-left">{{ props.item.city }}</td>
-                                    <td class="text-xs-left">{{ props.item.district }}</td>
-                                    <td class="text-xs-left">{{ props.item.address }}</td>
-                                    <td class="text-xs-right">
-                                        <v-btn
-                                                icon
-                                                color="red--text"
-                                                @click="removeDealer(props.item.id)"
-                                        >
-                                            <v-icon size="16">close</v-icon>
-                                        </v-btn>
-                                    </td>
-                                </template>
-                            </v-data-table>
-                        </v-flex>
-                    </v-layout>
+                <v-flex xs6 pl-2>
+                    <v-select
+                            solo
+                            flat
+                            v-validate="'required'"
+                            :error-messages="errors.collect('order.incomeType')"
+                            label="Gelir Tipi"
+                            name="order.incomeType"
+                            :counter="30"
+                            maxlength="30"
+                            background-color="grey lighten-4"
+                            color="green accent-2"
+                            class="m-settings__label"
+                    ></v-select>
                 </v-flex>
-            </v-card-text>
-            <v-divider></v-divider>
-            <v-card-actions>
-
-                <v-layout
-                        column
-                        py-1
+                <v-flex xs6 pr-2>
+                    <v-text-field
+                            solo
+                            flat
+                            v-validate="'required'"
+                            :error-messages="errors.collect('order.billNo')"
+                            label="Fatura Numarası"
+                            name="order.billNo"
+                            :counter="30"
+                            maxlength="30"
+                            background-color="grey lighten-4"
+                            color="green accent-2"
+                            class="m-settings__label"
+                    ></v-text-field>
+                </v-flex>
+                <v-flex xs6 pl-2>
+                    <v-autocomplete
+                            solo
+                            flat
+                            v-validate="'required'"
+                            :error-messages="errors.collect('order.customer')"
+                            label="Müşteri İş Yeri"
+                            name="order.customer"
+                            :counter="30"
+                            maxlength="30"
+                            background-color="grey lighten-4"
+                            color="green accent-2"
+                            class="m-settings__label"
+                    ></v-autocomplete>
+                </v-flex>
+                <v-flex xs6 pr-2>
+                    <v-autocomplete
+                            solo
+                            flat
+                            v-validate="'required'"
+                            :error-messages="errors.collect('order.dealer')"
+                            label="Bayi"
+                            name="order.dealer"
+                            :counter="30"
+                            maxlength="30"
+                            background-color="grey lighten-4"
+                            color="green accent-2"
+                            class="m-settings__label"
+                    ></v-autocomplete>
+                </v-flex>
+                <v-flex xs6 pl-2>
+                    <v-text-field
+                            solo
+                            flat
+                            v-validate="'required'"
+                            :error-messages="errors.collect('order.workNo')"
+                            label="İş Emri Numarası"
+                            name="order.workNo"
+                            :counter="30"
+                            maxlength="30"
+                            background-color="grey lighten-4"
+                            color="green accent-2"
+                            class="m-settings__label"
+                    ></v-text-field>
+                </v-flex>
+            </v-layout>
+            <v-layout
+                    v-if="dealers.length"
+                    wrap
+                    align-center
+            >
+                <v-flex
+                        grow
+                        pr-2
                 >
-                    <v-flex shrink>
-                        <v-layout px-2>
-                            <v-spacer></v-spacer>
-                            <v-flex shrink>
-                                <v-btn
-                                        depressed
-                                >
-                                    HEPSİNİ TEMİZLE
-                                </v-btn>
+                    <v-divider></v-divider>
+                </v-flex>
+                <v-flex
+                        shrink
+                        px-2
+                        py-3
+                >
+                    <h4 class="subheading text-xs-center">Gidilecek Bayiler</h4>
+                </v-flex>
+                <v-flex
+                        grow
+                        pl-2
+                >
+                    <v-divider></v-divider>
+                </v-flex>
 
+                <v-flex pt-2 xs12>
+                    <v-data-table
+                            :headers="headers"
+                            :items="dealers"
+                            hide-actions
+                            style="border: 1px solid #f4f4f4"
+                    >
+                        <template v-slot:items="props">
+                            <td>{{ props.index + 1 }}.</td>
+                            <td class="text-xs-left">{{ props.item.name }}</td>
+                            <td class="text-xs-left">{{ props.item.city }}</td>
+                            <td class="text-xs-left">{{ props.item.district }}</td>
+                            <td class="text-xs-left">{{ props.item.address }}</td>
+                            <td class="text-xs-right">
                                 <v-btn
-                                        depressed
-                                        color="deep-purple white--text"
+                                        icon
+                                        color="red--text"
+                                        @click="removeDealer(props.item.id)"
                                 >
-                                    KAYDET
+                                    <v-icon size="16">close</v-icon>
                                 </v-btn>
-                            </v-flex>
-                        </v-layout>
-                    </v-flex>
-                </v-layout>
-            </v-card-actions>
-        </v-card>
-    </v-dialog>
+                            </td>
+                        </template>
+                    </v-data-table>
+                </v-flex>
+            </v-layout>
+        </template>
+    </m-data-table-add-edit-form>
 </template>
 
 <script>
+    import MDataTableAddEditForm from "../../shared/components/data/components/MDataTableAddEditForm";
     const staffModel = require('@/modules/main/staff/models/staff-model-add-edit').default;
 
     export default {
         name: 'MOrderAddEditForm',
+        components: {MDataTableAddEditForm},
         data() {
             return {
-                showDialog: false,
+                show: false,
                 isEdit: false,
                 data: JSON.parse(JSON.stringify(staffModel)),
                 sysrefGenders: [],
@@ -285,7 +233,7 @@
         },
         methods: {
             open(data) {
-                this.showDialog = true;
+                this.show = true;
                 if (data) {
                     this.data = data;
                     this.isEdit = true;
@@ -294,7 +242,7 @@
                 }
             },
             close() {
-                this.showDialog = false;
+                this.show = false;
             },
             save() {
                 this.$validator.validateAll().then((result) => {
@@ -400,6 +348,38 @@
             this.getSysrefCountries();
             this.getRefStaffTitles();
             this.getSysrefStaffContractTypes();
+
+            const dict = {
+                custom: {
+                    order: {
+                        description: {
+                            required: 'Lütfen iş tanımını boş bırakmayın'
+                        },
+
+                        incomeType: {
+                            required: 'Lütfen gelir tipini seçin'
+                        },
+
+                        billNo: {
+                            required: 'Lütfen fatura numarasını boş bırakmayın'
+                        },
+
+                        customer: {
+                            required: 'Lütfen müşteri firmayı seçin'
+                        },
+
+                        dealer: {
+                            required: 'Lütfen gidilecek bayileri seçin'
+                        },
+
+                        workNo: {
+                            required: 'Lütfen iş emri numarasını boş bırakmayın'
+                        }
+                    }
+                }
+            };
+
+            this.$validator.localize('en', dict);
         }
     }
 </script>

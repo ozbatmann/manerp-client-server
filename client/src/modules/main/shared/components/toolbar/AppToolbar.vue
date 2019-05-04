@@ -38,14 +38,16 @@
         </template>
         <v-spacer></v-spacer>
         <v-autocomplete
+                ref="searchAutocomplete"
                 cache-items
                 class="mx-5"
                 flat
                 hide-details
                 hide-no-data
                 label="Bir kişi, plaka, sevkiyat arayın"
-                solo>
-        </v-autocomplete>
+                solo
+                @focus="search(true)"
+        ></v-autocomplete>
         <v-spacer></v-spacer>
 
         <v-spacer></v-spacer>
@@ -115,7 +117,8 @@
                 title: null,
                 tabs: null,
 
-                localDrawerState: this.value
+                lastRoute: null,
+                localDrawerState: this.value,
             }
         },
 
@@ -153,6 +156,15 @@
             logout () {
                 this.$store.commit('shared/change', false);
                 this.$router.push({ name: 'login' })
+            },
+
+            search(state) {
+                if (state) {
+                    let searchRoute = require('@/modules/main/search/route/index').routes.search;
+
+                    this.lastRoute = this.$router.currentRoute.name;
+                    this.$router.push({ name: searchRoute });
+                }
             }
         },
 

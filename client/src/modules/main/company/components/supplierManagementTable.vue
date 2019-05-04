@@ -1,19 +1,19 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <m-data-table
-            :headers="headers"
-            :items="suppliers"
-            :loading="loading"
-            :to="to"
-            @deleteItem="deleteItem"
+                :headers="headers"
+                :items="suppliers"
+                :loading="loading"
+                :to="to"
+                @deleteItem="deleteItem"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
 
                 <!-- Add supplier button -->
                 <m-data-table-action
-                    title="tedarikçi iş yeri ekle"
-                    @click="addDialog"
+                        title="tedarikçi iş yeri ekle"
+                        @click="addDialog"
                 ></m-data-table-action>
             </template>
 
@@ -24,23 +24,24 @@
             </template>
         </m-data-table>
 
-        <supplier-management-add-edit-dialog ref="supplierManagementAddEditDialog"
-                                             @save="addNewItem"
-                                             @edit="editItem">
-        </supplier-management-add-edit-dialog>
+        <customer-management-add-edit-dialog
+                ref="supplierManagementAddEditDialog"
+                @save="addNewItem"
+                @edit="editItem"
+        ></customer-management-add-edit-dialog>
 
         <v-snackbar
-            v-model="snackbar.active"
-            color="grey darken-4"
-            :class="snackbar.textColor"
-            top
-            right
+                v-model="snackbar.active"
+                color="grey darken-4"
+                :class="snackbar.textColor"
+                top
+                right
         >
             {{ snackbar.text }}
             <v-btn
-                dark
-                flat
-                @click="snackbar.active = false"
+                    dark
+                    flat
+                    @click="snackbar.active = false"
             >
                 geri al
             </v-btn>
@@ -51,17 +52,16 @@
 <script>
     import MDataTable from '../../shared/components/data/components/MDataTable'
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction"
-    import supplierManagementAddEditDialog
-        from "@/modules/main/company/components/supplierManagementAddEditDialog"
+    import CustomerManagementAddEditDialog from "./customerManagementAddEditDialog";
 
     const supplierModel = require('@/modules/main/company/models/company-model').default;
 
     export default {
         name: "supplierManagementTable",
         components: {
+            CustomerManagementAddEditDialog,
             MDataTable,
             MDataTableAction,
-            supplierManagementAddEditDialog
         },
 
         data() {
