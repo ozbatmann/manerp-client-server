@@ -1,48 +1,49 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <m-data-table
-            :headers="headers"
-            :items="customers"
-            :loading="loading"
-            :to="to"
-            @deleteItem="deleteItem"
+                :headers="headers"
+                :items="customers"
+                :loading="loading"
+                :to="to"
+                @editItem="editDialog"
+                @deleteItem="deleteItem"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
 
                 <!-- Add customer button -->
                 <m-data-table-action
-                    title="müşteri iş yeri ekle"
-                    @click="addDialog"
+                        title="müşteri iş yeri ekle"
+                        @click="addDialog"
                 ></m-data-table-action>
             </template>
 
             <!-- Data table action menu slot -->
             <template v-slot:action-menu="item">
                 <v-list-tile @click="editVendorDialog(item.bind)">Bayi ekle</v-list-tile>
-                <v-list-tile @click="editDialog(item.bind)">Düzenle</v-list-tile>
             </template>
         </m-data-table>
 
-        <customer-management-add-edit-dialog ref="customerManagementAddEditDialog"
-                                             dealer
-                                             @save="addNewItem"
-                                             @edit="editItem"
-                                             @displayMessage="displaySnackMessage"
+        <customer-management-add-edit-dialog
+                ref="customerManagementAddEditDialog"
+                dealer
+                @save="addNewItem"
+                @edit="editItem"
+                @displayMessage="displaySnackMessage"
         ></customer-management-add-edit-dialog>
 
         <v-snackbar
-            v-model="snackbar.active"
-            color="grey darken-4"
-            :class="snackbar.textColor"
-            top
-            right
+                v-model="snackbar.active"
+                color="grey darken-4"
+                :class="snackbar.textColor"
+                top
+                right
         >
             {{ snackbar.text }}
             <v-btn
-                dark
-                flat
-                @click="snackbar.active = false"
+                    dark
+                    flat
+                    @click="snackbar.active = false"
             >
                 geri al
             </v-btn>
@@ -159,7 +160,7 @@
 
                 let fields = 'fields=id,code,title,phone,email,taxNumber';
                 let pagination = 'limit=10&offset=0';
-                let companyTypeCode = 'companyTypeCode=CST';
+                let companyTypeCode = 'sysrefCompanyTypeCode=CST';
                 this.$http.get('api/v1/company?' + fields + '&' + pagination + '&' + companyTypeCode).then((result) => {
                     self.customers = result.data.data.items
                 }).catch((error) => {
@@ -170,11 +171,12 @@
                 let self = this;
                 this.newItem = item;
 
-                this.newItem.sysrefCompanyType = 'ff8081816a2261ec016a226283a30005'; // TODO: change - companyType customer
+                this.newItem.sysrefCompanyType = 'ff8081816a839ccd016a839cea490005'; // TODO: change - companyType customer
 
                 this.$http.post('api/v1/company', this.newItem).then((result) => {
                     self.displaySnackMessage(result);
                     self.getAllCustomers();
+                    self.showDialog = false;
                 }).catch((error) => {
                     console.log(error);
                 })
