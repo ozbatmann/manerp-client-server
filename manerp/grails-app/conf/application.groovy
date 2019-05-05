@@ -24,11 +24,10 @@ manerp {
     }
     rest{
         manerpPortal{
-            url = 'http://localhost:8091'
+            url = 'http://157.230.125.223/'
         }
     }
     auth{
-        organizationId = "123"
         restMethod {
             synchronizeRedisWithDB = "api/v1/redis/synchronizeRedisWithDB"
         }
@@ -47,7 +46,7 @@ environments {
         dataSource {
             dbCreate = 'update'
 //            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
-            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://localhost:5432/manerp'
+            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
         }
         grails{
             redis {
@@ -71,7 +70,7 @@ environments {
         dataSource {
             dbCreate = 'update'
 //            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
-            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://localhost:5432/manerp'
+            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
         }
     }
 }

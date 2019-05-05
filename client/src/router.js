@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import {store} from 'manerp-vue-base'
 
+import {snotify} from 'manerp-vue-base'
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -20,6 +22,8 @@ const router = new VueRouter({
             path: '/',
             component: () => import('@/App'),
             children: [
+                // Authentication routes
+                ...require('@/modules/main/authentication/route/index').default,
                 {
                     path: '',
                     component: () => import('@/modules/main/AppMain'),
@@ -57,8 +61,6 @@ const router = new VueRouter({
                     ],
                 },
 
-                // Authentication routes
-                ...require('@/modules/main/authentication/route/index').default,
             ]
         },
     ],
@@ -73,7 +75,16 @@ const router = new VueRouter({
 // }
 
 router.beforeEach((to, from, next) => {
-    next()
+    debugger;
+    if(to.matched.some(record => record.meta.requiresAuth)) {
+        if (!store.state.shared['auth-token']) {
+            next({
+                path: "/auth/login",
+                params: { nextUrl: to.fullPath }
+            })
+        }
+    }
+    next();
 });
 
 export default router

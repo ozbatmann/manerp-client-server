@@ -2,6 +2,7 @@ export const routes = {};
 
 const meta = (title) => {
     return {
+        requiresAuth: true,
         title: title,
         tabbed: false,
         tabs: []

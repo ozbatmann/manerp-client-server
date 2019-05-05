@@ -26,7 +26,7 @@ export default {
     state: {
         "permList": [],
         "menu": [],
-        "username": null,
+        "user": null,
         "organization": null,
         "auth-token":null
     },
@@ -53,6 +53,9 @@ export default {
         },
         SET_USERNAME(state, value) {
             state["user"] = value
+        },
+        SET_TOKEN(state, value) {
+            state["auth-token"] = value
         }
     }
 }

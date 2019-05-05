@@ -5,6 +5,7 @@ export const routes = {
 
 const meta = (title) => {
     return {
+        requiresAuth: true,
         title: title,
         tabbed: true,
         tabs: [

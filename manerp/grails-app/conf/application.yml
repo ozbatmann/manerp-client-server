@@ -106,8 +106,8 @@ dataSource:
     pooled: true
     jmxExport: true
     driverClassName: org.postgresql.Driver
-    username: postgres
-    password: BpMd)sTdF?21a90!.
+    username: manerp
+    password: manerp
 #    password: manerp
     properties:
         validationQuery: "SELECT 1"

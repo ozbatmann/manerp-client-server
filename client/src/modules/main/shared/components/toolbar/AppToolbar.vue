@@ -155,7 +155,8 @@
             },
 
             logout () {
-                AuthService.logout()
+                AuthService.clearLoginDetails()
+                this.$router.push({ name: require('@/modules/main/authentication/route/index').routes.login})
             },
 
             search(state) {
