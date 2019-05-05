@@ -325,6 +325,13 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn
+                    v-if="isEdit && currentTab ===0"
+                    color="cyan darken-1" outline
+                    @click.native="completeVoyage"
+                >
+                    Sevkiyatı Tamamla
+                </v-btn>
+                <v-btn
                     v-if="isEdit && currentTab === 0 && (calculatedRoute !== null && calculatedRoute.length > 0)"
                     color="blue darken-1" outline
                     @click.native="edit">Düzenle
@@ -512,6 +519,24 @@
                         this.close();
                     }
                 });
+            },
+            getSysrefDeliveryStatusId() {
+                this.$http.get("api/v1/sysrefDeliveryStatus?fields=id,code").then((result) => {
+                    let items = result.data.data.items;
+                    items.forEach((item) => {
+                        if (item.code === 'BOS') {
+                            this.sysrefDeliveryStatusId = item.id;
+                        }
+                    });
+                }).catch((error) => {
+                    console.error(error);
+                }).finally(() => {
+                })
+            },
+            completeVoyage() {
+                this.data.sysrefDeliveryStatus = this.sysrefDeliveryStatusId;
+                console.log(this.data.sysrefDeliveryStatus)
+                this.edit();
             },
             clear() {
                 this.data = JSON.parse(JSON.stringify(voyageModel));
