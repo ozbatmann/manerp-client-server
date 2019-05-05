@@ -1,32 +1,51 @@
 <template>
     <div class="fill-height">
-        <div class="m-404__clippath deep-purple"></div>
-        <v-container fill-height>
+        <div class="m-404__clippath deep-purple darken-2"></div>
+        <div class="primary-green m-404__green"></div>
+        <v-container fluid fill-height style="position: relative; z-index: 2;">
             <v-layout
                     row
                     align-center
+                    justify-center
                     fill-height
+                    wrap
             >
-                <v-flex xs6>
-                    <h2 class="display-2 font-weight-light white--text slide-in-left">404.</h2>
-                    <h1 class="display-4 white--text slide-in-left">Kayıp mı oldunuz?</h1>
-                    <v-btn
-                            depressed
-                            color="primary-green white--text slide-in-left"
-                            class="mt-4 px-4"
-                            @click="$router.push(to)"
-                    >
-                        BENİ EVE GÖTÜR
-                    </v-btn>
+                <v-flex
+                        xs12
+                        pl-2
+                        align-self-start
+                >
+                    <v-img
+                            :src="require('@/assets/logo_w.png')"
+                            height="75"
+                            width="100"
+                            contain
+                            class="d-inline-block"
+                    ></v-img>
+                </v-flex>
+                <v-flex xs4 text-xs-right pr-3>
+                    <h2 class="display-2 font-weight-light white--text slide-in-left"><span style="opacity: .5;">404.</span></h2>
+                    <h1 class="display-4 white--text slide-in-left"><span style="opacity: 1;">Kayıp mı oldunuz?</span></h1>
                 </v-flex>
                 <v-flex
-                        xs6
+                        xs4
+                        pl-3
                 >
                     <v-img
                             :src="require('@/assets/truck_repair.png')"
                             contain
                             class="image-cropped"
                     ></v-img>
+                </v-flex>
+                <v-flex xs12 text-xs-center align-self-start>
+                    <v-btn
+                            depressed
+                            color="deep-purple white--text slide-in-left"
+                            class="mt-4 px-4"
+                            @click="$router.push(to)"
+                    >
+                        BENİ EVE GÖTÜR
+                    </v-btn>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -50,12 +69,26 @@
 <style scoped>
 
     .m-404__clippath {
+        z-index: 1;
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-clip-path: polygon(0 0, 100% 0%, 100% 40%, 0 70%);
+        clip-path: polygon(0 0, 100% 0%, 100% 40%, 0 70%);
+
+    }
+
+    .m-404__green {
         z-index: 0;
         position: absolute;
         left: 0;
         right: 0;
         width: 100%;
         height: 100%;
+        -webkit-clip-path: polygon(0 0, 100% 0%, 100% 57%, 0 72%);
+        clip-path: polygon(0 0, 100% 0%, 100% 57%, 0 72%);
     }
 
     .image-cropped {
