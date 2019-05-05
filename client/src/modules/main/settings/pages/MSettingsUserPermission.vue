@@ -268,6 +268,7 @@
 
         data() {
             return {
+                user: this.$store.state.shared,
                 filter: {
                     role: null,
                     user: null,
@@ -575,16 +576,34 @@
             getSecuritySubjects () {
                 this.loading.permission = true;
 
-                this.$http.get('api/v1/').then((result) => {
+                this.$http.post('api/v1/getAllRolePermissionList').then((result) => {
                     let subjects = result.data.data.items;
 
                     for (let subject of subjects) {
-
+                        console.log('subject', subject);
                     }
                 }).catch((error) => {
                     console.log(error);
                 }).finally(() => this.loading.permission = false)
             },
+
+            // user{
+            //     getAllUserList = "api/v1/rest/getAllUserList"
+            //     addUser = "api/v1/rest/addUser"
+            //     updateUser = "api/v1/rest/updateUser"
+            //     deleteUser = "api/v1/rest/deleteUser"
+            // }
+            // role{
+            //     getAllRoleList = "api/v1/rest/getAllRoleList"
+            //     addRole = "api/v1/rest/addRole"
+            //     updateRole = "api/v1/rest/updateRole"
+            //     deleteRole = "api/v1/rest/deleteRole"
+            // }
+            // rolePermission{
+            //     getAllRolePermissionList = "api/v1/rest/getAllRolePermissionList"
+            //     addRolePermission = "api/v1/rest/addRole"
+            //     deleteRolePermission = "api/v1/rest/deleteRolePermission"
+            // }
 
             getPermissions (roleId) {
                 this.loading.permission = true;
@@ -601,7 +620,20 @@
             },
 
             getRoles () {
+                this.loading.permission = true;
+                this.$http.post('api/v1/auth/getAllRoleList',
+                    { organizationId: this.user.organization.id }).then((result) => {
+                        console.log(result);
+                    let subjects = result.data.data.items;
 
+                    console.log(subjects);
+
+                    for (let subject of subjects) {
+                        console.log(subject)
+                    }
+                }).catch((error) => {
+                    console.log(error);
+                }).finally(() => this.loading.permission = false)
             },
 
             getUsers(role) {
@@ -614,7 +646,7 @@
         },
 
         mounted () {
-
+            this.getRoles();
         }
     }
 </script>
