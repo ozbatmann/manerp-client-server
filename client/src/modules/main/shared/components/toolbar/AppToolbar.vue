@@ -100,7 +100,7 @@
 </template>
 
 <script>
-    // import AuthService from 'manerp-vue-auth/src/service/AuthService'
+    import AuthService from 'manerp-vue-auth/src/service/AuthService'
     export default {
         name: "AppToolbar",
 
@@ -155,7 +155,7 @@
             },
 
             logout () {
-                AuthService.clearLoginDetails()
+                AuthService.clearLoginDetails();
                 this.$router.push({ name: require('@/modules/main/authentication/route/index').routes.login})
             },
 

@@ -56,6 +56,8 @@
                 </v-flex>
                 <v-flex xs6 pl-2>
                     <v-autocomplete
+                            cache-items
+                            hide-no-data
                             solo
                             flat
                             v-validate="'required'"
@@ -71,6 +73,8 @@
                 </v-flex>
                 <v-flex xs6 pr-2>
                     <v-autocomplete
+                            cache-items
+                            hide-no-data
                             solo
                             flat
                             v-validate="'required'"
@@ -157,6 +161,7 @@
 
 <script>
     import MDataTableAddEditForm from "../../shared/components/data/components/MDataTableAddEditForm";
+
     const staffModel = require('@/modules/main/staff/models/staff-model-add-edit').default;
 
     export default {

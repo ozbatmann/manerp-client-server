@@ -5,6 +5,7 @@
                 :items="suppliers"
                 :loading="loading"
                 :to="to"
+                @editItem="editDialog"
                 @deleteItem="deleteItem"
         >
             <!-- Data table header slot -->
@@ -15,12 +16,6 @@
                         title="tedarikçi iş yeri ekle"
                         @click="addDialog"
                 ></m-data-table-action>
-            </template>
-
-            <!-- Data table action menu slot -->
-            <template v-slot:action-menu="item">
-                <v-list-tile @click="editVendorDialog(item.bind)">Bayi ekle</v-list-tile>
-                <v-list-tile @click="editDialog(item.bind)">Düzenle</v-list-tile>
             </template>
         </m-data-table>
 
@@ -157,7 +152,7 @@
 
                 let fields = 'fields=id,code,title,phone,email,taxNumber';
                 let pagination = 'limit=10&offset=0';
-                let companyTypeCode = 'companyTypeCode=SPL';
+                let companyTypeCode = 'sysrefCompanyTypeCode=SPL';
                 this.$http.get('api/v1/company?' + fields + '&' + pagination + '&' + companyTypeCode).then((result) => {
                     self.suppliers = result.data.data.items
                 }).catch((error) => {
@@ -168,7 +163,7 @@
                 let self = this;
                 this.newItem = item;
 
-                this.newItem.sysrefCompanyType = 'ff8081816a2261ec016a2262847d0006'; // TODO: change
+                this.newItem.sysrefCompanyType = 'ff8081816a839ccd016a839cea4f0006'; // TODO: change
 
                 this.$http.post('api/v1/company', this.newItem).then((result) => {
                     let status = result.data.status;
@@ -178,6 +173,7 @@
                         self.snackbar.textColor = 'red--text';
                     }
 
+                    self.showDialog = false;
                     self.snackbar.text = result.data.message;
                     self.snackbar.active = true;
                     self.getAllSuppliers();

@@ -31,7 +31,7 @@
                     >
                         izin tipleri
                         <v-spacer></v-spacer>
-                        <v-tooltip right>
+                        <v-tooltip right v-if="!loading.role">
                             <template v-slot:activator="{ on }">
                                 <v-btn
                                         v-on="on"
@@ -43,6 +43,13 @@
                             </template>
                             <span>Yeni izin ekle</span>
                         </v-tooltip>
+                        <v-progress-circular
+                                v-if="loading.role"
+                                indeterminate
+                                color="primary-green"
+                                size="18"
+                                class="mr-3"
+                        ></v-progress-circular>
                     </v-subheader>
 
                     <v-text-field
@@ -81,7 +88,7 @@
                 </v-list>
             </v-flex>
 
-            <v-flex mx-2 lg6>
+            <v-flex mx-2 lg5>
                 <v-list
                         class="m-settings__list pt-0 pb-3"
                         dense
@@ -93,7 +100,7 @@
                     >
                         {{selectedPermissionTitle}} iznine sahip kullanıcılar
                         <v-spacer></v-spacer>
-                        <v-tooltip right>
+                        <v-tooltip right v-if="!loading.user">
                             <template v-slot:activator="{ on }">
                                 <v-btn
                                         v-on="on"
@@ -105,6 +112,13 @@
                             </template>
                             <span>Yeni kullanıcı ekle</span>
                         </v-tooltip>
+                        <v-progress-circular
+                                v-if="loading.user"
+                                indeterminate
+                                color="primary-green"
+                                size="18"
+                                class="mr-3"
+                        ></v-progress-circular>
                     </v-subheader>
 
                     <v-text-field
@@ -139,7 +153,7 @@
                 </v-list>
             </v-flex>
 
-            <v-flex ml-2 lg3>
+            <v-flex ml-2 lg4>
                 <v-layout
                         row
                 >
@@ -154,6 +168,13 @@
                             <!-- Title -->
                             <v-card-title class="text-uppercase font-weight-medium">
                                 <span class="white--text">{{selectedPermissionTitle}} iznine ait yetkiler</span>
+                                <v-spacer></v-spacer>
+                                <v-progress-circular
+                                        v-if="loading.permission"
+                                        indeterminate
+                                        color="primary-green"
+                                        size="18"
+                                ></v-progress-circular>
                             </v-card-title>
 
                             <v-card-text class="py-0 my-0">
@@ -481,11 +502,12 @@
                     }
                 ],
 
-                permissionTypes: {
-                    create: false,
-                    read: false,
-                    update: false,
-                    delete: false
+                permissionTypes: ['add', 'show', 'edit', 'delete'],
+
+                loading: {
+                    role: true,
+                    user: false,
+                    permission: false,
                 },
 
                 selected: 0,
@@ -546,7 +568,53 @@
 
             select(index) {
                 this.selected = index;
+            },
+
+            // Request methods
+
+            getSecuritySubjects () {
+                this.loading.permission = true;
+
+                this.$http.get('api/v1/').then((result) => {
+                    let subjects = result.data.data.items;
+
+                    for (let subject of subjects) {
+
+                    }
+                }).catch((error) => {
+                    console.log(error);
+                }).finally(() => this.loading.permission = false)
+            },
+
+            getPermissions (roleId) {
+                this.loading.permission = true;
+
+                this.$http.get('api/v1/').then((result) => {
+                    let subjects = result.data.data.items;
+
+                    for (let subject of subjects) {
+
+                    }
+                }).catch((error) => {
+                    console.log(error);
+                }).finally(() => this.loading.permission = false)
+            },
+
+            getRoles () {
+
+            },
+
+            getUsers(role) {
+
+            },
+
+            removeUser(id) {
+
             }
+        },
+
+        mounted () {
+
         }
     }
 </script>

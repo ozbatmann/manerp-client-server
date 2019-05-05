@@ -105,7 +105,9 @@
                             {
                                 title: 'Genel Bakış',
                                 icon: 'dashboard',
-                                to: '/'
+                                to: '/',
+                                permission: "vehicle:show"
+
                             },
                             {
                                 title: 'Muhasebe',

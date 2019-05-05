@@ -46,6 +46,7 @@
                         depressed
                         color="primary-green"
                         class="white--text mx-0 mt-3"
+                        :loading="loading"
                         @click="login"
                 >
                     GİRİŞ YAP
@@ -72,13 +73,15 @@
 
         data () {
             return {
+                loading: false,
+
                 // An Object that holds
                 // username information of the user
-                username: null,
+                username: 'bumerangadmin',
 
                 // An Object that holds
                 // password information of the user
-                password: null,
+                password: '123456',
 
                 resetPassword: {
                     name: require('@/modules/main/authentication/route/index').routes.sendResetMail,
@@ -89,18 +92,20 @@
 
         methods: {
             login () {
+                this.loading = true;
+
                 let loginData = {
                     username: this.username,
                     password: this.password
                 };
 
-                this.$http.post('http://localhost:8082/api/v1/auth/login', loginData)
+                this.$http.post('http://192.168.1.35:8082/api/v1/auth/login', loginData)
                     .then(result => {
                         if(result.data.status === 200){
                             console.log(this.$store);
-                            this.$store.state.shared['user'] = result.data.data.user
-                            this.$store.state.shared['organization'] = result.data.data.organization
-                            this.$bus.$emit("userLoaded",result)
+                            this.$store.state.shared['user'] = result.data.data.user;
+                            this.$store.state.shared['organization'] = result.data.data.organization;
+                            this.$bus.$emit("userLoaded",result);
 
                             this.$bus.$on('userDetailsSet', ()=>{
                                 this.$router.push({name:'overview'})
@@ -109,7 +114,9 @@
                         console.log(result)
                 }).catch(error => {
                         console.log(`Error is here: ${error}`)
-                })
+                }).finally(() => {
+                    this.loading = false;
+                });
             }
         }
     }

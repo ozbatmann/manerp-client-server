@@ -94,7 +94,9 @@
                         pr-2
                 >
                     <!-- Plate -->
-                    <v-autocomplete
+                <v-autocomplete
+                            cache-items
+                            hide-no-data
                             v-validate="'required'"
                             :error-messages="errors.collect('workingArea')"
                             v-model="data.refWorkingArea"
@@ -117,6 +119,7 @@
                 >
                     <!-- Plate -->
                     <v-autocomplete
+                cache-items
                             v-validate="'required'"
                             :error-messages="errors.collect('type')"
                             v-model="data.sysrefVehicleType"
@@ -139,6 +142,7 @@
                 >
                     <!-- Plate -->
                     <v-autocomplete
+                cache-items
                             v-validate="'required'"
                             :error-messages="errors.collect('ownerType')"
                             v-model="data.sysrefVehicleOwner"
@@ -162,6 +166,7 @@
                     <!-- Plate -->
                     <!-- TODO burasi tedarikci firma olacak - show only if sysrefVehicleOwner is kiralik -->
                     <v-autocomplete
+                cache-items
                             v-validate="'required'"
                             :error-messages="errors.collect('supplier')"
                             v-model="data.vehicleOwnerFullName"
@@ -325,7 +330,7 @@
             getSupplierList () {
                 let self = this;
 
-                this.$http.get('api/v1/company?sysrefCompanyType=SPL').then((result) => {
+                this.$http.get('api/v1/company?sysrefCompanyTypeCode=SPL').then((result) => {
                     self.sysrefSupplierList = result.data.data.items;
                 }).catch((error) => {
                     console.log(error);

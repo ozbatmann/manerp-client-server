@@ -75,7 +75,6 @@ const router = new VueRouter({
 // }
 
 router.beforeEach((to, from, next) => {
-    debugger;
     if(to.matched.some(record => record.meta.requiresAuth)) {
         if (!store.state.shared['auth-token']) {
             next({
