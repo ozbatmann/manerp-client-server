@@ -29,133 +29,135 @@
                     <v-tab-item class="tab-item" :transition="false" :reverse-transition="false"
                     >
                         <v-container grid-list-md pa-0>
-                            <v-layout wrap>
-                                <v-flex xs6 pr-2>
-                                    <v-combobox v-validate="'required'"
-                                                :error-messages="errors.collect('order')"
-                                                v-on:change="getVendorsByOrder('onChange')"
-                                                v-model="data._order"
-                                                :return-object="true"
-                                                :items="orders"
-                                                item-value="id"
-                                                label="Sipariş"
-                                                item-text="fullName"
-                                                name="order"
-                                                background-color="grey lighten-4"
-                                                color="green accent-2"
-                                                full-width>
-                                    </v-combobox>
-                                </v-flex>
-                                <v-flex xs6 pl-2>
-                                    <v-combobox v-validate="'required'"
-                                                :error-messages="errors.collect('vehicle')"
-                                                v-on:change="setVehicleSpecs"
-                                                v-model="data.vehicle"
-                                                :return-object="true"
-                                                :items="vehicles"
-                                                item-value="id"
-                                                label="Araç"
-                                                item-text="plateNumber"
-                                                name="vehicle"
-                                                background-color="grey lighten-4"
-                                                color="green accent-2"
-                                                full-width>
-                                    </v-combobox>
-                                </v-flex>
-                                <v-flex xs6 pr-2>
-                                    <v-combobox v-validate="'required'"
-                                                :error-messages="errors.collect('driver')"
-                                                v-model="data.driver"
-                                                :return-object="true"
-                                                :items="drivers"
-                                                item-value="id"
-                                                label="Şoför"
-                                                item-text="fullName"
-                                                name="driver"
-                                                background-color="grey lighten-4"
-                                                color="green accent-2"
-                                                full-width>
-                                    </v-combobox>
-                                </v-flex>
-                                <v-flex xs6 pl-2>
-                                    <v-combobox v-validate="'required'"
-                                                :error-messages="errors.collect('sysrefTransportationType')"
-                                                v-model="data.sysrefTransportationType"
-                                                :return-object="true"
-                                                :items="sysrefTransportationTypes"
-                                                item-value="id"
-                                                label="Taşıma Tipi"
-                                                item-text="name"
-                                                name="sysrefTransportationType"
-                                                background-color="grey lighten-4"
-                                                color="green accent-2"
-                                                full-width>
-                                    </v-combobox>
-                                </v-flex>
-                                <v-flex xs6 pr-2>
-                                    <v-combobox v-validate="'required'"
-                                                :error-messages="errors.collect('sysrefVoyageDirection')"
-                                                v-model="data.sysrefVoyageDirection"
-                                                :return-object="true"
-                                                :items="sysrefVoyageDirections"
-                                                item-value="id"
-                                                label="Sevkiyat Yönü"
-                                                item-text="name"
-                                                name="sysrefVoyageDirection"
-                                                background-color="grey lighten-4"
-                                                color="green accent-2"
-                                                full-width>
-                                    </v-combobox>
-                                </v-flex>
-                                <v-flex xs6 pl-2>
-                                    <v-combobox v-validate="'required'"
-                                                :error-messages="errors.collect('sysrefDeliveryStatus')"
-                                                v-model="data.sysrefDeliveryStatus"
-                                                :return-object="true"
-                                                :items="sysrefDeliveryStatuses"
-                                                item-value="id"
-                                                label="Durum"
-                                                item-text="name"
-                                                name="sysrefDeliveryStatus"
-                                                background-color="grey lighten-4"
-                                                color="green accent-2"
-                                                full-width>
-                                    </v-combobox>
-                                </v-flex>
-                                <v-flex xs6 pr-2>
-                                    <v-text-field v-model="data.transportWaybillNo"
-                                                  label="Nakliye İrsaliye Numarası"
-                                                  name="transportWaybillNo"
-                                                  :counter="150"
-                                                  maxlength="150"
-                                                  background-color="grey lighten-4"
-                                                  color="green accent-2"
-                                                  full-width>
-                                    </v-text-field>
-                                </v-flex>
-                                <v-flex xs6 pl-2>
-                                    <v-text-field v-model="data.deliveryNoteNo"
-                                                  label="Teslimat Notu Numarası"
-                                                  name="deliveryNoteNo"
-                                                  :counter="150"
-                                                  maxlength="150"
-                                                  background-color="grey lighten-4"
-                                                  color="green accent-2"
-                                                  full-width>
-                                    </v-text-field>
-                                </v-flex>
-                                <v-flex xs6 pr-2>
-                                    <v-text-field v-model="data.sasNumber"
-                                                  label="Sas Numarası"
-                                                  name="sasNumber"
-                                                  :counter="150"
-                                                  maxlength="150"
-                                                  background-color="grey lighten-4"
-                                                  color="green accent-2"
-                                                  full-width>
-                                    </v-text-field>
-                                </v-flex>
-                            </v-layout>
+                            <v-container grid-list-md pa-0>
+                                <v-layout wrap>
+                                    <v-flex xs6 pr-2>
+                                        <v-combobox v-validate="'required'"
+                                                    :error-messages="errors.collect('order')"
+                                                    v-on:change="getVendorsByOrder('onChange')"
+                                                    v-model="data._order"
+                                                    :return-object="true"
+                                                    :items="orders"
+                                                    item-value="id"
+                                                    label="Sipariş"
+                                                    item-text="fullName"
+                                                    name="order"
+                                                    background-color="grey lighten-4"
+                                                    color="green accent-2"
+                                                    full-width>
+                                        </v-combobox>
+                                    </v-flex>
+                                    <v-flex xs6 pl-2>
+                                        <v-combobox v-validate="'required'"
+                                                    :error-messages="errors.collect('vehicle')"
+                                                    v-on:change="setVehicleSpecs"
+                                                    v-model="data.vehicle"
+                                                    :return-object="true"
+                                                    :items="vehicles"
+                                                    item-value="id"
+                                                    label="Araç"
+                                                    item-text="plateNumber"
+                                                    name="vehicle"
+                                                    background-color="grey lighten-4"
+                                                    color="green accent-2"
+                                                    full-width>
+                                        </v-combobox>
+                                    </v-flex>
+                                    <v-flex xs6 pr-2>
+                                        <v-combobox v-validate="'required'"
+                                                    :error-messages="errors.collect('driver')"
+                                                    v-model="data.driver"
+                                                    :return-object="true"
+                                                    :items="drivers"
+                                                    item-value="id"
+                                                    label="Şoför"
+                                                    item-text="fullName"
+                                                    name="driver"
+                                                    background-color="grey lighten-4"
+                                                    color="green accent-2"
+                                                    full-width>
+                                        </v-combobox>
+                                    </v-flex>
+                                    <v-flex xs6 pl-2>
+                                        <v-combobox v-validate="'required'"
+                                                    :error-messages="errors.collect('sysrefTransportationType')"
+                                                    v-model="data.sysrefTransportationType"
+                                                    :return-object="true"
+                                                    :items="sysrefTransportationTypes"
+                                                    item-value="id"
+                                                    label="Taşıma Tipi"
+                                                    item-text="name"
+                                                    name="sysrefTransportationType"
+                                                    background-color="grey lighten-4"
+                                                    color="green accent-2"
+                                                    full-width>
+                                        </v-combobox>
+                                    </v-flex>
+                                    <v-flex xs6 pr-2>
+                                        <v-combobox v-validate="'required'"
+                                                    :error-messages="errors.collect('sysrefVoyageDirection')"
+                                                    v-model="data.sysrefVoyageDirection"
+                                                    :return-object="true"
+                                                    :items="sysrefVoyageDirections"
+                                                    item-value="id"
+                                                    label="Sevkiyat Yönü"
+                                                    item-text="name"
+                                                    name="sysrefVoyageDirection"
+                                                    background-color="grey lighten-4"
+                                                    color="green accent-2"
+                                                    full-width>
+                                        </v-combobox>
+                                    </v-flex>
+                                    <v-flex xs6 pl-2>
+                                        <v-combobox v-validate="'required'"
+                                                    :error-messages="errors.collect('sysrefDeliveryStatus')"
+                                                    v-model="data.sysrefDeliveryStatus"
+                                                    :return-object="true"
+                                                    :items="sysrefDeliveryStatuses"
+                                                    item-value="id"
+                                                    label="Durum"
+                                                    item-text="name"
+                                                    name="sysrefDeliveryStatus"
+                                                    background-color="grey lighten-4"
+                                                    color="green accent-2"
+                                                    full-width>
+                                        </v-combobox>
+                                    </v-flex>
+                                    <v-flex xs6 pr-2>
+                                        <v-text-field v-model="data.transportWaybillNo"
+                                                      label="Nakliye İrsaliye Numarası"
+                                                      name="transportWaybillNo"
+                                                      :counter="150"
+                                                      maxlength="150"
+                                                      background-color="grey lighten-4"
+                                                      color="green accent-2"
+                                                      full-width>
+                                        </v-text-field>
+                                    </v-flex>
+                                    <v-flex xs6 pl-2>
+                                        <v-text-field v-model="data.deliveryNoteNo"
+                                                      label="Teslimat Notu Numarası"
+                                                      name="deliveryNoteNo"
+                                                      :counter="150"
+                                                      maxlength="150"
+                                                      background-color="grey lighten-4"
+                                                      color="green accent-2"
+                                                      full-width>
+                                        </v-text-field>
+                                    </v-flex>
+                                    <v-flex xs6 pr-2>
+                                        <v-text-field v-model="data.sasNumber"
+                                                      label="Sas Numarası"
+                                                      name="sasNumber"
+                                                      :counter="150"
+                                                      maxlength="150"
+                                                      background-color="grey lighten-4"
+                                                      color="green accent-2"
+                                                      full-width>
+                                        </v-text-field>
+                                    </v-flex>
+                                </v-layout>
+                            </v-container>
                         </v-container>
                     </v-tab-item>
                     <v-tab-item class="tab-item" :transition="false" :reverse-transition="false"

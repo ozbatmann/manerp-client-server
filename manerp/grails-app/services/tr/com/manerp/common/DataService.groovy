@@ -992,6 +992,7 @@ class DataService
         Voyage voyagePinar = Voyage.findBySasNumber('SAS-111222333')
         if ( voyagePinar == null ) {
 
+
             voyagePinar = new Voyage()
             voyagePinar.startDate = new Date()
             voyagePinar.setRandomCode()
