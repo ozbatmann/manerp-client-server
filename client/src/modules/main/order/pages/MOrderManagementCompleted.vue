@@ -1,35 +1,20 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
+        <m-order-add-edit-form
+            ref="addEditDialog"
+            title="Yeni Sipariş"
+            @save="addNewItem"
+            @edit="editItem"
+        ></m-order-add-edit-form>
         <m-data-table
             :headers="headers"
             :items="orders"
+            :to="to"
             :loading="loading"
+            @deleteItem="deleteItem"
+            @editItem="editItem"
         >
-            <!-- Data table header slot -->
-            <template v-slot:header>
-
-                <!-- Add customer button -->
-                <!--<m-data-table-action-->
-                    <!--title="sipariş ekle"-->
-                    <!--disabled-->
-                <!--&gt;</m-data-table-action>-->
-            </template>
-
-            <!-- Data-table action menu slot -->
-            <template v-slot:action-menu="item">
-
-                <!-- Edit button -->
-                <v-list-tile @click="addDialog(item.bind)">Düzenle</v-list-tile>
-            </template>
         </m-data-table>
-
-        <!-- Data table add-edit form -->
-        <m-data-table-add-new-form
-            ref="addEditDialog"
-            :data="addEditData"
-            :inputs="addEditFields"
-            title="Yeni Sipariş"
-        ></m-data-table-add-new-form>
 
         <v-snackbar
             v-model="snackbar.active"
@@ -54,13 +39,15 @@
     import MDataTable from '../../shared/components/data/components/MDataTable'
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction"
     import MDataTableAddNewForm from "../../shared/components/data/components/MDataTableAddNewForm"
+    import MOrderAddEditForm from "../components/MOrderAddEditForm";
 
     const orderModel = require('@/modules/main/order/models/order-model').default;
 
     export default {
-        name: "MOrderManagementCompleted",
+        name: "MOrderManagementCurrent",
 
         components: {
+            MOrderAddEditForm,
             MDataTable,
             MDataTableAction,
             MDataTableAddNewForm
@@ -73,18 +60,71 @@
                 // Data-table
                 // add-edit dialog data
                 addEditData: {
+                    [orderModel.name]: null,
                     [orderModel.sysrefRevenueType]: null,
-                    [orderModel.orderDate]: null,
+                    // [orderModel.orderDate]: null,
                     [orderModel.billingNo]: null,
-                    [orderModel.customer]: null
+                    [orderModel.customer]: null,
+                    [orderModel.workOrderNo]: null
                 },
 
                 // Data-table
                 // add-edit dialog fields
                 addEditFields: [
-
+                    {
+                        key: orderModel.name,
+                        max: 20,
+                        rules: [
+                            'required', 'max:30'
+                        ],
+                        title: 'sipariş tanımı',
+                        type: 'text',
+                    },
+                    // {
+                    //     key: orderModel.orderDate,
+                    //     max: 20,
+                    //     rules: [
+                    //         'required', 'max:30'
+                    //     ],
+                    //     title: 'ad',
+                    //     type: 'text',
+                    // },
+                    {
+                        key: orderModel.sysrefRevenueType,
+                        title: 'gelir tipi',
+                        type: 'select',
+                        props: this.sysrefRevenueTypeList
+                    },
+                    {
+                        key: orderModel.billingNo,
+                        max: 20,
+                        rules: [
+                            'required', 'max:30'
+                        ],
+                        title: 'fatura numarası',
+                        type: 'text',
+                    },
+                    {
+                        key: orderModel.customer,
+                        title: 'müşteri İş yeri',
+                        type: 'select',
+                        props: this.customerCompanyList
+                    },
+                    {
+                        key: orderModel.workOrderNo,
+                        max: 30,
+                        title: 'iş emri numarası',
+                        rules: [
+                            'required', 'max:30'
+                        ]
+                    },
+                    {
+                        key: orderModel.active,
+                        max: null,
+                        type: 'checkbox',
+                        props: ['aktif']
+                    }
                 ],
-
                 headers: [
                     {
                         text: 'ıd',
@@ -129,8 +169,21 @@
                 ],
 
                 orders: [],
+                sysrefRevenueTypeList: [],
+                customerCompanyList: [],
 
-                snackbar: false
+                newItem: null,
+
+                snackbar: {
+                    text: null,
+                    textColor: null,
+                    active: false
+                },
+
+                // Data table row click route
+                to: {
+                    name: require('@/modules/main/driver/route/index').routes.information
+                }
             }
         },
 
@@ -143,19 +196,53 @@
 
             // Adds a new driver
             // to the system
-            getAllVehicles() {
+            getAllOrders() {
                 let self = this;
-
-                this.$http.get('api/v1/order?COMP').then((result) => {
-                    self.orders = result.data.data.items
+                this.$http.get('api/v1/order?orderStateCode=COMP').then((result) => {
+                    self.orders = result.data.data.items;
                 }).catch((error) => {
                     console.log(error);
-                }).finally(() => self.loading = false)
+                }).finally(() => this.loading = false)
             },
+
+            getSysrefRevenueTypeList() {
+                let self = this;
+                this.$http.get('api/v1/sysrefRevenueType').then((result) => {
+                    self.sysrefRevenueTypeList = result.data.data.items
+                    console.log(self.sysrefRevenueTypeList)
+                    self.addEditFields.find(item => {
+                        return item.key === orderModel.sysrefRevenueType
+                    }).props = self.sysrefRevenueTypeList
+
+                }).catch((error) => {
+                    console.log(error);
+                })
+            },
+            getCustomerCompanyList() {
+                let self = this;
+                this.$http.get('api/v1/company?sysrefCompanyTypeCode=CST').then((result) => {
+                    self.customerCompanyList = result.data.data.items;
+                    self.addEditFields.find(item => {
+                        return item.key === orderModel.customer
+                    }).props = self.customerCompanyList
+
+                }).catch((error) => {
+                    console.log(error);
+                })
+            },
+            deleteItem(item) {
+                this.$http.delete(`api/v1/order/${item.id}`).then((result) => {
+                    this.getAllOrders()
+                }).catch((error) => {
+                    console.error(error);
+                })
+            }
         },
 
         mounted() {
-            this.getAllVehicles();
+            this.getAllOrders();
+            this.getSysrefRevenueTypeList();
+            this.getCustomerCompanyList();
         }
     }
 </script>

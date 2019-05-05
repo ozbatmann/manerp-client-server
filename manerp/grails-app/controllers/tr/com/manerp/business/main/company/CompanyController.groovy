@@ -77,10 +77,8 @@ class CompanyController extends BaseController
         ManeResponse maneResponse = new ManeResponse()
 
         try {
-
             company.active = true
             company.setRandomCode()
-
             companyService.save(company)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = company.id

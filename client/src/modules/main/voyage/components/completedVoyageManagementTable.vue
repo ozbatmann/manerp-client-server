@@ -5,9 +5,14 @@
             :items="voyages"
             :loading="loading"
             :to="to"
-            no-import
             @deleteItem="deleteItem"
-        ></m-data-table>
+        >
+        </m-data-table>
+
+        <voyage-management-add-edit-dialog ref="voyageManagementAddEditDialog"
+                                           @save="addNewItem"
+                                           @edit="editItem">
+        </voyage-management-add-edit-dialog>
 
         <v-snackbar
             v-model="snackbar.active"
@@ -31,6 +36,8 @@
 <script>
     import MDataTable from '../../shared/components/data/components/MDataTable'
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction"
+    import voyageManagementAddEditDialog
+        from "@/modules/main/voyage/components/completedVoyageManagementAddEditDialog"
 
     const voyageModel = require('@/modules/main/voyage/models/voyage-model').default;
 
@@ -39,6 +46,7 @@
         components: {
             MDataTable,
             MDataTableAction,
+            voyageManagementAddEditDialog
         },
         data() {
             return {
@@ -106,6 +114,20 @@
             }
         },
         methods: {
+            // Activates add new item dialog
+            addDialog(data) {
+                this.$refs.voyageManagementAddEditDialog.open(data)
+            },
+            editDialog(data) {
+                if (data !== undefined && data !== null) {
+                    this.$http.get("api/v1/voyage/" + data.id).then((result) => {
+                        let items = result.data.data;
+                        this.$refs.voyageManagementAddEditDialog.open(items)
+                    }).catch((error) => {
+                        console.error(error);
+                    })
+                }
+            },
             getAllVoyages() {
                 let self = this;
                 this.loading = true;

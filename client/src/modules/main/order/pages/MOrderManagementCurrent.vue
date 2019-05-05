@@ -1,48 +1,43 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <m-order-add-edit-form
-                ref="addEditDialog"
-                title="Yeni Sipariş"
-                @save="addNewItem"
-                @edit="editItem"
+            ref="addEditDialog"
+            title="Yeni Sipariş"
+            @save="addNewItem"
+            @edit="editItem"
         ></m-order-add-edit-form>
         <m-data-table
-                :headers="headers"
-                :items="orders"
-                :to="to"
-                :loading="loading"
-                :deleteItem="deleteItem"
+            :headers="headers"
+            :items="orders"
+            :to="to"
+            :loading="loading"
+            @deleteItem="deleteItem"
+            @editItem="editItem"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
 
                 <!-- Add customer button -->
                 <m-data-table-action
-                        title="sipariş ekle"
-                        @click="addDialog"
+                    title="sipariş ekle"
+                    @click="addDialog"
                 ></m-data-table-action>
             </template>
 
-            <!-- Data-table action menu slot -->
-            <template v-slot:action-menu="item">
-
-                <!-- Edit button -->
-                <v-list-tile @click="addDialog(item.bind)">Düzenle</v-list-tile>
-            </template>
         </m-data-table>
 
         <v-snackbar
-                v-model="snackbar.active"
-                color="grey darken-4"
-                :class="snackbar.textColor"
-                top
-                right
+            v-model="snackbar.active"
+            color="grey darken-4"
+            :class="snackbar.textColor"
+            top
+            right
         >
             {{ snackbar.text }}
             <v-btn
-                    dark
-                    flat
-                    @click="snackbar.active = false"
+                dark
+                flat
+                @click="snackbar.active = false"
             >
                 geri al
             </v-btn>
@@ -211,12 +206,10 @@
 
             // Adds a new driver
             // to the system
-            getAllVehicles() {
+            getAllOrders() {
                 let self = this;
-
-                this.$http.get('api/v1/order?WAIT').then((result) => {
+                this.$http.get('api/v1/order?orderStateCode=WAIT').then((result) => {
                     self.orders = result.data.data.items;
-                    console.log(result);
                 }).catch((error) => {
                     console.log(error);
                 }).finally(() => this.loading = false)
@@ -225,7 +218,6 @@
             addNewItem(item) {
                 let self = this;
                 this.newItem = item;
-
                 this.$http.post('api/v1/order', this.newItem).then((result) => {
                     let status = result.data.status;
                     if (status < 299) {
@@ -236,7 +228,7 @@
 
                     self.snackbar.text = result.data.message;
                     self.snackbar.active = true;
-                    self.getAllVehicles();
+                    self.getAllOrders();
                 }).catch((error) => {
                     console.log(error);
                 })
@@ -244,7 +236,6 @@
 
             editItem(item) {
                 let self = this;
-
                 this.$http.put('api/v1/order', item)
                     .then(result => {
                         let status = result.data.status;
@@ -256,7 +247,7 @@
 
                         self.snackbar.text = result.data.message;
                         self.snackbar.active = true;
-                        self.getAllVehicles()
+                        self.getAllOrders()
                     }).catch(error => {
                     console.log(error)
                 })
@@ -264,10 +255,9 @@
 
             getSysrefRevenueTypeList() {
                 let self = this;
-
                 this.$http.get('api/v1/sysrefRevenueType').then((result) => {
                     self.sysrefRevenueTypeList = result.data.data.items
-
+                    console.log(self.sysrefRevenueTypeList)
                     self.addEditFields.find(item => {
                         return item.key === orderModel.sysrefRevenueType
                     }).props = self.sysrefRevenueTypeList
@@ -276,13 +266,10 @@
                     console.log(error);
                 })
             },
-
             getCustomerCompanyList() {
                 let self = this;
-
-                this.$http.get('api/v1/customerCompany').then((result) => {
-                    self.customerCompanyList = result.data.data.items
-
+                this.$http.get('api/v1/company?sysrefCompanyTypeCode=CST').then((result) => {
+                    self.customerCompanyList = result.data.data.items;
                     self.addEditFields.find(item => {
                         return item.key === orderModel.customer
                     }).props = self.customerCompanyList
@@ -293,7 +280,7 @@
             },
             deleteItem(item) {
                 this.$http.delete(`api/v1/order/${item.id}`).then((result) => {
-                    this.getAllVehicles()
+                    this.getAllOrders()
                 }).catch((error) => {
                     console.error(error);
                 })
@@ -301,7 +288,7 @@
         },
 
         mounted() {
-            this.getAllVehicles();
+            this.getAllOrders();
             this.getSysrefRevenueTypeList();
             this.getCustomerCompanyList();
         }

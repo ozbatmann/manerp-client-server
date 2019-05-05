@@ -4,7 +4,7 @@
             lazy
             persistent
             scrollable
-            max-width="820"
+            max-width="width"
             @keydown.enter.prevent="save"
             @keydown.esc.stop="show = false"
             content-class="transition-height"
@@ -129,6 +129,11 @@
 
             nextRule: {
                 type: [Function, Object, Boolean]
+            },
+
+            width: {
+                type: Number,
+                default: 820
             }
         },
 

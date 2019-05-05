@@ -1,140 +1,142 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <m-data-table-add-edit-form
-            v-model="show"
-            title="sipariş ekle"
-            :editing="isEdit"
-            @clear="clear"
-            @edit="edit"
-            @save="save"
+        v-model="show"
+        title="sipariş ekle"
+        :editing="isEdit"
+        @clear="clear"
+        @edit="edit"
+        @save="save"
     >
         <template v-slot:form>
             <v-layout wrap>
                 <v-flex xs6 pr-2>
                     <v-text-field
-                            solo
-                            flat
-                            v-validate="'required'"
-                            :error-messages="errors.collect('order.description')"
-                            label="Sipariş Tanımı"
-                            name="order.description"
-                            :counter="30"
-                            maxlength="30"
-                            background-color="grey lighten-4"
-                            color="green accent-2"
-                            class="m-settings__label"
+                        solo
+                        flat
+                        v-validate="'required'"
+                        :error-messages="errors.collect('name')"
+                        v-model="data.name"
+                        label="Sipariş Tanımı"
+                        name="name"
+                        :counter="50"
+                        maxlength="50"
+                        background-color="grey lighten-4"
+                        color="green accent-2"
+                        class="m-settings__label"
                     ></v-text-field>
                 </v-flex>
                 <v-flex xs6 pl-2>
-                    <v-select
-                            solo
-                            flat
-                            v-validate="'required'"
-                            :error-messages="errors.collect('order.incomeType')"
-                            label="Gelir Tipi"
-                            name="order.incomeType"
-                            :counter="30"
-                            maxlength="30"
-                            background-color="grey lighten-4"
-                            color="green accent-2"
-                            class="m-settings__label"
-                    ></v-select>
+                    <v-combobox
+                        v-validate="'required'"
+                        :error-messages="errors.collect('sysrefRevenueType')"
+                        v-model="data.sysrefRevenueType"
+                        :return-object="true"
+                        :items="sysrefRevenueTypes"
+                        item-value="id"
+                        label="Gelir Tipi"
+                        item-text="name"
+                        name="sysrefRevenueType"
+                        background-color="grey lighten-4"
+                        color="green accent-2"
+                        class="m-settings__label"
+                        solo
+                        flat
+                    ></v-combobox>
                 </v-flex>
                 <v-flex xs6 pr-2>
                     <v-text-field
-                            solo
-                            flat
-                            v-validate="'required'"
-                            :error-messages="errors.collect('order.billNo')"
-                            label="Fatura Numarası"
-                            name="order.billNo"
-                            :counter="30"
-                            maxlength="30"
-                            background-color="grey lighten-4"
-                            color="green accent-2"
-                            class="m-settings__label"
+                        solo
+                        flat
+                        v-model="data.billingNo"
+                        v-validate="'required'"
+                        :error-messages="errors.collect('order.billingNo')"
+                        label="Fatura Numarası"
+                        name="billingNo"
+                        :counter="50"
+                        maxlength="50"
+                        background-color="grey lighten-4"
+                        color="green accent-2"
+                        class="m-settings__label"
                     ></v-text-field>
-                </v-flex>
-                <v-flex xs6 pl-2>
-                    <v-autocomplete
-                            cache-items
-                            hide-no-data
-                            solo
-                            flat
-                            v-validate="'required'"
-                            :error-messages="errors.collect('order.customer')"
-                            label="Müşteri İş Yeri"
-                            name="order.customer"
-                            :counter="30"
-                            maxlength="30"
-                            background-color="grey lighten-4"
-                            color="green accent-2"
-                            class="m-settings__label"
-                    ></v-autocomplete>
-                </v-flex>
-                <v-flex xs6 pr-2>
-                    <v-autocomplete
-                            cache-items
-                            hide-no-data
-                            solo
-                            flat
-                            v-validate="'required'"
-                            :error-messages="errors.collect('order.dealer')"
-                            label="Bayi"
-                            name="order.dealer"
-                            :counter="30"
-                            maxlength="30"
-                            background-color="grey lighten-4"
-                            color="green accent-2"
-                            class="m-settings__label"
-                    ></v-autocomplete>
                 </v-flex>
                 <v-flex xs6 pl-2>
                     <v-text-field
-                            solo
-                            flat
-                            v-validate="'required'"
-                            :error-messages="errors.collect('order.workNo')"
-                            label="İş Emri Numarası"
-                            name="order.workNo"
-                            :counter="30"
-                            maxlength="30"
-                            background-color="grey lighten-4"
-                            color="green accent-2"
-                            class="m-settings__label"
+                        solo
+                        flat
+                        label="İş Emri Numarası"
+                        name="workOrderNo"
+                        :counter="30"
+                        maxlength="30"
+                        background-color="grey lighten-4"
+                        color="green accent-2"
+                        class="m-settings__label"
                     ></v-text-field>
+                </v-flex>
+                <v-flex xs6 pr-2>
+                    <v-combobox
+                        v-on:change="getVendorsByCompanyId"
+                        solo
+                        flat
+                        :return-object="true"
+                        v-validate="'required'"
+                        :error-messages="errors.collect('customer')"
+                        v-model="data.company"
+                        :items="customers"
+                        item-value="id"
+                        item-text="title"
+                        label="Müşteri İş Yeri"
+                        name="customer"
+                        background-color="grey lighten-4"
+                        color="green accent-2"
+                        class="m-settings__label"
+                    ></v-combobox>
+                </v-flex>
+                <v-flex xs6 pl-2>
+                    <v-combobox
+                        solo
+                        flat
+                        :items="vendors"
+                        item-value="id"
+                        item-text="title"
+                        label="Bayi"
+                        name="vendor"
+                        background-color="grey lighten-4"
+                        color="green accent-2"
+                        class="m-settings__label"
+                    ></v-combobox>
                 </v-flex>
             </v-layout>
             <v-layout
-                    v-if="dealers.length"
-                    wrap
-                    align-center
+                v-if="dealers.length"
+                wrap
+                align-center
             >
                 <v-flex
-                        grow
-                        pr-2
+                    grow
+                    pr-2
                 >
                     <v-divider></v-divider>
                 </v-flex>
                 <v-flex
-                        shrink
-                        px-2
-                        py-3
+                    shrink
+                    px-2
+                    py-3
                 >
                     <h4 class="subheading text-xs-center">Gidilecek Bayiler</h4>
                 </v-flex>
                 <v-flex
-                        grow
-                        pl-2
+                    grow
+                    pl-2
                 >
                     <v-divider></v-divider>
                 </v-flex>
 
                 <v-flex pt-2 xs12>
                     <v-data-table
-                            :headers="headers"
-                            :items="dealers"
-                            hide-actions
-                            style="border: 1px solid #f4f4f4"
+                        :headers="headers"
+                        :items="dealers"
+                        hide-actions
+                        style="border: 1px solid #f4f4f4"
                     >
                         <template v-slot:items="props">
                             <td>{{ props.index + 1 }}.</td>
@@ -144,9 +146,9 @@
                             <td class="text-xs-left">{{ props.item.address }}</td>
                             <td class="text-xs-right">
                                 <v-btn
-                                        icon
-                                        color="red--text"
-                                        @click="removeDealer(props.item.id)"
+                                    icon
+                                    color="red--text"
+                                    @click="removeDealer(props.item.id)"
                                 >
                                     <v-icon size="16">close</v-icon>
                                 </v-btn>
@@ -162,7 +164,7 @@
 <script>
     import MDataTableAddEditForm from "../../shared/components/data/components/MDataTableAddEditForm";
 
-    const staffModel = require('@/modules/main/staff/models/staff-model-add-edit').default;
+    const orderModel = require('@/modules/main/order/models/order-model-add-edit').default;
 
     export default {
         name: 'MOrderAddEditForm',
@@ -171,13 +173,12 @@
             return {
                 show: false,
                 isEdit: false,
-                data: JSON.parse(JSON.stringify(staffModel)),
-                sysrefGenders: [],
-                sysrefCountries: [],
-                sysrefCities: [],
-                sysrefDistricts: [],
-                refStaffTitles: [],
-                sysrefStaffContractTypes: [],
+                data: JSON.parse(JSON.stringify(orderModel)),
+                customers: [],
+                sysrefRevenueTypes: [],
+                sysrefOrderStates: [],
+                vendors: [],
+                selectedVendors: [],
 
                 headers: [
                     {
@@ -218,22 +219,7 @@
                     }
                 ],
 
-                dealers: [
-                    {
-                        id: 0,
-                        name: 'Beşevler Bim',
-                        city: 'Ankara',
-                        district: 'Beşevler',
-                        address: 'Gazi Mah. No: 15, Beşevler'
-                    },
-                    {
-                        id: 1,
-                        name: 'Beşevler Bim',
-                        city: 'Ankara',
-                        district: 'Beşevler',
-                        address: 'Gazi Mah. No: 15, Beşevler'
-                    }
-                ]
+                dealers: []
             }
         },
         methods: {
@@ -266,7 +252,7 @@
                 });
             },
             clear() {
-                this.data = JSON.parse(JSON.stringify(staffModel));
+                this.data = JSON.parse(JSON.stringify(orderModel));
                 this.$validator.reset();
                 this.isEdit = false;
             },
@@ -278,81 +264,43 @@
             },
 
             // data retrieve methods
-            getSysrefGenders() {
-                let self = this;
-
-                this.$http.get("api/v1/sysrefGender?fields=id,name").then((result) => {
-                    self.sysrefGenders = result.data.data.items
+            getCustomerCompanies() {
+                this.$http.get("api/v1/company?fields=id,title&limit=100&sysrefCompanyTypeCode=CST").then((result) => {
+                    this.customers = result.data.data.items
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
-
                 })
             },
-            getSysrefCountries() {
-                let self = this;
-
-                this.$http.get("api/v1/sysrefCountry?fields=id,name").then((result) => {
-                    self.sysrefCountries = result.data.data.items
+            getSysrefRevenueTypes() {
+                this.$http.get("api/v1/sysrefRevenueType?fields=id,name&limit=100").then((result) => {
+                    this.sysrefRevenueTypes = result.data.data.items
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
-
                 })
             },
-            getSysrefCities() {
-                let self = this;
-
-                this.data.sysrefCity = null;
-                this.$http.get("api/v1/sysrefCity?limit=81&fields=id,name&countryId="
-                    + this.data.sysrefCountry.id).then((result) => {
-                    self.sysrefCities = result.data.data.items
+            getSysrefOrderStates() {
+                this.$http.get("api/v1/sysrefOrderState?fields=id,name&limit=100").then((result) => {
+                    this.sysrefOrderStates = result.data.data.items
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
-
                 })
             },
-            getSysrefDistricts() {
-                let self = this;
-
-                this.data.sysrefDistrict = null;
-                this.$http.get("api/v1/sysrefDistrict?limit=500&fields=id,name&cityId=" + this.data.sysrefCity.id).then((result) => {
-                    self.sysrefDistricts = result.data.data.items
+            getVendorsByCompanyId() {
+                this.$http.get("api/v1/vendor?fields=id,title&limit=100&companyId=" + this.data.company.id).then((result) => {
+                    this.vendors = result.data.data.items;
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
-
-                })
-            },
-            getRefStaffTitles() {
-                let self = this;
-
-                this.$http.get("api/v1/refStaffTitle?fields=id,name&limit=100").then((result) => {
-                    self.refStaffTitles = result.data.data.items
-                }).catch((error) => {
-                    console.error(error);
-                }).finally(() => {
-
-                })
-            },
-            getSysrefStaffContractTypes() {
-                let self = this;
-
-                this.$http.get("api/v1/sysrefStaffContractType?fields=id,name&limit=100").then((result) => {
-                    self.sysrefStaffContractTypes = result.data.data.items
-                }).catch((error) => {
-                    console.error(error);
-                }).finally(() => {
-
                 })
             }
         },
         mounted() {
-            this.getSysrefGenders();
-            this.getSysrefCountries();
-            this.getRefStaffTitles();
-            this.getSysrefStaffContractTypes();
+            this.getCustomerCompanies();
+            this.getSysrefRevenueTypes();
+            this.getSysrefOrderStates();
 
             const dict = {
                 custom: {
@@ -361,11 +309,11 @@
                             required: 'Lütfen iş tanımını boş bırakmayın'
                         },
 
-                        incomeType: {
+                        sysrefRevenueType: {
                             required: 'Lütfen gelir tipini seçin'
                         },
 
-                        billNo: {
+                        billingNo: {
                             required: 'Lütfen fatura numarasını boş bırakmayın'
                         },
 
@@ -377,7 +325,7 @@
                             required: 'Lütfen gidilecek bayileri seçin'
                         },
 
-                        workNo: {
+                        workOrderNo: {
                             required: 'Lütfen iş emri numarasını boş bırakmayın'
                         }
                     }

@@ -1,271 +1,266 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-    <div>
-        <m-data-table-add-edit-form
-                v-model="showDialog"
-                :title="`${ dealer ? 'müşteri' : 'tedarikçi' } iş yeri ekle`"
-                :tabs="['iş yeri bilgileri', 'bayi bilgileri']"
-                :tabbed="dealer"
-                :next-rule="true"
-                @activeTab="vendorTabChanged"
-                @edit="edit"
-                @save="save"
-        >
-            <template v-slot:form>
-                <v-layout wrap>
-                    <v-flex xs6 pr-2>
-                        <v-text-field v-validate="'required'"
-                                      :error-messages="errors.collect('name')"
-                                      v-model="data.name"
-                                      label="İsim"
-                                      name="name"
-                                      :counter="50"
-                                      maxlength="50"
-                                      background-color="grey lighten-4"
-                                      color="green accent-2"
-                                      solo
-                                      flat
-                        >
-                        </v-text-field>
-                    </v-flex>
-                    <v-flex xs6 pl-2>
-                        <v-text-field v-validate="'required'"
-                                      :error-messages="errors.collect('title')"
-                                      v-model="data.title"
-                                      label="Ünvan"
-                                      name="title"
-                                      :counter="150"
-                                      maxlength="150"
-                                      background-color="grey lighten-4"
-                                      color="green accent-2"
-                                      solo
-                                      flat
-                        >
-                        </v-text-field>
-                    </v-flex>
-                    <v-flex xs6 pr-2>
-                        <v-text-field
-                                cache-items
-                                hide-no-data v-validate="'required'"
-                                :error-messages="errors.collect('customerRepresentative')"
-                                v-model="data.customerRepresentative"
-                                label="Müşteri Temsilcisi"
-                                name="customerRepresentative"
-                                :counter="50"
-                                maxlength="50"
-                                background-color="grey lighten-4"
-                                color="green accent-2"
-                                solo
-                                flat
-                        >
-                        </v-text-field>
-                    </v-flex>
-                    <v-flex xs6 pl-2>
-                        <v-text-field v-model="data.tradeRegistrationNo"
-                                      label="Ticari Sicil Numarası"
-                                      name="tradeRegistrationNo"
-                                      :counter="30"
-                                      maxlength="30"
-                                      background-color="grey lighten-4"
-                                      color="green accent-2"
-                                      solo
-                                      flat
-                        >
-                        </v-text-field>
-                    </v-flex>
-                    <v-flex xs6 pr-2>
-                        <v-text-field v-model="data.employerRegistrationNo"
-                                      label="İşveren Sicil Numarası"
-                                      name="employerRegistrationNo"
-                                      :counter="30"
-                                      maxlength="30"
-                                      background-color="grey lighten-4"
-                                      color="green accent-2"
-                                      solo
-                                      flat
-                        >
-                        </v-text-field>
-                    </v-flex>
-                    <v-flex xs6 pl-2>
-                        <v-text-field v-validate="'required'"
-                                      :error-messages="errors.collect('taxNumber')"
-                                      v-model="data.taxNumber"
-                                      label="Vergi Numarası"
-                                      name="taxNumber"
-                                      :counter="50"
-                                      maxlength="50"
-                                      background-color="grey lighten-4"
-                                      color="green accent-2"
-                                      solo
-                                      flat
-                        >
-                        </v-text-field>
-                    </v-flex>
-                    <v-flex xs6 pr-2>
-                        <v-text-field v-validate="'required'"
-                                      :error-messages="errors.collect('taxOffice')"
-                                      v-model="data.taxOffice"
-                                      label="Vergi Dairesi"
-                                      name="taxOffice"
-                                      :counter="255"
-                                      maxlength="255"
-                                      background-color="grey lighten-4"
-                                      color="green accent-2"
-                                      solo
-                                      flat
-                        >
-                        </v-text-field>
-                    </v-flex>
-                    <v-flex xs6 pl-2>
-                        <!--                                        <v-combobox v-model="data.sysrefNaceCode"-->
-                        <!--                                                    :return-object="true"-->
-                        <!--                                                    :items="sysrefNaceCodes"-->
-                        <!--                                                    item-value="id"-->
-                        <!--                                                    label="Nace Kodu"-->
-                        <!--                                                    item-text="name"-->
-                        <!--                                                    name="sysrefNaceCode"-->
-                        <!--                                                    background-color="grey lighten-4"-->
-                        <!--                                                    color="green accent-2"-->
-                        <!--                                                    full-width>-->
-                        <!--                                        </v-combobox>-->
-                        <v-combobox v-model="data.sysrefCountry"
-                                    v-on:change="getSysrefCities"
-                                    :return-object="true"
-                                    :items="sysrefCountries"
-                                    item-value="id"
-                                    label="Ülke"
-                                    item-text="name"
-                                    name="sysrefCity"
-                                    background-color="grey lighten-4"
-                                    color="green accent-2"
-                                    solo
-                                    flat
-                        >
-                        </v-combobox>
-                    </v-flex>
-                    <v-flex xs6 pr-2>
-                        <v-combobox v-model="data.sysrefCity"
-                                    v-on:change="getSysrefDistricts"
-                                    :disabled="!data.sysrefCountry"
-                                    :return-object="true"
-                                    :items="sysrefCities"
-                                    item-value="id"
-                                    label="İl"
-                                    item-text="name"
-                                    name="sysrefCity"
-                                    background-color="grey lighten-4"
-                                    color="green accent-2"
-                                    solo
-                                    flat
-                        >
-                        </v-combobox>
-                    </v-flex>
-                    <v-flex xs6 pl-2>
-                        <v-combobox v-model="data.sysrefDistrict"
-                                    :disabled="!data.sysrefCity"
-                                    :return-object="true"
-                                    :items="sysrefDistricts"
-                                    item-value="id"
-                                    label="İlçe"
-                                    item-text="name"
-                                    name="sysrefDistrict"
-                                    background-color="grey lighten-4"
-                                    color="green accent-2"
-                                    solo
-                                    flat
-                        >
-                        </v-combobox>
-                    </v-flex>
-                    <v-flex xs6 pr-2>
-                        <v-text-field v-validate="'email'"
-                                      :error-messages="errors.collect('email')"
-                                      v-model="data.email"
-                                      :counter="50"
-                                      maxlength="50"
-                                      label="E-Mail"
-                                      name="email"
-                                      background-color="grey lighten-4"
-                                      color="green accent-2"
-                                      solo
-                                      flat
-                        >
-                        </v-text-field>
-                    </v-flex>
-                    <v-flex xs6 pl-2>
-                        <v-text-field v-validate="'required'"
-                                      :error-messages="errors.collect('phone')"
-                                      mask="phone"
-                                      v-model="data.phone"
-                                      :counter="11"
-                                      maxlength="11"
-                                      label="Telefon"
-                                      name="phone"
-                                      background-color="grey lighten-4"
-                                      color="green accent-2"
-                                      solo
-                                      flat
-                        >
-                        </v-text-field>
-                    </v-flex>
-                    <v-flex xs12>
-                        <v-textarea v-validate="'required'"
-                                    :error-messages="errors.collect('address')"
-                                    label="Adres"
-                                    auto-grow
-                                    v-model="data.address"
-                                    :counter="255"
-                                    maxlength="255"
-                                    name="address"
-                                    background-color="grey lighten-4"
-                                    color="green accent-2"
-                                    solo
-                                    flat
-                        >
-                        </v-textarea>
-                    </v-flex>
-                </v-layout> <!-- Here -->
-            </template>
-            <template v-slot:tab-2>
-                <v-layout row wrap>
-                    <v-flex hidden-xs-only>
-                        <div class="form-check" v-for="layer in layers" :key="layer.id">
-                            <v-checkbox v-model="layer.active"
-                                        :label="layer.name"
-                                        @change="layerChanged(layer.id, layer.active)">
-                            </v-checkbox>
-                        </div>
-                    </v-flex>
-                    <v-flex xs12 style="margin: -16px; width: calc(100% + 32px);">
-                        <leaflet-map
-                                ref="leafletMap"
-                                @save="addNewVendor"
-                                @edit="editVendor"
-                                @delete="deleteVendor"
-                        ></leaflet-map>
-                    </v-flex>
-                </v-layout> <!-- And here -->
-            </template>
-        </m-data-table-add-edit-form>
-    </div>
+<template>
+    <v-dialog v-model="showDialog" persistent max-width="100%" scrollable>
+        <!-- <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn> -->
+        <v-card class="pa-12">
+            <v-card-title>
+                <div v-if="currentTab === 0">
+                    <span v-if="isEdit" class="headline">Güncelle</span>
+                    <span v-else class="headline">Yeni Müşteri İş Yeri</span>
+                </div>
+                <div v-else>
+                    <span v-if="isEdit" class="headline">Bayiler</span>
+                    <span v-else class="headline">Yeni Bayi</span>
+                </div>
+            </v-card-title>
+            <v-card-text>
+                <v-tabs
+                    id="customer_tabs"
+                    v-model="currentTab"
+                    fixed-tabs
+                    slider-color="green accent-2"
+                >
+                    <v-tab ripple>
+                        İş Yeri Bilgileri
+                    </v-tab>
+                    <v-tab :disabled="!isEdit" ripple v-on:change="vendorTabChanged">
+                        Bayi Bilgileri
+                    </v-tab>
 
+                    <v-tab-item class="tab-item" :transition="false" :reverse-transition="false"
+                    >
+                        <v-container grid-list-md pa-0>
+                            <v-layout wrap>
+                                <v-flex xs6 pr-2>
+                                    <v-text-field v-validate="'required'"
+                                                  :error-messages="errors.collect('name')"
+                                                  v-model="data.name"
+                                                  label="İsim"
+                                                  name="name"
+                                                  :counter="50"
+                                                  maxlength="50"
+                                                  background-color="grey lighten-4"
+                                                  color="green accent-2"
+                                                  full-width>
+                                    </v-text-field>
+                                </v-flex>
+                                <v-flex xs6 pl-2>
+                                    <v-text-field v-validate="'required'"
+                                                  :error-messages="errors.collect('title')"
+                                                  v-model="data.title"
+                                                  label="Unvan"
+                                                  name="title"
+                                                  :counter="150"
+                                                  maxlength="150"
+                                                  background-color="grey lighten-4"
+                                                  color="green accent-2"
+                                                  full-width>
+                                    </v-text-field>
+                                </v-flex>
+                                <v-flex xs6 pr-2>
+                                    <v-text-field v-validate="'required'"
+                                                  :error-messages="errors.collect('customerRepresentative')"
+                                                  v-model="data.customerRepresentative"
+                                                  label="Müşteri Temsilcisi"
+                                                  name="customerRepresentative"
+                                                  :counter="50"
+                                                  maxlength="50"
+                                                  background-color="grey lighten-4"
+                                                  color="green accent-2"
+                                                  full-width>
+                                    </v-text-field>
+                                </v-flex>
+                                <v-flex xs6 pl-2>
+                                    <v-text-field v-model="data.tradeRegistrationNo"
+                                                  label="Ticari Sicil Numarası"
+                                                  name="tradeRegistrationNo"
+                                                  :counter="30"
+                                                  maxlength="30"
+                                                  background-color="grey lighten-4"
+                                                  color="green accent-2"
+                                                  full-width>
+                                    </v-text-field>
+                                </v-flex>
+                                <v-flex xs6 pr-2>
+                                    <v-text-field v-model="data.employerRegistrationNo"
+                                                  label="İşveren Sicil Numarası"
+                                                  name="employerRegistrationNo"
+                                                  :counter="30"
+                                                  maxlength="30"
+                                                  background-color="grey lighten-4"
+                                                  color="green accent-2"
+                                                  full-width>
+                                    </v-text-field>
+                                </v-flex>
+                                <v-flex xs6 pl-2>
+                                    <v-text-field v-validate="'required'"
+                                                  :error-messages="errors.collect('taxNumber')"
+                                                  v-model="data.taxNumber"
+                                                  label="Vergi Numarası"
+                                                  name="taxNumber"
+                                                  :counter="50"
+                                                  maxlength="50"
+                                                  background-color="grey lighten-4"
+                                                  color="green accent-2"
+                                                  full-width>
+                                    </v-text-field>
+                                </v-flex>
+                                <v-flex xs6 pr-2>
+                                    <v-text-field v-validate="'required'"
+                                                  :error-messages="errors.collect('taxOffice')"
+                                                  v-model="data.taxOffice"
+                                                  label="Vergi Dairesi"
+                                                  name="taxOffice"
+                                                  :counter="255"
+                                                  maxlength="255"
+                                                  background-color="grey lighten-4"
+                                                  color="green accent-2"
+                                                  full-width>
+                                    </v-text-field>
+                                </v-flex>
+                                <!--                                        <v-combobox v-model="data.sysrefNaceCode"-->
+                                <!--                                                    :return-object="true"-->
+                                <!--                                                    :items="sysrefNaceCodes"-->
+                                <!--                                                    item-value="id"-->
+                                <!--                                                    label="Nace Kodu"-->
+                                <!--                                                    item-text="name"-->
+                                <!--                                                    name="sysrefNaceCode"-->
+                                <!--                                                    background-color="grey lighten-4"-->
+                                <!--                                                    color="green accent-2"-->
+                                <!--                                                    full-width>-->
+                                <!--                                        </v-combobox>-->
+                                <v-flex xs6 pl-2>
+                                    <v-combobox v-model="data.sysrefCountry"
+                                                v-on:change="getSysrefCities"
+                                                :return-object="true"
+                                                :items="sysrefCountries"
+                                                item-value="id"
+                                                label="Ülke"
+                                                item-text="name"
+                                                name="sysrefCity"
+                                                background-color="grey lighten-4"
+                                                color="green accent-2"
+                                                full-width>
+                                    </v-combobox>
+                                </v-flex>
+                                <v-flex xs6 pr-2>
+                                    <v-combobox v-model="data.sysrefCity"
+                                                v-on:change="getSysrefDistricts"
+                                                :disabled="!data.sysrefCountry"
+                                                :return-object="true"
+                                                :items="sysrefCities"
+                                                item-value="id"
+                                                label="İl"
+                                                item-text="name"
+                                                name="sysrefCity"
+                                                background-color="grey lighten-4"
+                                                color="green accent-2"
+                                                full-width>
+                                    </v-combobox>
+                                </v-flex>
+                                <v-flex xs6 pl-2>
+                                    <v-combobox v-model="data.sysrefDistrict"
+                                                :disabled="!data.sysrefCity"
+                                                :return-object="true"
+                                                :items="sysrefDistricts"
+                                                item-value="id"
+                                                label="İlçe"
+                                                item-text="name"
+                                                name="sysrefDistrict"
+                                                background-color="grey lighten-4"
+                                                color="green accent-2"
+                                                full-width>
+                                    </v-combobox>
+                                </v-flex>
+                                <v-flex xs6 pr-2>
+
+                                    <v-textarea v-validate="'required'"
+                                                :error-messages="errors.collect('address')"
+                                                box
+                                                style="padding-top: 3%;"
+                                                label="Adres"
+                                                auto-grow
+                                                v-model="data.address"
+                                                :counter="255"
+                                                maxlength="255"
+                                                name="address"
+                                                background-color="grey lighten-4"
+                                                color="green accent-2">
+                                    </v-textarea>
+                                </v-flex>
+                                <v-flex xs6 pl-2>
+
+                                    <v-text-field v-validate="'email'"
+                                                  :error-messages="errors.collect('email')"
+                                                  v-model="data.email"
+                                                  :counter="50"
+                                                  maxlength="50"
+                                                  label="E-Mail"
+                                                  name="email"
+                                                  background-color="grey lighten-4"
+                                                  color="green accent-2"
+                                                  full-width>
+                                    </v-text-field>
+                                </v-flex>
+                                <v-flex xs6 pr-2>
+
+                                    <v-text-field v-validate="'required'"
+                                                  :error-messages="errors.collect('phone')"
+                                                  mask="phone"
+                                                  v-model="data.phone"
+                                                  :counter="11"
+                                                  maxlength="11"
+                                                  label="Telefon"
+                                                  name="phone"
+                                                  background-color="grey lighten-4"
+                                                  color="green accent-2"
+                                                  full-width>
+                                    </v-text-field>
+                                </v-flex>
+                            </v-layout>
+                        </v-container>
+                    </v-tab-item>
+                    <v-tab-item class="tab-item" :transition="false" :reverse-transition="false"
+                    >
+                        <v-layout row wrap>
+                            <v-flex xs2>
+                                <div class="form-check" v-for="layer in layers" :key="layer.id">
+                                    <v-checkbox v-model="layer.active"
+                                                :label="layer.name"
+                                                @change="layerChanged(layer.id, layer.active)">
+                                    </v-checkbox>
+                                </div>
+                            </v-flex>
+                            <v-flex xs10>
+                                <leaflet-map
+                                    ref="leafletMap"
+                                    @save="addNewVendor"
+                                    @edit="editVendor"
+                                    @delete="deleteVendor"
+                                ></leaflet-map>
+                            </v-flex>
+                        </v-layout>
+                    </v-tab-item>
+                </v-tabs>
+            </v-card-text>
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn v-if="isEdit && currentTab === 0" color="blue darken-1" outline @click.native="edit">Düzenle
+                </v-btn>
+                <v-btn v-else-if="currentTab === 0" color="blue darken-1" outline @click.native="save">Kaydet</v-btn>
+                <v-btn color="orange darken-1" outline @click.native="close">Kapat</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 </template>
 
 <script>
     import LeafletMap from "../leaflet/leafletMap";
     import '../leaflet/mapStyle.css';
-    import MDataTableAddEditForm from "../../shared/components/data/components/MDataTableAddEditForm";
 
     const companyModel = require('@/modules/main/company/models/company-model-add-edit').default;
 
     export default {
-        components: {MDataTableAddEditForm, LeafletMap},
-
-        props: {
-            dealer: {
-                type: Boolean,
-                default: false
-            }
-        },
-
+        components: {LeafletMap},
         data() {
             return {
                 currentTab: 0,
@@ -280,16 +275,13 @@
                 vendors: []
             }
         },
-
         methods: {
-
             open(data) {
                 this.currentTab = 0;
                 if (data) {
                     this.data = data;
                     this.isEdit = true;
                     this.getAllVendors();
-                    this.initLeafletMap();
                 } else {
                     this.clear();
                 }
@@ -447,6 +439,7 @@
             }
         },
         mounted() {
+            this.initLeafletMap();
             this.getSysrefCountries();
         }
     }

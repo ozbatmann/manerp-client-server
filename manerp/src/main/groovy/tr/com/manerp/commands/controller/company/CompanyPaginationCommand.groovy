@@ -9,7 +9,7 @@ class CompanyPaginationCommand extends PaginationCommand
     CompanyPaginationCommand(def params)
     {
         super(params)
-        this.sysrefCompanyTypeCode = params.companyTypeCode ?: 'CST'
+        this.sysrefCompanyTypeCode = params.sysrefCompanyTypeCode ?: 'CST'
     }
 
     static constraints = {

@@ -1,42 +1,42 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <m-data-table
-                :headers="headers"
-                :items="suppliers"
-                :loading="loading"
-                :to="to"
-                @editItem="editDialog"
-                @deleteItem="deleteItem"
+            :headers="headers"
+            :items="suppliers"
+            :loading="loading"
+            :to="to"
+            @editItem="editDialog"
+            @deleteItem="deleteItem"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
 
                 <!-- Add supplier button -->
                 <m-data-table-action
-                        title="tedarikçi iş yeri ekle"
-                        @click="addDialog"
+                    title="tedarikçi iş yeri ekle"
+                    @click="addDialog"
                 ></m-data-table-action>
             </template>
         </m-data-table>
 
-        <customer-management-add-edit-dialog
-                ref="supplierManagementAddEditDialog"
-                @save="addNewItem"
-                @edit="editItem"
-        ></customer-management-add-edit-dialog>
+        <supplier-management-add-edit-dialog
+            ref="supplierManagementAddEditDialog"
+            @save="addNewItem"
+            @edit="editItem"
+        ></supplier-management-add-edit-dialog>
 
         <v-snackbar
-                v-model="snackbar.active"
-                color="grey darken-4"
-                :class="snackbar.textColor"
-                top
-                right
+            v-model="snackbar.active"
+            color="grey darken-4"
+            :class="snackbar.textColor"
+            top
+            right
         >
             {{ snackbar.text }}
             <v-btn
-                    dark
-                    flat
-                    @click="snackbar.active = false"
+                dark
+                flat
+                @click="snackbar.active = false"
             >
                 geri al
             </v-btn>
@@ -47,20 +47,21 @@
 <script>
     import MDataTable from '../../shared/components/data/components/MDataTable'
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction"
-    import CustomerManagementAddEditDialog from "./customerManagementAddEditDialog";
+    import SupplierManagementAddEditDialog from "./supplierManagementAddEditDialog";
 
     const supplierModel = require('@/modules/main/company/models/company-model').default;
 
     export default {
         name: "supplierManagementTable",
         components: {
-            CustomerManagementAddEditDialog,
+            SupplierManagementAddEditDialog,
             MDataTable,
             MDataTableAction,
         },
 
         data() {
             return {
+                sysrefCompanyTypeSplId: null,
                 headers: [
                     {
                         text: 'ID',
@@ -163,8 +164,8 @@
                 let self = this;
                 this.newItem = item;
 
-                this.newItem.sysrefCompanyType = 'ff8081816a839ccd016a839cea4f0006'; // TODO: change
-
+                this.newItem.sysrefCompanyType = this.sysrefCompanyTypeSplId;
+                console.log(this.newItem.sysrefCompanyType)
                 this.$http.post('api/v1/company', this.newItem).then((result) => {
                     let status = result.data.status;
                     if (status < 299) {
@@ -206,11 +207,24 @@
                 }).catch((error) => {
                     console.error(error);
                 })
+            },
+            getSysrefCompanyTypeSpl() {
+                this.$http.get("api/v1/sysrefCompanyType").then((result) => {
+                    let items = result.data.data.items;
+                    items.forEach((item) => {
+                        if (item.code === 'SPL') {
+                            this.sysrefCompanyTypeSplId = item.id;
+                        }
+                    });
+                }).catch((error) => {
+                    console.error(error);
+                })
             }
         },
 
         mounted() {
             this.getAllSuppliers();
+            this.getSysrefCompanyTypeSpl();
         }
     }
 </script>

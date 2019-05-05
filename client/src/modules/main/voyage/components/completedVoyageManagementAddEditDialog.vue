@@ -30,7 +30,7 @@
                     >
                         <v-container grid-list-md pa-0>
                             <v-layout wrap>
-                                <v-flex xs6 pr-2>
+                                <v-flex xs12>
                                     <v-combobox v-validate="'required'"
                                                 :error-messages="errors.collect('order')"
                                                 v-on:change="getVendorsByOrder('onChange')"
@@ -45,8 +45,6 @@
                                                 color="green accent-2"
                                                 full-width>
                                     </v-combobox>
-                                </v-flex>
-                                <v-flex xs6 pl-2>
                                     <v-combobox v-validate="'required'"
                                                 :error-messages="errors.collect('vehicle')"
                                                 v-on:change="setVehicleSpecs"
@@ -61,8 +59,6 @@
                                                 color="green accent-2"
                                                 full-width>
                                     </v-combobox>
-                                </v-flex>
-                                <v-flex xs6 pr-2>
                                     <v-combobox v-validate="'required'"
                                                 :error-messages="errors.collect('driver')"
                                                 v-model="data.driver"
@@ -76,8 +72,6 @@
                                                 color="green accent-2"
                                                 full-width>
                                     </v-combobox>
-                                </v-flex>
-                                <v-flex xs6 pl-2>
                                     <v-combobox v-validate="'required'"
                                                 :error-messages="errors.collect('sysrefTransportationType')"
                                                 v-model="data.sysrefTransportationType"
@@ -91,8 +85,6 @@
                                                 color="green accent-2"
                                                 full-width>
                                     </v-combobox>
-                                </v-flex>
-                                <v-flex xs6 pr-2>
                                     <v-combobox v-validate="'required'"
                                                 :error-messages="errors.collect('sysrefVoyageDirection')"
                                                 v-model="data.sysrefVoyageDirection"
@@ -106,8 +98,6 @@
                                                 color="green accent-2"
                                                 full-width>
                                     </v-combobox>
-                                </v-flex>
-                                <v-flex xs6 pl-2>
                                     <v-combobox v-validate="'required'"
                                                 :error-messages="errors.collect('sysrefDeliveryStatus')"
                                                 v-model="data.sysrefDeliveryStatus"
@@ -121,8 +111,6 @@
                                                 color="green accent-2"
                                                 full-width>
                                     </v-combobox>
-                                </v-flex>
-                                <v-flex xs6 pr-2>
                                     <v-text-field v-model="data.transportWaybillNo"
                                                   label="Nakliye İrsaliye Numarası"
                                                   name="transportWaybillNo"
@@ -132,8 +120,6 @@
                                                   color="green accent-2"
                                                   full-width>
                                     </v-text-field>
-                                </v-flex>
-                                <v-flex xs6 pl-2>
                                     <v-text-field v-model="data.deliveryNoteNo"
                                                   label="Teslimat Notu Numarası"
                                                   name="deliveryNoteNo"
@@ -143,8 +129,6 @@
                                                   color="green accent-2"
                                                   full-width>
                                     </v-text-field>
-                                </v-flex>
-                                <v-flex xs6 pr-2>
                                     <v-text-field v-model="data.sasNumber"
                                                   label="Sas Numarası"
                                                   name="sasNumber"

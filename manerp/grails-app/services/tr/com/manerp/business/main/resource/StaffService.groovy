@@ -13,11 +13,14 @@ class StaffService extends BaseService
     ManePaginatedResult getStaffList(ManePaginationProperties properties)
     {
         def closure = {
-
             eq('active', true)
 
-            if ( !properties.sortPairList ) {
+            refStaffTitle {
+                eq('active', true)
+                ne('code', 'DRV')
+            }
 
+            if ( !properties.sortPairList ) {
                 order('dateCreated', 'desc')
             }
         }

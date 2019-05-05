@@ -5,9 +5,29 @@
             :items="voyages"
             :loading="loading"
             :to="to"
-            no-import
             @deleteItem="deleteItem"
-        ></m-data-table>
+        >
+            <!-- Data table header slot -->
+            <template v-slot:header>
+
+                <!-- Add customer button -->
+                <m-data-table-action
+                    title="sevkiyat ekle"
+                    @click="addDialog"
+                ></m-data-table-action>
+            </template>
+
+            <!-- Data-table action menu slot -->
+            <template v-slot:action-menu="item">
+                <!-- Edit button -->
+                <v-list-tile @click="editDialog(item.bind)">Düzenle</v-list-tile>
+            </template>
+        </m-data-table>
+
+        <voyage-management-add-edit-dialog ref="voyageManagementAddEditDialog"
+                                           @save="addNewItem"
+                                           @edit="editItem">
+        </voyage-management-add-edit-dialog>
 
         <v-snackbar
             v-model="snackbar.active"
@@ -31,14 +51,17 @@
 <script>
     import MDataTable from '../../shared/components/data/components/MDataTable'
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction"
+    import voyageManagementAddEditDialog
+        from "@/modules/main/voyage/components/incompleteVoyageManagementAddEditDialog"
 
     const voyageModel = require('@/modules/main/voyage/models/voyage-model').default;
 
     export default {
-        name: "incompleteVoyageManagementTable",
+        name: "completedVoyageManagementTable",
         components: {
             MDataTable,
             MDataTableAction,
+            voyageManagementAddEditDialog
         },
         data() {
             return {
@@ -114,7 +137,6 @@
                 if (data !== undefined && data !== null) {
                     this.$http.get("api/v1/voyage/" + data.id).then((result) => {
                         let items = result.data.data;
-                        console.log(items)
                         this.$refs.voyageManagementAddEditDialog.open(items)
                     }).catch((error) => {
                         console.error(error);

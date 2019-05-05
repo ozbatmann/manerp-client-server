@@ -101,11 +101,7 @@ class OrderController extends BaseController
         try {
             order.active = true
             order.setRandomCode()
-
-            // TODO: change - client must provide sysrefOrderState
-            order.sysrefOrderState = SysrefOrderState.findByCode('COMP')
-
-            // TODO: change orderDate - client must provide orderDate
+            order.sysrefOrderState = SysrefOrderState.findByCode('WAIT')
             order.orderDate = new Date()
 
             orderService.save(order)

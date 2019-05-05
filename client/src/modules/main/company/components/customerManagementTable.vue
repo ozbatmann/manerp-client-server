@@ -1,20 +1,20 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <m-data-table
-                :headers="headers"
-                :items="customers"
-                :loading="loading"
-                :to="to"
-                @editItem="editDialog"
-                @deleteItem="deleteItem"
+            :headers="headers"
+            :items="customers"
+            :loading="loading"
+            :to="to"
+            @editItem="editDialog"
+            @deleteItem="deleteItem"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
 
                 <!-- Add customer button -->
                 <m-data-table-action
-                        title="müşteri iş yeri ekle"
-                        @click="addDialog"
+                    title="müşteri iş yeri ekle"
+                    @click="addDialog"
                 ></m-data-table-action>
             </template>
 
@@ -25,25 +25,25 @@
         </m-data-table>
 
         <customer-management-add-edit-dialog
-                ref="customerManagementAddEditDialog"
-                dealer
-                @save="addNewItem"
-                @edit="editItem"
-                @displayMessage="displaySnackMessage"
+            ref="customerManagementAddEditDialog"
+            dealer
+            @save="addNewItem"
+            @edit="editItem"
+            @displayMessage="displaySnackMessage"
         ></customer-management-add-edit-dialog>
 
         <v-snackbar
-                v-model="snackbar.active"
-                color="grey darken-4"
-                :class="snackbar.textColor"
-                top
-                right
+            v-model="snackbar.active"
+            color="grey darken-4"
+            :class="snackbar.textColor"
+            top
+            right
         >
             {{ snackbar.text }}
             <v-btn
-                    dark
-                    flat
-                    @click="snackbar.active = false"
+                dark
+                flat
+                @click="snackbar.active = false"
             >
                 geri al
             </v-btn>
@@ -69,6 +69,7 @@
 
         data() {
             return {
+                sysrefCompanyTypeCstId: null,
                 headers: [
                     {
                         text: 'ID',
@@ -171,7 +172,7 @@
                 let self = this;
                 this.newItem = item;
 
-                this.newItem.sysrefCompanyType = 'ff8081816a839ccd016a839cea490005'; // TODO: change - companyType customer
+                this.newItem.sysrefCompanyType = this.sysrefCompanyTypeCstId;
 
                 this.$http.post('api/v1/company', this.newItem).then((result) => {
                     self.displaySnackMessage(result);
@@ -208,11 +209,24 @@
 
                 this.snackbar.text = result.data.message;
                 this.snackbar.active = true;
+            },
+            getSysrefCompanyTypeCst() {
+                this.$http.get("api/v1/sysrefCompanyType").then((result) => {
+                    let items = result.data.data.items;
+                    items.forEach((item) => {
+                        if (item.code === 'CST') {
+                            this.sysrefCompanyTypeCstId = item.id;
+                        }
+                    });
+                }).catch((error) => {
+                    console.error(error);
+                })
             }
         },
 
         mounted() {
             this.getAllCustomers();
+            this.getSysrefCompanyTypeCst();
         }
     }
 </script>
