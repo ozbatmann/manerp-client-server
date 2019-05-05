@@ -6,7 +6,7 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        dataService.initApplicationData()
+//        dataService.initApplicationData()
     }
     def destroy = {
     }
