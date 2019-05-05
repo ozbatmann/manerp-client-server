@@ -15,7 +15,6 @@ export default {
     transportWaybillNo: "transportWaybillNo",
     deliveryNoteNo: "deliveryNoteNo",
     sasNumber: "sasNumber",
-    sysrefDeliveryStatus: "sysrefDeliveryStatus",
     active: "active",
     calculatedRoute: "calculatedRoute",
     optimizationParameters: 'optimizationParameters',

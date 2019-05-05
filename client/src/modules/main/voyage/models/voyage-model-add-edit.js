@@ -15,7 +15,6 @@ export default {
     transportWaybillNo: null,
     deliveryNoteNo: null,
     sasNumber: null,
-    sysrefDeliveryStatus: null,
     active: true,
     calculatedRoute: [],
     optimizationParameters: null,

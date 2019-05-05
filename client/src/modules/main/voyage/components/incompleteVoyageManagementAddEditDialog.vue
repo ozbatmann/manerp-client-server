@@ -109,21 +109,6 @@
                                         </v-combobox>
                                     </v-flex>
                                     <v-flex xs6 pl-2>
-                                        <v-combobox v-validate="'required'"
-                                                    :error-messages="errors.collect('sysrefDeliveryStatus')"
-                                                    v-model="data.sysrefDeliveryStatus"
-                                                    :return-object="true"
-                                                    :items="sysrefDeliveryStatuses"
-                                                    item-value="id"
-                                                    label="Durum"
-                                                    item-text="name"
-                                                    name="sysrefDeliveryStatus"
-                                                    background-color="grey lighten-4"
-                                                    color="green accent-2"
-                                                    full-width>
-                                        </v-combobox>
-                                    </v-flex>
-                                    <v-flex xs6 pr-2>
                                         <v-text-field v-model="data.transportWaybillNo"
                                                       label="Nakliye İrsaliye Numarası"
                                                       name="transportWaybillNo"
@@ -134,7 +119,7 @@
                                                       full-width>
                                         </v-text-field>
                                     </v-flex>
-                                    <v-flex xs6 pl-2>
+                                    <v-flex xs6 pr-2>
                                         <v-text-field v-model="data.deliveryNoteNo"
                                                       label="Teslimat Notu Numarası"
                                                       name="deliveryNoteNo"
@@ -145,7 +130,7 @@
                                                       full-width>
                                         </v-text-field>
                                     </v-flex>
-                                    <v-flex xs6 pr-2>
+                                    <v-flex xs6 pl-2>
                                         <v-text-field v-model="data.sasNumber"
                                                       label="Sas Numarası"
                                                       name="sasNumber"
@@ -577,15 +562,6 @@
 
                 })
             },
-            getSysrefDeliveryStatuses() {
-                this.$http.get("api/v1/sysrefDeliveryStatus?fields=id,name").then((result) => {
-                    this.sysrefDeliveryStatuses = result.data.data.items
-                }).catch((error) => {
-                    console.error(error);
-                }).finally(() => {
-
-                })
-            },
             getOrders() {
                 this.$http.get("api/v1/order?fields=id,fullName&orderStateCode=WAIT").then((result) => {
                     this.orders = result.data.data.items
@@ -682,7 +658,6 @@
             this.getDropdownData();
             this.getSysrefTransportationTypes();
             this.getSysrefVoyageDirections();
-            this.getSysrefDeliveryStatuses();
             this.getMapLayers();
         }
     }
