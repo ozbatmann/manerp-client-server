@@ -22,6 +22,14 @@ class UrlMappings
             action = [GET: "getAllVendorsByOrderId"]
         }
 
+        "/api/$namespace/$controller/custom/getWaypointsByDriverId/$id"() {
+            action = [GET: "getWaypointsByDriverId"]
+        }
+
+        "/api/$namespace/$controller/custom/getVendorsByDriverId/$id"() {
+            action = [GET: "getVendorsByDriverId"]
+        }
+
         "/api/$namespace/$controller/$id"() {
             action = [GET: "show", POST: "save", PUT: "update", PATCH: "patch", DELETE: "delete"]
         }

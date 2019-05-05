@@ -6,6 +6,7 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
+import tr.com.manerp.business.sysref.SysrefDeliveryStatus
 import tr.com.manerp.commands.controller.common.ShowCommand
 import tr.com.manerp.commands.controller.voyage.VoyagePaginationCommand
 import tr.com.manerp.commands.controller.voyage.VoyageSaveCommand
@@ -95,6 +96,7 @@ class VoyageController extends BaseController
             voyage.startDate = new Date()
             cmd >> voyage
             voyage.active = true
+            voyage.sysrefDeliveryStatus = SysrefDeliveryStatus.findByCode('REZ')
             voyage.setRandomCode()
 
             voyageService.saveVoyageWithOrder(voyage, cmd._order)
@@ -124,12 +126,6 @@ class VoyageController extends BaseController
         Voyage voyage
 
         try {
-
-            if ( !cmd.validate() ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                maneResponse.message = parseValidationErrors(cmd.errors)
-                throw new Exception(maneResponse.message)
-            }
 
             if ( !cmd.validate() ) {
                 maneResponse.statusCode = StatusCode.BAD_REQUEST

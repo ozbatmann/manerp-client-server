@@ -165,5 +165,64 @@ class DriverController extends BaseController
         render maneResponse
     }
 
+    def getWaypointsByDriverId(String id)
+    {
+        ManeResponse maneResponse = new ManeResponse()
+        def driver
+
+        try {
+            driver = Staff.get(id)
+            if ( !driver ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception("Sistemde böyle bir şoför bulunmamaktadır")
+            }
+
+            def data = driverService.getWaypointsByDriver(driver)
+            if ( !data ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception("İstenilen sevkiyata ait rota sistemde bulunmamaktadır")
+            }
+            maneResponse.data = data
+            maneResponse.statusCode = StatusCode.OK
+
+        } catch (Exception ex) {
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
+    }
+
+    def getVendorsByDriverId(String id)
+    {
+        ManeResponse maneResponse = new ManeResponse()
+        def driver
+
+        try {
+            driver = Staff.get(id)
+            if ( !driver ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception("Sistemde böyle bir şoför bulunmamaktadır")
+            }
+
+            def data = driverService.getSortedVendorsByDriver(driver)
+            if ( !data ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                throw new Exception("İstenilen sevkiyata ait rota sistemde bulunmamaktadır")
+            }
+            maneResponse.data = data
+            maneResponse.statusCode = StatusCode.OK
+
+        } catch (Exception ex) {
+
+            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = ex.getMessage()
+            ex.printStackTrace()
+        }
+
+        render maneResponse
+    }
 
 }

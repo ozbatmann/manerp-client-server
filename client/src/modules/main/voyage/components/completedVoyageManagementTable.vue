@@ -134,7 +134,8 @@
 
                 let fields = 'fields=id,code,vehicle,driver,sysrefTransportationType,sysrefVoyageDirection';
                 let pagination = 'limit=10&offset=0';
-                this.$http.get('api/v1/voyage?' + fields + "&" + pagination).then((result) => {
+                let deliveryStatusCode = 'deliveryStatusCode=BOS';
+                this.$http.get('api/v1/voyage?' + fields + "&" + pagination + '&' + deliveryStatusCode).then((result) => {
                     self.voyages = result.data.data.items;
                 }).catch((error) => {
                     console.log(error);

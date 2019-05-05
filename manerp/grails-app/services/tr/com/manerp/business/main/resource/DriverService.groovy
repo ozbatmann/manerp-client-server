@@ -5,6 +5,7 @@ import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
+import tr.com.manerp.business.main.voyage.Voyage
 import tr.com.manerp.business.sysref.SysrefDriverState
 
 import java.text.SimpleDateFormat
@@ -136,5 +137,43 @@ class DriverService extends BaseService
             sysrefStaffContractType: data.sysrefStaffContractType ? [id: data.sysrefStaffContractType.id, name: data.sysrefStaffContractType.name] : null,
             sysrefDrivingType      : data.sysrefDrivingType ? [id: data.sysrefDrivingType.id, name: data.sysrefDrivingType.name] : null
         ]
+    }
+
+    def getWaypointsByDriver(Staff driver)
+    {
+        Voyage voyage = Voyage.createCriteria().get {
+            sysrefDeliveryStatus {
+                or {
+                    eq('code', 'YUK')
+                    eq('code', 'REZ')
+                }
+            }
+            eq('driver', driver)
+        } as Voyage
+
+        if ( !voyage ) {
+            throw new Exception("${driver.fullName} için sistemde tanımlı sevkiyat bulunmamaktadır")
+        }
+
+        return voyage?.calculatedRoute
+    }
+
+    def getSortedVendorsByDriver(Staff driver)
+    {
+        Voyage voyage = Voyage.createCriteria().get {
+            sysrefDeliveryStatus {
+                or {
+                    eq('code', 'YUK')
+                    eq('code', 'REZ')
+                }
+            }
+            eq('driver', driver)
+        } as Voyage
+
+        if ( !voyage ) {
+            throw new Exception("${driver.fullName} için sistemde tanımlı sevkiyat bulunmamaktadır")
+        }
+
+        return voyage?.sortedVendors
     }
 }
