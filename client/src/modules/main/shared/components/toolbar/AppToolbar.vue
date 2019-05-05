@@ -38,12 +38,12 @@
         </template>
         <v-spacer></v-spacer>
         <v-autocomplete
-                ref="searchAutocomplete"
                 cache-items
+                hide-no-data
+                ref="searchAutocomplete"
                 class="mx-5"
                 flat
                 hide-details
-                hide-no-data
                 label="Bir kişi, plaka, sevkiyat arayın"
                 solo
                 @focus="search(true)"
@@ -100,7 +100,7 @@
 </template>
 
 <script>
-    import AuthService from 'manerp-vue-auth/src/service/AuthService'
+    // import AuthService from 'manerp-vue-auth/src/service/AuthService'
     export default {
         name: "AppToolbar",
 
