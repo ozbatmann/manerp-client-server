@@ -172,7 +172,33 @@
                                     </v-combobox>
                                 </v-flex>
                                 <v-flex xs6 pr-2>
-
+                                    <v-text-field v-validate="'email'"
+                                                  :error-messages="errors.collect('email')"
+                                                  v-model="data.email"
+                                                  :counter="50"
+                                                  maxlength="50"
+                                                  label="E-Mail"
+                                                  name="email"
+                                                  background-color="grey lighten-4"
+                                                  color="green accent-2"
+                                                  full-width>
+                                    </v-text-field>
+                                </v-flex>
+                                <v-flex xs6 pl-2>
+                                    <v-text-field v-validate="'required'"
+                                                  :error-messages="errors.collect('phone')"
+                                                  mask="phone"
+                                                  v-model="data.phone"
+                                                  :counter="11"
+                                                  maxlength="11"
+                                                  label="Telefon"
+                                                  name="phone"
+                                                  background-color="grey lighten-4"
+                                                  color="green accent-2"
+                                                  full-width>
+                                    </v-text-field>
+                                </v-flex>
+                                <v-flex xs12>
                                     <v-textarea v-validate="'required'"
                                                 :error-messages="errors.collect('address')"
                                                 box
@@ -186,35 +212,6 @@
                                                 background-color="grey lighten-4"
                                                 color="green accent-2">
                                     </v-textarea>
-                                </v-flex>
-                                <v-flex xs6 pl-2>
-
-                                    <v-text-field v-validate="'email'"
-                                                  :error-messages="errors.collect('email')"
-                                                  v-model="data.email"
-                                                  :counter="50"
-                                                  maxlength="50"
-                                                  label="E-Mail"
-                                                  name="email"
-                                                  background-color="grey lighten-4"
-                                                  color="green accent-2"
-                                                  full-width>
-                                    </v-text-field>
-                                </v-flex>
-                                <v-flex xs6 pr-2>
-
-                                    <v-text-field v-validate="'required'"
-                                                  :error-messages="errors.collect('phone')"
-                                                  mask="phone"
-                                                  v-model="data.phone"
-                                                  :counter="11"
-                                                  maxlength="11"
-                                                  label="Telefon"
-                                                  name="phone"
-                                                  background-color="grey lighten-4"
-                                                  color="green accent-2"
-                                                  full-width>
-                                    </v-text-field>
                                 </v-flex>
                             </v-layout>
                         </v-container>

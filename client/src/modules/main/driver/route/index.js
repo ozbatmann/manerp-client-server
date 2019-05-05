@@ -31,7 +31,7 @@ export default [
     {
         path: 'drivers',
         name: routes.drivers,
-        component: () => import('@/modules/main/driver/pages/MDriverManagement'),
+        component: () => import('@/modules/main/driver/pages/DriverManagement'),
         meta: { title: 'Şoför Yönetimi' }
     },
     {

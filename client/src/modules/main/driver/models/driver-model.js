@@ -1,8 +1,10 @@
 export default {
-    id: 'code',
+    id: 'id',
+    code: 'code',
     firstName: 'firstName',
     middleName: 'middleName',
     lastName: 'lastName',
+    refStaffTitle: 'refStaffTitle',
     tcIdNumber: 'tcIdNumber',
     // birthDate: 'birthDate',
     gsmNo: 'gsmNo',
@@ -15,5 +17,6 @@ export default {
     sysrefStaffContractType: 'sysrefStaffContractType',
     drivingLicenseNumber: 'drivingLicenseNumber',
     sysrefDrivingType: 'sysrefDrivingType',
-    active: 'active'
+    active: 'active',
+    sysrefDriverState: 'sysrefDriverState'
 }

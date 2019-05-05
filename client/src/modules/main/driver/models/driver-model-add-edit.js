@@ -1,10 +1,12 @@
 export default {
     id: null,
+    code: null,
     firstName: null,
     middleName: null,
     lastName: null,
+    refStaffTitle: null,
     tcIdNumber: null,
-    // birthDate: 'birthDate',
+    birthDate: null,
     gsmNo: null,
     homePhone: null,
     email: null,
@@ -15,5 +17,6 @@ export default {
     sysrefStaffContractType: null,
     drivingLicenseNumber: null,
     sysrefDrivingType: null,
-    active: null
+    active: true,
+    sysrefDriverState: null
 }
