@@ -14,11 +14,6 @@ const router = new VueRouter({
             component: () => import('@/modules/main/AppNotFound')
         },
         {
-            path: '/login',
-            name: 'Login',
-            component: () => import('@/modules/main/authentication/pages/MLogin')
-        },
-        {
             path: '*',
             redirect: {name: '404'}
         },
@@ -27,6 +22,8 @@ const router = new VueRouter({
             path: '/',
             component: () => import('@/App'),
             children: [
+                // Authentication routes
+                ...require('@/modules/main/authentication/route/index').default,
                 {
                     path: '',
                     component: () => import('@/modules/main/AppMain'),
@@ -64,8 +61,6 @@ const router = new VueRouter({
                     ],
                 },
 
-                // Authentication routes
-                ...require('@/modules/main/authentication/route/index').default,
             ]
         },
     ],
@@ -84,7 +79,7 @@ router.beforeEach((to, from, next) => {
     if(to.matched.some(record => record.meta.requiresAuth)) {
         if (!store.state.shared['auth-token']) {
             next({
-                path: '/login',
+                path: "/auth/login",
                 params: { nextUrl: to.fullPath }
             })
         }
