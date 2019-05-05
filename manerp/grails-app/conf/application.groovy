@@ -24,12 +24,31 @@ manerp {
     }
     rest{
         manerpPortal{
-            url = 'http://157.230.125.223/'
+            //url = 'http://157.230.125.223/'
+            url = 'http://localhost:8091/'
         }
     }
     auth{
         restMethod {
             synchronizeRedisWithDB = "api/v1/redis/synchronizeRedisWithDB"
+
+            user{
+                getAllUserList = "api/v1/rest/getAllUserList"
+                addUser = "api/v1/rest/addUser"
+                updateUser = "api/v1/rest/updateUser"
+                deleteUser = "api/v1/rest/deleteUser"
+            }
+            role{
+                getAllRoleList = "api/v1/rest/getAllRoleList"
+                addRole = "api/v1/rest/addRole"
+                updateRole = "api/v1/rest/updateRole"
+                deleteRole = "api/v1/rest/deleteRole"
+            }
+            rolePermission{
+                getAllRolePermissionList = "api/v1/rest/getAllRolePermissionList"
+                addRolePermission = "api/v1/rest/addRole"
+                deleteRolePermission = "api/v1/rest/deleteRolePermission"
+            }
         }
     }
     routing {
