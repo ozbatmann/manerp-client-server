@@ -3,9 +3,9 @@ import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
 import base,{bus, http, i18n, store} from 'manerp-vue-base'
-import auth from 'manerp-vue-auth'
+// import auth from 'manerp-vue-auth'
 
-base.use(auth);
+// base.use(auth);
 
 const langFiles = require.context("./../../client/src/modules/", true, /.*\/i18n\/(.*)\.json$/);
 langFiles.keys().forEach(function (fileName) {
@@ -28,23 +28,40 @@ Vue.config.errorHandler = err => {
 }
 
 Vue.directive('click-outside', {
-    bind: function (el, binding, vnode) {
-        el.clickOutsideEvent = function (event) {
-            // here I check that click was outside the el and his childrens
-            if (!(el == event.target || el.contains(event.target))) {
-                // and if it did, call method provided in attribute value
-                vnode.context[binding.expression](event);
+    bind: function (el, binding, vNode) {
+        // Provided expression must evaluate to a function.
+        if (typeof binding.value !== 'function') {
+            const compName = vNode.context.name
+            let warn = `[Vue-click-outside:] provided expression '${binding.expression}' is not a function, but has to be`
+            if (compName) {
+                warn += ` Found in component '${compName}'`
             }
-        };
-        document.body.addEventListener('click', el.clickOutsideEvent)
+
+            console.warn(warn)
+        }
+        // Define Handler and cache it on the element
+        const bubble = binding.modifiers.bubble
+        const handler = (e) => {
+            if (bubble || (!el.contains(e.target) && el !== e.target)) {
+                binding.value(e)
+            }
+        }
+        el.__vueClickOutside__ = handler
+
+        // add Event Listeners
+        document.addEventListener('click', handler)
     },
-    unbind: function (el) {
-        document.body.removeEventListener('click', el.clickOutsideEvent)
-    },
+
+    unbind: function (el, binding) {
+        // Remove Event Listeners
+        document.removeEventListener('click', el.__vueClickOutside__)
+        el.__vueClickOutside__ = null
+
+    }
 });
 
 //http.defaults.baseURL = "http://139.179.232.32:8082/";
-http.defaults.baseURL = "http://172.20.10.3:8082/";
+http.defaults.baseURL = "http://192.168.1.37:8082/";
 
 window.instance = new Vue({
     router,
