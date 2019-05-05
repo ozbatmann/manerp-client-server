@@ -2,6 +2,7 @@ package tr.com.manerp.common
 
 import at.favre.lib.crypto.bcrypt.BCrypt
 import grails.gorm.transactions.Transactional
+import tr.com.manerp.auth.AuthenticationToken
 import tr.com.manerp.auth.SaltGenerator
 import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.auth.User
@@ -65,6 +66,9 @@ class DataService
 
     def initApplicationData()
     {
+        AuthenticationToken.findAll().each {
+            it.delete(flush: true, failOnError: true)
+        }
         List<User> userList = User.list()
 
         if ( userList.size() == 0 ) {
