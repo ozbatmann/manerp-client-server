@@ -19,9 +19,9 @@
         </m-data-table>
 
         <m-vehicle-add-edit-form
-                ref="addEditDialog"
-                @save="addNewItem"
-                @edit="editItem"
+            ref="addEditDialog"
+            @save="addNewItem"
+            @edit="editItem"
         ></m-vehicle-add-edit-form>
 
         <v-snackbar
@@ -137,7 +137,7 @@
                 let self = this;
                 this.loading = true;
 
-                this.$http.get('api/v1/vehicle').then((result) => {
+                this.$http.get('api/v1/vehicle?vehicleStateCode=IDLE').then((result) => {
                     self.vehicles = result.data.data.items
                 }).catch((error) => {
                     console.log(error);

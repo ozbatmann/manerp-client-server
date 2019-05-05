@@ -6,6 +6,7 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
+import tr.com.manerp.business.sysref.SysrefVehicleState
 import tr.com.manerp.commands.controller.common.ShowCommand
 import tr.com.manerp.commands.controller.vehicle.VehiclePaginationCommand
 
@@ -81,6 +82,7 @@ class VehicleController extends BaseController
         try {
 
             vehicle.active = true
+            vehicle.sysrefVehicleState = SysrefVehicleState.findByCode('IDLE')
             vehicle.setRandomCode()
             vehicleService.save(vehicle)
             maneResponse.statusCode = StatusCode.CREATED

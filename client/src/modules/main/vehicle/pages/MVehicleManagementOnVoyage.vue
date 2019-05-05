@@ -7,13 +7,6 @@
             no-import
             @deleteItem="deleteItem"
         >
-
-            <!-- Data-table action menu slot -->
-            <template v-slot:action-menu="item">
-
-                <!-- Edit button -->
-                <v-list-tile @click="addDialog(item.bind)">Düzenle</v-list-tile>
-            </template>
         </m-data-table>
 
         <!-- Data table add-edit form -->
@@ -79,7 +72,6 @@
                     [vehicleModel.ogsNo]: null,
                     [vehicleModel.description]: null
                 },
-
                 // Data-table
                 // add-edit dialog fields
                 addEditFields: [
@@ -244,7 +236,7 @@
                 let self = this;
                 this.loading = true;
 
-                this.$http.get('api/v1/vehicle').then((result) => {
+                this.$http.get('api/v1/vehicle?vehicleStateCode=ONVOYAGE').then((result) => {
                     self.vehicles = result.data.data.items
                 }).catch((error) => {
                     console.log(error);
@@ -326,7 +318,7 @@
                     console.log(error);
                 })
             },
-            deleteItem(item){
+            deleteItem(item) {
                 debugger;
                 this.$http.delete(`api/v1/vehicle/${item.id}`).then((result) => {
                     this.getAllVehicles()
