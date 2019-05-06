@@ -14,7 +14,6 @@ class Order implements BusinessDomain
     static auditable = true
 
     Company company
-    Voyage voyage
     String name
     @BindingFormat('dd/MM/yyyy hh:MM')
     Date orderDate
@@ -29,7 +28,6 @@ class Order implements BusinessDomain
         code nullable: false, blank: false, unique: ['sysCompany'], maxSize: 8
         sysCompany nullable: false, unique: false
         company nullable: false, unique: false
-        voyage nullable: true, unique: false
         name nullable: false, blank: false, unique: false, maxSize: 50
         orderDate nullable: false, unique: false
         workOrderNo nullable: true, blank: true, unique: false, maxSize: 30

@@ -570,6 +570,7 @@
             getSysrefTransportationTypes() {
                 this.$http.get("api/v1/sysrefTransportationType?fields=id,name").then((result) => {
                     this.sysrefTransportationTypes = result.data.data.items
+                    console.log("sysrefTransportationTypes:", this.sysrefTransportationTypes);
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
@@ -636,21 +637,25 @@
                 this.optimizationParameters.vehicleSpec.vehicleHazardousMaterials = this.vehicleHazardousMaterialModel.id;
                 this.layerChanged(1, false);
 
-                let waypoints = this.prepareWaypoints();
-                this.optimizationParameters.waypoints = waypoints;
-                this.$http.post('https://dev.virtualearth.net/REST/v1/Routes/Truck?key=AhWheMPRKfucF4QUSzDJ7avIMgpQDwL6t0C_NufIKUUeOJHwgpMiAWV3tE0Qhiw1', this.optimizationParameters).then((result) => {
-                    if (result.status <= 299) {
-                        this.calculatedRoute = result.data.resourceSets[0].resources[0].routePath.line.coordinates;
+                let xhr = new XMLHttpRequest();
+                let url = "https://dev.virtualearth.net/REST/v1/Routes/Truck?key=AhWheMPRKfucF4QUSzDJ7avIMgpQDwL6t0C_NufIKUUeOJHwgpMiAWV3tE0Qhiw1";
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        let responseData = JSON.parse(xhr.responseText);
+                        this.calculatedRoute = responseData.resourceSets[0].resources[0].routePath.line.coordinates;
                         this.$refs.leafletMap.setWaypoints(this.calculatedRoute);
                         this.layerChanged(1, true);
                     } else {
-                        console.log(result.data.statusDescription)
+                        console.info("retrieving route...")
                     }
-                }).catch((error) => {
-                    console.log(error);
-                }).finally(() => {
-                    this.loading = false;
-                });
+                };
+
+                let waypoints = this.prepareWaypoints();
+                this.optimizationParameters.waypoints = waypoints;
+                var requestData = JSON.stringify(this.optimizationParameters);
+                xhr.send(requestData);
             },
             prepareWaypoints() {
                 let waypoints = [];

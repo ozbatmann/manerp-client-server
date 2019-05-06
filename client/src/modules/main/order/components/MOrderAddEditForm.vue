@@ -64,6 +64,7 @@
                         solo
                         flat
                         label="İş Emri Numarası"
+                        v-model="data.workOrderNo"
                         name="workOrderNo"
                         :counter="30"
                         maxlength="30"
@@ -95,10 +96,12 @@
                     <v-combobox
                         solo
                         flat
+                        v-on:change="selectVendor"
                         :items="vendors"
+                        v-model="selectedVendor"
+                        label="Bayi"
                         item-value="id"
                         item-text="title"
-                        label="Bayi"
                         name="vendor"
                         background-color="grey lighten-4"
                         color="green accent-2"
@@ -140,9 +143,9 @@
                     >
                         <template v-slot:items="props">
                             <td>{{ props.index + 1 }}.</td>
-                            <td class="text-xs-left">{{ props.item.name }}</td>
-                            <td class="text-xs-left">{{ props.item.city }}</td>
-                            <td class="text-xs-left">{{ props.item.district }}</td>
+                            <td class="text-xs-left">{{ props.item.title }}</td>
+                            <!--                            <td class="text-xs-left">{{ props.item.city }}</td>-->
+                            <!--                            <td class="text-xs-left">{{ props.item.district }}</td>-->
                             <td class="text-xs-left">{{ props.item.address }}</td>
                             <td class="text-xs-right">
                                 <v-btn
@@ -178,7 +181,7 @@
                 sysrefRevenueTypes: [],
                 sysrefOrderStates: [],
                 vendors: [],
-                selectedVendors: [],
+                selectedVendor: null,
 
                 headers: [
                     {
@@ -188,26 +191,26 @@
                         value: 'order'
                     },
                     {
-                        text: 'Bayi Adı',
+                        text: 'Bayi Unvanı',
                         align: 'left',
                         sortable: false,
-                        value: 'name'
+                        value: 'title'
                     },
-                    {
-                        text: 'İl',
-                        align: 'left',
-                        sortable: false,
-                        value: 'city'
-                    },
-                    {
-                        text: 'İlçe',
-                        align: 'left',
-                        sortable: false,
-                        value: 'district'
-                    },
+                    // {
+                    //     text: 'İl',
+                    //     align: 'left',
+                    //     sortable: false,
+                    //     value: 'city'
+                    // },
+                    // {
+                    //     text: 'İlçe',
+                    //     align: 'left',
+                    //     sortable: false,
+                    //     value: 'district'
+                    // },
                     {
                         text: 'Açık Adres',
-                        align: 'left',
+                        align: 'center',
                         sortable: false,
                         value: 'address'
                     },
@@ -218,7 +221,6 @@
                         value: 'action'
                     }
                 ],
-
                 dealers: []
             }
         },
@@ -227,6 +229,9 @@
                 this.show = true;
                 if (data) {
                     this.data = data;
+                    if (this.data.selectedVendors) {
+                        this.dealers = this.data.selectedVendors;
+                    }
                     this.isEdit = true;
                 } else {
                     this.clear();
@@ -236,10 +241,15 @@
                 this.show = false;
             },
             save() {
+                this.data.selectedVendors = this.getSelectedVendorIds();
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.$emit("save", this.data);
-                        this.close();
+                        if (this.data.selectedVendors.length > 1) {
+                            this.$emit("save", this.data);
+                            this.close();
+                        } else {
+                            this.$emit('displayMessage', "Sipariş için en az 2 bayi seçilmelidir")
+                        }
                     }
                 });
             },
@@ -253,6 +263,8 @@
             },
             clear() {
                 this.data = JSON.parse(JSON.stringify(orderModel));
+                this.selectedVendor = null;
+                this.dealers = [];
                 this.$validator.reset();
                 this.isEdit = false;
             },
@@ -289,19 +301,31 @@
                 })
             },
             getVendorsByCompanyId() {
-                this.$http.get("api/v1/vendor?fields=id,title&limit=100&companyId=" + this.data.company.id).then((result) => {
+                this.dealers = [];
+                this.$http.get("api/v1/vendor?fields=id,title,address&limit=100&companyId=" + this.data.company.id).then((result) => {
                     this.vendors = result.data.data.items;
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
                 })
+            },
+            selectVendor(item) {
+                if (this.dealers.indexOf(item) === -1) {
+                    this.dealers.push(item);
+                }
+            },
+            getSelectedVendorIds() {
+                let list = [];
+                this.dealers.forEach(dealer => {
+                    list.push(dealer.id);
+                });
+                return list;
             }
         },
         mounted() {
             this.getCustomerCompanies();
             this.getSysrefRevenueTypes();
             this.getSysrefOrderStates();
-
             const dict = {
                 custom: {
                     order: {

@@ -3,7 +3,9 @@ package tr.com.manerp.business.main.order
 import grails.gorm.transactions.Transactional
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
+import tr.com.manerp.auth.SysCompany
 import tr.com.manerp.base.service.BaseService
+import tr.com.manerp.business.main.company.Vendor
 import tr.com.manerp.business.main.company.VendorService
 import tr.com.manerp.business.main.voyage.Voyage
 import tr.com.manerp.business.sysref.SysrefOrderState
@@ -37,7 +39,7 @@ class OrderService extends BaseService
                 }
             }
 
-            if ( hasVoyage != null ) {
+            if ( hasVoyage != null && !orderIdList.isEmpty() ) {
                 if ( !hasVoyage ) {
                     not { 'in'('id', orderIdList) }
                 } else {
@@ -78,9 +80,33 @@ class OrderService extends BaseService
         save(order)
     }
 
+    def saveOrderWithVendors(Order order, List<Vendor> vendors)
+    {
+        save(order)
+        vendors.each { vendor ->
+            OrderVendor orderVendor = new OrderVendor()
+            orderVendor._order = order
+            orderVendor.vendor = vendor
+            orderVendor.active = true
+            orderVendor.sysCompany = SysCompany.findByName('Bumerang Lojistik') // TODO: change
+            orderVendor.setRandomCode()
+            orderVendor.save(flush: true, failOnError: true)
+        }
+    }
+
     def delete(Order order)
     {
+        deleteOrderWithVendors(order)
         order.delete(flush: true, failOnError: true)
+    }
+
+    def deleteOrderWithVendors(Order order)
+    {
+        OrderVendor.createCriteria().list {
+            eq('_order', order)
+        }.each {
+            it.delete(flush: true, failOnError: true)
+        }
     }
 
     List formatResultForList(def data)
@@ -109,6 +135,8 @@ class OrderService extends BaseService
     {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm")
 
+        List vendorList = getAllVendorsByOrderId(data.id)
+
         return [
             id               : data.id,
             fullName         : data.getFullName(),
@@ -119,7 +147,14 @@ class OrderService extends BaseService
             billingNo        : data?.billingNo,
             workOrderNo      : data?.workOrderNo,
             company          : data?.company?.title,
-            sysrefOrderState : data.sysrefOrderState ? [id: data.sysrefOrderState.id, name: data.sysrefOrderState.name] : null
+            sysrefOrderState : data.sysrefOrderState ? [id: data.sysrefOrderState.id, name: data.sysrefOrderState.name] : null,
+            selectedVendors  : vendorList ? vendorList.collect {
+                return [
+                    id     : it.vendor.id,
+                    title  : it.vendor.title,
+                    address: it.vendor.address
+                ]
+            } : []
         ]
     }
 
@@ -130,7 +165,12 @@ class OrderService extends BaseService
                 eq('id', orderId)
             }
         }.collect {
-            vendorService.getVendor(it.vendor.id, "title,address,location")
+            return [
+                id      : it.vendor.id,
+                title   : it?.vendor?.title,
+                address : it?.vendor?.address,
+                location: it?.vendor?.location ? [it.vendor.location.latitude, it.vendor.location.longitude] : null
+            ]
         }
 
         return orderVendorList as List

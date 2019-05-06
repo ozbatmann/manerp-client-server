@@ -827,71 +827,71 @@ class DataService
             sysrefOrderStateWait.save(flush: true, failOnError: true)
         }
 
-        Order orderPinar = Order.findByName('Pınar Sipariş')
-        if ( orderPinar == null ) {
+//        Order orderPinar = Order.findByName('Pınar Sipariş')
+//        if ( orderPinar == null ) {
+//
+//            orderPinar = new Order()
+//            orderPinar.setRandomCode()
+//            orderPinar.sysCompany = sysCompanyBumerang
+//            orderPinar.name = 'Pınar Sipariş'
+//            orderPinar.active = true
+//            orderPinar.company = customerCompanyPinar
+//            orderPinar.orderDate = new Date()
+//            orderPinar.sysrefRevenueType = sysrefRevenueTypeTicari
+//            orderPinar.workOrderNo = 'SIPARIS-111222'
+//            orderPinar.billingNo = 'FATURA-111222'
+//            orderPinar.sysrefOrderState = sysrefOrderStateWait
+//
+//            orderService.save(orderPinar)
+//        }
 
-            orderPinar = new Order()
-            orderPinar.setRandomCode()
-            orderPinar.sysCompany = sysCompanyBumerang
-            orderPinar.name = 'Pınar Sipariş'
-            orderPinar.active = true
-            orderPinar.company = customerCompanyPinar
-            orderPinar.orderDate = new Date()
-            orderPinar.sysrefRevenueType = sysrefRevenueTypeTicari
-            orderPinar.workOrderNo = 'SIPARIS-111222'
-            orderPinar.billingNo = 'FATURA-111222'
-            orderPinar.sysrefOrderState = sysrefOrderStateWait
-
-            orderService.save(orderPinar)
-        }
-
-        OrderVendor orderVendorPinarEsk = OrderVendor.findByVendor(vendorPinarEsk)
-        if ( orderVendorPinarEsk == null ) {
-
-            orderVendorPinarEsk = new OrderVendor()
-            orderVendorPinarEsk._order = orderPinar
-            orderVendorPinarEsk.vendor = vendorPinarEsk
-            orderVendorPinarEsk.active = true
-            orderVendorPinarEsk.sysCompany = sysCompanyBumerang
-            orderVendorPinarEsk.setRandomCode()
-            orderVendorPinarEsk.save(flush: true, failOnError: true)
-        }
-
-        OrderVendor orderVendorPinarKemal = OrderVendor.findByVendor(vendorPinarKemal)
-        if ( orderVendorPinarKemal == null ) {
-
-            orderVendorPinarKemal = new OrderVendor()
-            orderVendorPinarKemal._order = orderPinar
-            orderVendorPinarKemal.vendor = vendorPinarKemal
-            orderVendorPinarKemal.active = true
-            orderVendorPinarKemal.sysCompany = sysCompanyBumerang
-            orderVendorPinarKemal.setRandomCode()
-            orderVendorPinarKemal.save(flush: true, failOnError: true)
-        }
-
-        OrderVendor orderVendorPinarDuden = OrderVendor.findByVendor(vendorPinarDuden)
-        if ( orderVendorPinarDuden == null ) {
-
-            orderVendorPinarDuden = new OrderVendor()
-            orderVendorPinarDuden._order = orderPinar
-            orderVendorPinarDuden.vendor = vendorPinarDuden
-            orderVendorPinarDuden.active = true
-            orderVendorPinarDuden.sysCompany = sysCompanyBumerang
-            orderVendorPinarDuden.setRandomCode()
-            orderVendorPinarDuden.save(flush: true, failOnError: true)
-        }
-
-        OrderVendor orderVendorPinarAfyon = OrderVendor.findByVendor(vendorPinarAfyon)
-        if ( orderVendorPinarAfyon == null ) {
-
-            orderVendorPinarAfyon = new OrderVendor()
-            orderVendorPinarAfyon._order = orderPinar
-            orderVendorPinarAfyon.vendor = vendorPinarAfyon
-            orderVendorPinarAfyon.active = true
-            orderVendorPinarAfyon.sysCompany = sysCompanyBumerang
-            orderVendorPinarAfyon.setRandomCode()
-            orderVendorPinarAfyon.save(flush: true, failOnError: true)
-        }
+//        OrderVendor orderVendorPinarEsk = OrderVendor.findByVendor(vendorPinarEsk)
+//        if ( orderVendorPinarEsk == null ) {
+//
+//            orderVendorPinarEsk = new OrderVendor()
+//            orderVendorPinarEsk._order = orderPinar
+//            orderVendorPinarEsk.vendor = vendorPinarEsk
+//            orderVendorPinarEsk.active = true
+//            orderVendorPinarEsk.sysCompany = sysCompanyBumerang
+//            orderVendorPinarEsk.setRandomCode()
+//            orderVendorPinarEsk.save(flush: true, failOnError: true)
+//        }
+//
+//        OrderVendor orderVendorPinarKemal = OrderVendor.findByVendor(vendorPinarKemal)
+//        if ( orderVendorPinarKemal == null ) {
+//
+//            orderVendorPinarKemal = new OrderVendor()
+//            orderVendorPinarKemal._order = orderPinar
+//            orderVendorPinarKemal.vendor = vendorPinarKemal
+//            orderVendorPinarKemal.active = true
+//            orderVendorPinarKemal.sysCompany = sysCompanyBumerang
+//            orderVendorPinarKemal.setRandomCode()
+//            orderVendorPinarKemal.save(flush: true, failOnError: true)
+//        }
+//
+//        OrderVendor orderVendorPinarDuden = OrderVendor.findByVendor(vendorPinarDuden)
+//        if ( orderVendorPinarDuden == null ) {
+//
+//            orderVendorPinarDuden = new OrderVendor()
+//            orderVendorPinarDuden._order = orderPinar
+//            orderVendorPinarDuden.vendor = vendorPinarDuden
+//            orderVendorPinarDuden.active = true
+//            orderVendorPinarDuden.sysCompany = sysCompanyBumerang
+//            orderVendorPinarDuden.setRandomCode()
+//            orderVendorPinarDuden.save(flush: true, failOnError: true)
+//        }
+//
+//        OrderVendor orderVendorPinarAfyon = OrderVendor.findByVendor(vendorPinarAfyon)
+//        if ( orderVendorPinarAfyon == null ) {
+//
+//            orderVendorPinarAfyon = new OrderVendor()
+//            orderVendorPinarAfyon._order = orderPinar
+//            orderVendorPinarAfyon.vendor = vendorPinarAfyon
+//            orderVendorPinarAfyon.active = true
+//            orderVendorPinarAfyon.sysCompany = sysCompanyBumerang
+//            orderVendorPinarAfyon.setRandomCode()
+//            orderVendorPinarAfyon.save(flush: true, failOnError: true)
+//        }
 
         SysrefTransportationType sysrefTransportationTypeGidis = SysrefTransportationType.findByName('Komple')
         if ( sysrefTransportationTypeGidis == null ) {
@@ -901,6 +901,8 @@ class DataService
             sysrefTransportationTypeGidis.name = 'Komple'
             sysrefTransportationTypeGidis.active = true
             sysrefTransportationTypeGidis.description = 'Komple taşıma'
+
+            sysrefTransportationTypeGidis.save(flush: true, failOnError: true)
         }
 
         SysrefVoyageDirection sysrefVoyageDirectionGidis = SysrefVoyageDirection.findByName('Tek Yön')
@@ -968,68 +970,68 @@ class DataService
             sysrefDeliveryStatusBosaltti.save(flush: true, failOnError: true)
         }
 
-        Location loadingLocationPinar = Location.findByName('Karşıyaka Yükleme Noktası')
-        if ( loadingLocationPinar == null ) {
-
-            loadingLocationPinar = new Location()
-            loadingLocationPinar.active = true
-            loadingLocationPinar.latitude = '38.492'
-            loadingLocationPinar.longitude = '27.112'
-            loadingLocationPinar.sysCompany = sysCompanyBumerang
-            loadingLocationPinar.name = 'Karşıyaka'
-
-            loadingLocationPinar.save(flush: true, failOnError: true)
-        }
-
-        Location dumpingLocationPinar = Location.findByName('Eskişehir Boşaltma Noktası')
-        if ( dumpingLocationPinar == null ) {
-
-            dumpingLocationPinar = new Location()
-            dumpingLocationPinar.active = true
-            dumpingLocationPinar.latitude = '39.766'
-            dumpingLocationPinar.longitude = '30.522'
-            dumpingLocationPinar.sysCompany = sysCompanyBumerang
-            dumpingLocationPinar.name = 'Eskişehir'
-
-            dumpingLocationPinar.save(flush: true, failOnError: true)
-        }
-
-        Voyage voyagePinar = Voyage.findBySasNumber('SAS-111222333')
-        if ( voyagePinar == null ) {
-
-
-            voyagePinar = new Voyage()
-            voyagePinar.startDate = new Date()
-            voyagePinar.setRandomCode()
-            voyagePinar.sysCompany = sysCompanyBumerang
-            voyagePinar.active = true
-            voyagePinar.driver = staffMurat
-            voyagePinar.vehicle = vehicle1
-            voyagePinar.trailer = trailer1
-            voyagePinar.sysrefTransportationType = sysrefTransportationTypeGidis
-            voyagePinar.sysrefDeliveryStatus = sysrefDeliveryStatusRezervasyon
-            voyagePinar.sysrefVoyageDirection = sysrefVoyageDirectionGidisDonus
-            voyagePinar.loadingLocation = loadingLocationPinar
-            voyagePinar.dumpingLocation = dumpingLocationPinar
-            voyagePinar.transportWaybillNo = 'IRSALIYE-111222333'
-            voyagePinar.deliveryNoteNo = 'TESLIMAT-NOT-111222333'
-            voyagePinar.sasNumber = 'SAS-111222333'
-
-            voyageService.save(voyagePinar)
-        }
-
-        VoyageOrder voyageOrder = VoyageOrder.findByVoyage(voyagePinar)
-        if ( voyageOrder == null ) {
-
-            voyageOrder = new VoyageOrder()
-            voyageOrder.sysCompany = sysCompanyBumerang
-            voyageOrder.setRandomCode()
-            voyageOrder.voyage = voyagePinar
-            voyageOrder.order = orderPinar
-            voyageOrder.active = true
-
-            voyageOrder.save(flush: true, failOnError: true)
-        }
+//        Location loadingLocationPinar = Location.findByName('Karşıyaka Yükleme Noktası')
+//        if ( loadingLocationPinar == null ) {
+//
+//            loadingLocationPinar = new Location()
+//            loadingLocationPinar.active = true
+//            loadingLocationPinar.latitude = '38.492'
+//            loadingLocationPinar.longitude = '27.112'
+//            loadingLocationPinar.sysCompany = sysCompanyBumerang
+//            loadingLocationPinar.name = 'Karşıyaka'
+//
+//            loadingLocationPinar.save(flush: true, failOnError: true)
+//        }
+//
+//        Location dumpingLocationPinar = Location.findByName('Eskişehir Boşaltma Noktası')
+//        if ( dumpingLocationPinar == null ) {
+//
+//            dumpingLocationPinar = new Location()
+//            dumpingLocationPinar.active = true
+//            dumpingLocationPinar.latitude = '39.766'
+//            dumpingLocationPinar.longitude = '30.522'
+//            dumpingLocationPinar.sysCompany = sysCompanyBumerang
+//            dumpingLocationPinar.name = 'Eskişehir'
+//
+//            dumpingLocationPinar.save(flush: true, failOnError: true)
+//        }
+//
+//        Voyage voyagePinar = Voyage.findBySasNumber('SAS-111222333')
+//        if ( voyagePinar == null ) {
+//
+//
+//            voyagePinar = new Voyage()
+//            voyagePinar.startDate = new Date()
+//            voyagePinar.setRandomCode()
+//            voyagePinar.sysCompany = sysCompanyBumerang
+//            voyagePinar.active = true
+//            voyagePinar.driver = staffMurat
+//            voyagePinar.vehicle = vehicle1
+//            voyagePinar.trailer = trailer1
+//            voyagePinar.sysrefTransportationType = sysrefTransportationTypeGidis
+//            voyagePinar.sysrefDeliveryStatus = sysrefDeliveryStatusRezervasyon
+//            voyagePinar.sysrefVoyageDirection = sysrefVoyageDirectionGidisDonus
+//            voyagePinar.loadingLocation = loadingLocationPinar
+//            voyagePinar.dumpingLocation = dumpingLocationPinar
+//            voyagePinar.transportWaybillNo = 'IRSALIYE-111222333'
+//            voyagePinar.deliveryNoteNo = 'TESLIMAT-NOT-111222333'
+//            voyagePinar.sasNumber = 'SAS-111222333'
+//
+//            voyageService.save(voyagePinar)
+//        }
+//
+//        VoyageOrder voyageOrder = VoyageOrder.findByVoyage(voyagePinar)
+//        if ( voyageOrder == null ) {
+//
+//            voyageOrder = new VoyageOrder()
+//            voyageOrder.sysCompany = sysCompanyBumerang
+//            voyageOrder.setRandomCode()
+//            voyageOrder.voyage = voyagePinar
+//            voyageOrder.order = orderPinar
+//            voyageOrder.active = true
+//
+//            voyageOrder.save(flush: true, failOnError: true)
+//        }
 
     }
 }

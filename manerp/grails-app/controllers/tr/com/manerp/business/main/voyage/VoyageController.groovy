@@ -99,12 +99,7 @@ class VoyageController extends BaseController
             }
 
             Voyage voyage = new Voyage()
-            voyage.startDate = new Date()
             cmd >> voyage
-            voyage.active = true
-            voyage.sysrefDeliveryStatus = SysrefDeliveryStatus.findByCode('REZ')
-            voyage.setRandomCode()
-
             voyageService.saveVoyageWithOrder(voyage, cmd._order)
             driverService.sendVoyageMailToDriver(voyage)
             maneResponse.statusCode = StatusCode.CREATED
@@ -142,8 +137,6 @@ class VoyageController extends BaseController
 
             voyage = Voyage.get(cmd.id)
             cmd >> voyage
-            voyage.setRandomCode()
-
             voyageService.saveVoyageWithOrder(voyage, cmd._order)
 
             if ( cmd.sysrefDeliveryStatus == SysrefDeliveryStatus.findByCode('BOS') ) {

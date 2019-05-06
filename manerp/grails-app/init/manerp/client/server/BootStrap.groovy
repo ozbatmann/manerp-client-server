@@ -1,12 +1,12 @@
 package manerp.client.server
 
-class BootStrap {
-
+class BootStrap
+{
     def dataService
 
     def init = { servletContext ->
 
-//        dataService.initApplicationData()
+        dataService.initApplicationData()
     }
     def destroy = {
     }
