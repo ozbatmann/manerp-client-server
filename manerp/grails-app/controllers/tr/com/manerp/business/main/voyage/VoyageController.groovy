@@ -6,7 +6,11 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
+import tr.com.manerp.business.main.order.Order
+import tr.com.manerp.business.main.order.VoyageOrder
 import tr.com.manerp.business.sysref.SysrefDeliveryStatus
+import tr.com.manerp.business.sysref.SysrefDriverState
+import tr.com.manerp.business.sysref.SysrefOrderState
 import tr.com.manerp.commands.controller.common.ShowCommand
 import tr.com.manerp.commands.controller.voyage.VoyagePaginationCommand
 import tr.com.manerp.commands.controller.voyage.VoyageSaveCommand
@@ -19,6 +23,8 @@ class VoyageController extends BaseController
     static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE"]
 
     def voyageService
+    def orderService
+    def driverService
 
     // TODO: filtering with company and order
     def index()
@@ -134,12 +140,18 @@ class VoyageController extends BaseController
             }
 
             voyage = Voyage.get(cmd.id)
-            voyage.startDate = new Date()
             cmd >> voyage
-            voyage.active = true
             voyage.setRandomCode()
 
             voyageService.saveVoyageWithOrder(voyage, cmd._order)
+
+            if ( cmd.sysrefDeliveryStatus == SysrefDeliveryStatus.findByCode('BOS') ) {
+                Order order = VoyageOrder.findByVoyage(voyage)?.order
+                if ( order ) orderService.saveOrderWithSysrefOrderState(order, SysrefOrderState.findByCode('COMP'))
+
+                driverService.saveDriverWithState(voyage.driver, SysrefDriverState.findByCode('IDLE'))
+            }
+
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Sevkiyat başarıyla güncellendi.'
 
@@ -172,7 +184,9 @@ class VoyageController extends BaseController
 
         try {
 
-
+            Order order = VoyageOrder.findByVoyage(voyage)?.order
+            if ( order ) orderService.saveOrderWithSysrefOrderState(order, SysrefOrderState.findByCode('COMP'))
+            driverService.saveDriverWithState(voyage.driver, SysrefDriverState.findByCode('IDLE'))
             voyageService.delete(voyage)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Sevkiyat başarıyla silindi.'

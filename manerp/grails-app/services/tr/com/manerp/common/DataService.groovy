@@ -706,6 +706,7 @@ class DataService
             vehicle1.km = 12300
             vehicle1.isDualRegime = true
             vehicle1.refWorkingArea = refWorkingAreaEge
+            vehicle1.sysrefVehicleState = sysrefVehicleStateIdle
             vehicle1.sysrefVehicleType = sysrefVehicleTypeCekici
             vehicle1.sysrefVehicleOwner = sysrefVehicleOwnerOzmal
             vehicle1.vehicleOwnerFullName = 'Muratcan Balık'

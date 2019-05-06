@@ -8,6 +8,7 @@ import tr.com.manerp.base.service.BaseService
 import tr.com.manerp.business.main.company.Vendor
 import tr.com.manerp.business.main.company.VendorService
 import tr.com.manerp.business.main.resource.Staff
+import tr.com.manerp.business.sysref.SysrefOrderState
 
 import java.text.SimpleDateFormat
 
@@ -61,6 +62,12 @@ class OrderService extends BaseService
     def save(Order order)
     {
         order.save(flush: true, failOnError: true)
+    }
+
+    def saveOrderWithSysrefOrderState(Order order, SysrefOrderState sysrefOrderState)
+    {
+        order.sysrefOrderState = sysrefOrderState
+        save(order)
     }
 
     def delete(Order order)

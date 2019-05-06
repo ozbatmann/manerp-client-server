@@ -328,6 +328,13 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn
+                    v-if="isEdit && currentTab ===0"
+                    color="cyan darken-1" outline
+                    @click.native="completeVoyage"
+                >
+                    Sevkiyatı Tamamla
+                </v-btn>
+                <v-btn
                     v-if="isEdit && currentTab === 0 && (calculatedRoute !== null && calculatedRoute.length > 0)"
                     color="blue darken-1" outline
                     @click.native="edit">Düzenle
@@ -358,6 +365,7 @@
         components: {LeafletMap, draggable},
         data() {
             return {
+                sysrefDeliveryStatusId: null,
                 panel: [],
                 currentTab: 0,
                 showDialog: false,
@@ -367,7 +375,6 @@
                 drivers: [],
                 sysrefTransportationTypes: [],
                 sysrefVoyageDirections: [],
-                sysrefDeliveryStatuses: [],
                 layers: [],
                 vendors: [],
                 vendorsForSort: [],
@@ -516,6 +523,24 @@
                     }
                 });
             },
+            getSysrefDeliveryStatusId() {
+                this.$http.get("api/v1/sysrefDeliveryStatus?fields=id,code").then((result) => {
+                    let items = result.data.data.items;
+                    items.forEach((item) => {
+                        if (item.code === 'BOS') {
+                            this.sysrefDeliveryStatusId = item.id;
+                        }
+                    });
+                }).catch((error) => {
+                    console.error(error);
+                }).finally(() => {
+                })
+            },
+            completeVoyage() {
+                this.data.sysrefDeliveryStatus = this.sysrefDeliveryStatusId;
+                console.log(this.data.sysrefDeliveryStatus);
+                this.edit();
+            },
             clear() {
                 this.data = JSON.parse(JSON.stringify(voyageModel));
                 this.$validator.reset();
@@ -531,7 +556,6 @@
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
-
                 })
             },
             getDrivers() {
@@ -541,7 +565,6 @@
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
-
                 })
             },
             getSysrefTransportationTypes() {
@@ -550,7 +573,6 @@
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
-
                 })
             },
             getSysrefVoyageDirections() {
@@ -559,7 +581,6 @@
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
-
                 })
             },
             getOrders() {
@@ -568,7 +589,6 @@
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
-
                 })
             },
             getDropdownData() {
@@ -659,6 +679,7 @@
             this.getSysrefTransportationTypes();
             this.getSysrefVoyageDirections();
             this.getMapLayers();
+            this.getSysrefDeliveryStatusId();
         }
     }
 </script>

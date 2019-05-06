@@ -27,13 +27,13 @@ export default [
         component: () => import('@/modules/main/shared/components/core/MCoreDetails'),
         children: [
             {
-                path: '',
+                path: 'completed',
                 name: routes.completed,
                 component: () => import('@/modules/main/voyage/pages/CompletedVoyageManagement'),
                 meta: meta('Sevkiyat Yönetimi')
             },
             {
-                path: 'completed',
+                path: '',
                 name: routes.incomplete,
                 component: () => import('@/modules/main/voyage/pages/IncompleteVoyageManagement'),
                 meta: meta('Sevkiyat Yönetimi')
