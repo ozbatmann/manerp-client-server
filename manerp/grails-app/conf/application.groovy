@@ -24,8 +24,8 @@ manerp {
     }
     rest{
         manerpPortal{
-            //url = 'http://157.230.125.223/'
-            url = 'http://localhost:8091/'
+            url = 'http://157.230.125.223/'
+            //url = 'http://localhost:8091/'
         }
     }
     auth{

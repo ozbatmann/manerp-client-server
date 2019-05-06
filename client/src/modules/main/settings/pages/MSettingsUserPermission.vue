@@ -1,5 +1,9 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
+        <m-settings-add-role
+                v-model="addRoleDialog"
+                @save="addRole"
+        ></m-settings-add-role>
         <v-layout>
             <v-flex>
                 <v-alert
@@ -7,7 +11,7 @@
                         type="info"
                         dismissible
                 >
-                    Yeni kullanıcı ekleyin, kullanıcı izinlerini yönetin, yeni izin ekleyin ve kullanıcıları
+                    Yeni kullanıcı rolü ekleyin, role sahip kullanıcıları yönetin, yeni izin ekleyin ve kullanıcıları
                     yetkilendirin.
                 </v-alert>
             </v-flex>
@@ -29,7 +33,7 @@
                             style="height:56px;"
                             class="text-uppercase pr-1"
                     >
-                        izin tipleri
+                        kullanıcı rolleri
                         <v-spacer></v-spacer>
                         <v-tooltip right v-if="!loading.role">
                             <template v-slot:activator="{ on }">
@@ -37,11 +41,12 @@
                                         v-on="on"
                                         class="primary-green--text"
                                         icon
+                                        @click="addRoleDialog = true"
                                 >
                                     <v-icon>add</v-icon>
                                 </v-btn>
                             </template>
-                            <span>Yeni izin ekle</span>
+                            <span>Yeni rol ekle</span>
                         </v-tooltip>
                         <v-progress-circular
                                 v-if="loading.role"
@@ -58,12 +63,12 @@
                             flat
                             hide-details
                             background-color="grey lighten-3"
-                            label="İzinler arasında arayın"
+                            label="Roller arasında arayın"
                             solo
                     ></v-text-field>
 
                     <v-list-tile
-                            v-for="(item, index) in filteredItems(items, 'role')"
+                            v-for="(item, index) in filteredItems(permissionRoles, 'role')"
                             :key="`permission-list-item-${index}`"
                             :class="activeClass(index)"
                             @click="select(index)"
@@ -72,8 +77,9 @@
                             <div class="m-permission__icon"></div>
                         </v-list-tile-content>
                         <v-list-tile-content>
-                            <v-list-tile-title>{{item.title}}</v-list-tile-title>
-                            <v-list-tile-sub-title class="caption text--secondary">45 Kullanıcı</v-list-tile-sub-title>
+                            <v-list-tile-title>{{item.role.name}}</v-list-tile-title>
+                            <v-list-tile-sub-title class="caption text--secondary">{{item.count}} Kullanıcı
+                            </v-list-tile-sub-title>
                         </v-list-tile-content>
 
                         <v-list-tile-action class="m-settings__action">
@@ -84,6 +90,11 @@
                                 edit
                             </v-icon>
                         </v-list-tile-action>
+                    </v-list-tile>
+                    <v-list-tile v-if="!permissionRoles.length && !loading.role">
+                        <v-list-tile-content>
+                            <v-list-tile-title class="text-xs-center">Henüz bir rol eklemediniz</v-list-tile-title>
+                        </v-list-tile-content>
                     </v-list-tile>
                 </v-list>
             </v-flex>
@@ -98,9 +109,9 @@
                             style="height:56px;"
                             class="text-uppercase pr-1"
                     >
-                        {{selectedPermissionTitle}} iznine sahip kullanıcılar
+                        {{selectedPermissionTitle}} sahip kullanıcılar
                         <v-spacer></v-spacer>
-                        <v-tooltip right v-if="!loading.user">
+                        <v-tooltip right v-if="!users.length && !loading.user && this.selected">
                             <template v-slot:activator="{ on }">
                                 <v-btn
                                         v-on="on"
@@ -140,7 +151,7 @@
                         </v-list-tile-avatar>
 
                         <v-list-tile-content>
-                            <v-list-tile-title class="black--text">{{user.name}}</v-list-tile-title>
+                            <v-list-tile-title class="black--text">{{user.name}} {{user.surname}}</v-list-tile-title>
                             <v-list-tile-sub-title class="caption">{{user.groups}}</v-list-tile-sub-title>
                         </v-list-tile-content>
 
@@ -149,6 +160,15 @@
                                 <v-icon size="18">close</v-icon>
                             </v-btn>
                         </v-list-tile-action>
+                    </v-list-tile>
+                    <v-list-tile v-if="!users.length && !loading.user && !this.selected">
+                        <v-list-tile-content>
+                            <v-list-tile-title
+                                    class="text-xs-center black--text"
+                            >
+                                Önce kullanıcı rolü seçin
+                            </v-list-tile-title>
+                        </v-list-tile-content>
                     </v-list-tile>
                 </v-list>
             </v-flex>
@@ -167,7 +187,7 @@
 
                             <!-- Title -->
                             <v-card-title class="text-uppercase font-weight-medium">
-                                <span class="white--text">{{selectedPermissionTitle}} iznine ait yetkiler</span>
+                                <span class="white--text">{{selectedPermissionTitle}} ait yetkiler</span>
                                 <v-spacer></v-spacer>
                                 <v-progress-circular
                                         v-if="loading.permission"
@@ -208,14 +228,18 @@
                                             xs12
                                     >
                                         <!-- Permission types expansion panel -->
-                                        <v-expansion-panel class="elevation-0">
+                                        <v-expansion-panel
+                                                class="elevation-0"
+                                                v-if="filteredItems(permissions, 'permission', 'name').length"
+                                        >
                                             <v-expansion-panel-content
-                                                    v-for="(permission, index) in filteredItems(permissions, 'permission')"
+                                                    v-for="(permission, index) in filteredItems(permissions, 'permission', 'name')"
                                                     :key="`permission-item-${index}`"
                                                     class="deep-purple px-0"
                                             >
                                                 <template v-slot:header>
-                                                    <div class="text-capitalize">{{permission.title}}</div>
+                                                    <div class="text-capitalize">{{ permission.name }}
+                                                    </div>
                                                 </template>
 
                                                 <v-layout
@@ -226,33 +250,52 @@
                                                         py-2
                                                 >
                                                     <v-flex
-                                                            v-for="(type, i) in permission.types"
-                                                            :key="`${permission.title}-item-${i}`"
+                                                            v-for="(available, i) in permission.availablePermissions"
+                                                            :key="`${permission.name}-available-item-${i}`"
                                                             pa-2
                                                             shrink
                                                     >
                                                         <!-- Checkbox items -->
                                                         <v-checkbox
-                                                                v-model="type.active"
-                                                                :label="type.title"
+                                                                :label="available[2]"
+                                                                :input-value="false"
                                                                 class="mt-0 text-capitalize font-weight-regular m-settings__label"
                                                                 color="green accent-2"
                                                                 hide-details
+                                                                @change="addPermission(permission.name, available)"
+                                                        ></v-checkbox>
+                                                    </v-flex>
+
+                                                    <v-flex
+                                                            v-for="(unavailable, i) in permission.unavailablePermissions"
+                                                            :key="`${permission.name}-unavailable-item-${i}`"
+                                                            pa-2
+                                                            shrink
+                                                    >
+                                                        <!-- Checkbox items -->
+                                                        <v-checkbox
+                                                                :label="unavailable[2]"
+                                                                :input-value="true"
+                                                                class="mt-0 text-capitalize font-weight-regular m-settings__label"
+                                                                color="green accent-2"
+                                                                hide-details
+                                                                @change="deletePermission(permission.name, unavailable)"
                                                         ></v-checkbox>
                                                     </v-flex>
                                                 </v-layout>
                                             </v-expansion-panel-content>
                                         </v-expansion-panel>
+                                        <div
+                                                v-if="!filteredItems(permissions, 'permission', 'name').length"
+                                                class="pt-3 text-xs-center"
+                                        >
+                                            <span>
+                                                Önce kullanıcı rolü seçin
+                                            </span>
+                                        </div>
                                     </v-flex>
                                 </v-layout>
                             </v-card-text>
-                            <v-btn
-                                    color="primary-green"
-                                    flat
-                                    block
-                            >
-                                KAYDET
-                            </v-btn>
                         </v-card>
                     </v-flex>
                 </v-layout>
@@ -263,11 +306,18 @@
 
 <script>
 
+    import MSettingsAddRole from "../components/MSettingsAddRole";
+
     export default {
         name: "MSettingsUserPermission",
-
+        components: {MSettingsAddRole},
         data() {
             return {
+                addRoleDialog: false,
+                addUserDialog: false,
+
+                // -------------------
+
                 user: this.$store.state.shared,
                 filter: {
                     role: null,
@@ -292,216 +342,9 @@
 
                 menuActive: false,
 
-                permissions: [
-                    {
-                        title: 'operasyon',
-                        value: 'operations',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    },
-                    {
-                        title: 'mutabakat',
-                        value: 'operations',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    },
-                    {
-                        title: 'şoför ekle/düzenle',
-                        value: 'operations',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    },
-                    {
-                        id: '',
-                        title: 'iş yeri',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    },
-                    {
-                        title: 'tedarikçi ekle/düzenle',
-                        value: 'operations',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    },
-                    {
-                        title: 'araç ekle/düzenle',
-                        value: 'operations',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    },
-                    {
-                        title: 'sipariş ekle/düzenle',
-                        value: 'operations',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    },
-                    {
-                        title: 'sevkiyat ekle/düzenle',
-                        value: 'operations',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    }
-                ],
+                permissions: [],
+
+                subjects: [],
 
                 permissionTypes: ['add', 'show', 'edit', 'delete'],
 
@@ -511,37 +354,20 @@
                     permission: false,
                 },
 
-                selected: 0,
+                selected: null,
 
-                users: [
-                    {
-                        name: 'Tunahan Bayındır',
-                        img: 'https://randomuser.me/api/portraits/men/52.jpg',
-                        groups: 'Operasyon, Mutabakat, Muhasebe'
-                    },
-                    {
-                        name: 'Berat Postalcıoğlu',
-                        img: 'https://randomuser.me/api/portraits/men/75.jpg',
-                        groups: 'Operasyon, Muhasebe'
-                    },
-                    {
-                        name: 'Fatih Akbayrak',
-                        img: 'https://randomuser.me/api/portraits/men/90.jpg',
-                        groups: 'Admin'
-                    },
-                    {
-                        name: 'Ali İmran Özbatman',
-                        img: 'https://randomuser.me/api/portraits/men/48.jpg',
-                        groups: 'Operasyon, Mutabakat, Muhasebe'
-                    }
-                ]
+                users: [],
+
+                permissionRoles: []
             }
         },
 
         computed: {
 
             selectedPermissionTitle() {
-                return this.permissions[this.selected].title;
+                let selected = this.permissionRoles[this.selected];
+
+                return selected ? `${selected.role.name} rolüne ` : 'seçilecek role ';
             }
         },
 
@@ -551,9 +377,9 @@
                 return this.selected === index ? 'm-settings__active' : ''
             },
 
-            filteredItems (items, type, prop = null) {
+            filteredItems(items, type, prop = null) {
                 let filterText = this.filter[type];
-                let filterProp = prop ? prop : 'title';
+                let filterProp = prop ? prop : 'name';
 
                 if (!filterText) return items;
 
@@ -568,84 +394,197 @@
             },
 
             select(index) {
-                this.selected = index;
+                if (this.selected !== index) {
+                    this.selected = index;
+
+                    let roleId = this.permissionRoles[index].role.id;
+
+                    this.getSecuritySubjects(roleId);
+                    this.getUsers(roleId)
+                }
+            },
+
+            addRole(roleName) {
+                this.loading.role = true;
+
+                let self = this;
+
+                this.$http.post('/api/v1/auth/addRole',
+                    {name: roleName, organizationId: this.user.organization.id})
+                    .then((result) => {
+
+                        console.log(result);
+                        self.getRoles();
+
+                    }).catch((error) => {
+                    console.log(error);
+                }).finally(() => this.loading.role = false)
+            },
+
+            addUser(roleId) {
+                this.loading.user = true;
+
+                this.$http.post('/api/v1/auth/getAllRolePermissionList',
+                    {roleId: roleId})
+                    .then((result) => {
+
+                        console.log(result);
+
+                    }).catch((error) => {
+                    console.log(error);
+                }).finally(() => this.loading.user = false)
             },
 
             // Request methods
 
-            getSecuritySubjects () {
+            getSecuritySubjects(roleId) {
                 this.loading.permission = true;
 
-                this.$http.post('api/v1/getAllRolePermissionList').then((result) => {
-                    let subjects = result.data.data.items;
-
-                    for (let subject of subjects) {
-                        console.log('subject', subject);
-                    }
+                this.$http.post('/api/v1/auth/getAllRolePermissionList', {roleId: roleId}).then((result) => {
+                    console.log(result);
+                    this.permissions = result.data;
                 }).catch((error) => {
                     console.log(error);
                 }).finally(() => this.loading.permission = false)
             },
 
-            // user{
-            //     getAllUserList = "api/v1/rest/getAllUserList"
-            //     addUser = "api/v1/rest/addUser"
-            //     updateUser = "api/v1/rest/updateUser"
-            //     deleteUser = "api/v1/rest/deleteUser"
-            // }
-            // role{
-            //     getAllRoleList = "api/v1/rest/getAllRoleList"
-            //     addRole = "api/v1/rest/addRole"
-            //     updateRole = "api/v1/rest/updateRole"
-            //     deleteRole = "api/v1/rest/deleteRole"
-            // }
-            // rolePermission{
-            //     getAllRolePermissionList = "api/v1/rest/getAllRolePermissionList"
-            //     addRolePermission = "api/v1/rest/addRole"
-            //     deleteRolePermission = "api/v1/rest/deleteRolePermission"
-            // }
+            getRoles() {
+                this.loading.role = true;
 
-            getPermissions (roleId) {
-                this.loading.permission = true;
-
-                this.$http.get('api/v1/').then((result) => {
-                    let subjects = result.data.data.items;
-
-                    for (let subject of subjects) {
-
-                    }
-                }).catch((error) => {
-                    console.log(error);
-                }).finally(() => this.loading.permission = false)
-            },
-
-            getRoles () {
-                this.loading.permission = true;
                 this.$http.post('api/v1/auth/getAllRoleList',
-                    { organizationId: this.user.organization.id }).then((result) => {
-                        console.log(result);
-                    let subjects = result.data.data.items;
+                    {organizationId: this.user.organization.id})
+                    .then((result) => {
 
-                    console.log(subjects);
+                        this.permissionRoles = result.data;
 
-                    for (let subject of subjects) {
-                        console.log(subject)
-                    }
-                }).catch((error) => {
+                        if (this.permissionRoles.length)
+                            this.$nextTick(() => {
+                                this.select(0);
+                            });
+                    }).catch((error) => {
                     console.log(error);
-                }).finally(() => this.loading.permission = false)
+                }).finally(() => this.loading.role = false)
             },
 
-            getUsers(role) {
+            getUsers(roleId) {
+                this.loading.user = true;
 
+                this.$http.post('/api/v1/auth/getAllUserList',
+                    {organizationId: this.user.organization.id, roleId: roleId})
+                    .then((result) => {
+                        console.log(result);
+                        this.users = result.data;
+                    }).catch((error) => {
+                    console.log(error);
+                }).finally(() => this.loading.user = false)
             },
 
             removeUser(id) {
 
+            },
+
+            addPermission(name, item) {
+                console.log('add:', name, ':', item[0], ':', item[2]);
+
+                this.loading.permission = true;
+
+                let self = this;
+                let roleId = this.permissionRoles[this.selected].role.id;
+
+
+                this.$http.post('/api/v1/auth/addRolePermission',
+                    {id: item[0], roleId: roleId})
+                    .then((result) => {
+
+                        let status = result.status;
+
+                        console.log("Added",result);
+
+                        if (status === 200) {
+                            let permId = result.data.id;
+                            let permission = this.permissions.find(permission => {
+                                if(permission.name === name) {
+                                    if (permId) {
+                                        for (let i = 0; i < permission.unavailablePermissions.length; i++) {
+                                            let c = permission.unavailablePermissions[i];
+
+                                            if (c[0] === item[0]) {
+                                                permission.availablePermissions.splice(i);
+                                                permission.unavailablePermissions.push(item);
+
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+
+
+                        }
+                    }).catch((error) => {
+                    console.log(error);
+                }).finally(() => this.loading.permission = false)
+            },
+
+            deletePermission(name, item) {
+                console.log('del:', name, ':', item[0], ':', item[2]);
+                this.loading.permission = true;
+
+                let self = this;
+                let roleId = this.permissionRoles[this.selected].role.id;
+
+                this.$http.post('/api/v1/auth/deleteRolePermission',
+                    {id: item[0], roleId: roleId})
+                    .then((result) => {
+                        let status = result.status;
+
+                        if (status === 200) {
+                            console.log("Deleted",result)
+                          /*  let statusName = result.data.status.name;
+                            let permission = this.permissions.find(permission => {
+                                return permission.name === name;
+                            });
+                            let index = 0;
+
+                            switch (statusName) {
+                                case 'NO_CONTENT':
+
+                                    for (let i = 0; i < permission.unavailablePermissions.length; i++) {
+                                        let c = permission.unavailablePermissions[i];
+
+                                        if (c[0] === item[0]) {
+                                            permission.unavailablePermissions.splice(i, 1);
+                                            permission.availablePermissions.push(item);
+                                            break;
+                                        }
+
+                                        index++;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }*/
+                        }
+                        console.log(result);
+                        //self.getRoles();
+
+                    }).catch((error) => {
+                    console.log(error);
+                }).finally(() => this.loading.permission = false)
             }
         },
 
-        mounted () {
+        findPermission(name) {
+            return this.permissions.find(permission => {
+                return permission.name === name;
+            });
+        },
+
+        findSubject(id) {
+            return this.permissions.find()
+        },
+
+        mounted() {
             this.getRoles();
         }
     }

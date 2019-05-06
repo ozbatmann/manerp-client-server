@@ -23,9 +23,12 @@
                             <v-list-tile-content>
 
                                 <v-slide-x-transition>
-                                    <v-list-tile-title class="font-weight-light black--text text--accent-5">
+                                    <v-list-tile-title
+                                            class="font-weight-light black--text text--accent-5"
+                                            style="white-space: nowrap; text-overflow: ellipsis;"
+                                    >
 
-                                        Bumerang Lojistik
+                                        {{ organizationTitle }}
                                     </v-list-tile-title>
                                 </v-slide-x-transition>
                             </v-list-tile-content>
@@ -110,13 +113,11 @@
 
                             },
                             {
-                                title: 'Muhasebe',
-                                icon: 'account_balance_wallet'
-                            },
-                            {
                                 title: 'İnsan Kaynakları',
-                                icon: 'group'
-                            }
+                                icon: 'group',
+                                to: {name: require('@/modules/main/staff/route/index').routes.staffs},
+                                permission: "staff:show"
+                            },
                         ]
                     },
 
@@ -135,12 +136,6 @@
                                 to: {name: require('@/modules/main/company/route/index').routes.customer},
                                 permission: "company:show"
 
-                            },
-                            {
-                                title: 'Personel Yönetimi',
-                                icon: 'group',
-                                to: {name: require('@/modules/main/staff/route/index').routes.staffs},
-                                permission: "staff:show"
                             },
                             // {
                             //     title: 'Parametre Yönetimi',
@@ -172,6 +167,14 @@
                 mini: false
             }
         },
+
+        computed: {
+            // TODO ellipsis...
+            organizationTitle () {
+                return this.$store.state.shared.organization.name;
+            }
+        },
+
         methods: {
         },
         watch: {

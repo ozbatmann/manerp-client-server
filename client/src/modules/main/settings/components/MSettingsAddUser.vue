@@ -5,30 +5,36 @@
             :width="600"
             @save="save"
             @edit="edit"
-            @clear="clear"
-            @close="close"
     >
         <template v-slot:form>
             <v-alert
                     :value="true"
                     type="info"
             >
-                Rol adını girin. Kaydete tıkladıktan sonra bu role sahip olacak kullanıcıları ve bu role ait yetkileri belirleyin
+                Eklemek istediğiniz kullanıcıyı ad, soyad girerek arayın
             </v-alert>
-            <v-text-field
+            <v-autocomplete
+                    :items="items"
+                    :loading="isLoading"
+                    :search-input.sync="search"
+                    color="white"
+                    hide-no-data
+                    hide-selected
+                    item-text="Description"
+                    item-value="API"
                     v-validate="'required'"
-                    :error-messages="errors.collect('roleName')"
-                    v-model="roleName"
+                    :error-messages="errors.collect('user')"
+                    v-model="user"
                     :counter="20"
                     maxlength="20"
-                    label="Rol adı"
+                    label="Ad soyad"
                     name="roleName"
                     background-color="grey lighten-4"
                     color="green accent-2"
                     class="m-settings__label mt-3"
                     solo
                     flat
-            ></v-text-field>
+            ></v-autocomplete>
         </template>
     </m-data-table-add-edit-form>
 </template>
@@ -36,7 +42,7 @@
 <script>
     import MDataTableAddEditForm from "../../shared/components/data/components/MDataTableAddEditForm";
     export default {
-        name: "MSettingsAddRole",
+        name: "MSettingsAddUser",
         components: {MDataTableAddEditForm},
         props: {
             value: {
@@ -53,7 +59,7 @@
         data () {
             return {
                 show: this.value,
-                roleName: this.data
+                user: this.data
             }
         },
 
@@ -61,7 +67,7 @@
             save() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.$emit("save", this.roleName);
+                        this.$emit("save", this.user);
                         this.close();
                     }
                 });
@@ -70,20 +76,16 @@
             edit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.$emit("edit", this.roleName);
+                        this.$emit("edit", this.user);
                         this.close();
                     }
                 });
             },
 
             close (){
-                this.roleName = null;
-                this.show = false;
                 this.$validator.reset();
-            },
-
-            clear () {
-                this.roleName = null;
+                this.user = null;
+                this.show = false;
             }
         },
 
