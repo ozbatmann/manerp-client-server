@@ -113,13 +113,11 @@
 
                             },
                             {
-                                title: 'Muhasebe',
-                                icon: 'account_balance_wallet'
-                            },
-                            {
                                 title: 'İnsan Kaynakları',
-                                icon: 'group'
-                            }
+                                icon: 'group',
+                                to: {name: require('@/modules/main/staff/route/index').routes.staffs},
+                                permission: "staff:show"
+                            },
                         ]
                     },
 
@@ -138,12 +136,6 @@
                                 to: {name: require('@/modules/main/company/route/index').routes.customer},
                                 permission: "company:show"
 
-                            },
-                            {
-                                title: 'Personel Yönetimi',
-                                icon: 'group',
-                                to: {name: require('@/modules/main/staff/route/index').routes.staffs},
-                                permission: "staff:show"
                             },
                             // {
                             //     title: 'Parametre Yönetimi',
