@@ -199,7 +199,6 @@
         },
 
         methods: {
-
             // Activates add new item dialog
             addDialog(data) {
                 this.$refs.addEditDialog.open(data)

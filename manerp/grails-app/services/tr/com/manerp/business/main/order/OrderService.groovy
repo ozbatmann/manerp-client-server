@@ -136,6 +136,13 @@ class OrderService extends BaseService
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm")
 
         List vendorList = getAllVendorsByOrderId(data.id)
+        vendorList = vendorList ? vendorList.collect {
+            return [
+                id     : it.id,
+                title  : it.title,
+                address: it.address
+            ]
+        } : []
 
         return [
             id               : data.id,
@@ -148,13 +155,7 @@ class OrderService extends BaseService
             workOrderNo      : data?.workOrderNo,
             company          : data?.company?.title,
             sysrefOrderState : data.sysrefOrderState ? [id: data.sysrefOrderState.id, name: data.sysrefOrderState.name] : null,
-            selectedVendors  : vendorList ? vendorList.collect {
-                return [
-                    id     : it.vendor.id,
-                    title  : it.vendor.title,
-                    address: it.vendor.address
-                ]
-            } : []
+            selectedVendors  : vendorList
         ]
     }
 
