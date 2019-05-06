@@ -6,10 +6,10 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
-import tr.com.manerp.business.sysref.SysrefOrderState
-import tr.com.manerp.commands.controller.common.PaginationCommand
 import tr.com.manerp.commands.controller.common.ShowCommand
 import tr.com.manerp.commands.controller.order.OrderPaginationCommand
+import tr.com.manerp.commands.controller.order.OrderSaveCommand
+import tr.com.manerp.commands.controller.order.OrderUpdateCommand
 
 class OrderController extends BaseController
 {
@@ -45,7 +45,7 @@ class OrderController extends BaseController
 
             OrderPaginationCommand cmd = new OrderPaginationCommand(params)
 
-            ManePaginatedResult result = orderService.getOrderList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), cmd.orderStateCode, cmd.company)
+            ManePaginatedResult result = orderService.getOrderList(new ManePaginationProperties(cmd.limit, cmd.offset, cmd.sort, cmd.fields), cmd.orderStateCode, cmd.company, cmd.hasVoyage)
             maneResponse.data = result.toMap()
 
         } catch (Exception ex) {
@@ -94,17 +94,20 @@ class OrderController extends BaseController
         render maneResponse
     }
 
-    def save(Order order)
+    def save(OrderSaveCommand cmd)
     {
         ManeResponse maneResponse = new ManeResponse()
 
         try {
-            order.active = true
-            order.setRandomCode()
-            order.sysrefOrderState = SysrefOrderState.findByCode('WAIT')
-            order.orderDate = new Date()
+            if ( !cmd.validate() ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = parseValidationErrors(cmd.errors)
+                throw new Exception(maneResponse.message)
+            }
 
-            orderService.save(order)
+            Order order = new Order()
+            cmd >> order
+            orderService.saveOrderWithVendors(order, cmd.selectedVendors)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = order.id
             maneResponse.message = 'Sipariş başarıyla kaydedildi.'
@@ -125,12 +128,21 @@ class OrderController extends BaseController
         render maneResponse
     }
 
-    def update(Order order)
+    def update(OrderUpdateCommand cmd)
     {
         ManeResponse maneResponse = new ManeResponse()
+        Order order
 
         try {
 
+            if ( !cmd.validate() ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = parseValidationErrors(cmd.errors)
+                throw new Exception(maneResponse.message)
+            }
+
+            order = Order.get(cmd.id)
+            cmd >> order
             orderService.save(order)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Sipariş başarıyla güncellendi.'

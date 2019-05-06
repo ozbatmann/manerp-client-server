@@ -26,7 +26,6 @@ class VoyageSaveCommand implements Validateable
     String sasNumber
     Map<List, List> calculatedRoute
     Map sortedVendors
-    Map waypoints
     OptimizationParameters optimizationParameters
 
     static constraints = {
@@ -48,6 +47,10 @@ class VoyageSaveCommand implements Validateable
         voyage.calculatedRoute = this.calculatedRoute
         voyage.optimizationParameters = this.optimizationParameters
         voyage.sortedVendors = this.sortedVendors
+        voyage.startDate = new Date()
+        voyage.active = true
+        voyage.sysrefDeliveryStatus = SysrefDeliveryStatus.findByCode('REZ')
+        voyage.setRandomCode()
 
         voyage.optimizationParameters.save(flush: true, failOnError: true)
         voyage

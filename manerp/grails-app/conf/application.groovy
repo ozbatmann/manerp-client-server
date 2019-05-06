@@ -19,6 +19,9 @@ manerp {
     postgresql {
         maxByteSize = 20 * 1024 * 1024 // 20MB
     }
+    information {
+        url = "http://localhost:8083"
+    }
     domain {
         excludedFields = ['sysCompany'] as HashSet
     }

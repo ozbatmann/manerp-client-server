@@ -5,6 +5,7 @@
             title="Yeni Sipariş"
             @save="addNewItem"
             @edit="editItem"
+            @displayMessage="displayCustomSnackMessage"
         ></m-order-add-edit-form>
         <m-data-table
             :headers="headers"
@@ -12,7 +13,7 @@
             :to="to"
             :loading="loading"
             @deleteItem="deleteItem"
-            @editItem="editItem"
+            @editItem="editDialog"
         >
             <!-- Data table header slot -->
             <template v-slot:header>
@@ -203,7 +204,16 @@
             addDialog(data) {
                 this.$refs.addEditDialog.open(data)
             },
-
+            editDialog(data) {
+                if (data !== undefined && data !== null) {
+                    this.$http.get("api/v1/order/" + data.id).then((result) => {
+                        let items = result.data.data;
+                        this.$refs.addEditDialog.open(items)
+                    }).catch((error) => {
+                        console.error(error);
+                    })
+                }
+            },
             // Adds a new driver
             // to the system
             getAllOrders() {
@@ -219,15 +229,7 @@
                 let self = this;
                 this.newItem = item;
                 this.$http.post('api/v1/order', this.newItem).then((result) => {
-                    let status = result.data.status;
-                    if (status < 299) {
-                        self.snackbar.textColor = 'green--text text--accent-3';
-                    } else {
-                        self.snackbar.textColor = 'red--text';
-                    }
-
-                    self.snackbar.text = result.data.message;
-                    self.snackbar.active = true;
+                    self.displaySnackMessage(result);
                     self.getAllOrders();
                 }).catch((error) => {
                     console.log(error);
@@ -238,15 +240,7 @@
                 let self = this;
                 this.$http.put('api/v1/order', item)
                     .then(result => {
-                        let status = result.data.status;
-                        if (status < 299) {
-                            self.snackbar.textColor = 'green--text text--accent-3';
-                        } else {
-                            self.snackbar.textColor = 'red--text';
-                        }
-
-                        self.snackbar.text = result.data.message;
-                        self.snackbar.active = true;
+                        self.displaySnackMessage(result);
                         self.getAllOrders()
                     }).catch(error => {
                     console.log(error)
@@ -257,7 +251,6 @@
                 let self = this;
                 this.$http.get('api/v1/sysrefRevenueType').then((result) => {
                     self.sysrefRevenueTypeList = result.data.data.items
-                    console.log(self.sysrefRevenueTypeList)
                     self.addEditFields.find(item => {
                         return item.key === orderModel.sysrefRevenueType
                     }).props = self.sysrefRevenueTypeList
@@ -279,11 +272,29 @@
                 })
             },
             deleteItem(item) {
+                let self = this;
                 this.$http.delete(`api/v1/order/${item.id}`).then((result) => {
-                    this.getAllOrders()
+                    self.displaySnackMessage(result);
+                    self.getAllOrders()
                 }).catch((error) => {
                     console.error(error);
                 })
+            },
+            displaySnackMessage(result) {
+                let status = result.data.status;
+                if (status < 299) {
+                    this.snackbar.textColor = 'green--text text--accent-3';
+                } else {
+                    this.snackbar.textColor = 'red--text';
+                }
+
+                this.snackbar.text = result.data.message;
+                this.snackbar.active = true;
+            },
+            displayCustomSnackMessage(message) {
+                this.snackbar.textColor = 'red--text';
+                this.snackbar.text = message;
+                this.snackbar.active = true;
             }
         },
 

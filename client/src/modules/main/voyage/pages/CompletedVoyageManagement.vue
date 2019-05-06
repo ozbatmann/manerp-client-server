@@ -1,7 +1,5 @@
 <template>
-    <v-container fluid>
-        <completed-voyage-management-table></completed-voyage-management-table>
-    </v-container>
+    <completed-voyage-management-table></completed-voyage-management-table>
 </template>
 
 <script>

@@ -6,7 +6,8 @@ export default {
     billingNo: 'billingNo',
     customer: 'company',
     workOrderNo: 'workOrderNo',
-    active: 'active'
+    active: 'active',
+    selectedVendors: 'selectedVendors'
 }
 
 

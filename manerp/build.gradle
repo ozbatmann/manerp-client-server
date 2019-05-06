@@ -67,13 +67,13 @@ dependencies {
     compile "tr.com.manerp:manerp-response-plugin:0.4.4"
     // manerp auth plugin
     compile "tr.com.manerp:manerp-auth-plugin:0.6.1"
+    // manerp information plugin
+    compile "tr.com.manerp:manerp-information-plugin:0.1.3"
 
     // encryption plugin
     compile group: 'at.favre.lib', name: 'bcrypt', version: '0.7.0'
 
     compile "org.grails:grails-datastore-rest-client"
-
-
 }
 
 bootRun {

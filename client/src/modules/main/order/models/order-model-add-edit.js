@@ -6,5 +6,6 @@ export default {
     billingNo: null,
     company: null,
     workOrderNo: null,
-    active: true
+    active: true,
+    selectedVendors: []
 }
