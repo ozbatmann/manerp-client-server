@@ -7,7 +7,7 @@
                         type="info"
                         dismissible
                 >
-                    Yeni kullanıcı ekleyin, kullanıcı izinlerini yönetin, yeni izin ekleyin ve kullanıcıları
+                    Yeni kullanıcı rolü ekleyin, role sahip kullanıcıları yönetin, yeni izin ekleyin ve kullanıcıları
                     yetkilendirin.
                 </v-alert>
             </v-flex>
@@ -29,7 +29,7 @@
                             style="height:56px;"
                             class="text-uppercase pr-1"
                     >
-                        izin tipleri
+                        kullanıcı rolleri
                         <v-spacer></v-spacer>
                         <v-tooltip right v-if="!loading.role">
                             <template v-slot:activator="{ on }">
@@ -41,7 +41,7 @@
                                     <v-icon>add</v-icon>
                                 </v-btn>
                             </template>
-                            <span>Yeni izin ekle</span>
+                            <span>Yeni rol ekle</span>
                         </v-tooltip>
                         <v-progress-circular
                                 v-if="loading.role"
@@ -58,12 +58,12 @@
                             flat
                             hide-details
                             background-color="grey lighten-3"
-                            label="İzinler arasında arayın"
+                            label="Roller arasında arayın"
                             solo
                     ></v-text-field>
 
                     <v-list-tile
-                            v-for="(item, index) in filteredItems(items, 'role')"
+                            v-for="(item, index) in filteredItems(permissionRoles, 'role')"
                             :key="`permission-list-item-${index}`"
                             :class="activeClass(index)"
                             @click="select(index)"
@@ -72,8 +72,8 @@
                             <div class="m-permission__icon"></div>
                         </v-list-tile-content>
                         <v-list-tile-content>
-                            <v-list-tile-title>{{item.title}}</v-list-tile-title>
-                            <v-list-tile-sub-title class="caption text--secondary">45 Kullanıcı</v-list-tile-sub-title>
+                            <v-list-tile-title>{{item.name}}</v-list-tile-title>
+                            <v-list-tile-sub-title class="caption text--secondary">{{item.count}} Kullanıcı</v-list-tile-sub-title>
                         </v-list-tile-content>
 
                         <v-list-tile-action class="m-settings__action">
@@ -84,6 +84,11 @@
                                 edit
                             </v-icon>
                         </v-list-tile-action>
+                    </v-list-tile>
+                    <v-list-tile v-if="!permissionRoles.length && !loading.role">
+                        <v-list-tile-content>
+                            <v-list-tile-title class="text-xs-center">Henüz bir rol eklemediniz</v-list-tile-title>
+                        </v-list-tile-content>
                     </v-list-tile>
                 </v-list>
             </v-flex>
@@ -98,7 +103,7 @@
                             style="height:56px;"
                             class="text-uppercase pr-1"
                     >
-                        {{selectedPermissionTitle}} iznine sahip kullanıcılar
+                        {{selectedPermissionTitle}} rolüne sahip kullanıcılar
                         <v-spacer></v-spacer>
                         <v-tooltip right v-if="!loading.user">
                             <template v-slot:activator="{ on }">
@@ -210,12 +215,12 @@
                                         <!-- Permission types expansion panel -->
                                         <v-expansion-panel class="elevation-0">
                                             <v-expansion-panel-content
-                                                    v-for="(permission, index) in filteredItems(permissions, 'permission')"
+                                                    v-for="(permission, index) in filteredItems(permissions, 'permission', 'securitySubject')"
                                                     :key="`permission-item-${index}`"
                                                     class="deep-purple px-0"
                                             >
                                                 <template v-slot:header>
-                                                    <div class="text-capitalize">{{permission.title}}</div>
+                                                    <div class="text-capitalize">{{ permission['securitySubject'] }}</div>
                                                 </template>
 
                                                 <v-layout
@@ -226,7 +231,7 @@
                                                         py-2
                                                 >
                                                     <v-flex
-                                                            v-for="(type, i) in permission.types"
+                                                            v-for="(type, i) in permission.permissions"
                                                             :key="`${permission.title}-item-${i}`"
                                                             pa-2
                                                             shrink
@@ -292,221 +297,12 @@
 
                 menuActive: false,
 
-                permissions: [
-                    {
-                        title: 'operasyon',
-                        value: 'operations',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    },
-                    {
-                        title: 'mutabakat',
-                        value: 'operations',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    },
-                    {
-                        title: 'şoför ekle/düzenle',
-                        value: 'operations',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    },
-                    {
-                        id: '',
-                        title: 'iş yeri',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    },
-                    {
-                        title: 'tedarikçi ekle/düzenle',
-                        value: 'operations',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    },
-                    {
-                        title: 'araç ekle/düzenle',
-                        value: 'operations',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    },
-                    {
-                        title: 'sipariş ekle/düzenle',
-                        value: 'operations',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    },
-                    {
-                        title: 'sevkiyat ekle/düzenle',
-                        value: 'operations',
-                        types: [
-                            {
-                                title: 'Ekle',
-                                value: 'create',
-                                active: false,
-                            },
-                            {
-                                title: 'Görüntüle',
-                                value: 'read',
-                                active: false,
-                            },
-                            {
-                                title: 'Düzenle',
-                                value: 'update',
-                                active: false,
-                            },
-                            {
-                                title: 'Sil',
-                                value: 'delete',
-                                active: false,
-                            }
-                        ]
-                    }
-                ],
+                permissions: [],
 
                 permissionTypes: ['add', 'show', 'edit', 'delete'],
 
                 loading: {
-                    role: true,
+                    role: false,
                     user: false,
                     permission: false,
                 },
@@ -534,14 +330,16 @@
                         img: 'https://randomuser.me/api/portraits/men/48.jpg',
                         groups: 'Operasyon, Mutabakat, Muhasebe'
                     }
-                ]
+                ],
+
+                permissionRoles: []
             }
         },
 
         computed: {
 
             selectedPermissionTitle() {
-                return this.permissions[this.selected].title;
+                return this.permissionRoles[this.selected].name;
             }
         },
 
@@ -551,9 +349,9 @@
                 return this.selected === index ? 'm-settings__active' : ''
             },
 
-            filteredItems (items, type, prop = null) {
+            filteredItems(items, type, prop = null) {
                 let filterText = this.filter[type];
-                let filterProp = prop ? prop : 'title';
+                let filterProp = prop ? prop : 'name';
 
                 if (!filterText) return items;
 
@@ -569,19 +367,17 @@
 
             select(index) {
                 this.selected = index;
+                this.getSecuritySubjects(this.permissionRoles[index].id);
             },
 
             // Request methods
 
-            getSecuritySubjects () {
+            getSecuritySubjects(roleId) {
                 this.loading.permission = true;
 
-                this.$http.post('api/v1/getAllRolePermissionList').then((result) => {
-                    let subjects = result.data.data.items;
-
-                    for (let subject of subjects) {
-                        console.log('subject', subject);
-                    }
+                this.$http.post('/api/v1/auth/getAllRolePermissionList', { roleId: roleId }).then((result) => {
+                    console.log(result);
+                    this.permissions = result.data;
                 }).catch((error) => {
                     console.log(error);
                 }).finally(() => this.loading.permission = false)
@@ -605,35 +401,33 @@
             //     deleteRolePermission = "api/v1/rest/deleteRolePermission"
             // }
 
-            getPermissions (roleId) {
+            getPermissions(roleId) {
                 this.loading.permission = true;
 
                 this.$http.get('api/v1/').then((result) => {
-                    let subjects = result.data.data.items;
+                    let subjects = result.data.data;
 
-                    for (let subject of subjects) {
-
-                    }
                 }).catch((error) => {
                     console.log(error);
                 }).finally(() => this.loading.permission = false)
             },
 
-            getRoles () {
-                this.loading.permission = true;
+            getRoles() {
+                this.loading.role = true;
+
                 this.$http.post('api/v1/auth/getAllRoleList',
-                    { organizationId: this.user.organization.id }).then((result) => {
-                        console.log(result);
-                    let subjects = result.data.data.items;
+                    {organizationId: this.user.organization.id})
+                    .then((result) => {
 
-                    console.log(subjects);
+                        this.permissionRoles = result.data;
 
-                    for (let subject of subjects) {
-                        console.log(subject)
-                    }
-                }).catch((error) => {
+                        if (this.permissionRoles.length)
+                            this.$nextTick(() => {
+                                this.select(0);
+                            });
+                    }).catch((error) => {
                     console.log(error);
-                }).finally(() => this.loading.permission = false)
+                }).finally(() => this.loading.role = false)
             },
 
             getUsers(role) {
@@ -645,7 +439,7 @@
             }
         },
 
-        mounted () {
+        mounted() {
             this.getRoles();
         }
     }
