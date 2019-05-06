@@ -77,7 +77,7 @@
                             <div class="m-permission__icon"></div>
                         </v-list-tile-content>
                         <v-list-tile-content>
-                            <v-list-tile-title>{{item.name}}</v-list-tile-title>
+                            <v-list-tile-title>{{item.role.name}}</v-list-tile-title>
                             <v-list-tile-sub-title class="caption text--secondary">{{item.count}} Kullanıcı
                             </v-list-tile-sub-title>
                         </v-list-tile-content>
@@ -258,11 +258,11 @@
                                                         <!-- Checkbox items -->
                                                         <v-checkbox
                                                                 :label="available[2]"
-                                                                input-value="false"
+                                                                :input-value="false"
                                                                 class="mt-0 text-capitalize font-weight-regular m-settings__label"
                                                                 color="green accent-2"
                                                                 hide-details
-                                                                @click.stop="addPermission(permission.name, available)"
+                                                                @change="addPermission(permission.name, available)"
                                                         ></v-checkbox>
                                                     </v-flex>
 
@@ -275,11 +275,11 @@
                                                         <!-- Checkbox items -->
                                                         <v-checkbox
                                                                 :label="unavailable[2]"
-                                                                input-value="true"
+                                                                :input-value="true"
                                                                 class="mt-0 text-capitalize font-weight-regular m-settings__label"
                                                                 color="green accent-2"
                                                                 hide-details
-                                                                @click.stop="deletePermission(permission.name, unavailable)"
+                                                                @change="deletePermission(permission.name, unavailable)"
                                                         ></v-checkbox>
                                                     </v-flex>
                                                 </v-layout>
@@ -367,7 +367,7 @@
             selectedPermissionTitle() {
                 let selected = this.permissionRoles[this.selected];
 
-                return selected ? `${selected.name} rolüne ` : 'seçilecek role ';
+                return selected ? `${selected.role.name} rolüne ` : 'seçilecek role ';
             }
         },
 
@@ -397,7 +397,7 @@
                 if (this.selected !== index) {
                     this.selected = index;
 
-                    let roleId = this.permissionRoles[index].id;
+                    let roleId = this.permissionRoles[index].role.id;
 
                     this.getSecuritySubjects(roleId);
                     this.getUsers(roleId)
@@ -489,7 +489,7 @@
                 this.loading.permission = true;
 
                 let self = this;
-                let roleId = this.permissionRoles[this.selected].id;
+                let roleId = this.permissionRoles[this.selected].role.id;
 
 
                 this.$http.post('/api/v1/auth/addRolePermission',
@@ -498,26 +498,28 @@
 
                         let status = result.status;
 
-                        console.log(result);
+                        console.log("Added",result);
 
                         if (status === 200) {
                             let permId = result.data.id;
                             let permission = this.permissions.find(permission => {
-                                return permission.name === name;
-                            });
+                                if(permission.name === name) {
+                                    if (permId) {
+                                        for (let i = 0; i < permission.unavailablePermissions.length; i++) {
+                                            let c = permission.unavailablePermissions[i];
 
-                            if (permId) {
-                                for (let i = 0; i < permission.unavailablePermissions.length; i++) {
-                                    let c = permission.unavailablePermissions[i];
+                                            if (c[0] === item[0]) {
+                                                permission.availablePermissions.splice(i);
+                                                permission.unavailablePermissions.push(item);
 
-                                    if (c[0] === item[0]) {
-                                        permission.availablePermissions.splice(i, 1);
-                                        permission.unavailablePermissions.push(item);
-
-                                        break;
+                                                break;
+                                            }
+                                        }
                                     }
                                 }
-                            }
+                            });
+
+
                         }
                     }).catch((error) => {
                     console.log(error);
@@ -529,7 +531,7 @@
                 this.loading.permission = true;
 
                 let self = this;
-                let roleId = this.permissions[this.selected].id;
+                let roleId = this.permissionRoles[this.selected].role.id;
 
                 this.$http.post('/api/v1/auth/deleteRolePermission',
                     {id: item[0], roleId: roleId})
@@ -537,7 +539,8 @@
                         let status = result.status;
 
                         if (status === 200) {
-                            let statusName = result.data.status.name;
+                            console.log("Deleted",result)
+                          /*  let statusName = result.data.status.name;
                             let permission = this.permissions.find(permission => {
                                 return permission.name === name;
                             });
@@ -560,7 +563,7 @@
                                     break;
                                 default:
                                     break;
-                            }
+                            }*/
                         }
                         console.log(result);
                         //self.getRoles();
