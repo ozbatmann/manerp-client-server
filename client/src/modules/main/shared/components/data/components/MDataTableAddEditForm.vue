@@ -6,7 +6,7 @@
             scrollable
             :max-width="width"
             @keydown.enter.prevent="save"
-            @keydown.esc.stop="show = false"
+            @keydown.esc.stop="close"
             content-class="transition-height"
     >
         <v-card>
@@ -168,6 +168,10 @@
                 return this.next;
             },
 
+            close() {
+                this.$emit('close');
+            },
+
             clear() {
                 this.$emit('clear');
             },
@@ -200,7 +204,7 @@
             value(newVal) {
                 this.show = newVal;
             }
-        }
+        },
     }
 </script>
 
