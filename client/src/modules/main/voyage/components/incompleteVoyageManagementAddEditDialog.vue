@@ -584,7 +584,7 @@
                 })
             },
             getOrders() {
-                this.$http.get("api/v1/order?fields=id,fullName&orderStateCode=WAIT").then((result) => {
+                this.$http.get("api/v1/order?fields=id,fullName&hasVoyage=f").then((result) => {
                     this.orders = result.data.data.items
                 }).catch((error) => {
                     console.error(error);
@@ -608,7 +608,6 @@
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
-
                 })
             },
             setVehicleSpecs() {

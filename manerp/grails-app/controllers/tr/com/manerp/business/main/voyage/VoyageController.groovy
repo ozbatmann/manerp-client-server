@@ -106,6 +106,7 @@ class VoyageController extends BaseController
             voyage.setRandomCode()
 
             voyageService.saveVoyageWithOrder(voyage, cmd._order)
+            driverService.sendVoyageMailToDriver(voyage)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = voyage.id
             maneResponse.message = 'Sevkiyat başarıyla kaydedildi.'

@@ -5,6 +5,7 @@ import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
+import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.voyage.Voyage
 import tr.com.manerp.business.sysref.SysrefDriverState
 
@@ -13,6 +14,8 @@ import java.text.SimpleDateFormat
 @Transactional
 class DriverService extends BaseService
 {
+    def informationRestService
+    def orderService
 
     ManePaginatedResult getDriverList(ManePaginationProperties properties, String driverStateCode)
     {
@@ -176,4 +179,23 @@ class DriverService extends BaseService
 
         return voyage?.sortedVendors
     }
+
+    def sendVoyageMailToDriver(Voyage voyage)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy HH:mm')
+        Order order = orderService.getOrderByVoyage(voyage)
+        def body = "Tarafınıza ${sdf.format(voyage.startDate)} tarihinde ${order.fullName} için sevkiyat atanmıştır ."
+        Map paramsData = ['user': voyage.driver.fullName, 'body': body, 'signature': 'MANERP Yazılım']
+
+        informationRestService.sendMail('GENERAL_INFO',
+            body,
+            paramsData,
+            [voyage.driver.email] as List,
+            ["beratpostalci@gmail.com"] as List,
+            ["bpostalci@gmail.com"] as List,
+            1,
+            2
+        )
+    }
+
 }

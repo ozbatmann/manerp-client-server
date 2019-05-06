@@ -1,13 +1,11 @@
 package tr.com.manerp.business.main.order
 
 import grails.gorm.transactions.Transactional
-import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import tr.com.manerp.base.service.BaseService
-import tr.com.manerp.business.main.company.Vendor
 import tr.com.manerp.business.main.company.VendorService
-import tr.com.manerp.business.main.resource.Staff
+import tr.com.manerp.business.main.voyage.Voyage
 import tr.com.manerp.business.sysref.SysrefOrderState
 
 import java.text.SimpleDateFormat
@@ -17,8 +15,9 @@ class OrderService extends BaseService
 {
     VendorService vendorService
 
-    ManePaginatedResult getOrderList(ManePaginationProperties properties, String orderStateCode, String companyId)
+    ManePaginatedResult getOrderList(ManePaginationProperties properties, String orderStateCode, String companyId, Boolean hasVoyage = null)
     {
+        def orderIdList = getAllOrderIdsThatHasVoyage()
 
         def closure = {
             eq('active', true)
@@ -37,6 +36,15 @@ class OrderService extends BaseService
                     eq('code', orderStateCode)
                 }
             }
+
+            if ( hasVoyage != null ) {
+                if ( !hasVoyage ) {
+                    not { 'in'('id', orderIdList) }
+                } else {
+                    'in'('id', orderIdList)
+                }
+            }
+
         }
 
         ManePaginatedResult result = paginate(Order, properties, closure)
@@ -126,5 +134,17 @@ class OrderService extends BaseService
         }
 
         return orderVendorList as List
+    }
+
+    def getOrderByVoyage(Voyage voyage)
+    {
+        return VoyageOrder.findByVoyage(voyage).order
+    }
+
+    List getAllOrderIdsThatHasVoyage()
+    {
+        VoyageOrder.createCriteria().list {}.collect {
+            it.order.id
+        }
     }
 }
