@@ -23,9 +23,12 @@
                             <v-list-tile-content>
 
                                 <v-slide-x-transition>
-                                    <v-list-tile-title class="font-weight-light black--text text--accent-5">
+                                    <v-list-tile-title
+                                            class="font-weight-light black--text text--accent-5"
+                                            style="white-space: nowrap; text-overflow: ellipsis;"
+                                    >
 
-                                        Bumerang Lojistik
+                                        {{ organizationTitle }}
                                     </v-list-tile-title>
                                 </v-slide-x-transition>
                             </v-list-tile-content>
@@ -172,6 +175,14 @@
                 mini: false
             }
         },
+
+        computed: {
+            // TODO ellipsis...
+            organizationTitle () {
+                return this.$store.state.shared.organization.name;
+            }
+        },
+
         methods: {
         },
         watch: {
