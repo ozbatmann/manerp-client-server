@@ -4,7 +4,7 @@
             lazy
             persistent
             scrollable
-            max-width="width"
+            :max-width="width"
             @keydown.enter.prevent="save"
             @keydown.esc.stop="show = false"
             content-class="transition-height"
