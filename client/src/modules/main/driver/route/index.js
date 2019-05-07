@@ -1,8 +1,6 @@
 export const routes = {
-    drivers: 'drivers',
-    information: 'driver.information',
-    orders: 'driver.routes',
-    documents: 'driver.documents'
+    idle: 'driver.idle',
+    onVoyage: 'driver.onVoyage',
 };
 
 const meta = (title) => {
@@ -12,17 +10,13 @@ const meta = (title) => {
         tabbed: true,
         tabs: [
             {
-                text: 'genel',
-                to: { name: routes.information }
+                text: 'boştaki şoförler',
+                to: { name: routes.drivers }
             },
             {
-                text: 'geçmiş rotalar',
+                text: 'sevkiyattaki şoförler',
                 to: { name: routes.orders }
             },
-            {
-                text: 'dokümanlar',
-                to: { name: routes.documents }
-            }
         ]
     }
 };
@@ -30,16 +24,22 @@ const meta = (title) => {
 export default [
     {
         path: 'drivers',
-        name: routes.drivers,
-        component: () => import('@/modules/main/driver/pages/DriverManagement'),
-        meta: { title: 'Şoför Yönetimi' }
-    },
-    {
-        path: 'drivers/details/:id',
         component: () => import('@/modules/main/shared/components/core/MCoreDetails'),
+        redirect: { name: routes.customer },
         children: [
-
+            {
+                path: '',
+                name: routes.idle,
+                component: () => import('@/modules/main/driver/pages/DriverManagement'),
+                meta: meta("Şoför Yönetimi")
+            },
+            {
+                path: 'voyage',
+                name: routes.onVoyage,
+                component: () => import('@/modules/main/driver/pages/MDriverOnVoyage'),
+                meta: meta("Şoför Yönetimi")
+            }
         ]
-    }
+    },
 ]
 

@@ -162,7 +162,7 @@
                 <v-data-table
                         v-model="selected"
                         :headers="headers"
-                        :items="items"
+                        :items="filteredItems"
                         :search="dataTableSearchModel"
                         :pagination.sync="pagination"
                         :loading="localLoading"
@@ -425,6 +425,20 @@
         },
 
         computed: {
+            filteredItems() {
+                return this.items.filter(item => {
+                    for (let header of this.headers) {
+                        if (header.search.chip && header.search.value) {
+                            let key = header.value;
+
+                            if (!item[key].toLowerCase().includes(header.search.value.toLowerCase())) return false;
+                        }
+                    }
+
+                    return true;
+                });
+            },
+
             // Filters headers and returns
             // the ones with search.value
             columnWiseSearchChips() {
@@ -484,7 +498,10 @@
             filterTable(newValue) {
                 this.filterOptions = newValue;
                 this.filterMenuShowing = false;
-                this.showAlert = false;
+
+                console.log('Filter emit');
+
+                this.$emit('filter', newValue);
             },
 
             // Formats given date
@@ -542,7 +559,34 @@
                 let today = moment(new Date()).locale('tr').format('ddd-Do-MMM-YYYY_HH-mm');
                 // export json to Worksheet of Excel
                 // only array possible
-                var animalWS = XLSX.utils.json_to_sheet(this.items, this.headers.map(header => header.text));
+                let output = [];
+
+                console.log('Items', this.items);
+
+                for (let item of this.items) {
+                    let keys = Object.keys(item);
+                    let outputItem = {};
+
+                    for (let i = 0; i < keys.length; i++) {
+                        let value = keys[i];
+                        let header = this.headers.find(header => {
+                            return header.value === value;
+                        });
+
+                        console.log('Header:', header, 'Value:', value);
+
+                        if (header) {
+                            if (item[value].name) outputItem[header.text.toLocaleUpperCase()] = item[value].name;
+                            else outputItem[header.text] = item[value];
+                        }
+                    }
+
+                    output.push(outputItem);
+                }
+
+                console.log('output', output);
+
+                var animalWS = XLSX.utils.json_to_sheet(output);
 
                 // A workbook is the name given to an Excel file
                 var wb = XLSX.utils.book_new(); // make Workbook of Excel
@@ -566,6 +610,30 @@
 
                     console.log(sheet_name_list);
                     console.log(json);
+
+                    let output = [];
+
+                    for (let item of json) {
+                        let keys = Object.keys(item);
+                        let outputItem = {};
+
+                        for (let i = 0; i < keys.length; i++) {
+                            let value = keys[i];
+                            let header = this.headers.find(header => {
+                                return header.text === value;
+                            });
+
+                            if (header) {
+                                outputItem[header.value] = item[value];
+                            } else {
+                                console.log('Header: ', value, 'not found. Please revise .xlsx file.');
+                            }
+                        }
+
+                        output.push(outputItem);
+                    }
+
+                    console.log('import result: ', output);
 
                     // Post data to server
                 };

@@ -1,7 +1,7 @@
 <template>
     <div class="fill-height">
-        <div class="m-404__clippath deep-purple darken-2"></div>
-        <div class="primary-green m-404__green"></div>
+        <div class="m-404__clippath deep-purple"></div>
+        <div class="deep-purple darken-2 m-404__green"></div>
         <v-container fluid fill-height style="position: relative; z-index: 2;">
             <v-layout
                     row
@@ -17,8 +17,8 @@
                 >
                     <v-img
                             :src="require('@/assets/logo_w.png')"
-                            height="75"
-                            width="100"
+                            height="50"
+                            width="75"
                             contain
                             class="d-inline-block"
                     ></v-img>

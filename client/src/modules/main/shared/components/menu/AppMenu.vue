@@ -157,7 +157,7 @@
                             {
                                 title: 'Şoför Yönetimi',
                                 icon: 'account_circle',
-                                to: {name: require('@/modules/main/driver/route/index').routes.drivers},
+                                to: {name: require('@/modules/main/driver/route/index').routes.idle},
                                 permission: "driver:show"
                             }
                         ]
