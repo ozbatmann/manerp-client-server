@@ -1,9 +1,11 @@
 <template>
     <div>
-        <v-layout mt-1>
+        <v-layout mt-1 wrap>
             <v-flex
-                    mr-2
+                    md4
+                    sm4
                     lg3
+                    xs12
                     deep-purple
             >
                 <v-btn
@@ -64,8 +66,11 @@
                 </v-list>
             </v-flex>
             <v-flex
-                    ml-2
+                    pl-3
+                    md8
+                    sm8
                     lg9
+                    xs12
             >
                 <v-layout column>
                     <v-flex>

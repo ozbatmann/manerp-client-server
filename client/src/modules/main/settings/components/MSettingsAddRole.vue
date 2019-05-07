@@ -3,6 +3,7 @@
             v-model="show"
             title="Yeni Rol Ekle"
             :width="600"
+            :editing="editing"
             @save="save"
             @edit="edit"
             @clear="clear"
@@ -45,7 +46,7 @@
             },
 
             data: {
-                type: String,
+                type: Object,
                 default: null
             }
         },
@@ -53,7 +54,14 @@
         data () {
             return {
                 show: this.value,
-                roleName: this.data
+                localData: this.data,
+                roleName: this.data ? this.data.role.name : null,
+            }
+        },
+
+        computed: {
+            editing () {
+                return this.localData !== null
             }
         },
 
@@ -70,14 +78,15 @@
             edit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.$emit("edit", this.roleName);
+                        this.data.role.name = this.roleName;
+                        this.$emit("edit", this.data);
                         this.close();
                     }
                 });
             },
 
             close (){
-                this.roleName = null;
+                if (!this.localData) this.roleName = null;
                 this.show = false;
                 this.$validator.reset();
             },
@@ -88,6 +97,11 @@
         },
 
         watch: {
+            data (newVal) {
+                this.roleName = newVal ? newVal.role.name : null;
+                this.localData = newVal;
+            },
+
             show (newVal) {
                 this.$emit('input', newVal);
             },

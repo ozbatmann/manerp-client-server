@@ -99,7 +99,7 @@
                     password: this.password
                 };
 
-                this.$http.post('http://localhost:8082/api/v1/auth/login', loginData)
+                this.$http.post('/api/v1/auth/login', loginData)
                     .then(result => {
                         if(result.data.status === 200){
                             console.log(this.$store);
