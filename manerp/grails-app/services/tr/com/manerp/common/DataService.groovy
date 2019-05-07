@@ -944,18 +944,18 @@ class DataService
             sysrefDeliveryStatusRezervasyon.save(flush: true, failOnError: true)
         }
 
-//        SysrefDeliveryStatus sysrefDeliveryStatusYuklendi = SysrefDeliveryStatus.findByName('Yüklendi')
-//        if ( sysrefDeliveryStatusYuklendi == null ) {
-//
-//            sysrefDeliveryStatusYuklendi = new SysrefDeliveryStatus()
-//            sysrefDeliveryStatusYuklendi.sysCompany = sysCompanyBumerang
-//            sysrefDeliveryStatusYuklendi.name = 'Yüklendi'
-//            sysrefDeliveryStatusYuklendi.active = true
-//            sysrefDeliveryStatusYuklendi.description = 'Yüklendi taşıma durumu'
-//            sysrefDeliveryStatusYuklendi.code = 'YUK'
-//
-//            sysrefDeliveryStatusYuklendi.save(flush: true, failOnError: true)
-//        }
+        SysrefDeliveryStatus sysrefDeliveryStatusYuklendi = SysrefDeliveryStatus.findByName('İptal')
+        if ( sysrefDeliveryStatusYuklendi == null ) {
+
+            sysrefDeliveryStatusYuklendi = new SysrefDeliveryStatus()
+            sysrefDeliveryStatusYuklendi.sysCompany = sysCompanyBumerang
+            sysrefDeliveryStatusYuklendi.name = 'İptal'
+            sysrefDeliveryStatusYuklendi.active = true
+            sysrefDeliveryStatusYuklendi.description = 'İptal edilen sevkiyat'
+            sysrefDeliveryStatusYuklendi.code = 'IPT'
+
+            sysrefDeliveryStatusYuklendi.save(flush: true, failOnError: true)
+        }
 
         SysrefDeliveryStatus sysrefDeliveryStatusBosaltti = SysrefDeliveryStatus.findByName('Boşalttı')
         if ( sysrefDeliveryStatusBosaltti == null ) {

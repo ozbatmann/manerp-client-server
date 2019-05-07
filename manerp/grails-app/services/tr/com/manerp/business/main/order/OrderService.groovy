@@ -171,7 +171,8 @@ class OrderService extends BaseService
                 id      : it.vendor.id,
                 title   : it?.vendor?.title,
                 address : it?.vendor?.address,
-                location: it?.vendor?.location ? [it.vendor.location.latitude, it.vendor.location.longitude] : null
+                location: it?.vendor?.location ? [it.vendor.location.latitude, it.vendor.location.longitude] : null,
+                phone   : it?.vendor?.phone
             ]
         }
 
