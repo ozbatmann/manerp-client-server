@@ -428,10 +428,11 @@
             filteredItems() {
                 return this.items.filter(item => {
                     for (let header of this.headers) {
-                        if (header.search.chip && header.search.value) {
+                        if (header.search && header.search.chip && header.search.value) {
                             let key = header.value;
+                            let val = item[key].name ? item[key].name : item[key];
 
-                            if (!item[key].toLowerCase().includes(header.search.value.toLowerCase())) return false;
+                            if (!val.toString().toLowerCase().includes(header.search.value.toLowerCase())) return false;
                         }
                     }
 

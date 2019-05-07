@@ -6,11 +6,14 @@
         @clear="clear"
         @edit="edit"
         @save="save"
+        :hideSaveButton="onVoyageDriver"
+        :hideClearButton="onVoyageDriver"
     >
         <template v-slot:form>
             <v-layout wrap>
                 <v-flex xs6 pr-2>
                     <v-text-field
+                        :disabled="onVoyageDriver"
                         v-validate="'required'"
                         :error-messages="errors.collect('driver.firstName')"
                         v-model="data.firstName"
@@ -27,6 +30,7 @@
                 </v-flex>
                 <v-flex xs6 pl-2>
                     <v-text-field
+                        :disabled="onVoyageDriver"
                         v-model="data.middleName"
                         :counter="30"
                         maxlength="30"
@@ -41,6 +45,7 @@
                 </v-flex>
                 <v-flex xs6 pr-2>
                     <v-text-field
+                        :disabled="onVoyageDriver"
                         v-validate="'required'"
                         :error-messages="errors.collect('lastName')"
                         v-model="data.lastName"
@@ -57,6 +62,7 @@
                 </v-flex>
                 <v-flex xs6 pl-2>
                     <v-text-field
+                        :disabled="onVoyageDriver"
                         v-validate="'required'"
                         :error-messages="errors.collect('tcIdNumber')"
                         v-model="data.tcIdNumber"
@@ -73,6 +79,7 @@
                 </v-flex>
                 <v-flex xs6 pr-2>
                     <v-combobox
+                        :disabled="onVoyageDriver"
                         v-model="data.sysrefGender"
                         :return-object="true"
                         :items="sysrefGenders"
@@ -89,6 +96,7 @@
                 </v-flex>
                 <v-flex xs6 pl-2>
                     <v-text-field
+                        :disabled="onVoyageDriver"
                         v-validate="'required'"
                         mask="phone"
                         :error-messages="errors.collect('gsmNo')"
@@ -106,6 +114,7 @@
                 </v-flex>
                 <v-flex xs6 pr-2>
                     <v-text-field
+                        :disabled="onVoyageDriver"
                         v-validate="'email'"
                         :error-messages="errors.collect('email')"
                         v-model="data.email"
@@ -122,6 +131,7 @@
                 </v-flex>
                 <v-flex xs6 pl-2>
                     <v-text-field
+                        :disabled="onVoyageDriver"
                         v-validate="'required'"
                         :error-messages="errors.collect('drivingLicenseNumber')"
                         v-model="data.drivingLicenseNumber"
@@ -138,6 +148,7 @@
                 </v-flex>
                 <v-flex xs6 pr-2>
                     <v-combobox
+                        :disabled="onVoyageDriver"
                         v-validate="'required'"
                         :error-messages="errors.collect('sysrefStaffContractType')"
                         v-model="data.sysrefStaffContractType"
@@ -155,56 +166,61 @@
                     ></v-combobox>
                 </v-flex>
                 <v-flex xs6 pl-2>
-                    <v-combobox v-model="data.sysrefCountry"
-                                v-on:change="getSysrefCities"
-                                :return-object="true"
-                                :items="sysrefCountries"
-                                item-value="id"
-                                label="Ülke"
-                                item-text="name"
-                                name="sysrefCity"
-                                background-color="grey lighten-4"
-                                color="green accent-2"
-                                class="m-settings__label"
-                                solo
-                                flat
+                    <v-combobox
+                        :disabled="onVoyageDriver"
+                        v-model="data.sysrefCountry"
+                        v-on:change="getSysrefCities"
+                        :return-object="true"
+                        :items="sysrefCountries"
+                        item-value="id"
+                        label="Ülke"
+                        item-text="name"
+                        name="sysrefCity"
+                        background-color="grey lighten-4"
+                        color="green accent-2"
+                        class="m-settings__label"
+                        solo
+                        flat
                     ></v-combobox>
                 </v-flex>
                 <v-flex xs6 pr-2>
-                    <v-combobox v-model="data.sysrefCity"
-                                v-on:change="getSysrefDistricts"
-                                :disabled="!data.sysrefCountry"
-                                :return-object="true"
-                                :items="sysrefCities"
-                                item-value="id"
-                                label="İl"
-                                item-text="name"
-                                name="sysrefCity"
-                                background-color="grey lighten-4"
-                                color="green accent-2"
-                                class="m-settings__label"
-                                solo
-                                flat
+                    <v-combobox
+                        v-model="data.sysrefCity"
+                        v-on:change="getSysrefDistricts"
+                        :disabled="!data.sysrefCountry || onVoyageDriver"
+                        :return-object="true"
+                        :items="sysrefCities"
+                        item-value="id"
+                        label="İl"
+                        item-text="name"
+                        name="sysrefCity"
+                        background-color="grey lighten-4"
+                        color="green accent-2"
+                        class="m-settings__label"
+                        solo
+                        flat
                     ></v-combobox>
                 </v-flex>
                 <v-flex xs6 pl-2>
-                    <v-combobox v-model="data.sysrefDistrict"
-                                :disabled="!data.sysrefCity"
-                                :return-object="true"
-                                :items="sysrefDistricts"
-                                item-value="id"
-                                label="İlçe"
-                                item-text="name"
-                                name="sysrefDistrict"
-                                background-color="grey lighten-4"
-                                color="green accent-2"
-                                class="m-settings__label"
-                                solo
-                                flat
+                    <v-combobox
+                        v-model="data.sysrefDistrict"
+                        :disabled="!data.sysrefCity || onVoyageDriver"
+                        :return-object="true"
+                        :items="sysrefDistricts"
+                        item-value="id"
+                        label="İlçe"
+                        item-text="name"
+                        name="sysrefDistrict"
+                        background-color="grey lighten-4"
+                        color="green accent-2"
+                        class="m-settings__label"
+                        solo
+                        flat
                     ></v-combobox>
                 </v-flex>
                 <v-flex xs12>
                     <v-textarea
+                        :disabled="onVoyageDriver"
                         label="Adres"
                         auto-grow
                         v-model="data.address"
@@ -222,7 +238,7 @@
                     <v-checkbox
                         v-on:change="isUserChanged"
                         v-model="data.isUser"
-                        :disabled="isEdit && retrievedUsername != null"
+                        :disabled="isEdit && retrievedUsername != null || onVoyageDriver"
                         label="Sistem Kullanıcısı"
                         name="isUser"
                         color="green accent-2"
@@ -233,7 +249,7 @@
                 </v-flex>
                 <v-flex xs6 pr-2 v-if="data.isUser">
                     <v-text-field
-                        :disabled="isEdit && retrievedUsername != null"
+                        :disabled="isEdit && retrievedUsername != null || onVoyageDriver"
                         v-validate="'required'"
                         :error-messages="errors.collect('username')"
                         v-model="data.username"
@@ -261,6 +277,7 @@
 
     export default {
         components: {MDataTableAddEditForm},
+        props: {onVoyageDriver: {type: Boolean, default: false}},
         data() {
             return {
                 showDialog: false,
