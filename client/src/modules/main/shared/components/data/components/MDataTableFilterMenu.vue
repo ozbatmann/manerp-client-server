@@ -5,10 +5,10 @@
     <v-menu
             v-model="isActive"
             :attach="attach"
-            right
+            left
             light
             z-index=5
-            nudge-right=135
+            :nudge-left="10"
             :nudge-width="300"
             :close-on-content-click="false"
             transition="slide-x-reverse-transition"
@@ -53,9 +53,8 @@
                                     max-width="290"
                                     min-width="290"
                                     :attach="attach"
-                                    right
+                                    bottom
                                     offset-x
-                                    nudge-right=445
                                     :close-on-content-click="false"
                                     :close-on-click="false"
                                     transition="slide-x-reverse-transition"

@@ -44,12 +44,5 @@ export default [
             }
         ]
     },
-    {
-        path: 'customers/details/:id',
-        component: () => import('@/modules/main/shared/components/core/MCoreDetails'),
-        children: [
-
-        ]
-    }
 ]
 

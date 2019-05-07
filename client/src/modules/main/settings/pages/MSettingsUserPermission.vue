@@ -28,14 +28,14 @@
                     mr-2
                     md4
                     lg3
-                    style="max-height: 60vh;"
+                    style="max-height: 65vh;"
                     overflow-hidden
             >
                 <v-list
                         two-line
                         dense
                         id="permissionList"
-                        class="m-filter-date pt-0 pb-2 overflow-x-hidden"
+                        class="fill-height m-filter-date pt-0 pb-2 overflow-x-hidden"
                         style="border: 1px solid #f5f5f5;"
                 >
                     <v-subheader
@@ -126,7 +126,7 @@
                 </v-list>
             </v-flex>
 
-            <v-flex mx-2 lg5>
+            <v-flex mx-2 md4 lg5>
                 <v-list
                         class="m-settings__list pt-0 pb-3"
                         dense
@@ -202,7 +202,7 @@
                 </v-list>
             </v-flex>
 
-            <v-flex ml-2 lg4>
+            <v-flex ml-2 md4 lg4>
                 <v-layout
                         row
                 >
@@ -287,7 +287,7 @@
                                                         <!-- Checkbox items -->
                                                         <v-checkbox
                                                                 v-model="permission.status"
-                                                                :label="permission.name"
+                                                                :label="permissionTitle(permission.name)"
                                                                 class="mt-0 text-capitalize font-weight-regular m-settings__label"
                                                                 color="green accent-2"
                                                                 hide-details
@@ -402,6 +402,19 @@
         },
 
         methods: {
+
+            permissionTitle (name) {
+                switch(name) {
+                    case 'add':
+                        return 'Ekle';
+                    case 'edit':
+                        return 'Düzenle';
+                    case 'delete':
+                        return 'Sil';
+                    case 'show':
+                        return 'Görüntüle';
+                }
+            },
 
             showRoleDialog(edit) {
                 this.addRoleEdit = edit;
