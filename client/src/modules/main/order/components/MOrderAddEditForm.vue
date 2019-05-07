@@ -6,11 +6,14 @@
         @clear="clear"
         @edit="edit"
         @save="save"
+        :hideSaveButton="completedOrder"
+        :hideClearButton="completedOrder"
     >
         <template v-slot:form>
             <v-layout wrap>
                 <v-flex xs6 pr-2>
                     <v-text-field
+                        :disabled="completedOrder"
                         solo
                         flat
                         v-validate="'required'"
@@ -27,6 +30,7 @@
                 </v-flex>
                 <v-flex xs6 pl-2>
                     <v-combobox
+                        :disabled="completedOrder"
                         v-validate="'required'"
                         :error-messages="errors.collect('sysrefRevenueType')"
                         v-model="data.sysrefRevenueType"
@@ -45,6 +49,7 @@
                 </v-flex>
                 <v-flex xs6 pr-2>
                     <v-text-field
+                        :disabled="completedOrder"
                         solo
                         flat
                         v-model="data.billingNo"
@@ -61,6 +66,7 @@
                 </v-flex>
                 <v-flex xs6 pl-2>
                     <v-text-field
+                        :disabled="completedOrder"
                         solo
                         flat
                         label="İş Emri Numarası"
@@ -75,6 +81,7 @@
                 </v-flex>
                 <v-flex xs6 pr-2>
                     <v-combobox
+                        :disabled="completedOrder"
                         v-on:change="getVendorsByCompanyId"
                         solo
                         flat
@@ -94,6 +101,7 @@
                 </v-flex>
                 <v-flex xs6 pl-2>
                     <v-combobox
+                        :disabled="completedOrder"
                         solo
                         flat
                         v-on:change="selectVendor"
@@ -172,6 +180,7 @@
     export default {
         name: 'MOrderAddEditForm',
         components: {MDataTableAddEditForm},
+        props: {completedOrder: {type: Boolean, default: false}},
         data() {
             return {
                 show: false,
@@ -232,6 +241,7 @@
                     if (this.data.selectedVendors) {
                         this.dealers = this.data.selectedVendors;
                     }
+                    this.getVendorsByCompanyIdForOpen(this.data.company.id);
                     this.isEdit = true;
                 } else {
                     this.clear();
@@ -256,8 +266,13 @@
             edit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.$emit("edit", this.data);
-                        this.close();
+                        this.data.selectedVendors = this.dealers;
+                        if (this.data.selectedVendors.length > 1) {
+                            this.$emit("edit", this.data);
+                            this.close();
+                        } else {
+                            this.$emit('displayMessage', "Sipariş için en az 2 bayi seçilmelidir")
+                        }
                     }
                 });
             },
@@ -302,6 +317,14 @@
             },
             getVendorsByCompanyId() {
                 this.dealers = [];
+                this.$http.get("api/v1/vendor?fields=id,title,address&limit=100&companyId=" + this.data.company.id).then((result) => {
+                    this.vendors = result.data.data.items;
+                }).catch((error) => {
+                    console.error(error);
+                }).finally(() => {
+                })
+            },
+            getVendorsByCompanyIdForOpen() {
                 this.$http.get("api/v1/vendor?fields=id,title,address&limit=100&companyId=" + this.data.company.id).then((result) => {
                     this.vendors = result.data.data.items;
                 }).catch((error) => {
