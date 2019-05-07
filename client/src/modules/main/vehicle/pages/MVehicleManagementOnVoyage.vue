@@ -4,19 +4,26 @@
             :headers="headers"
             :items="vehicles"
             :loading="loading"
-            no-import
+            @editItem="addDialog"
             @deleteItem="deleteItem"
         >
+            <!-- Data table header slot -->
+            <template v-slot:header>
+
+                <!-- Add customer button -->
+                <m-data-table-action
+                    title="araç ekle"
+                    @click="addDialog"
+                ></m-data-table-action>
+            </template>
         </m-data-table>
 
-        <!-- Data table add-edit form -->
-        <m-data-table-add-new-form
+        <m-vehicle-add-edit-form
             ref="addEditDialog"
-            :data="addEditData"
-            :inputs="addEditFields"
-            title="Yeni Araç"
+            @save="addNewItem"
             @edit="editItem"
-        ></m-data-table-add-new-form>
+            onVoyageVehicle
+        ></m-vehicle-add-edit-form>
 
         <v-snackbar
             v-model="snackbar.active"
@@ -40,14 +47,15 @@
 <script>
     import MDataTable from '@/modules/main/shared/components/data/components/MDataTable'
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction"
-    import MDataTableAddNewForm from "@/modules/main/shared/components/data/components/MDataTableAddNewForm"
+    import MDataTableAddNewForm from '@/modules/main/shared/components/data/components/MDataTableAddNewForm'
+    import MVehicleAddEditForm from "../components/MVehicleAddEditForm";
 
     const vehicleModel = require('@/modules/main/vehicle/models/vehicle-model').default;
 
     export default {
-        name: "MVehicleManagementOnVoyage",
-
+        name: "MVehicleManagementIdle",
         components: {
+            MVehicleAddEditForm,
             MDataTable,
             MDataTableAction,
             MDataTableAddNewForm
@@ -56,115 +64,7 @@
         data() {
             return {
                 loading: true,
-                // Data-table
-                // add-edit dialog data
-                addEditData: {
-                    [vehicleModel.plateNumber]: null,
-                    [vehicleModel.fleetCardNumber]: null,
-                    // [orderModel.orderDate]: null,
-                    [vehicleModel.km]: null,
-                    [vehicleModel.isDualRegime]: null,
-                    [vehicleModel.refWorkingArea]: null,
-                    [vehicleModel.sysrefVehicleType]: null,
-                    [vehicleModel.sysrefVehicleOwner]: null,
-                    [vehicleModel.vehicleOwnerFullName]: null,
-                    [vehicleModel.kgsNo]: null,
-                    [vehicleModel.ogsNo]: null,
-                    [vehicleModel.description]: null
-                },
-                // Data-table
-                // add-edit dialog fields
-                addEditFields: [
-                    {
-                        key: vehicleModel.plateNumber,
-                        max: 20,
-                        rules: [
-                            'required', 'max:20'
-                        ],
-                        title: 'plaka',
-                        type: 'text',
-                    },
-                    {
-                        key: vehicleModel.brand,
-                        max: 50,
-                        rules: [
-                            'required', 'max:50'
-                        ],
-                        title: 'marka',
-                        type: 'text',
-                    },
-                    {
-                        key: vehicleModel.fleetCardNumber,
-                        max: 50,
-                        title: 'filo kart numarası',
-                        rules: [
-                            'required', 'max:50'
-                        ]
-                    },
-                    {
-                        key: vehicleModel.km,
-                        type: 'number',
-                        max: 8,
-                        title: 'km',
-                        rules: [
-                            'required', 'max:8'
-                        ]
-                    },
-                    {
-                        key: vehicleModel.refWorkingArea,
-                        title: 'çalışma alanı',
-                        type: 'select',
-                        props: this.refWorkingAreaList
-                    },
-                    {
-                        key: vehicleModel.sysrefVehicleType,
-                        title: 'tipi',
-                        type: 'select',
-                        props: this.sysrefVehicleTypeList
-                    },
-                    {
-                        key: vehicleModel.sysrefVehicleOwner,
-                        title: 'mülk tipi',
-                        type: 'select',
-                        props: this.sysrefVehicleOwnerList
-                    },
-                    {
-                        key: vehicleModel.vehicleOwnerFullName,
-                        max: 50,
-                        title: 'sahibi',
-                        rules: [
-                            'required', 'max:50'
-                        ]
-                    },
-                    {
-                        key: vehicleModel.kgsNo,
-                        max: 50,
-                        title: 'kgs numarası',
-                        rules: [
-                            'required', 'max:50'
-                        ]
-                    },
-                    {
-                        key: vehicleModel.ogsNo,
-                        max: 50,
-                        title: 'ogs numarası',
-                        rules: [
-                            'required', 'max:50'
-                        ]
-                    },
-                    {
-                        key: vehicleModel.isDualRegime,
-                        max: null,
-                        type: 'checkbox',
-                        props: ['çift rejim']
-                    },
-                    {
-                        key: vehicleModel.active,
-                        max: null,
-                        type: 'checkbox',
-                        props: ['aktif']
-                    }
-                ],
+
                 headers: [
                     {
                         text: 'ıd',
@@ -209,13 +109,14 @@
                 ],
 
                 vehicles: [],
-                refWorkingAreaList: [],
-                sysrefVehicleTypeList: [],
-                sysrefVehicleOwnerList: [],
 
                 newItem: null,
 
-                snackbar: false,
+                snackbar: {
+                    text: null,
+                    textColor: null,
+                    active: false
+                },
 
                 // Data table row click route
                 // to: {
@@ -227,6 +128,7 @@
 
             // Activates add new item dialog
             addDialog(data) {
+                console.log('vehicle', data);
                 this.$refs.addEditDialog.open(data)
             },
 
@@ -244,10 +146,9 @@
                     self.loading = false;
                 })
             },
-
             addNewItem(item) {
                 let self = this;
-                this.newItem = item
+                this.newItem = item;
                 this.loading = true;
 
                 this.$http.post('api/v1/vehicle', this.newItem).then((result) => {
@@ -273,53 +174,22 @@
 
                 this.$http.put('api/v1/vehicle/', item)
                     .then(result => {
+                        let status = result.data.status;
+                        if (status < 299) {
+                            self.snackbar.textColor = 'green--text text--accent-3';
+                        } else {
+                            self.snackbar.textColor = 'red--text';
+                        }
+
+                        self.snackbar.text = result.data.message;
+                        self.snackbar.active = true;
                         self.getAllVehicles();
                     }).catch(error => {
                     console.log(error)
                 })
             },
-            getSysrefVehicleOwnerList() {
-                let self = this;
 
-                this.$http.get("api/v1/sysrefVehicleOwner").then((result) => {
-                    self.sysrefVehicleOwnerList = result.data.data.items
-                    self.addEditFields.find(item => {
-                        return item.key === vehicleModel.sysrefVehicleOwner
-                    }).props = self.sysrefVehicleOwnerList
-
-                }).catch((error) => {
-                    console.error(error);
-                })
-            },
-            getSysrefVehicleTypeList() {
-                let self = this;
-
-                this.$http.get("api/v1/sysrefVehicleType").then((result) => {
-                    self.sysrefVehicleTypeList = result.data.data.items;
-                    self.addEditFields.find(item => {
-                        return item.key === vehicleModel.sysrefVehicleType
-                    }).props = self.sysrefVehicleTypeList
-
-                }).catch((error) => {
-                    console.error(error);
-                })
-            },
-            getRefWorkingAreaList() {
-                let self = this;
-
-                this.$http.get('api/v1/refWorkingArea').then((result) => {
-                    self.refWorkingAreaList = result.data.data.items
-
-                    self.addEditFields.find(item => {
-                        return item.key === vehicleModel.refWorkingArea
-                    }).props = self.refWorkingAreaList
-
-                }).catch((error) => {
-                    console.log(error);
-                })
-            },
             deleteItem(item) {
-                debugger;
                 this.$http.delete(`api/v1/vehicle/${item.id}`).then((result) => {
                     this.getAllVehicles()
                 }).catch((error) => {
@@ -330,9 +200,6 @@
 
         mounted() {
             this.getAllVehicles();
-            this.getSysrefVehicleOwnerList();
-            this.getSysrefVehicleTypeList();
-            this.getRefWorkingAreaList();
         }
     }
 </script>
