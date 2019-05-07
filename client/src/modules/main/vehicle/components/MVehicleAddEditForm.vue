@@ -6,6 +6,8 @@
         @clear="clear"
         @edit="edit"
         @save="save"
+        :hideSaveButton="onVoyageVehicle"
+        :hideClearButton="onVoyageVehicle"
     >
         <template v-slot:form>
             <v-layout wrap>
@@ -15,6 +17,7 @@
                 >
                     <!-- Plate -->
                     <v-text-field
+                        :disabled="onVoyageVehicle"
                         v-validate="'required'"
                         :error-messages="errors.collect('plate')"
                         v-model="data.plateNumber"
@@ -35,6 +38,7 @@
                 >
                     <!-- Plate -->
                     <v-text-field
+                        :disabled="onVoyageVehicle"
                         v-validate="'required'"
                         :error-messages="errors.collect('brand')"
                         v-model="data.brand"
@@ -55,6 +59,7 @@
                 >
                     <!-- Plate -->
                     <v-text-field
+                        :disabled="onVoyageVehicle"
                         v-validate="'required'"
                         :error-messages="errors.collect('fleetCardNumber')"
                         v-model="data.fleetCardNumber"
@@ -75,6 +80,7 @@
                 >
                     <!-- Plate -->
                     <v-text-field
+                        :disabled="onVoyageVehicle"
                         v-validate="'required'"
                         :error-messages="errors.collect('km')"
                         v-model="data.km"
@@ -95,6 +101,7 @@
                 >
                     <!-- Plate -->
                     <v-combobox
+                        :disabled="onVoyageVehicle"
                         cache-items
                         hide-no-data
                         v-validate="'required'"
@@ -119,6 +126,7 @@
                 >
                     <!-- Plate -->
                     <v-combobox
+                        :disabled="onVoyageVehicle"
                         cache-items
                         v-validate="'required'"
                         :error-messages="errors.collect('type')"
@@ -142,6 +150,7 @@
                 >
                     <!-- Plate -->
                     <v-combobox
+                        :disabled="onVoyageVehicle"
                         cache-items
                         v-validate="'required'"
                         v-on:change="ownerChanged"
@@ -168,6 +177,7 @@
                     <!-- Plate -->
                     <!-- TODO burasi tedarikci firma olacak - show only if sysrefVehicleOwner is kiralik -->
                     <v-combobox
+                        :disabled="onVoyageVehicle"
                         cache-items
                         v-validate="'required'"
                         :error-messages="errors.collect('supplier')"
@@ -191,6 +201,7 @@
                 >
                     <!-- Plate -->
                     <v-text-field
+                        :disabled="onVoyageVehicle"
                         v-validate="'required'"
                         :error-messages="errors.collect('kgs')"
                         v-model="data.kgsNo"
@@ -211,6 +222,7 @@
                 >
                     <!-- Plate -->
                     <v-text-field
+                        :disabled="onVoyageVehicle"
                         v-validate="'required'"
                         :error-messages="errors.collect('ogs')"
                         v-model="data.ogsNo"
@@ -231,6 +243,7 @@
                 >
                     <!-- Plate -->
                     <v-checkbox
+                        :disabled="onVoyageVehicle"
                         v-model="data.isDualRegime"
                         label="Çift Rejim"
                         name="dualRegime"
@@ -253,7 +266,7 @@
     export default {
         name: "MVehicleAddEditForm",
         components: {MDataTableAddEditForm},
-
+        props: {onVoyageVehicle: {type: Boolean, default: false}},
         data() {
             return {
                 showDialog: false,
@@ -267,7 +280,7 @@
         },
 
         computed: {
-            isRental () {
+            isRental() {
                 return this.data.sysrefVehicleOwner && this.data.sysrefVehicleOwner.name !== 'Özmal'
             }
         },

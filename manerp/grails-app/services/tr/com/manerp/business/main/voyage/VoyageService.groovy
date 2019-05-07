@@ -9,9 +9,8 @@ import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.order.VoyageOrder
 import tr.com.manerp.business.sysref.SysrefDeliveryStatus
 import tr.com.manerp.business.sysref.SysrefDriverState
+import tr.com.manerp.business.sysref.SysrefOrderState
 import tr.com.manerp.business.sysref.SysrefVehicleState
-import tr.com.manerp.commands.controller.common.PaginationCommand
-import tr.com.manerp.commands.controller.voyage.OptimizationParametersSaveCommand
 import tr.com.manerp.optimization.OptimizationParameters
 
 import java.text.SimpleDateFormat
@@ -88,6 +87,8 @@ class VoyageService extends BaseService
         voyageOrder.setRandomCode()
 
         save(voyage)
+
+        orderService.saveOrderWithSysrefOrderState(order, SysrefOrderState.findByCode('COMP'))
         if ( voyage.sysrefDeliveryStatus == SysrefDeliveryStatus.findByCode("BOS") ) {
             setDriverAndVehicleStateIdle(voyage)
         } else {

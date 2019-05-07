@@ -237,6 +237,7 @@
 
             editItem(item) {
                 let self = this;
+                console.log("item:", item);
                 this.$http.put('api/v1/order', item)
                     .then(result => {
                         self.displaySnackMessage(result);

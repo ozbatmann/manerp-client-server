@@ -83,6 +83,7 @@ class OrderService extends BaseService
     def saveOrderWithVendors(Order order, List<Vendor> vendors)
     {
         save(order)
+        deleteVendorsByOrder(order)
         vendors.each { vendor ->
             OrderVendor orderVendor = new OrderVendor()
             orderVendor._order = order
@@ -96,11 +97,11 @@ class OrderService extends BaseService
 
     def delete(Order order)
     {
-        deleteOrderWithVendors(order)
+        deleteVendorsByOrder(order)
         order.delete(flush: true, failOnError: true)
     }
 
-    def deleteOrderWithVendors(Order order)
+    def deleteVendorsByOrder(Order order)
     {
         OrderVendor.createCriteria().list {
             eq('_order', order)
@@ -153,7 +154,7 @@ class OrderService extends BaseService
             orderDate        : data.orderDate ? sdf.format(data.orderDate) : null,
             billingNo        : data?.billingNo,
             workOrderNo      : data?.workOrderNo,
-            company          : data?.company?.title,
+            company          : data.company ? [id: data.company.id, title: data.company.title] : null,
             sysrefOrderState : data.sysrefOrderState ? [id: data.sysrefOrderState.id, name: data.sysrefOrderState.name] : null,
             selectedVendors  : vendorList
         ]

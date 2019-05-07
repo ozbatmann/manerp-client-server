@@ -1,18 +1,18 @@
 <template>
     <v-dialog
-            v-model="show"
-            lazy
-            persistent
-            scrollable
-            :max-width="width"
-            @keydown.enter.prevent="save"
-            @keydown.esc.stop="close"
-            content-class="transition-height"
+        v-model="show"
+        lazy
+        persistent
+        scrollable
+        :max-width="width"
+        @keydown.enter.prevent="save"
+        @keydown.esc.stop="close"
+        content-class="transition-height"
     >
         <v-card>
             <v-card-title
-                    :class="[ !tabbed ? 'py-2' : 'pt-2 pb-1' ]"
-                    class="pr-1"
+                :class="[ !tabbed ? 'py-2' : 'pt-2 pb-1' ]"
+                class="pr-1"
             >
                 <v-layout align-center>
 
@@ -25,8 +25,8 @@
                     <!-- Dialog close button -->
                     <v-flex shrink>
                         <v-btn
-                                icon
-                                @click="show = false"
+                            icon
+                            @click="show = false"
                         >
                             <v-icon>close</v-icon>
                         </v-btn>
@@ -35,19 +35,19 @@
             </v-card-title>
             <v-divider v-if="!tabbed"></v-divider>
             <v-layout
-                    v-if="tabbed"
-                    wrap
+                v-if="tabbed"
+                wrap
             >
                 <v-flex xs12 pl-3>
                     <v-tabs
-                            v-model="active"
-                            slider-color="primary-green"
-                            show-arrows
+                        v-model="active"
+                        slider-color="primary-green"
+                        show-arrows
                     >
                         <v-tab
-                                v-for="(tab, index) in tabs"
-                                :key="`dialog-tab-item-${index}`"
-                                ripple
+                            v-for="(tab, index) in tabs"
+                            :key="`dialog-tab-item-${index}`"
+                            ripple
                         >
                             {{ tab }}
                         </v-tab>
@@ -58,34 +58,36 @@
                 </v-flex>
             </v-layout>
             <v-card-text class="transition-height">
-                    <div v-if="active === 0">
-                        <slot name="form"></slot>
-                    </div>
-                    <div
-                            v-for="(tab, index) in tabs"
-                            v-show="index + 1 === active"
-                            :key="`tab-${index}`"
-                    >
-                        <slot :name="`tab-${index + 2}`"></slot>
-                    </div>
+                <div v-if="active === 0">
+                    <slot name="form"></slot>
+                </div>
+                <div
+                    v-for="(tab, index) in tabs"
+                    v-show="index + 1 === active"
+                    :key="`tab-${index}`"
+                >
+                    <slot :name="`tab-${index + 2}`"></slot>
+                </div>
             </v-card-text>
-            <v-divider></v-divider>
+            <v-divider v-if="!hideClearButton && !hideSaveButton"></v-divider>
             <v-card-actions>
-                <v-layout pa-2 justify-end>
+                <v-layout v-if="!hideClearButton && !hideSaveButton" pa-2 justify-end>
                     <v-flex shrink>
                         <!-- Clear all -->
                         <v-btn
-                                depressed
-                                @click="clear"
+                            v-if="!hideClearButton"
+                            depressed
+                            @click="clear"
                         >
                             HEPSİNİ TEMİZLE
                         </v-btn>
 
                         <!-- Save button -->
                         <v-btn
-                                depressed
-                                color="deep-purple white--text mr-0"
-                                @click="save"
+                            v-if="!hideSaveButton"
+                            depressed
+                            color="deep-purple white--text mr-0"
+                            @click="save"
                         >
                             {{ saveButtonTitle }}
                         </v-btn>
@@ -134,6 +136,15 @@
             width: {
                 type: Number,
                 default: 820
+            },
+
+            hideClearButton: {
+                type: Boolean,
+                default: false
+            },
+            hideSaveButton: {
+                type: Boolean,
+                default: false
             }
         },
 
@@ -154,7 +165,7 @@
         },
 
         methods: {
-            enableTab () {
+            enableTab() {
                 if (this.next instanceof Function) {
                     return this.next();
                 } else if (this.next instanceof Object) {
@@ -180,7 +191,7 @@
                 // if (this.tabbed && this.active !== this.tabs.length - 1) {
                 //     if (this.enableTab()) this.active += 1;
                 // } else
-                    this.$emit(this.edit ? 'edit' : 'save');
+                this.$emit(this.edit ? 'edit' : 'save');
             }
         },
 

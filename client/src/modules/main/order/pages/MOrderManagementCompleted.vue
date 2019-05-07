@@ -5,6 +5,8 @@
             title="Yeni Sipariş"
             @save="addNewItem"
             @edit="editItem"
+            @displayMessage="displayCustomSnackMessage"
+            completedOrder
         ></m-order-add-edit-form>
         <m-data-table
             :headers="headers"
@@ -12,7 +14,7 @@
             :to="to"
             :loading="loading"
             @deleteItem="deleteItem"
-            @editItem="editItem"
+            @editItem="editDialog"
         >
         </m-data-table>
 
@@ -188,12 +190,20 @@
         },
 
         methods: {
-
             // Activates add new item dialog
             addDialog(data) {
                 this.$refs.addEditDialog.open(data)
             },
-
+            editDialog(data) {
+                if (data !== undefined && data !== null) {
+                    this.$http.get("api/v1/order/" + data.id).then((result) => {
+                        let items = result.data.data;
+                        this.$refs.addEditDialog.open(items)
+                    }).catch((error) => {
+                        console.error(error);
+                    })
+                }
+            },
             // Adds a new driver
             // to the system
             getAllOrders() {
@@ -205,11 +215,33 @@
                 }).finally(() => this.loading = false)
             },
 
+            addNewItem(item) {
+                let self = this;
+                this.newItem = item;
+                this.$http.post('api/v1/order', this.newItem).then((result) => {
+                    self.displaySnackMessage(result);
+                    self.getAllOrders();
+                }).catch((error) => {
+                    console.log(error);
+                })
+            },
+
+            editItem(item) {
+                let self = this;
+                console.log("item:", item);
+                this.$http.put('api/v1/order', item)
+                    .then(result => {
+                        self.displaySnackMessage(result);
+                        self.getAllOrders()
+                    }).catch(error => {
+                    console.log(error)
+                })
+            },
+
             getSysrefRevenueTypeList() {
                 let self = this;
                 this.$http.get('api/v1/sysrefRevenueType').then((result) => {
                     self.sysrefRevenueTypeList = result.data.data.items
-                    console.log(self.sysrefRevenueTypeList)
                     self.addEditFields.find(item => {
                         return item.key === orderModel.sysrefRevenueType
                     }).props = self.sysrefRevenueTypeList
@@ -231,11 +263,29 @@
                 })
             },
             deleteItem(item) {
+                let self = this;
                 this.$http.delete(`api/v1/order/${item.id}`).then((result) => {
-                    this.getAllOrders()
+                    self.displaySnackMessage(result);
+                    self.getAllOrders()
                 }).catch((error) => {
                     console.error(error);
                 })
+            },
+            displaySnackMessage(result) {
+                let status = result.data.status;
+                if (status < 299) {
+                    this.snackbar.textColor = 'green--text text--accent-3';
+                } else {
+                    this.snackbar.textColor = 'red--text';
+                }
+
+                this.snackbar.text = result.data.message;
+                this.snackbar.active = true;
+            },
+            displayCustomSnackMessage(message) {
+                this.snackbar.textColor = 'red--text';
+                this.snackbar.text = message;
+                this.snackbar.active = true;
             }
         },
 

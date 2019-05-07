@@ -134,7 +134,6 @@ class OrderController extends BaseController
         Order order
 
         try {
-
             if ( !cmd.validate() ) {
                 maneResponse.statusCode = StatusCode.BAD_REQUEST
                 maneResponse.message = parseValidationErrors(cmd.errors)
@@ -143,7 +142,7 @@ class OrderController extends BaseController
 
             order = Order.get(cmd.id)
             cmd >> order
-            orderService.save(order)
+            orderService.saveOrderWithVendors(order, cmd.selectedVendors)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Sipariş başarıyla güncellendi.'
 
