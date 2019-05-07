@@ -542,7 +542,7 @@
                 let today = moment(new Date()).locale('tr').format('ddd-Do-MMM-YYYY_HH-mm');
                 // export json to Worksheet of Excel
                 // only array possible
-                var animalWS = XLSX.utils.json_to_sheet(this.tempItems);
+                var animalWS = XLSX.utils.json_to_sheet(this.items, this.headers.map(header => header.text));
 
                 // A workbook is the name given to an Excel file
                 var wb = XLSX.utils.book_new(); // make Workbook of Excel

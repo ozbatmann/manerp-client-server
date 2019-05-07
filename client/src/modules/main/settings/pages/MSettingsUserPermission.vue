@@ -2,8 +2,15 @@
     <div>
         <m-settings-add-role
                 v-model="addRoleDialog"
+                :data="editRoleItem"
                 @save="addRole"
+                @edit="editRole"
         ></m-settings-add-role>
+        <m-settings-add-user
+                v-model="addUserDialog"
+                :role="selectedRoleId"
+                @save="addUser"
+        ></m-settings-add-user>
         <v-layout>
             <v-flex>
                 <v-alert
@@ -16,17 +23,19 @@
                 </v-alert>
             </v-flex>
         </v-layout>
-        <v-layout row mt-3>
+        <v-layout row mt-3 align-stretch>
             <v-flex
                     mr-2
                     md4
                     lg3
+                    style="max-height: 60vh;"
+                    overflow-hidden
             >
                 <v-list
                         two-line
                         dense
                         id="permissionList"
-                        class="m-filter-date pt-0 pb-2"
+                        class="m-filter-date pt-0 pb-2 overflow-x-hidden"
                         style="border: 1px solid #f5f5f5;"
                 >
                     <v-subheader
@@ -41,7 +50,7 @@
                                         v-on="on"
                                         class="primary-green--text"
                                         icon
-                                        @click="addRoleDialog = true"
+                                        @click="showRoleDialog(false)"
                                 >
                                     <v-icon>add</v-icon>
                                 </v-btn>
@@ -83,12 +92,30 @@
                         </v-list-tile-content>
 
                         <v-list-tile-action class="m-settings__action">
-                            <v-icon
-                                    size="16"
-                                    class="mr-2 black--text"
+                            <v-menu
+                                    left
+                                    offset-x
+                                    :nudge-width="140"
+                                    content-class="v-shadow-lg"
+                                    transition="slide-x-reverse-transition"
                             >
-                                edit
-                            </v-icon>
+                                <!-- Row action button -->
+                                <!-- Activates the menu -->
+                                <v-btn
+                                        slot="activator"
+                                        icon
+                                >
+                                    <v-icon size="16">more_vert</v-icon>
+                                </v-btn>
+                                <v-list dense>
+                                    <v-list-tile @click="showRoleDialog(true)">
+                                        Düzenle
+                                    </v-list-tile>
+                                    <v-list-tile @click="deleteRole(item.role)">
+                                        Sil
+                                    </v-list-tile>
+                                </v-list>
+                            </v-menu>
                         </v-list-tile-action>
                     </v-list-tile>
                     <v-list-tile v-if="!permissionRoles.length && !loading.role">
@@ -111,12 +138,13 @@
                     >
                         {{selectedPermissionTitle}} sahip kullanıcılar
                         <v-spacer></v-spacer>
-                        <v-tooltip right v-if="!users.length && !loading.user && this.selected">
+                        <v-tooltip right v-if="showAddUserButton">
                             <template v-slot:activator="{ on }">
                                 <v-btn
                                         v-on="on"
                                         class="primary-green--text"
                                         icon
+                                        @click="addUserDialog = true"
                                 >
                                     <v-icon>add</v-icon>
                                 </v-btn>
@@ -144,19 +172,20 @@
 
                     <v-list-tile
                             v-for="(user, index) in filteredItems(users, 'user', 'name')"
+                            v-show="user.name !== undefined"
                             :key="`settings-user-item-${index}`"
                     >
-                        <v-list-tile-avatar>
-                            <img :src="user.img">
+                        <v-list-tile-avatar avatar>
+                            <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
                         </v-list-tile-avatar>
 
                         <v-list-tile-content>
                             <v-list-tile-title class="black--text">{{user.name}} {{user.surname}}</v-list-tile-title>
-                            <v-list-tile-sub-title class="caption">{{user.groups}}</v-list-tile-sub-title>
+                            <!--<v-list-tile-sub-title class="caption">{{user.groups}}</v-list-tile-sub-title>-->
                         </v-list-tile-content>
 
                         <v-list-tile-action>
-                            <v-btn icon>
+                            <v-btn icon @click="deleteUser(user.id)">
                                 <v-icon size="18">close</v-icon>
                             </v-btn>
                         </v-list-tile-action>
@@ -250,36 +279,19 @@
                                                         py-2
                                                 >
                                                     <v-flex
-                                                            v-for="(available, i) in permission.availablePermissions"
+                                                            v-for="(permission, i) in permission.permissions"
                                                             :key="`${permission.name}-available-item-${i}`"
                                                             pa-2
                                                             shrink
                                                     >
                                                         <!-- Checkbox items -->
                                                         <v-checkbox
-                                                                :label="available[2]"
-                                                                :input-value="false"
+                                                                v-model="permission.status"
+                                                                :label="permission.name"
                                                                 class="mt-0 text-capitalize font-weight-regular m-settings__label"
                                                                 color="green accent-2"
                                                                 hide-details
-                                                                @change="addPermission(permission.name, available)"
-                                                        ></v-checkbox>
-                                                    </v-flex>
-
-                                                    <v-flex
-                                                            v-for="(unavailable, i) in permission.unavailablePermissions"
-                                                            :key="`${permission.name}-unavailable-item-${i}`"
-                                                            pa-2
-                                                            shrink
-                                                    >
-                                                        <!-- Checkbox items -->
-                                                        <v-checkbox
-                                                                :label="unavailable[2]"
-                                                                :input-value="true"
-                                                                class="mt-0 text-capitalize font-weight-regular m-settings__label"
-                                                                color="green accent-2"
-                                                                hide-details
-                                                                @change="deletePermission(permission.name, unavailable)"
+                                                                @click.native.capture="permission.status ? deletePermission(permission) : addPermission(permission)"
                                                         ></v-checkbox>
                                                     </v-flex>
                                                 </v-layout>
@@ -307,14 +319,17 @@
 <script>
 
     import MSettingsAddRole from "../components/MSettingsAddRole";
+    import MSettingsAddUser from "../components/MSettingsAddUser";
 
     export default {
         name: "MSettingsUserPermission",
-        components: {MSettingsAddRole},
+        components: {MSettingsAddUser, MSettingsAddRole},
         data() {
             return {
                 addRoleDialog: false,
                 addUserDialog: false,
+
+                addRoleEdit: false,
 
                 // -------------------
 
@@ -363,6 +378,21 @@
         },
 
         computed: {
+            showAddUserButton () {
+                return !this.loading.user && this.selected
+            },
+
+            selectedRole() {
+                return this.permissionRoles[this.selected];
+            },
+
+            selectedRoleId() {
+                return this.selectedRole ? this.selectedRole.role.id : null
+            },
+
+            editRoleItem() {
+                return this.addRoleEdit ? this.selectedRole ? this.selectedRole : null : null;
+            },
 
             selectedPermissionTitle() {
                 let selected = this.permissionRoles[this.selected];
@@ -372,6 +402,11 @@
         },
 
         methods: {
+
+            showRoleDialog(edit) {
+                this.addRoleEdit = edit;
+                this.addRoleDialog = true;
+            },
 
             activeClass(index) {
                 return this.selected === index ? 'm-settings__active' : ''
@@ -396,12 +431,34 @@
             select(index) {
                 if (this.selected !== index) {
                     this.selected = index;
+                    this.permissions = [];
+                    this.users = [];
 
                     let roleId = this.permissionRoles[index].role.id;
 
                     this.getSecuritySubjects(roleId);
                     this.getUsers(roleId)
                 }
+            },
+
+            editRole(role) {
+                this.loading.role = true;
+
+                let self = this;
+
+                this.$http.post('/api/v1/auth/updateRole',
+                    {
+                        roleId: role.role.id,
+                        name: role.role.name,
+                        organizationId: this.user.organization.id
+                    }).then((result) => {
+
+                    console.log(result);
+                    self.getRoles();
+
+                }).catch((error) => {
+                    console.log(error);
+                }).finally(() => this.loading.role = false)
             },
 
             addRole(roleName) {
@@ -421,14 +478,41 @@
                 }).finally(() => this.loading.role = false)
             },
 
-            addUser(roleId) {
+            deleteRole(role) {
+                this.loading.role = true;
+
+                let self = this;
+
+                this.$http.post('/api/v1/auth/deleteRole',
+                    {
+                        roleId: role.id,
+                        organizationId: this.user.organization.id
+                    }).then((result) => {
+
+                    console.log(result);
+                    self.getRoles();
+
+                }).catch((error) => {
+                    console.log(error);
+                }).finally(() => this.loading.role = false)
+            },
+
+            addUser(user) {
                 this.loading.user = true;
 
-                this.$http.post('/api/v1/auth/getAllRolePermissionList',
-                    {roleId: roleId})
+                let self = this;
+                let roleId = this.selectedRole.role.id;
+
+                this.$http.post('/api/v1/auth/addUserOrganizationRole',
+                    {
+                        organizationId: this.user.organization.id,
+                        roleId: roleId,
+                        userId: user.id
+                    })
                     .then((result) => {
 
-                        console.log(result);
+                        if (result.data) this.getUsers(roleId);
+                        // TODO print error message
 
                     }).catch((error) => {
                     console.log(error);
@@ -455,9 +539,12 @@
                     {organizationId: this.user.organization.id})
                     .then((result) => {
 
+                        console.log('Roles', result);
+                        let length = result.data.length;
                         this.permissionRoles = result.data;
+                        let count = this.permissionRoles.splice(length - 1, 1).totalCount;
 
-                        if (this.permissionRoles.length)
+                        if (this.permissionRoles.length && !this.selected)
                             this.$nextTick(() => {
                                 this.select(0);
                             });
@@ -479,13 +566,27 @@
                 }).finally(() => this.loading.user = false)
             },
 
-            removeUser(id) {
+            deleteUser(id) {
+                this.loading.user = true;
 
+                let self = this;
+
+                this.$http.post('/api/v1/auth/deleteUser',
+                    {
+                        userId: id,
+                        organizationId: this.user.organization.id,
+                        roleId: this.selectedRoleId
+                    }).then((result) => {
+
+                    console.log(result);
+                    self.getUsers(this.selectedRoleId)
+
+                }).catch((error) => {
+                    console.log(error);
+                }).finally(() => this.loading.user = false)
             },
 
-            addPermission(name, item) {
-                console.log('add:', name, ':', item[0], ':', item[2]);
-
+            addPermission(permission) {
                 this.loading.permission = true;
 
                 let self = this;
@@ -493,82 +594,35 @@
 
 
                 this.$http.post('/api/v1/auth/addRolePermission',
-                    {id: item[0], roleId: roleId})
+                    {id: permission.id, roleId: roleId})
                     .then((result) => {
 
                         let status = result.status;
 
-                        console.log("Added",result);
+                        console.log(result);
 
-                        if (status === 200) {
-                            let permId = result.data.id;
-                            let permission = this.permissions.find(permission => {
-                                if(permission.name === name) {
-                                    if (permId) {
-                                        for (let i = 0; i < permission.unavailablePermissions.length; i++) {
-                                            let c = permission.unavailablePermissions[i];
-
-                                            if (c[0] === item[0]) {
-                                                permission.availablePermissions.splice(i);
-                                                permission.unavailablePermissions.push(item);
-
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-
-
-                        }
                     }).catch((error) => {
                     console.log(error);
                 }).finally(() => this.loading.permission = false)
             },
 
-            deletePermission(name, item) {
-                console.log('del:', name, ':', item[0], ':', item[2]);
+            deletePermission(permission) {
                 this.loading.permission = true;
 
                 let self = this;
                 let roleId = this.permissionRoles[this.selected].role.id;
 
                 this.$http.post('/api/v1/auth/deleteRolePermission',
-                    {id: item[0], roleId: roleId})
-                    .then((result) => {
-                        let status = result.status;
+                    {
+                        id: permission.id,
+                        roleId: roleId
+                    }).then((result) => {
 
-                        if (status === 200) {
-                            console.log("Deleted",result)
-                          /*  let statusName = result.data.status.name;
-                            let permission = this.permissions.find(permission => {
-                                return permission.name === name;
-                            });
-                            let index = 0;
+                    let status = result.status;
 
-                            switch (statusName) {
-                                case 'NO_CONTENT':
+                    console.log(result);
 
-                                    for (let i = 0; i < permission.unavailablePermissions.length; i++) {
-                                        let c = permission.unavailablePermissions[i];
-
-                                        if (c[0] === item[0]) {
-                                            permission.unavailablePermissions.splice(i, 1);
-                                            permission.availablePermissions.push(item);
-                                            break;
-                                        }
-
-                                        index++;
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }*/
-                        }
-                        console.log(result);
-                        //self.getRoles();
-
-                    }).catch((error) => {
+                }).catch((error) => {
                     console.log(error);
                 }).finally(() => this.loading.permission = false)
             }

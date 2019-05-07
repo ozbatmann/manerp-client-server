@@ -19,10 +19,10 @@ const meta = (title) => {
                 text: 'kullanıcılar ve izinler',
                 to: { name: routes.permission }
             },
-            {
-                text: 'faturalandırma',
-                to: { name: routes.billing }
-            }
+            // {
+            //     text: 'faturalandırma',
+            //     to: { name: routes.billing }
+            // }
         ]
     }
 };
@@ -47,12 +47,12 @@ export default [
                 component: () => import('@/modules/main/settings/pages/MSettingsUserPermission'),
                 meta: meta('Ayarlar')
             },
-            {
-                path: 'billing',
-                name: routes.billing,
-                component: () => import('@/modules/main/settings/pages/MSettingsUserPermission'),
-                meta: meta('Ayarlar')
-            }
+            // {
+            //     path: 'billing',
+            //     name: routes.billing,
+            //     component: () => import('@/modules/main/settings/pages/MSettingsUserPermission'),
+            //     meta: meta('Ayarlar')
+            // }
         ]
     },
 ]

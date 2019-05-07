@@ -1,10 +1,11 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <m-data-table-add-edit-form
             v-model="show"
-            title="Yeni Rol Ekle"
+            title="Yeni Kullanıcı Ekle"
             :width="600"
+            @keydown.enter.capture="save"
+            @keydown.esc.capture="close"
             @save="save"
-            @edit="edit"
     >
         <template v-slot:form>
             <v-alert
@@ -15,13 +16,13 @@
             </v-alert>
             <v-autocomplete
                     :items="items"
-                    :loading="isLoading"
+                    :loading="loading"
                     :search-input.sync="search"
-                    color="white"
                     hide-no-data
                     hide-selected
-                    item-text="Description"
-                    item-value="API"
+                    item-text="fullname"
+                    item-value="id"
+                    return-object
                     v-validate="'required'"
                     :error-messages="errors.collect('user')"
                     v-model="user"
@@ -50,16 +51,19 @@
                 default: false,
             },
 
-            data: {
+            role: {
                 type: String,
-                default: null
             }
         },
 
         data () {
             return {
+                items: [],
                 show: this.value,
-                user: this.data
+                user: null,
+                loading: false,
+                search: '',
+                roleId: this.role ? this.role.role.id : null,
             }
         },
 
@@ -73,23 +77,46 @@
                 });
             },
 
-            edit() {
-                this.$validator.validateAll().then((result) => {
-                    if (result) {
-                        this.$emit("edit", this.user);
-                        this.close();
-                    }
-                });
-            },
-
             close (){
                 this.$validator.reset();
                 this.user = null;
                 this.show = false;
-            }
+                this.items = [];
+                this.loading = false;
+                this.search = '';
+            },
         },
 
         watch: {
+
+            role (newVal) {
+                this.roleId = newVal
+            },
+
+            search (newVal) {
+                if (!newVal || !newVal.length) return;
+
+                // Items have already been requested
+                if (this.loading) return;
+
+                this.loading = true;
+
+                // Lazily load input items
+                this.$http.post('/api/v1/auth/getAllUserListBySearchParam', {
+                    organizationId: this.$store.state.shared.organization.id,
+                    roleId: this.roleId,
+                    searchParam: newVal
+                }).then(res => {
+                    console.log('Autocomplete result', res);
+                    this.items = res.data;
+                }).catch(err => {
+                    this.items = [];
+                    console.log('Error while getting user: ', err);
+                }).finally(() => {
+                    this.loading = false;
+                });
+            },
+
             show (newVal) {
                 this.$emit('input', newVal);
             },
