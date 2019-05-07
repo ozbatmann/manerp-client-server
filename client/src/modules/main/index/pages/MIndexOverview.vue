@@ -4,9 +4,9 @@
 
             <v-chip label class="grey lighten-4 mx-0">
 
-                <div class="black--text">Bugün 27 Mart,
-
-                    <span class="blue--text">Pazartesi</span>
+                <div class="black--text">
+                    {{ todayDate }},
+                    <span class="primary--text">{{ todayDay }}</span>
                 </div>
             </v-chip>
 
@@ -110,6 +110,7 @@
 </template>
 
 <script>
+    import moment from 'moment';
     import MIndexOverviewComponent from '../components/MIndexOverviewComponent'
 
     export default {
@@ -132,6 +133,16 @@
                 value2: [
                     75, 80, 100, 50, 72, 63, 90, 82
                 ]
+            }
+        },
+
+        computed: {
+            todayDate () {
+                return moment(new Date()).locale('tr').format('Do MMMM YYYY');
+            },
+
+            todayDay () {
+                return moment(new Date()).locale('tr').format('dddd');
             }
         }
     }
