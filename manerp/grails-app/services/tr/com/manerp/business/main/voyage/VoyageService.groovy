@@ -10,8 +10,6 @@ import tr.com.manerp.business.main.order.VoyageOrder
 import tr.com.manerp.business.sysref.SysrefDeliveryStatus
 import tr.com.manerp.business.sysref.SysrefDriverState
 import tr.com.manerp.business.sysref.SysrefVehicleState
-import tr.com.manerp.commands.controller.common.PaginationCommand
-import tr.com.manerp.commands.controller.voyage.OptimizationParametersSaveCommand
 import tr.com.manerp.optimization.OptimizationParameters
 
 import java.text.SimpleDateFormat
