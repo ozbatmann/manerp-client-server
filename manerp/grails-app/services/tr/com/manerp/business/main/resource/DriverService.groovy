@@ -184,11 +184,29 @@ class DriverService extends BaseService
     {
         SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy HH:mm')
         Order order = orderService.getOrderByVoyage(voyage)
-        def body = "Tarafınıza ${sdf.format(voyage.startDate)} tarihinde ${order.fullName} için sevkiyat atanmıştır ."
+        def body = "Tarafınıza ${sdf.format(voyage.startDate)} tarihinde ${order.fullName} için sevkiyat atanmıştır."
         Map paramsData = ['user': voyage.driver.fullName, 'body': body, 'signature': 'MANERP Yazılım']
 
         informationRestService.sendMail('GENERAL_INFO',
-            body,
+            "Sevkiyat Bilgilendirmesi",
+            paramsData,
+            [voyage.driver.email] as List,
+            ["beratpostalci@gmail.com"] as List,
+            ["bpostalci@gmail.com"] as List,
+            1,
+            2
+        )
+    }
+
+    def sendVoyageCancelMailToDriver(Voyage voyage)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy HH:mm')
+        Order order = orderService.getOrderByVoyage(voyage)
+        def body = "Tarafınıza ${sdf.format(voyage.startDate)} tarihinde ${order.fullName} için atanan sevkiyat iptal edilmiştir."
+        Map paramsData = ['user': voyage.driver.fullName, 'body': body, 'signature': 'MANERP Yazılım']
+
+        informationRestService.sendMail('GENERAL_INFO',
+            "Sevkiyat Bilgilendirmesi",
             paramsData,
             [voyage.driver.email] as List,
             ["beratpostalci@gmail.com"] as List,

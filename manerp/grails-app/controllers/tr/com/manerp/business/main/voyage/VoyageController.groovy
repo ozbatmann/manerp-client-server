@@ -179,8 +179,9 @@ class VoyageController extends BaseController
         try {
 
             Order order = VoyageOrder.findByVoyage(voyage)?.order
-            if ( order ) orderService.saveOrderWithSysrefOrderState(order, SysrefOrderState.findByCode('COMP'))
+            if ( order ) orderService.saveOrderWithSysrefOrderState(order, SysrefOrderState.findByCode('WAIT'))
             driverService.saveDriverWithState(voyage.driver, SysrefDriverState.findByCode('IDLE'))
+            driverService.sendVoyageCancelMailToDriver(voyage)
             voyageService.delete(voyage)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Sevkiyat başarıyla silindi.'

@@ -30,6 +30,11 @@ class UrlMappings
             action = [GET: "getVendorsByDriverId"]
         }
 
+        "/api/$namespace/$controller/custom/getDriverNotifications/$id"() {
+            action = [GET: "getDriverNotifications"]
+        }
+        // TODO: find better solution. conflict with show
+
         "/api/$namespace/$controller/$id"() {
             action = [GET: "show", POST: "save", PUT: "update", PATCH: "patch", DELETE: "delete"]
         }
