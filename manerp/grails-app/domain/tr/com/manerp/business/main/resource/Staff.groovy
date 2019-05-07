@@ -15,12 +15,14 @@ class Staff implements BusinessDomain, Person
 
     static auditable = true
 
-    User user
+//    User user
     RefStaffTitle refStaffTitle
     SysrefStaffContractType sysrefStaffContractType
     String drivingLicenseNumber
     SysrefDrivingType sysrefDrivingType
     SysrefDriverState sysrefDriverState
+    String username
+    String userId
 
     static hasMany = [
         staffDocuments: StaffDocument
@@ -47,11 +49,13 @@ class Staff implements BusinessDomain, Person
         homePhone nullable: true, blank: true, unique: false, maxSize: 15
         gsmNo nullable: false, blank: false, unique: false, maxSize: 15
 
+        username nullable: true, blank: true
+
         // BusinessDomain constraints
         sysCompany nullable: false, unique: false
         code nullable: false, blank: false, unique: ['sysCompany'], maxSize: 8
 
-        user nullable: true, unique: false
+//        user nullable: true, unique: false
         refStaffTitle nullable: false, unique: false
         sysrefStaffContractType nullable: false, unique: false
 

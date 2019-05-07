@@ -218,6 +218,36 @@
                         flat
                     ></v-textarea>
                 </v-flex>
+                <v-flex xs12>
+                    <v-checkbox
+                        v-on:change="isUserChanged"
+                        v-model="data.isUser"
+                        :disabled="isEdit && retrievedUsername != null"
+                        label="Sistem Kullanıcısı"
+                        name="isUser"
+                        color="green accent-2"
+                        class="m-settings__label"
+                        solo
+                        flat
+                    ></v-checkbox>
+                </v-flex>
+                <v-flex xs6 pr-2 v-if="data.isUser">
+                    <v-text-field
+                        :disabled="isEdit && retrievedUsername != null"
+                        v-validate="'required'"
+                        :error-messages="errors.collect('username')"
+                        v-model="data.username"
+                        :counter="50"
+                        maxlength="50"
+                        label="Kullanıcı Adı"
+                        name="username"
+                        background-color="grey lighten-4"
+                        color="green accent-2"
+                        class="m-settings__label"
+                        solo
+                        flat
+                    ></v-text-field>
+                </v-flex>
             </v-layout>
         </template>
     </m-data-table-add-edit-form>
@@ -241,7 +271,9 @@
                 sysrefCities: [],
                 sysrefDistricts: [],
                 sysrefStaffContractTypes: [],
-                sysrefDriverStates: []
+                sysrefDriverStates: [],
+
+                retrievedUsername: null
             }
         },
         methods: {
@@ -249,6 +281,12 @@
                 this.showDialog = true;
                 if (data) {
                     this.data = data;
+                    this.retrievedUsername = this.data.username;
+                    if (this.retrievedUsername) {
+                        this.data.isUser = true;
+                    } else {
+                        this.data.isUser = false;
+                    }
                     this.isEdit = true;
                 } else {
                     this.clear();
@@ -329,6 +367,9 @@
                     console.error(error);
                 }).finally(() => {
                 })
+            },
+            isUserChanged() {
+                this.data.username = null;
             }
         },
         mounted() {

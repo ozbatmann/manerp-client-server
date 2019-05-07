@@ -16,6 +16,7 @@ class DriverService extends BaseService
 {
     def informationRestService
     def orderService
+    def staffService
 
     ManePaginatedResult getDriverList(ManePaginationProperties properties, String driverStateCode)
     {
@@ -70,7 +71,11 @@ class DriverService extends BaseService
 
     def delete(Staff driver)
     {
-        driver.delete(flush: true, failOnError: true)
+        if ( driver.userId ) {
+            staffService.deleteStaffWithUserId(driver)
+        } else {
+            driver.delete(flush: true, failOnError: true)
+        }
     }
 
     def saveDriverWithState(Staff driver, SysrefDriverState state)
@@ -105,7 +110,8 @@ class DriverService extends BaseService
                 code                   : it?.code,
                 refStaffTitle          : it.refStaffTitle ? [id: it.refStaffTitle.id, name: it.refStaffTitle.name] : null,
                 sysrefStaffContractType: it.sysrefStaffContractType ? [id: it.sysrefStaffContractType.id, name: it.sysrefStaffContractType.name] : null,
-                sysrefDrivingType      : it.sysrefDrivingType ? [id: it.sysrefDrivingType.id, name: it.sysrefDrivingType.name] : null
+                sysrefDrivingType      : it.sysrefDrivingType ? [id: it.sysrefDrivingType.id, name: it.sysrefDrivingType.name] : null,
+                username               : it?.username
             ]
         }
 
@@ -138,7 +144,8 @@ class DriverService extends BaseService
             code                   : data?.code,
             refStaffTitle          : data.refStaffTitle ? [id: data.refStaffTitle.id, name: data.refStaffTitle.name] : null,
             sysrefStaffContractType: data.sysrefStaffContractType ? [id: data.sysrefStaffContractType.id, name: data.sysrefStaffContractType.name] : null,
-            sysrefDrivingType      : data.sysrefDrivingType ? [id: data.sysrefDrivingType.id, name: data.sysrefDrivingType.name] : null
+            sysrefDrivingType      : data.sysrefDrivingType ? [id: data.sysrefDrivingType.id, name: data.sysrefDrivingType.name] : null,
+            username               : data?.username
         ]
     }
 

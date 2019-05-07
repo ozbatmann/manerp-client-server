@@ -18,5 +18,7 @@ export default {
     drivingLicenseNumber: null,
     sysrefDrivingType: null,
     active: true,
-    sysrefDriverState: null
+    sysrefDriverState: null,
+    isUser: false,
+    username: null
 }

@@ -1,14 +1,21 @@
 package tr.com.manerp.business.main.resource
 
 import grails.gorm.transactions.Transactional
+import grails.util.Holders
+import manerp.auth.util.RestUtil
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
+import org.apache.commons.lang.RandomStringUtils
+import org.grails.web.json.JSONObject
 import tr.com.manerp.base.service.BaseService
+
 import java.text.SimpleDateFormat
 
 @Transactional
 class StaffService extends BaseService
 {
+
+    def informationRestService
 
     ManePaginatedResult getStaffList(ManePaginationProperties properties)
     {
@@ -47,9 +54,132 @@ class StaffService extends BaseService
         staff.save(flush: true, failOnError: true)
     }
 
+    def saveWithUser(Staff staff, String username)
+    {
+        staff = save(staff)
+
+        try {
+
+            if ( username ) {
+                String staffId = staff.id
+                String password = generateRandomPassword()
+                println "staffId: " + staffId
+                println "password: " + password
+
+                String authUrl = Holders.config.manerp.auth.url + "/api/v1/user/"
+                JSONObject json = new JSONObject()
+
+                json.username = username
+
+                json.person = [
+                    "name"   : staff.fullName,
+                    "surname": staff.lastName,
+                    "tckn"   : staff.tcIdNumber,
+                    "email"  : staff.email
+                ] as JSONObject
+
+                json.password = password
+                json.staffId = staffId
+
+                println "authUrl: " + authUrl
+                println "json: " + json
+                JSONObject responseJson = RestUtil.callRestService(authUrl, json)
+                println "response: " + responseJson
+
+                if ( responseJson.status == 201 ) {
+                    staff.userId = responseJson.data
+                    save(staff)
+                    sendUserCreatedMail(staff, password)
+                } else {
+                    throw new Exception("Personel için kullanıcı oluşturulamadı.")
+                }
+            }
+
+        } catch (Exception ex) {
+            delete(staff)
+            throw new Exception("Personel için kullanıcı oluşturulamadı.")
+        }
+
+        staff
+    }
+
+    def sendUserCreatedMail(Staff staff, String password)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy HH:mm')
+        def body = "Tarafınıza ${sdf.format(new Date())} tarihinde MANERP sisteminde kullanıcı oluşturulmuştur.\nAşağıdaki bilgilerle sisteme giriş yapabilirsiniz:\n\nKullanıcı Adı: ${staff.username}\nParola: ${password}"
+        Map paramsData = ['user': staff.fullName, 'body': body, 'signature': 'MANERP Yazılım']
+
+        informationRestService.sendMail('GENERAL_INFO',
+            "Kullanıcı Oluşturma Bilgilendirmesi",
+            paramsData,
+            [staff.email] as List,
+            ["beratpostalci@gmail.com"] as List,
+            ["bpostalci@gmail.com"] as List,
+            1,
+            2
+        )
+    }
+
+    private String generateRandomPassword()
+    {
+        int length = Holders.config.manerp.randomCode.length
+        String charset = Holders.config.manerp.password.charset
+
+        String randomCode = RandomStringUtils.random(length, charset).toString()
+
+        randomCode
+    }
+
     def delete(Staff staff)
     {
-        staff.delete(flush: true, failOnError: true)
+        if ( staff.userId ) {
+            deleteStaffWithUserId(staff)
+        } else {
+            staff.delete(flush: true, failOnError: true)
+        }
+    }
+
+    def deleteStaffWithUserId(Staff staff)
+    {
+        String authUrl = Holders.config.manerp.auth.url + "/api/v1/rest/deleteUser"
+        JSONObject json = new JSONObject()
+
+        try {
+
+            json.id = staff.userId
+
+            println "authUrl: " + authUrl
+            println "json: " + json
+            JSONObject responseJson = RestUtil.callRestService(authUrl, json)
+            println "response: " + responseJson
+
+            if ( responseJson.status == 204 ) {
+                sendUserDeletedMail(staff)
+                staff.delete(flush: true, failOnError: true)
+            } else {
+                throw new Exception("Personel şu anda silinememektedir.")
+            }
+
+        } catch (Exception ex) {
+            throw new Exception("Personel şu anda silinememektedir.")
+        }
+    }
+
+    def sendUserDeletedMail(Staff staff)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy HH:mm')
+        def body = "${sdf.format(new Date())} tarihi itibari ile MANERP sisteminde bulunan kullanıcı hesabınız silinmiştir."
+        Map paramsData = ['user': staff.fullName, 'body': body, 'signature': 'MANERP Yazılım']
+
+        informationRestService.sendMail('GENERAL_INFO',
+            "Kullanıcı Silme Bilgilendirmesi",
+            paramsData,
+            [staff.email] as List,
+            ["beratpostalci@gmail.com"] as List,
+            ["bpostalci@gmail.com"] as List,
+            1,
+            2
+        )
     }
 
     List formatResultForList(List data)
@@ -78,7 +208,8 @@ class StaffService extends BaseService
                 code                   : it?.code,
                 refStaffTitle          : it.refStaffTitle ? [id: it.refStaffTitle.id, name: it.refStaffTitle.name] : null,
                 sysrefStaffContractType: it.sysrefStaffContractType ? [id: it.sysrefStaffContractType.id, name: it.sysrefStaffContractType.name] : null,
-                sysrefDrivingType      : it.sysrefDrivingType ? [id: it.sysrefDrivingType.id, name: it.sysrefDrivingType.name] : null
+                sysrefDrivingType      : it.sysrefDrivingType ? [id: it.sysrefDrivingType.id, name: it.sysrefDrivingType.name] : null,
+                username               : it?.username
             ]
         }
 
@@ -111,7 +242,8 @@ class StaffService extends BaseService
             code                   : data?.code,
             refStaffTitle          : data.refStaffTitle ? [id: data.refStaffTitle.id, name: data.refStaffTitle.name] : null,
             sysrefStaffContractType: data.sysrefStaffContractType ? [id: data.sysrefStaffContractType.id, name: data.sysrefStaffContractType.name] : null,
-            sysrefDrivingType      : data.sysrefDrivingType ? [id: data.sysrefDrivingType.id, name: data.sysrefDrivingType.name] : null
+            sysrefDrivingType      : data.sysrefDrivingType ? [id: data.sysrefDrivingType.id, name: data.sysrefDrivingType.name] : null,
+            username               : data?.username
         ]
     }
 }

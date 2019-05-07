@@ -18,5 +18,6 @@ export default {
     drivingLicenseNumber: 'drivingLicenseNumber',
     sysrefDrivingType: 'sysrefDrivingType',
     active: 'active',
-    sysrefDriverState: 'sysrefDriverState'
+    sysrefDriverState: 'sysrefDriverState',
+    username: 'username'
 }
