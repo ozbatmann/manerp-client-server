@@ -1,13 +1,14 @@
 package tr.com.manerp.business.main.resource
 
 import grails.gorm.transactions.Transactional
+import grails.plugins.rest.client.RestResponse
 import grails.util.Holders
-import manerp.auth.util.RestUtil
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
 import org.apache.commons.lang.RandomStringUtils
 import org.grails.web.json.JSONObject
 import tr.com.manerp.base.service.BaseService
+import tr.com.manerp.information.util.RestUtil
 
 import java.text.SimpleDateFormat
 
@@ -83,7 +84,8 @@ class StaffService extends BaseService
 
                 println "authUrl: " + authUrl
                 println "json: " + json
-                JSONObject responseJson = RestUtil.callRestService(authUrl, json)
+                RestResponse restResponse = RestUtil.callRestService(authUrl, json)
+                JSONObject responseJson = restResponse.json as JSONObject
                 println "response: " + responseJson
 
                 if ( responseJson.status == 201 ) {
@@ -150,7 +152,8 @@ class StaffService extends BaseService
 
             println "authUrl: " + authUrl
             println "json: " + json
-            JSONObject responseJson = RestUtil.callRestService(authUrl, json)
+            RestResponse restResponse = RestUtil.callRestService(authUrl, json)
+            JSONObject responseJson = restResponse.json as JSONObject
             println "response: " + responseJson
 
             if ( responseJson.status == 204 ) {
