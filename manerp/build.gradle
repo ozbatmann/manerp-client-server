@@ -68,7 +68,7 @@ dependencies {
     // manerp auth plugin
     compile "tr.com.manerp:manerp-auth-plugin:0.6.1"
     // manerp information plugin
-    compile "tr.com.manerp:manerp-information-plugin:0.1.3"
+    compile "tr.com.manerp:manerp-information-plugin:0.1.4"
 
     // encryption plugin
     compile group: 'at.favre.lib', name: 'bcrypt', version: '0.7.0'

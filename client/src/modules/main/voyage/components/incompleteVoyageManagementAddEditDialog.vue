@@ -569,7 +569,7 @@
             },
             getSysrefTransportationTypes() {
                 this.$http.get("api/v1/sysrefTransportationType?fields=id,name").then((result) => {
-                    this.sysrefTransportationTypes = result.data.data.items
+                    this.sysrefTransportationTypes = result.data.data.items;
                     console.log("sysrefTransportationTypes:", this.sysrefTransportationTypes);
                 }).catch((error) => {
                     console.error(error);
@@ -585,7 +585,7 @@
                 })
             },
             getOrders() {
-                this.$http.get("api/v1/order?fields=id,fullName&hasVoyage=f").then((result) => {
+                this.$http.get("api/v1/order?fields=id,fullName&hasVoyage=f&orderStateCode=WAIT").then((result) => {
                     this.orders = result.data.data.items
                 }).catch((error) => {
                     console.error(error);
