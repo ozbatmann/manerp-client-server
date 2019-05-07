@@ -198,4 +198,27 @@ class DriverService extends BaseService
         )
     }
 
+    def getDriverNotifications(Staff driver)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy HH:mm')
+
+        Voyage voyage = Voyage.createCriteria().get {
+            sysrefDeliveryStatus {
+                or {
+                    eq('code', 'YUK')
+                    eq('code', 'REZ')
+                }
+            }
+            eq('driver', driver)
+        } as Voyage
+
+        if ( !voyage ) {
+            throw new Exception("${driver.fullName} için sistemde tanımlı sevkiyat bulunmamaktadır")
+        }
+
+        Boolean status = voyage.sysrefDeliveryStatus.code != 'IPT'
+
+        return [startDate: sdf.format(voyage.startDate), status: status]
+    }
+
 }
