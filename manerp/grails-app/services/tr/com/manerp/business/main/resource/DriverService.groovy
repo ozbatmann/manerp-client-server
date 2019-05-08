@@ -4,6 +4,7 @@ import grails.gorm.transactions.Transactional
 import grails.util.Holders
 import manerp.response.plugin.pagination.ManePaginatedResult
 import manerp.response.plugin.pagination.ManePaginationProperties
+import org.grails.web.json.JSONObject
 import tr.com.manerp.base.service.BaseService
 import tr.com.manerp.business.main.order.Order
 import tr.com.manerp.business.main.voyage.Voyage
@@ -75,6 +76,12 @@ class DriverService extends BaseService
             staffService.deleteStaffWithUserId(driver)
         } else {
             driver.delete(flush: true, failOnError: true)
+        }
+
+        DriverNotification.createCriteria().list {
+            eq('driver', driver)
+        }.each {
+            it.delete(flush: true, failOnError: true)
         }
     }
 
@@ -194,6 +201,12 @@ class DriverService extends BaseService
         def body = "Tarafınıza ${sdf.format(voyage.startDate)} tarihinde ${order.fullName} için sevkiyat atanmıştır."
         Map paramsData = ['user': voyage.driver.fullName, 'body': body, 'signature': 'MANERP Yazılım']
 
+        DriverNotification notification = new DriverNotification()
+        notification.driver = voyage.driver
+        notification.startDate = sdf.format(new Date())
+        notification.status = true
+        notification.save(flush: true, failOnError: true)
+
         informationRestService.sendMail('GENERAL_INFO',
             "Sevkiyat Bilgilendirmesi",
             paramsData,
@@ -212,6 +225,12 @@ class DriverService extends BaseService
         def body = "Tarafınıza ${sdf.format(voyage.startDate)} tarihinde ${order.fullName} için atanan sevkiyat iptal edilmiştir."
         Map paramsData = ['user': voyage.driver.fullName, 'body': body, 'signature': 'MANERP Yazılım']
 
+        DriverNotification notification = new DriverNotification()
+        notification.driver = voyage.driver
+        notification.startDate = sdf.format(new Date())
+        notification.status = false
+        notification.save(flush: true, failOnError: true)
+
         informationRestService.sendMail('GENERAL_INFO',
             "Sevkiyat Bilgilendirmesi",
             paramsData,
@@ -225,25 +244,40 @@ class DriverService extends BaseService
 
     def getDriverNotifications(Staff driver)
     {
-        SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy HH:mm')
 
-        Voyage voyage = Voyage.createCriteria().get {
-            sysrefDeliveryStatus {
-                or {
-                    eq('code', 'YUK')
-                    eq('code', 'REZ')
-                }
-            }
+        def data = DriverNotification.createCriteria().list {
             eq('driver', driver)
-        } as Voyage
-
-        if ( !voyage ) {
-            throw new Exception("${driver.fullName} için sistemde tanımlı sevkiyat bulunmamaktadır")
+        }.collect {
+            [
+                startDate: it.startDate,
+                status   : it.status
+            ]
         }
 
-        Boolean status = voyage.sysrefDeliveryStatus.code != 'IPT'
+        JSONObject json = new JSONObject()
+        json.notifications = data
 
-        return [startDate: sdf.format(voyage.startDate), status: status]
+        return json
+
+//        SimpleDateFormat sdf = new SimpleDateFormat('dd/MM/yyyy HH:mm')
+//
+//        Voyage voyage = Voyage.createCriteria().get {
+//            sysrefDeliveryStatus {
+//                or {
+//                    eq('code', 'YUK')
+//                    eq('code', 'REZ')
+//                }
+//            }
+//            eq('driver', driver)
+//        } as Voyage
+//
+//        if ( !voyage ) {
+//            throw new Exception("${driver.fullName} için sistemde tanımlı sevkiyat bulunmamaktadır")
+//        }
+//
+//        Boolean status = voyage.sysrefDeliveryStatus.code != 'IPT'
+//
+//        return [startDate: sdf.format(voyage.startDate), status: status]
     }
 
 }

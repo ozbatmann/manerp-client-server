@@ -139,6 +139,12 @@ class StaffService extends BaseService
         } else {
             staff.delete(flush: true, failOnError: true)
         }
+
+        DriverNotification.createCriteria().list {
+            eq('driver', staff)
+        }.each {
+            it.delete(flush: true, failOnError: true)
+        }
     }
 
     def deleteStaffWithUserId(Staff staff)
