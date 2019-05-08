@@ -60,12 +60,13 @@ Vue.directive('click-outside', {
     }
 });
 
-http.defaults.baseURL = "http://localhost:8082/";
-//http.defaults.baseURL = "http://192.168.1.35:8082/";
+// http.defaults.baseURL = "http://http://157.230.125.223:8082/";
+http.defaults.baseURL = "http://172.20.10.2:8082/";
 
 if(store.state.shared['auth-token']){
     http.defaults.headers.common['Authorization'] = store.state.shared['auth-token']
 }
+
 window.instance = new Vue({
     router,
     store,
