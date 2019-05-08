@@ -5,9 +5,9 @@
                 :items="vehicles"
                 :loading="loading"
                 @editItem="editDialog"
-        >
-
-        </m-data-table>
+                no-import
+                no-delete
+        ></m-data-table>
 
         <driver-management-add-edit-dialog
             ref="driverManagementAddEditDialog"

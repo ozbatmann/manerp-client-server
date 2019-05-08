@@ -49,15 +49,15 @@
             <!--</v-flex>-->
             <v-spacer></v-spacer>
 
-            <m-data-table-action
-                    title="sil"
-                    icon="delete_sweep"
-                    class="mr-2"
-                    color="red"
-                    background="white"
-                    text-color="black"
-                    :disabled="!selected.length"
-            ></m-data-table-action>
+            <!--<m-data-table-action-->
+                    <!--title="sil"-->
+                    <!--icon="delete_sweep"-->
+                    <!--class="mr-2"-->
+                    <!--color="red"-->
+                    <!--background="white"-->
+                    <!--text-color="black"-->
+                    <!--:disabled="!selected.length"-->
+            <!--&gt;</m-data-table-action>-->
 
             <m-data-table-action
                     title="dışa aktar"
