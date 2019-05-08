@@ -11,11 +11,11 @@ const meta = (title) => {
         tabs: [
             {
                 text: 'boştaki şoförler',
-                to: { name: routes.drivers }
+                to: { name: routes.idle }
             },
             {
                 text: 'sevkiyattaki şoförler',
-                to: { name: routes.orders }
+                to: { name: routes.onVoyage }
             },
         ]
     }

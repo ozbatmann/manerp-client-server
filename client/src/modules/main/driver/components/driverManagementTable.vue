@@ -135,7 +135,8 @@
 
                 let fields = 'fields=id,code,firstName,lastName,drivingLicenseNumber,sysrefStaffContractType=name,tcIdNumber,gsmNo';
                 let pagination = 'limit=10&offset=0';
-                this.$http.get('api/v1/driver?' + fields + "&" + pagination).then((result) => {
+                let stateCode = 'driverStateCode=IDLE';
+                this.$http.get('api/v1/driver?' + fields + "&" + pagination + '&' + stateCode).then((result) => {
                     self.drivers = result.data.data.items;
                 }).catch((error) => {
                     console.log(error);

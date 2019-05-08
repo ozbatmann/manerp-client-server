@@ -10,6 +10,8 @@ import tr.com.manerp.business.ref.RefStaffTitle
 import tr.com.manerp.business.sysref.SysrefDriverState
 import tr.com.manerp.commands.controller.common.PaginationCommand
 import tr.com.manerp.commands.controller.common.ShowCommand
+import tr.com.manerp.commands.controller.resource.StaffSaveCommand
+import tr.com.manerp.commands.controller.resource.StaffUpdateCommand
 
 class DriverController extends BaseController
 {
@@ -18,6 +20,7 @@ class DriverController extends BaseController
     static allowedMethods = [index: "GET", show: "GET", save: "POST", update: "PUT", delete: "DELETE"]
 
     def driverService
+    def staffService
 
     def index()
     {
@@ -73,18 +76,54 @@ class DriverController extends BaseController
         render maneResponse
     }
 
-    def save(Staff driver)
+//    def save(Staff driver)
+//    {
+//        ManeResponse maneResponse = new ManeResponse()
+//
+//        try {
+//
+//            driver.setRandomCode()
+//            driver.active = true
+//            driver.refStaffTitle = RefStaffTitle.findByCode('DRV')
+//            driverService.saveDriverWithState(driver, SysrefDriverState.findByCode('IDLE'))
+//            maneResponse.statusCode = StatusCode.CREATED
+//            maneResponse.data = driver.id
+//            maneResponse.message = 'Şoför başarıyla kaydedildi.'
+//
+//        } catch (ValidationException ex) {
+//
+//            maneResponse.statusCode = StatusCode.BAD_REQUEST
+//            maneResponse.message = parseValidationErrors(ex.errors)
+//            ex.printStackTrace()
+//
+//        } catch (Exception ex) {
+//
+//            maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+//            maneResponse.message = ex.getMessage()
+//            ex.printStackTrace()
+//        }
+//
+//        render maneResponse
+//    }
+
+    def save(StaffSaveCommand cmd)
     {
         ManeResponse maneResponse = new ManeResponse()
+        Staff staff = new Staff()
 
         try {
+            if ( !cmd.validate() ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = parseValidationErrors(cmd.errors)
+                throw new Exception(maneResponse.message)
+            }
 
-            driver.setRandomCode()
-            driver.active = true
-            driver.refStaffTitle = RefStaffTitle.findByCode('DRV')
-            driverService.saveDriverWithState(driver, SysrefDriverState.findByCode('IDLE'))
+            cmd >> staff
+            staff.refStaffTitle = RefStaffTitle.findByCode('DRV')
+            staff = staffService.saveWithUser(staff, cmd.username)
+            driverService.saveDriverWithState(staff, SysrefDriverState.findByCode('IDLE'))
             maneResponse.statusCode = StatusCode.CREATED
-            maneResponse.data = driver.id
+            maneResponse.data = staff.id
             maneResponse.message = 'Şoför başarıyla kaydedildi.'
 
         } catch (ValidationException ex) {
@@ -103,13 +142,51 @@ class DriverController extends BaseController
         render maneResponse
     }
 
-    def update(Staff driver)
+//    def update(Staff driver)
+//    {
+//        ManeResponse maneResponse = new ManeResponse()
+//
+//        try {
+//
+//            driverService.save(driver)
+//            maneResponse.statusCode = StatusCode.NO_CONTENT
+//            maneResponse.message = 'Şoför başarıyla güncellendi.'
+//
+//        } catch (ValidationException ex) {
+//
+//            maneResponse.statusCode = StatusCode.BAD_REQUEST
+//            maneResponse.message = parseValidationErrors(ex.errors)
+//            ex.printStackTrace()
+//
+//        } catch (Exception ex) {
+//
+//            if ( !driver ) {
+//                maneResponse.statusCode = StatusCode.BAD_REQUEST
+//                maneResponse.message = 'Güncellenmek istenen şoför sistemde bulunmamaktadır.'
+//            }
+//
+//            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+//            maneResponse.message = maneResponse.message ?: ex.getMessage()
+//            ex.printStackTrace()
+//        }
+//
+//        render maneResponse
+//    }
+
+    def update(StaffUpdateCommand cmd)
     {
         ManeResponse maneResponse = new ManeResponse()
+        Staff staff = Staff.get(cmd.id)
 
         try {
+            if ( !cmd.validate() ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = parseValidationErrors(cmd.errors)
+                throw new Exception(maneResponse.message)
+            }
 
-            driverService.save(driver)
+            cmd >> staff
+            staffService.saveWithUser(staff, cmd.username)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Şoför başarıyla güncellendi.'
 
@@ -121,13 +198,8 @@ class DriverController extends BaseController
 
         } catch (Exception ex) {
 
-            if ( !driver ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                maneResponse.message = 'Güncellenmek istenen şoför sistemde bulunmamaktadır.'
-            }
-
-            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = maneResponse.message ?: ex.getMessage()
+            maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 

@@ -6,9 +6,10 @@ import manerp.response.plugin.pagination.ManePaginationProperties
 import manerp.response.plugin.response.ManeResponse
 import manerp.response.plugin.response.StatusCode
 import tr.com.manerp.base.controller.BaseController
-import tr.com.manerp.business.sysref.SysrefDriverState
 import tr.com.manerp.commands.controller.common.PaginationCommand
 import tr.com.manerp.commands.controller.common.ShowCommand
+import tr.com.manerp.commands.controller.resource.StaffSaveCommand
+import tr.com.manerp.commands.controller.resource.StaffUpdateCommand
 
 class StaffController extends BaseController
 {
@@ -75,16 +76,50 @@ class StaffController extends BaseController
     }
 
     // TODO: write staff command !important
-    def save(Staff staff)
+//    def save(Staff staff)
+//    {
+//        ManeResponse maneResponse = new ManeResponse()
+//
+//        try {
+//
+//            staff.setRandomCode()
+//            staff.active = true
+//            staff.sysrefDriverState = SysrefDriverState.findByCode('IDLE')
+//            staffService.save(staff)
+//            maneResponse.statusCode = StatusCode.CREATED
+//            maneResponse.data = staff.id
+//            maneResponse.message = 'Personel başarıyla kaydedildi.'
+//
+//        } catch (ValidationException ex) {
+//
+//            maneResponse.statusCode = StatusCode.BAD_REQUEST
+//            maneResponse.message = parseValidationErrors(ex.errors)
+//            ex.printStackTrace()
+//
+//        } catch (Exception ex) {
+//
+//            maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+//            maneResponse.message = ex.getMessage()
+//            ex.printStackTrace()
+//        }
+//
+//        render maneResponse
+//    }
+
+    def save(StaffSaveCommand cmd)
     {
         ManeResponse maneResponse = new ManeResponse()
+        Staff staff = new Staff()
 
         try {
+            if ( !cmd.validate() ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = parseValidationErrors(cmd.errors)
+                throw new Exception(maneResponse.message)
+            }
 
-            staff.setRandomCode()
-            staff.active = true
-            staff.sysrefDriverState = SysrefDriverState.findByCode('IDLE')
-            staffService.save(staff)
+            cmd >> staff
+            staff = staffService.saveWithUser(staff, cmd.username)
             maneResponse.statusCode = StatusCode.CREATED
             maneResponse.data = staff.id
             maneResponse.message = 'Personel başarıyla kaydedildi.'
@@ -105,13 +140,52 @@ class StaffController extends BaseController
         render maneResponse
     }
 
-    def update(Staff staff)
+//    def update(Staff staff)
+//    {
+//        ManeResponse maneResponse = new ManeResponse()
+//
+//        try {
+//
+//            staffService.save(staff)
+//            maneResponse.statusCode = StatusCode.NO_CONTENT
+//            maneResponse.message = 'Personel başarıyla güncellendi.'
+//
+//        } catch (ValidationException ex) {
+//
+//            maneResponse.statusCode = StatusCode.BAD_REQUEST
+//            maneResponse.message = parseValidationErrors(ex.errors)
+//            ex.printStackTrace()
+//
+//        } catch (Exception ex) {
+//
+//            if ( !staff ) {
+//                maneResponse.statusCode = StatusCode.BAD_REQUEST
+//                maneResponse.message = 'Güncellenmek istenen personel sistemde bulunmamaktadır.'
+//            }
+//
+//            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+//            maneResponse.message = maneResponse.message ?: ex.getMessage()
+//            ex.printStackTrace()
+//        }
+//
+//        render maneResponse
+//    }
+
+
+    def update(StaffUpdateCommand cmd)
     {
         ManeResponse maneResponse = new ManeResponse()
+        Staff staff = Staff.get(cmd.id)
 
         try {
+            if ( !cmd.validate() ) {
+                maneResponse.statusCode = StatusCode.BAD_REQUEST
+                maneResponse.message = parseValidationErrors(cmd.errors)
+                throw new Exception(maneResponse.message)
+            }
 
-            staffService.save(staff)
+            cmd >> staff
+            staffService.saveWithUser(staff, cmd.username)
             maneResponse.statusCode = StatusCode.NO_CONTENT
             maneResponse.message = 'Personel başarıyla güncellendi.'
 
@@ -123,18 +197,14 @@ class StaffController extends BaseController
 
         } catch (Exception ex) {
 
-            if ( !staff ) {
-                maneResponse.statusCode = StatusCode.BAD_REQUEST
-                maneResponse.message = 'Güncellenmek istenen personel sistemde bulunmamaktadır.'
-            }
-
-            if ( maneResponse.statusCode.code <= StatusCode.NO_CONTENT.code ) maneResponse.statusCode = StatusCode.INTERNAL_ERROR
-            maneResponse.message = maneResponse.message ?: ex.getMessage()
+            maneResponse.statusCode = StatusCode.INTERNAL_ERROR
+            maneResponse.message = ex.getMessage()
             ex.printStackTrace()
         }
 
         render maneResponse
     }
+
 
     def delete(String id)
     {

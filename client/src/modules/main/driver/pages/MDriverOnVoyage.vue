@@ -5,87 +5,88 @@
                 :items="vehicles"
                 :loading="loading"
                 @editItem="addDialog"
-                @deleteItem="deleteItem"
         >
-            <!-- Data table header slot -->
-            <template v-slot:header>
 
-                <!-- Add customer button -->
-                <m-data-table-action
-                        title="araç ekle"
-                        @click="addDialog"
-                ></m-data-table-action>
-            </template>
         </m-data-table>
 
-        <m-vehicle-add-edit-form
-                ref="addEditDialog"
-                @save="addNewItem"
-                @edit="editItem"
-                onVoyageVehicle
-        ></m-vehicle-add-edit-form>
+        <driver-management-add-edit-dialog
+            ref="driverManagementAddEditDialog"
+            onVoyageDriver
+        ></driver-management-add-edit-dialog>
     </div>
 </template>
 
 <script>
-    import MDataTable from '@/modules/main/shared/components/data/components/MDataTable'
+    import MDataTable from '../../shared/components/data/components/MDataTable'
     import MDataTableAction from "@/modules/main/shared/components/data/components/MDataTableAction"
-    import MDataTableAddNewForm from '@/modules/main/shared/components/data/components/MDataTableAddNewForm'
-    // import MVehicleAddEditForm from "../components/MVehicleAddEditForm";
+    import driverManagementAddEditDialog
+        from "@/modules/main/driver/components/driverManagementAddEditDialog"
 
-    const vehicleModel = require('@/modules/main/vehicle/models/vehicle-model').default;
+    const driverModel = require('@/modules/main/driver/models/driver-model').default;
 
     export default {
         name: "MDriveOnVoyage",
         components: {
-            MVehicleAddEditForm,
             MDataTable,
             MDataTableAction,
-            MDataTableAddNewForm
+            driverManagementAddEditDialog
         },
-
         data() {
             return {
-                loading: true,
-
+                // Data-table headers
                 headers: [
                     {
-                        text: 'ıd',
+                        text: 'ID',
                         sortable: true,
-                        value: vehicleModel.id,
+                        value: driverModel.code,
                         toggleable: false,
                         show: true,
                         search: {chip: false, value: null}
                     },
                     {
-                        text: 'plaka',
+                        text: 'ad',
                         sortable: true,
-                        value: vehicleModel.plateNumber,
+                        value: driverModel.firstName,
                         toggleable: false,
                         show: true,
                         search: {chip: false, value: null}
                     },
                     {
-                        text: 'filo kart numarası',
+                        text: 'soyad',
                         sortable: true,
-                        value: vehicleModel.fleetCardNumber,
+                        value: driverModel.lastName,
                         toggleable: false,
                         show: true,
                         search: {chip: false, value: null}
                     },
                     {
-                        text: 'tipi',
+                        text: 'ehliyet numarası',
                         sortable: true,
-                        value: vehicleModel.sysrefVehicleType,
-                        toggleable: false,
+                        value: driverModel.drivingLicenseNumber,
+                        toggleable: true,
                         show: true,
                         search: {chip: false, value: null}
                     },
                     {
-                        text: 'mülk tipi',
+                        text: 'sözleşme tipi',
                         sortable: true,
-                        value: vehicleModel.sysrefVehicleOwner,
-                        toggleable: false,
+                        value: driverModel.sysrefStaffContractType,
+                        toggleable: true,
+                        show: true
+                    },
+                    {
+                        text: 't.c. kimlik numarası',
+                        sortable: true,
+                        value: driverModel.tcIdNumber,
+                        toggleable: true,
+                        show: true,
+                        search: {chip: false, value: null}
+                    },
+                    {
+                        text: 'telefon',
+                        sortable: true,
+                        value: driverModel.gsmNo,
+                        toggleable: true,
                         show: true,
                         search: {chip: false, value: null}
                     }
@@ -98,67 +99,37 @@
                 // Data table row click route
                 // to: {
                 //     name: require('@/modules/main/vehicle/route/index').routes.information
-                // }
+                // },
             }
         },
         methods: {
-
-            // Activates add new item dialog
-            addDialog(data) {
-                console.log('vehicle', data);
-                this.$refs.addEditDialog.open(data)
+            editDialog(data) {
+                if (data !== undefined && data !== null) {
+                    this.$http.get("api/v1/driver/" + data.id).then((result) => {
+                        let items = result.data.data;
+                        this.$refs.driverManagementAddEditDialog.open(items)
+                    }).catch((error) => {
+                        console.error(error);
+                    })
+                }
             },
-
-            // Adds a new driver
-            // to the system
-            getAllVehicles() {
+            getAllDrivers() {
                 let self = this;
                 this.loading = true;
 
-                this.$http.get('api/v1/vehicle?vehicleStateCode=ONVOYAGE').then((result) => {
-                    self.vehicles = result.data.data.items
+                let fields = 'fields=id,code,firstName,lastName,drivingLicenseNumber,sysrefStaffContractType=name,tcIdNumber,gsmNo';
+                let pagination = 'limit=10&offset=0';
+                let stateCode = 'driverStateCode=ONVOYAGE';
+                this.$http.get('api/v1/driver?' + fields + "&" + pagination + '&' + stateCode).then((result) => {
+                    self.drivers = result.data.data.items;
                 }).catch((error) => {
                     console.log(error);
-                }).finally((result) => {
-                    self.loading = false;
-                })
+                }).finally(() => self.loading = false)
             },
-            addNewItem(item) {
-                let self = this;
-                this.newItem = item;
-                this.loading = true;
-
-                this.$http.post('api/v1/vehicle', this.newItem).then((result) => {
-                    self.getAllVehicles();
-                }).catch((error) => {
-                    console.log(error);
-                }).finally((result) => {
-                    self.loading = false;
-                })
-            },
-
-            editItem(item) {
-                let self = this;
-
-                this.$http.put('api/v1/vehicle/', item)
-                    .then(result => {
-                        self.getAllVehicles();
-                    }).catch(error => {
-                    console.log(error)
-                })
-            },
-
-            deleteItem(item) {
-                this.$http.delete(`api/v1/vehicle/${item.id}`).then((result) => {
-                    this.getAllVehicles()
-                }).catch((error) => {
-                    console.error(error);
-                })
-            }
         },
 
         mounted() {
-            this.getAllVehicles();
+            this.getAllDrivers();
         }
     }
 </script>
