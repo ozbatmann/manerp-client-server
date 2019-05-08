@@ -18,6 +18,13 @@ class UrlMappings
         }
 
         // TODO: find better solution. conflict with show
+        "/api/$namespace/$controller/custom/validateEmail"() {
+            action = [POST: "validateEmail"]
+        }
+        "/api/$namespace/$controller/custom/reset"() {
+            action = [POST: "reset"]
+        }
+
         "/api/$namespace/$controller/getAllVendorsByOrderId/$id"() {
             action = [GET: "getAllVendorsByOrderId"]
         }
@@ -33,6 +40,7 @@ class UrlMappings
         "/api/$namespace/$controller/custom/getDriverNotifications/$id"() {
             action = [GET: "getDriverNotifications"]
         }
+
         // TODO: find better solution. conflict with show
 
         "/api/$namespace/$controller/$id"() {
