@@ -11,6 +11,7 @@
             :nudge-left="10"
             :nudge-width="240"
             :close-on-content-click="false"
+            :disabled="isDisabled"
             transition="slide-x-reverse-transition"
             content-class="v-shadow-lg filterMenu"
     >
@@ -250,6 +251,7 @@
                             block
                             class="ma-0"
                             color="primary-green"
+                            :disabled="isDisabled"
                             @click.stop="filter(options)"
                     >
                         TAMAM
@@ -287,6 +289,11 @@
                 type: Array,
             },
 
+            disabled: {
+                type: Boolean,
+                default: false
+            },
+
             // A Boolean indicating filter-menu states
             // v-model prop
             value: {
@@ -311,6 +318,8 @@
                 // A Boolean indicating whether
                 // FilterMenu is active or not
                 isActive: this.value,
+
+                isDisabled: this.disabled,
 
                 // Filter-menu options object
                 // This object will communicate with
@@ -493,6 +502,10 @@
             value () {
                 this.isActive = this.value
             },
+
+            disabled (newVal) {
+                this.isDisabled = newVal;
+            }
         }
     }
 </script>

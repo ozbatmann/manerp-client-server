@@ -30,7 +30,6 @@
             dealer
             @save="addNewItem"
             @edit="editItem"
-            @displayMessage="displaySnackMessage"
         ></customer-management-add-edit-dialog>
     </div>
 </template>

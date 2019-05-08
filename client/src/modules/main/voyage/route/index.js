@@ -17,7 +17,8 @@ const meta = (title) => {
                 text: 'tamamlanmış sevkiyatlar',
                 to: {name: routes.completed}
             }
-        ]
+        ],
+        permission: 'voyage:show'
     }
 };
 

@@ -17,7 +17,8 @@ const meta = (title) => {
                 text: 'sevkiyatta olan araçlar',
                 to: {name: routes.onVoyage}
             },
-        ]
+        ],
+        permission: 'vehicle.show'
     }
 };
 

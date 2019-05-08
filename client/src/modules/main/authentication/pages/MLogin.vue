@@ -77,11 +77,11 @@
 
                 // An Object that holds
                 // username information of the user
-                username: 'bumerangadmin',
+                username: 'admin',
 
                 // An Object that holds
                 // password information of the user
-                password: '123456',
+                password: '.db9219f',
 
                 resetPassword: {
                     name: require('@/modules/main/authentication/route/index').routes.sendResetMail,

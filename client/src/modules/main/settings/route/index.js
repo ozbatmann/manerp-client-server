@@ -17,13 +17,14 @@ const meta = (title) => {
             },
             {
                 text: 'kullanıcılar ve izinler',
-                to: { name: routes.permission }
+                to: { name: routes.permission },
+                permission: 'permissions.show'
             },
             // {
             //     text: 'faturalandırma',
             //     to: { name: routes.billing }
             // }
-        ]
+        ],
     }
 };
 

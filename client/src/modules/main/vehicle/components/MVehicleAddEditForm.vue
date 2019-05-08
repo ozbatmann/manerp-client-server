@@ -102,7 +102,6 @@
                     <!-- Plate -->
                     <v-combobox
                         :disabled="onVoyageVehicle"
-                        cache-items
                         hide-no-data
                         v-validate="'required'"
                         :error-messages="errors.collect('workingArea')"
@@ -127,7 +126,6 @@
                     <!-- Plate -->
                     <v-combobox
                         :disabled="onVoyageVehicle"
-                        cache-items
                         v-validate="'required'"
                         :error-messages="errors.collect('type')"
                         v-model="data.sysrefVehicleType"
@@ -151,7 +149,6 @@
                     <!-- Plate -->
                     <v-combobox
                         :disabled="onVoyageVehicle"
-                        cache-items
                         v-validate="'required'"
                         v-on:change="ownerChanged"
                         :error-messages="errors.collect('ownerType')"
@@ -178,7 +175,6 @@
                     <!-- TODO burasi tedarikci firma olacak - show only if sysrefVehicleOwner is kiralik -->
                     <v-combobox
                         :disabled="onVoyageVehicle"
-                        cache-items
                         v-validate="'required'"
                         :error-messages="errors.collect('supplier')"
                         v-model="data.vehicleOwnerFullName"

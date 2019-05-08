@@ -539,7 +539,7 @@
 
                 this.$http.post('/api/v1/auth/getAllRolePermissionList', {roleId: roleId}).then((result) => {
                     console.log(result);
-                    this.permissions = result.data;
+                    this.permissions = result.data.data;
                 }).catch((error) => {
                     console.log(error);
                 }).finally(() => this.loading.permission = false)
@@ -553,9 +553,8 @@
                     .then((result) => {
 
                         console.log('Roles', result);
-                        let length = result.data.length;
-                        this.permissionRoles = result.data;
-                        let count = this.permissionRoles.splice(length - 1, 1).totalCount;
+                        let count = result.data.itemCount;
+                        this.permissionRoles = result.data.itemList;
 
                         if (this.permissionRoles.length && !this.selected)
                             this.$nextTick(() => {
@@ -573,7 +572,7 @@
                     {organizationId: this.user.organization.id, roleId: roleId})
                     .then((result) => {
                         console.log(result);
-                        this.users = result.data;
+                        this.users = result.data.itemList;
                     }).catch((error) => {
                     console.log(error);
                 }).finally(() => this.loading.user = false)

@@ -22,8 +22,9 @@ const meta = (title) => {
             {
                 text: 'dokümanlar',
                 to: { name: routes.documents }
-            }
-        ]
+            },
+        ],
+        permission: 'staff.show'
     }
 };
 

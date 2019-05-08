@@ -16,7 +16,8 @@ const meta = (title) => {
                 text: 'tamamlanmış siparişler',
                 to: { name: routes.completed }
             },
-        ]
+        ],
+        permission: 'order:show'
     }
 };
 

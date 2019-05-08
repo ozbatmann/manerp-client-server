@@ -379,7 +379,6 @@
                         this.getAllVendors();
                         this.$refs.leafletMap.closePopup();
                     }
-                    this.displayMessage(result);
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
@@ -393,7 +392,6 @@
                         this.getAllVendors();
                         this.$refs.leafletMap.closePopup();
                     }
-                    this.displayMessage(result);
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
@@ -406,7 +404,6 @@
                         this.getAllVendors();
                         this.$refs.leafletMap.closePopup();
                     }
-                    this.displayMessage(result);
                 }).catch((error) => {
                     console.error(error);
                 })
@@ -477,9 +474,6 @@
                 }).finally(() => {
                 })
             },
-            displayMessage(result) {
-                this.$emit('displayMessage', result);
-            }
         },
         mounted() {
             this.initLeafletMap();

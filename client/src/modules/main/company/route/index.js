@@ -20,7 +20,8 @@ const meta = (title) => {
                 text: 'Tedarikçi İş Yerleri',
                 to: {name: routes.supplier}
             }
-        ]
+        ],
+        permission: 'company:show'
     }
 };
 

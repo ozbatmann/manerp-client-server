@@ -17,7 +17,8 @@ const meta = (title) => {
                 text: 'sevkiyattaki şoförler',
                 to: { name: routes.onVoyage }
             },
-        ]
+        ],
+        permission: 'driver.show'
     }
 };
 

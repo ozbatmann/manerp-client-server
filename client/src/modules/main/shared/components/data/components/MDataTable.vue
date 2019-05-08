@@ -23,6 +23,7 @@
                     attach="#filterButton"
                     :headers="headers"
                     :filter="filterTable"
+                    :disabled="!this.items.length"
             ></m-data-table-filter-menu>
 
             <!-- Filter menu button -->

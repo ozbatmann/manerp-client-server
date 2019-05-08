@@ -19,7 +19,6 @@
                     :loading="loading"
                     :search-input.sync="search"
                     hide-no-data
-                    hide-selected
                     item-text="fullname"
                     item-value="id"
                     return-object
@@ -108,7 +107,7 @@
                     searchParam: newVal
                 }).then(res => {
                     console.log('Autocomplete result', res);
-                    this.items = res.data;
+                    this.items = res.data.itemList;
                 }).catch(err => {
                     this.items = [];
                     console.log('Error while getting user: ', err);
