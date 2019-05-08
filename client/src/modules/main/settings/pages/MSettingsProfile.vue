@@ -99,6 +99,7 @@
         components: {MSettingsProfileNotifications, MSettingsProfileInformation, MSettingsProfileAccount},
         data () {
             return {
+                user:null,
                 tabs: [
                     {
                         title: 'kişisel bilgiler',
@@ -113,6 +114,22 @@
                         to: { name: tabRoutes.notification }
                     }
                 ]
+            }
+        },
+        mounted(){
+            this.getUserDetails()
+        },
+        methods:{
+            getUserDetails(){
+                console.log(this.$store.state.shared["user"].staffId)
+                this.$http.get(`api/v1/driver/${this.$store.state.shared["user"].staffId}`,
+               ).then((result) => {
+                    this.user = result.data.data.data
+                    console.log(result);
+
+                }).catch((error) => {
+                    console.log(error);
+                }).finally(() => this.loading.role = false)
             }
         }
     }

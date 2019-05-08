@@ -19,7 +19,7 @@
                     :loading="loading"
                     :search-input.sync="search"
                     hide-no-data
-                    item-text="fullname"
+                    item-text="name"
                     item-value="id"
                     return-object
                     v-validate="'required'"

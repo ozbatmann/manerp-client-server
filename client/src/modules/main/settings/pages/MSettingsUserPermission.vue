@@ -179,7 +179,7 @@
                         </v-list-tile-avatar>
 
                         <v-list-tile-content>
-                            <v-list-tile-title class="black--text">{{user.name}} {{user.surname}}</v-list-tile-title>
+                            <v-list-tile-title class="black--text">{{user.name}}</v-list-tile-title>
                             <!--<v-list-tile-sub-title class="caption">{{user.groups}}</v-list-tile-sub-title>-->
                         </v-list-tile-content>
 
