@@ -81,7 +81,16 @@ router.beforeEach((to, from, next) => {
             })
         }
     }
-    next();
+    if(to.name !== "auth.login" && to.name !== "overview" && to.name !== "settings.profile" && to.name !== "settings.permissions") {
+        store.state.shared['permList'].forEach(function (key, value) {
+            console.log(to.meta.permission)
+            if (key.permission === to.meta.permission) {
+                next()
+            }
+        });
+    } else{
+        next()
+    }
 });
 
 export default router

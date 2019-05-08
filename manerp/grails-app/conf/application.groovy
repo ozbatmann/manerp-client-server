@@ -27,16 +27,33 @@ manerp {
     }
     rest{
         manerpPortal{
-            url = 'http://157.230.125.223/'
-            //url = 'http://localhost:8091/'
+            //url = 'http://157.230.125.223/'
+            url = 'http://localhost:8091/'
         }
     }
     auth{
+        filter {
+            enabled = false
+            exclude = [
+                [controller: 'actionItem', action: 'synchronizeActionItemRedis'],
+                [controller: 'actionItem', action: 'existAuthorization'],
+                [controller: 'actionItem', action: 'existActionItemByCalledMethod'],
+                [controller: 'actionItem', action: 'synchronizeActionItemDB'],
+                [controller: 'auth', action: 'login'],
+                [controller: 'auth', action: 'logout'],
+                [controller: 'redis', action: 'synchronizeRedisWithDB'],
+                [controller: 'passwordOperation', action: 'sendGeneratedLink'],
+                [controller: 'passwordOperation', action: 'checkLinkValidation'],
+                [controller: 'passwordOperation', action: 'changePassword'],
+            ]
+
+        }
         restMethod {
             synchronizeRedisWithDB = "api/v1/redis/synchronizeRedisWithDB"
 
             user{
                 getAllUserList = "api/v1/rest/getAllUserList"
+                getAllUserListBySearchParam = "api/v1/rest/getAllUserListBySearchParam"
                 addUser = "api/v1/rest/addUser"
                 updateUser = "api/v1/rest/updateUser"
                 deleteUser = "api/v1/rest/deleteUser"
@@ -49,8 +66,14 @@ manerp {
             }
             rolePermission{
                 getAllRolePermissionList = "api/v1/rest/getAllRolePermissionList"
-                addRolePermission = "api/v1/rest/addRole"
+                addRolePermission = "api/v1/rest/addRolePermission"
                 deleteRolePermission = "api/v1/rest/deleteRolePermission"
+            }
+            securitySubjectPermission{
+                getAllSecuritySubjectPermissionList = "api/v1/rest/getAllSecuritySubjectPermissionList"
+            }
+            userOrganizationRole{
+                addUserOrganizationRole = "api/v1/rest/addUserOrganizationRole"
             }
         }
     }
@@ -67,8 +90,9 @@ environments {
         }
         dataSource {
             dbCreate = 'update'
-//            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
-            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
+           url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
+         //   url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
+            //url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://192.168.1.40:5432/manerp'
         }
         grails{
             redis {

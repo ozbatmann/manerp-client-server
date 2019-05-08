@@ -3,9 +3,11 @@ import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
 import base,{bus, http, i18n, store} from 'manerp-vue-base'
- import auth from 'manerp-vue-auth'
+import auth from 'manerp-vue-auth'
+import AuthService from 'manerp-vue-auth/src/service/AuthService'
 
- base.use(auth);
+
+base.use(auth);
 
 const langFiles = require.context("./../../client/src/modules/", true, /.*\/i18n\/(.*)\.json$/);
 langFiles.keys().forEach(function (fileName) {
@@ -65,6 +67,7 @@ http.defaults.baseURL = "http://172.20.10.2:8082/";
 
 if(store.state.shared['auth-token']){
     http.defaults.headers.common['Authorization'] = store.state.shared['auth-token']
+    AuthService.getUserAuthInfo()
 }
 
 window.instance = new Vue({
