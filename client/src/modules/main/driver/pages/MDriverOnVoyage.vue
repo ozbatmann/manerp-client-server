@@ -4,7 +4,7 @@
                 :headers="headers"
                 :items="vehicles"
                 :loading="loading"
-                @editItem="addDialog"
+                @editItem="editDialog"
         >
 
         </m-data-table>
@@ -33,6 +33,8 @@
         },
         data() {
             return {
+
+                loading: false,
                 // Data-table headers
                 headers: [
                     {
