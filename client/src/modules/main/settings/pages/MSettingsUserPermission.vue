@@ -23,19 +23,16 @@
                 </v-alert>
             </v-flex>
         </v-layout>
-        <v-layout row mt-3 align-stretch>
+        <v-layout row mt-3 align-top>
             <v-flex
                     mr-2
                     md4
                     lg3
-                    style="max-height: 65vh;"
-                    overflow-hidden
             >
                 <v-list
-                        two-line
                         dense
                         id="permissionList"
-                        class="fill-height m-filter-date pt-0 pb-2 overflow-x-hidden"
+                        class="m-filter-date pt-0 pb-2"
                         style="border: 1px solid #f5f5f5;"
                 >
                     <v-subheader
@@ -87,8 +84,8 @@
                         </v-list-tile-content>
                         <v-list-tile-content>
                             <v-list-tile-title>{{item.role.name}}</v-list-tile-title>
-                            <v-list-tile-sub-title class="caption text--secondary">{{item.count}} Kullanıcı
-                            </v-list-tile-sub-title>
+                            <!--<v-list-tile-sub-title class="caption text&#45;&#45;secondary">{{item.count}} Kullanıcı-->
+                            <!--</v-list-tile-sub-title>-->
                         </v-list-tile-content>
 
                         <v-list-tile-action class="m-settings__action">
@@ -101,20 +98,22 @@
                             >
                                 <!-- Row action button -->
                                 <!-- Activates the menu -->
-                                <v-btn
-                                        slot="activator"
-                                        icon
-                                >
-                                    <v-icon size="16">more_vert</v-icon>
-                                </v-btn>
-                                <v-list dense>
-                                    <v-list-tile @click="showRoleDialog(true)">
-                                        Düzenle
-                                    </v-list-tile>
-                                    <v-list-tile @click="deleteRole(item.role)">
-                                        Sil
-                                    </v-list-tile>
-                                </v-list>
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                            v-on="on"
+                                            icon
+                                    >
+                                        <v-icon size="16">more_vert</v-icon>
+                                    </v-btn>
+                                </template>
+                                    <v-list dense>
+                                        <v-list-tile @click="showRoleDialog(true)">
+                                            Düzenle
+                                        </v-list-tile>
+                                        <v-list-tile @click="deleteRole(item.role)">
+                                            Sil
+                                        </v-list-tile>
+                                    </v-list>
                             </v-menu>
                         </v-list-tile-action>
                     </v-list-tile>
@@ -190,12 +189,21 @@
                             </v-btn>
                         </v-list-tile-action>
                     </v-list-tile>
-                    <v-list-tile v-if="!users.length && !loading.user && !this.selected">
+                    <v-list-tile v-if="!loading.user && !this.selected">
                         <v-list-tile-content>
                             <v-list-tile-title
                                     class="text-xs-center black--text"
                             >
                                 Önce kullanıcı rolü seçin
+                            </v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    <v-list-tile v-else-if="!loading.user && !users.length">
+                        <v-list-tile-content>
+                            <v-list-tile-title
+                                    class="text-xs-center black--text"
+                            >
+                                Hiç kullanıcı bulunamadı
                             </v-list-tile-title>
                         </v-list-tile-content>
                     </v-list-tile>
@@ -378,7 +386,7 @@
         },
 
         computed: {
-            showAddUserButton () {
+            showAddUserButton() {
                 return !this.loading.user && this.selected
             },
 
@@ -403,8 +411,8 @@
 
         methods: {
 
-            permissionTitle (name) {
-                switch(name) {
+            permissionTitle(name) {
+                switch (name) {
                     case 'add':
                         return 'Ekle';
                     case 'edit':
@@ -567,12 +575,13 @@
 
             getUsers(roleId) {
                 this.loading.user = true;
+                let self = this;
 
                 this.$http.post('/api/v1/auth/getAllUserList',
                     {organizationId: this.user.organization.id, roleId: roleId})
                     .then((result) => {
                         console.log(result);
-                        this.users = result.data.itemList;
+                        self.users = result.data.itemList;
                     }).catch((error) => {
                     console.log(error);
                 }).finally(() => this.loading.user = false)

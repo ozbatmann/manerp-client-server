@@ -36,31 +36,31 @@
                 </v-tab>
             </v-tabs>
         </template>
-        <v-spacer></v-spacer>
-        <v-autocomplete
-                cache-items
-                hide-no-data
-                ref="searchAutocomplete"
-                class="mx-5"
-                flat
-                hide-details
-                label="Bir kişi, plaka, sevkiyat arayın"
-                solo
-                @focus="search(true)"
-        ></v-autocomplete>
-        <v-spacer></v-spacer>
+        <!--<v-spacer></v-spacer>-->
+        <!--<v-autocomplete-->
+                <!--cache-items-->
+                <!--hide-no-data-->
+                <!--ref="searchAutocomplete"-->
+                <!--class="mx-5"-->
+                <!--flat-->
+                <!--hide-details-->
+                <!--label="Bir kişi, plaka, sevkiyat arayın"-->
+                <!--solo-->
+                <!--@focus="search(true)"-->
+        <!--&gt;</v-autocomplete>-->
+        <!--<v-spacer></v-spacer>-->
 
         <v-spacer></v-spacer>
 
-        <v-btn icon>
+        <!--<v-btn icon>-->
 
-            <v-icon>apps</v-icon>
-        </v-btn>
+            <!--<v-icon>apps</v-icon>-->
+        <!--</v-btn>-->
 
-        <v-btn icon>
+        <!--<v-btn icon>-->
 
-            <v-icon>notifications</v-icon>
-        </v-btn>
+            <!--<v-icon>notifications</v-icon>-->
+        <!--</v-btn>-->
 
         <router-link :to="{ name: require('@/modules/main/settings/route/index.js').routes.profile }" active="">
             <v-btn icon>
@@ -188,5 +188,9 @@
 <style scoped>
     .v-toolbar__extension {
         align-items: start !important;
+    }
+
+    a {
+        color: transparent;
     }
 </style>

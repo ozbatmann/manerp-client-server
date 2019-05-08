@@ -5,9 +5,9 @@
 
             <app-toolbar v-model="menu"></app-toolbar>
 
-            <app-chat-drawer    v-model="drawer"
-                                :temporary=true>
-            </app-chat-drawer>
+            <!--<app-chat-drawer    v-model="drawer"-->
+                                <!--:temporary=true>-->
+            <!--</app-chat-drawer>-->
 
             <v-content style="min-height: 100%;">
 
@@ -18,29 +18,29 @@
                             <router-view></router-view>
                     </v-fade-transition>
 
-                    <v-tooltip left>
+                    <!--<v-tooltip left>-->
 
-                        <template v-slot:activator="{ on }">
+                        <!--<template v-slot:activator="{ on }">-->
 
-                            <v-fab-transition>
+                            <!--<v-fab-transition>-->
 
-                                <v-btn
-                                        v-on="on"
-                                        color="blue accent-3"
-                                        dark
-                                        fab
-                                        fixed
-                                        bottom
-                                        right
-                                        @click="drawer = !drawer">
+                                <!--<v-btn-->
+                                        <!--v-on="on"-->
+                                        <!--color="blue accent-3"-->
+                                        <!--dark-->
+                                        <!--fab-->
+                                        <!--fixed-->
+                                        <!--bottom-->
+                                        <!--right-->
+                                        <!--@click="drawer = !drawer">-->
 
-                                    <v-icon>group</v-icon>
-                                </v-btn>
-                            </v-fab-transition>
-                        </template>
+                                    <!--<v-icon>group</v-icon>-->
+                                <!--</v-btn>-->
+                            <!--</v-fab-transition>-->
+                        <!--</template>-->
 
-                        <span>Mesaj penceresini göster</span>
-                    </v-tooltip>
+                        <!--<span>Mesaj penceresini göster</span>-->
+                    <!--</v-tooltip>-->
                 </v-container>
 
                 <app-footer></app-footer>
