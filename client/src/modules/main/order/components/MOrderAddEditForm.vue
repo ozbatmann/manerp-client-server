@@ -54,7 +54,7 @@
                         flat
                         v-model="data.billingNo"
                         v-validate="'required'"
-                        :error-messages="errors.collect('order.billingNo')"
+                        :error-messages="errors.collect('billingNo')"
                         label="Fatura Numarası"
                         name="billingNo"
                         :counter="50"
@@ -104,6 +104,8 @@
                         :disabled="completedOrder"
                         solo
                         flat
+                        v-validate="'required'"
+                        :error-messages="errors.collect('vendor')"
                         v-on:change="selectVendor"
                         :items="vendors"
                         v-model="selectedVendor"
@@ -114,6 +116,7 @@
                         background-color="grey lighten-4"
                         color="green accent-2"
                         class="m-settings__label"
+                        required
                     ></v-combobox>
                 </v-flex>
             </v-layout>

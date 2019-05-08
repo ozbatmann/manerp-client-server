@@ -5,7 +5,6 @@
             title="Yeni Sipariş"
             @save="addNewItem"
             @edit="editItem"
-            @displayMessage="displayCustomSnackMessage"
         ></m-order-add-edit-form>
         <m-data-table
             :headers="headers"
