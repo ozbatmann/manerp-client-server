@@ -10,31 +10,31 @@
             <h2 class="mt-5 font-weight-light">Yeni bir parola oluşturun.</h2>
         </div>
         <v-text-field
-                v-model="password"
-                :error="error"
-                solo
-                flat
-                placeholder="Yeni parola"
-                background-color="grey lighten-4"
-                color="black"
-                max="20"
-                counter="20"
-                type="password"
-                required
+            v-model="password"
+            :error="error"
+            solo
+            flat
+            placeholder="Yeni parola"
+            background-color="grey lighten-4"
+            color="black"
+            max="20"
+            counter="20"
+            type="password"
+            required
         ></v-text-field>
 
         <v-text-field
-                v-model="passwordRepeat"
-                :error="error"
-                solo
-                flat
-                placeholder="Yeni parola tekrar"
-                background-color="grey lighten-4"
-                color="black"
-                max="20"
-                counter="20"
-                type="password"
-                required
+            v-model="passwordRepeat"
+            :error="error"
+            solo
+            flat
+            placeholder="Yeni parola tekrar"
+            background-color="grey lighten-4"
+            color="black"
+            max="20"
+            counter="20"
+            type="password"
+            required
         ></v-text-field>
         <v-layout pt-3 column>
             <v-slide-y-transition>
@@ -44,11 +44,11 @@
             </v-slide-y-transition>
             <v-flex>
                 <v-btn
-                        depressed
-                        color="primary-green"
-                        class="white--text mx-0 mt-3"
-                        :loading="loading"
-                        @click="resetPassword"
+                    depressed
+                    color="primary-green"
+                    class="white--text mx-0 mt-3"
+                    :loading="loading"
+                    @click="resetPassword"
                 >
                     KAYDET
                 </v-btn>
@@ -85,7 +85,18 @@
                 } else if (this.password === this.passwordRepeat) {
                     this.loading = true;
 
+                    let request = {
+                        userId: null,
+                        password: this.password
+                    };
+
                     // Req to server
+                    this.$http.post("api/v1/resetPassword/custom/reset", request).then((result) => {
+                        console.log(result)
+                    }).catch((error) => {
+                        console.error(error);
+                    }).finally(() => {
+                    })
                 } else {
                     this.error = true;
                     this.message = 'Girdiğiniz parolalar uyuşmuyor';
