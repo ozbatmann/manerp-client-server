@@ -5,6 +5,7 @@
             :items="customers"
             :loading="loading"
             :to="to"
+            @filter="filter"
             @editItem="editDialog"
             @deleteItem="deleteItem"
         >
@@ -31,23 +32,6 @@
             @edit="editItem"
             @displayMessage="displaySnackMessage"
         ></customer-management-add-edit-dialog>
-
-        <v-snackbar
-            v-model="snackbar.active"
-            color="grey darken-4"
-            :class="snackbar.textColor"
-            top
-            right
-        >
-            {{ snackbar.text }}
-            <v-btn
-                dark
-                flat
-                @click="snackbar.active = false"
-            >
-                geri al
-            </v-btn>
-        </v-snackbar>
     </div>
 </template>
 
@@ -113,12 +97,6 @@
                     }
                 ],
 
-                snackbar: {
-                    active: false,
-                    text: null,
-                    textColor: null
-                },
-
                 customers: [],
                 newItem: null,
 
@@ -131,6 +109,10 @@
         },
 
         methods: {
+            filter(data) {
+                console.log(data);
+            },
+
             // Activates add new item dialog
             addDialog(data) {
                 this.$refs.customerManagementAddEditDialog.open(data)
@@ -175,7 +157,6 @@
                 this.newItem.sysrefCompanyType = this.sysrefCompanyTypeCstId;
 
                 this.$http.post('api/v1/company', this.newItem).then((result) => {
-                    self.displaySnackMessage(result);
                     self.getAllCustomers();
                     self.showDialog = false;
                 }).catch((error) => {
@@ -186,7 +167,6 @@
                 let self = this;
                 this.$http.put('api/v1/company', item)
                     .then(result => {
-                        self.displaySnackMessage(result);
                         self.getAllCustomers()
                     }).catch(error => {
                     console.log(error);
@@ -198,17 +178,6 @@
                 }).catch((error) => {
                     console.error(error);
                 })
-            },
-            displaySnackMessage(result) {
-                let status = result.data.status;
-                if (status < 299) {
-                    this.snackbar.textColor = 'green--text text--accent-3';
-                } else {
-                    this.snackbar.textColor = 'red--text';
-                }
-
-                this.snackbar.text = result.data.message;
-                this.snackbar.active = true;
             },
             getSysrefCompanyTypeCst() {
                 this.$http.get("api/v1/sysrefCompanyType").then((result) => {

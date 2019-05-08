@@ -26,23 +26,6 @@
             </template>
 
         </m-data-table>
-
-        <v-snackbar
-            v-model="snackbar.active"
-            color="grey darken-4"
-            :class="snackbar.textColor"
-            top
-            right
-        >
-            {{ snackbar.text }}
-            <v-btn
-                dark
-                flat
-                @click="snackbar.active = false"
-            >
-                geri al
-            </v-btn>
-        </v-snackbar>
     </div>
 </template>
 
@@ -185,12 +168,6 @@
 
                 newItem: null,
 
-                snackbar: {
-                    text: null,
-                    textColor: null,
-                    active: false
-                },
-
                 // Data table row click route
                 to: {
                     name: require('@/modules/main/driver/route/index').routes.information
@@ -228,7 +205,6 @@
                 let self = this;
                 this.newItem = item;
                 this.$http.post('api/v1/order', this.newItem).then((result) => {
-                    self.displaySnackMessage(result);
                     self.getAllOrders();
                 }).catch((error) => {
                     console.log(error);
@@ -240,7 +216,6 @@
                 console.log("item:", item);
                 this.$http.put('api/v1/order', item)
                     .then(result => {
-                        self.displaySnackMessage(result);
                         self.getAllOrders()
                     }).catch(error => {
                     console.log(error)
@@ -274,28 +249,11 @@
             deleteItem(item) {
                 let self = this;
                 this.$http.delete(`api/v1/order/${item.id}`).then((result) => {
-                    self.displaySnackMessage(result);
                     self.getAllOrders()
                 }).catch((error) => {
                     console.error(error);
                 })
             },
-            displaySnackMessage(result) {
-                let status = result.data.status;
-                if (status < 299) {
-                    this.snackbar.textColor = 'green--text text--accent-3';
-                } else {
-                    this.snackbar.textColor = 'red--text';
-                }
-
-                this.snackbar.text = result.data.message;
-                this.snackbar.active = true;
-            },
-            displayCustomSnackMessage(message) {
-                this.snackbar.textColor = 'red--text';
-                this.snackbar.text = message;
-                this.snackbar.active = true;
-            }
         },
 
         mounted() {

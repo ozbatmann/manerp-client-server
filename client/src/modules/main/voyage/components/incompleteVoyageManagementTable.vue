@@ -28,23 +28,6 @@
                                            @save="addNewItem"
                                            @edit="editItem">
         </voyage-management-add-edit-dialog>
-
-        <v-snackbar
-            v-model="snackbar.active"
-            color="grey darken-4"
-            :class="snackbar.textColor"
-            top
-            right
-        >
-            {{ snackbar.text }}
-            <v-btn
-                dark
-                flat
-                @click="snackbar.active = false"
-            >
-                geri al
-            </v-btn>
-        </v-snackbar>
     </div>
 </template>
 
@@ -109,14 +92,6 @@
                     }
                 ],
 
-                // Object that holds
-                // snackbar information
-                snackbar: {
-                    active: false,
-                    text: null,
-                    textColor: null
-                },
-
                 voyages: [],
                 newItem: null,
 
@@ -161,7 +136,6 @@
                 let self = this;
                 this.$http.post('api/v1/voyage', this.newItem)
                     .then((result) => {
-                        self.displaySnackMessage(result);
                         self.getAllVoyages();
                     }).catch((error) => {
                     console.log(error);
@@ -171,7 +145,6 @@
                 let self = this;
                 this.$http.put('api/v1/voyage/', item)
                     .then(result => {
-                        self.displaySnackMessage(result);
                         self.getAllVoyages();
                     }).catch(error => {
                     console.log(error)
@@ -181,23 +154,11 @@
                 let self = this;
 
                 this.$http.delete(`api/v1/voyage/${item.id}`).then((result) => {
-                    self.displaySnackMessage(result);
                     self.getAllVoyages();
                 }).catch((error) => {
                     console.error(error);
                 })
             },
-            displaySnackMessage(result) {
-                let status = result.data.status;
-                if (status < 299) {
-                    this.snackbar.textColor = 'green--text text--accent-3';
-                } else {
-                    this.snackbar.textColor = 'red--text';
-                }
-
-                this.snackbar.text = result.data.message;
-                this.snackbar.active = true;
-            }
         },
         mounted() {
             this.getAllVoyages();

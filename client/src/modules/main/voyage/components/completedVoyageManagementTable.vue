@@ -13,23 +13,6 @@
                                            @save="addNewItem"
                                            @edit="editItem">
         </voyage-management-add-edit-dialog>
-
-        <v-snackbar
-            v-model="snackbar.active"
-            color="grey darken-4"
-            :class="snackbar.textColor"
-            top
-            right
-        >
-            {{ snackbar.text }}
-            <v-btn
-                dark
-                flat
-                @click="snackbar.active = false"
-            >
-                geri al
-            </v-btn>
-        </v-snackbar>
     </div>
 </template>
 
@@ -93,14 +76,6 @@
                         search: {chip: false, value: null}
                     }
                 ],
-
-                // Object that holds
-                // snackbar information
-                snackbar: {
-                    active: false,
-                    text: null,
-                    textColor: null
-                },
 
                 voyages: [],
                 newItem: null,
@@ -173,17 +148,6 @@
                     console.error(error);
                 })
             },
-            displaySnackMessage(result) {
-                let status = result.data.status;
-                if (status < 299) {
-                    this.snackbar.textColor = 'green--text text--accent-3';
-                } else {
-                    this.snackbar.textColor = 'red--text';
-                }
-
-                this.snackbar.text = result.data.message;
-                this.snackbar.active = true;
-            }
         },
         mounted() {
             this.getAllVoyages();

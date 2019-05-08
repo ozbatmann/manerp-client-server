@@ -602,6 +602,7 @@
             onimport (e) {
                 let files = e.target.files, f = files[0];
                 let reader = new FileReader();
+                let self = this;
                 reader.onload = function(e) {
                     let data = new Uint8Array(e.target.result);
                     let workbook = XLSX.read(data, {type: 'array'});
@@ -611,6 +612,7 @@
                     console.log(sheet_name_list);
                     console.log(json);
 
+                    let error = false;
                     let output = [];
 
                     for (let item of json) {
@@ -619,19 +621,25 @@
 
                         for (let i = 0; i < keys.length; i++) {
                             let value = keys[i];
-                            let header = this.headers.find(header => {
+                            let header = self.headers.find(header => {
                                 return header.text === value;
                             });
 
                             if (header) {
                                 outputItem[header.value] = item[value];
                             } else {
-                                console.log('Header: ', value, 'not found. Please revise .xlsx file.');
+                                error = true;
+                                alert(value.toLocaleUpperCase() + ' alanı bulunamadı. Lütfen excel dosyasını gözden geçirin.');
+                                break;
                             }
                         }
 
+                        if (error) break;
+
                         output.push(outputItem);
                     }
+
+                    if (!error) self.items = output;
 
                     console.log('import result: ', output);
 

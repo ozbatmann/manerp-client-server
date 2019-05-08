@@ -172,8 +172,6 @@
                 ],
 
                 orders: [],
-
-                snackbar: false
             }
         },
 

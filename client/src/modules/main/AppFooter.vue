@@ -10,15 +10,6 @@
                 row
                 wrap
         >
-            <v-btn
-                    v-for="link in links"
-                    :key="link"
-                    color="white"
-                    flat
-                    round
-            >
-                {{ link }}
-            </v-btn>
             <v-flex
                     deep-purple
                     darken-2

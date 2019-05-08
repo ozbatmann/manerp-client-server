@@ -6,41 +6,8 @@
             :loading="loading"
             @editItem="addDialog"
             @deleteItem="deleteItem"
-        >
-            <!-- Data table header slot -->
-            <template v-slot:header>
-
-                <!-- Add customer button -->
-                <m-data-table-action
-                    title="araç ekle"
-                    @click="addDialog"
-                ></m-data-table-action>
-            </template>
-        </m-data-table>
-
-        <m-vehicle-add-edit-form
-            ref="addEditDialog"
-            @save="addNewItem"
-            @edit="editItem"
-            onVoyageVehicle
-        ></m-vehicle-add-edit-form>
-
-        <v-snackbar
-            v-model="snackbar.active"
-            color="grey darken-4"
-            :class="snackbar.textColor"
-            top
-            right
-        >
-            {{ snackbar.text }}
-            <v-btn
-                dark
-                flat
-                @click="snackbar.active = false"
-            >
-                geri al
-            </v-btn>
-        </v-snackbar>
+            no-import
+        ></m-data-table>
     </div>
 </template>
 
@@ -112,12 +79,6 @@
 
                 newItem: null,
 
-                snackbar: {
-                    text: null,
-                    textColor: null,
-                    active: false
-                },
-
                 // Data table row click route
                 // to: {
                 //     name: require('@/modules/main/vehicle/route/index').routes.information
@@ -125,12 +86,6 @@
             }
         },
         methods: {
-
-            // Activates add new item dialog
-            addDialog(data) {
-                console.log('vehicle', data);
-                this.$refs.addEditDialog.open(data)
-            },
 
             // Adds a new driver
             // to the system
@@ -146,43 +101,12 @@
                     self.loading = false;
                 })
             },
-            addNewItem(item) {
-                let self = this;
-                this.newItem = item;
-                this.loading = true;
-
-                this.$http.post('api/v1/vehicle', this.newItem).then((result) => {
-                    let status = result.data.status;
-                    if (status < 299) {
-                        self.snackbar.textColor = 'green--text text--accent-3';
-                    } else {
-                        self.snackbar.textColor = 'red--text';
-                    }
-
-                    self.snackbar.text = result.data.message;
-                    self.snackbar.active = true;
-                    self.getAllVehicles();
-                }).catch((error) => {
-                    console.log(error);
-                }).finally((result) => {
-                    self.loading = false;
-                })
-            },
 
             editItem(item) {
                 let self = this;
 
                 this.$http.put('api/v1/vehicle/', item)
                     .then(result => {
-                        let status = result.data.status;
-                        if (status < 299) {
-                            self.snackbar.textColor = 'green--text text--accent-3';
-                        } else {
-                            self.snackbar.textColor = 'red--text';
-                        }
-
-                        self.snackbar.text = result.data.message;
-                        self.snackbar.active = true;
                         self.getAllVehicles();
                     }).catch(error => {
                     console.log(error)

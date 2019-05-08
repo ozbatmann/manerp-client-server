@@ -24,23 +24,6 @@
             @save="addNewItem"
             @edit="editItem"
         ></supplier-management-add-edit-dialog>
-
-        <v-snackbar
-            v-model="snackbar.active"
-            color="grey darken-4"
-            :class="snackbar.textColor"
-            top
-            right
-        >
-            {{ snackbar.text }}
-            <v-btn
-                dark
-                flat
-                @click="snackbar.active = false"
-            >
-                geri al
-            </v-btn>
-        </v-snackbar>
     </div>
 </template>
 
@@ -105,12 +88,6 @@
                     }
                 ],
 
-                snackbar: {
-                    active: false,
-                    text: null,
-                    textColor: null
-                },
-
                 suppliers: [],
                 newItem: null,
 
@@ -167,16 +144,7 @@
                 this.newItem.sysrefCompanyType = this.sysrefCompanyTypeSplId;
                 console.log(this.newItem.sysrefCompanyType)
                 this.$http.post('api/v1/company', this.newItem).then((result) => {
-                    let status = result.data.status;
-                    if (status < 299) {
-                        self.snackbar.textColor = 'green--text text--accent-3';
-                    } else {
-                        self.snackbar.textColor = 'red--text';
-                    }
-
                     self.showDialog = false;
-                    self.snackbar.text = result.data.message;
-                    self.snackbar.active = true;
                     self.getAllSuppliers();
                 }).catch((error) => {
                     console.log(error);
@@ -187,15 +155,6 @@
 
                 this.$http.put('api/v1/company', item)
                     .then(result => {
-                        let status = result.data.status;
-                        if (status < 299) {
-                            self.snackbar.textColor = 'green--text text--accent-3';
-                        } else {
-                            self.snackbar.textColor = 'red--text';
-                        }
-
-                        self.snackbar.text = result.data.message;
-                        self.snackbar.active = true;
                         self.getAllSuppliers()
                     }).catch(error => {
                     console.log(error);

@@ -2,18 +2,65 @@
     <div>
         <v-app>
             <router-view></router-view>
-            <vue-snotify></vue-snotify>
+            <v-snackbar
+                    v-model="snackbar.active"
+                    top
+                    right
+                    :class="snackbarClass"
+            >
+                {{ snackbar.text }}
+            </v-snackbar>
         </v-app>
     </div>
 </template>
 
 <script>
+
     export default {
         name: 'App',
         data() {
             return {
-                //
+                snackbar: {
+                    active: false,
+                    text: null,
+                    error: false,
+                }
             }
+        },
+
+        computed: {
+            snackbarClass () {
+                return this.snackbar.error ? 'red--text' : 'primary-green--text'
+            }
+        },
+
+        mounted () {
+            this.$bus.$on('response', response => {
+                if (response.data) {
+                    let message = response.data.message;
+
+                    if (response.data.status <= 299) {
+
+                        if (message) {
+                            this.snackbar.error = false;
+                            this.snackbar.text = message;
+                            this.snackbar.active = true;
+                        }
+                    } else {
+                        this.snackbar.error = true;
+                        this.snackbar.text = message;
+                        this.snackbar.active = true;
+                    }
+                } else {
+                    let message = response.message;
+                    let status = response.statusCode;
+
+                    this.snackbar.error = true;
+                    this.snackbar.text = `${status} - ${message}`;
+                    this.snackbar.active = true;
+                }
+
+            });
         }
     }
 </script>

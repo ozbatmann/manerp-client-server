@@ -9,7 +9,7 @@
             light
             z-index=5
             :nudge-left="10"
-            :nudge-width="300"
+            :nudge-width="240"
             :close-on-content-click="false"
             transition="slide-x-reverse-transition"
             content-class="v-shadow-lg filterMenu"
