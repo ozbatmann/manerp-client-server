@@ -24,7 +24,7 @@ const meta = (title) => {
                 to: { name: routes.documents }
             },
         ],
-        permission: 'staff.show'
+        permission: 'staff:show'
     }
 };
 
@@ -33,7 +33,7 @@ export default [
         path: 'staffs',
         name: routes.staffs,
         component: () => import('@/modules/main/staff/pages/StaffManagement'),
-        meta: { title: 'Personel Yönetimi' }
+        meta: { title: 'Personel Yönetimi', permission: 'staff:show' }
     },
     {
         path: 'staffs/details/:id',

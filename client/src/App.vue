@@ -38,8 +38,9 @@
             this.$bus.$on('response', response => {
                 if (response.data) {
                     let message = response.data.message;
+                    let status = response.data.status ? response.data.status : 200;
 
-                    if (response.data.status <= 299) {
+                    if (status <= 299) {
 
                         if (message) {
                             this.snackbar.error = false;
@@ -47,6 +48,8 @@
                             this.snackbar.active = true;
                         }
                     } else {
+                        console.log('Fiddle', response);
+
                         this.snackbar.error = true;
                         this.snackbar.text = message;
                         this.snackbar.active = true;

@@ -85,7 +85,6 @@
 
                 resetPassword: {
                     name: require('@/modules/main/authentication/route/index').routes.sendResetMail,
-                    params: { id: 1 }
                 }
             }
         },

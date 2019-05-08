@@ -105,34 +105,36 @@
             <v-btn
                     depressed
                     flat
+                    @click="go"
             >
                 {{ actionText }}
             </v-btn>
             <v-spacer></v-spacer>
 
-            <!-- Report button tooltip -->
-            <v-tooltip bottom>
+            <!--&lt;!&ndash; Report button tooltip &ndash;&gt;-->
+            <!--<v-tooltip bottom>-->
 
-                <!-- Activator template -->
-                <template v-slot:activator="{ on }">
+                <!--&lt;!&ndash; Activator template &ndash;&gt;-->
+                <!--<template v-slot:activator="{ on }">-->
 
-                    <!-- Report action button -->
-                    <!-- Redirects to reports page for further detail -->
-                    <v-btn
-                        flat
-                        color="blue"
-                        icon
-                        v-on="on"
-                    >
-                        <v-icon>
-                            assessment
-                        </v-icon>
-                    </v-btn>
-                </template>
+                    <!--&lt;!&ndash; Report action button &ndash;&gt;-->
+                    <!--&lt;!&ndash; Redirects to reports page for further detail &ndash;&gt;-->
+                    <!--<v-btn-->
+                        <!--flat-->
+                        <!--color="blue"-->
+                        <!--icon-->
+                        <!--v-on="on"-->
+                        <!--@-->
+                    <!--&gt;-->
+                        <!--<v-icon>-->
+                            <!--assessment-->
+                        <!--</v-icon>-->
+                    <!--</v-btn>-->
+                <!--</template>-->
 
-                <!-- Tooltip text -->
-                <span>Rapor olarak göster</span>
-            </v-tooltip>
+                <!--&lt;!&ndash; Tooltip text &ndash;&gt;-->
+                <!--<span>Rapor olarak göster</span>-->
+            <!--</v-tooltip>-->
         </v-card-actions>
     </v-card>
 </template>
@@ -198,6 +200,10 @@
             text: {
                 type: String,
                 default: null
+            },
+
+            to: {
+                type: Object
             }
         },
 
@@ -272,6 +278,12 @@
             percentageTitle () {
                 return this.isTrending ? this.percentage.toFixed(2) + ' ile yükseliş trendindesiniz!' :
                     this.percentage.toFixed(2) + ' ile düşüş trendindesiniz!'
+            },
+        },
+        methods: {
+
+            go () {
+                this.$router.push(this.to)
             }
         }
     }

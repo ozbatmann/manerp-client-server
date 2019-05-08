@@ -6,8 +6,24 @@
             :loading="loading"
             @editItem="addDialog"
             @deleteItem="deleteItem"
-            no-import
-        ></m-data-table>
+        >
+            <!-- Data table header slot -->
+            <template v-slot:header>
+
+                <!-- Add customer button -->
+                <m-data-table-action
+                    title="araç ekle"
+                    @click="addDialog"
+                ></m-data-table-action>
+            </template>
+        </m-data-table>
+
+        <m-vehicle-add-edit-form
+            ref="addEditDialog"
+            @save="addNewItem"
+            @edit="editItem"
+            onVoyageVehicle
+        ></m-vehicle-add-edit-form>
     </div>
 </template>
 
@@ -87,6 +103,12 @@
         },
         methods: {
 
+            // Activates add new item dialog
+            addDialog(data) {
+                console.log('vehicle', data);
+                this.$refs.addEditDialog.open(data)
+            },
+
             // Adds a new driver
             // to the system
             getAllVehicles() {
@@ -95,6 +117,19 @@
 
                 this.$http.get('api/v1/vehicle?vehicleStateCode=ONVOYAGE').then((result) => {
                     self.vehicles = result.data.data.items
+                }).catch((error) => {
+                    console.log(error);
+                }).finally((result) => {
+                    self.loading = false;
+                })
+            },
+            addNewItem(item) {
+                let self = this;
+                this.newItem = item;
+                this.loading = true;
+
+                this.$http.post('api/v1/vehicle', this.newItem).then((result) => {
+                    self.getAllVehicles();
                 }).catch((error) => {
                     console.log(error);
                 }).finally((result) => {

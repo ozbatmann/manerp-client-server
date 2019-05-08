@@ -5,7 +5,9 @@
             :items="voyages"
             :loading="loading"
             :to="to"
+            @editItem="editDialog"
             @deleteItem="deleteItem"
+            no-import
         >
         </m-data-table>
 

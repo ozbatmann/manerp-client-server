@@ -260,8 +260,6 @@
                         if (this.data.selectedVendors.length > 1) {
                             this.$emit("save", this.data);
                             this.close();
-                        } else {
-                            this.$emit('displayMessage', "Sipariş için en az 2 bayi seçilmelidir")
                         }
                     }
                 });
@@ -273,8 +271,6 @@
                         if (this.data.selectedVendors.length > 1) {
                             this.$emit("edit", this.data);
                             this.close();
-                        } else {
-                            this.$emit('displayMessage', "Sipariş için en az 2 bayi seçilmelidir")
                         }
                     }
                 });

@@ -303,9 +303,6 @@
                 }).finally(() => {
                 })
             },
-            displayMessage(result) {
-                this.$emit('displayMessage', result);
-            }
         },
         mounted() {
             this.getSysrefCountries();

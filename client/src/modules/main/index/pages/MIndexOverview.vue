@@ -12,17 +12,17 @@
 
             <v-spacer></v-spacer>
 
-            <v-btn
-                    depressed
-                    class="mx-0">
+            <!--<v-btn-->
+                    <!--depressed-->
+                    <!--class="mx-0">-->
 
-                <v-icon left
-                        size="20"
-                        color="red">notifications_active
-                </v-icon>
+                <!--<v-icon left-->
+                        <!--size="20"-->
+                        <!--color="red">notifications_active-->
+                <!--</v-icon>-->
 
-                3 YENİ MESAJ
-            </v-btn>
+                <!--3 YENİ MESAJ-->
+            <!--</v-btn>-->
         </v-layout>
 
         <v-layout row mt-2>
@@ -35,6 +35,7 @@
                         text="adet bekleyen siparişiniz var"
                         empty-text="Bekleyen sipariş bulunmuyor"
                         action-text="SİPARİŞLERİ GÖRÜNTÜLE"
+                        :to="{ name: 'orders.current' }"
                         :statistics="value">
                 </m-index-overview-component>
             </v-flex>
@@ -47,6 +48,7 @@
                         text="adet devam eden sevkiyatınız var"
                         empty-text="Bekleyen sevkiyat bulunmuyor"
                         action-text="SEVKİYATLARI GÖRÜNTÜLE"
+                        :to="{ name: 'voyages.incomplete' }"
                         :statistics="value2"
                         bar>
                 </m-index-overview-component>
@@ -83,7 +85,7 @@
 
                                     <v-flex shrink>
 
-                                        <v-checkbox class="py-0 my-0" color="green accent-2"></v-checkbox>
+                                        <v-checkbox class="py-0 my-0" color="green accent-2" :input-value="true"></v-checkbox>
                                     </v-flex>
 
                                     <v-flex grow>
