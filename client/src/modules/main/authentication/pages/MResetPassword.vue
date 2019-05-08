@@ -86,7 +86,7 @@
                     this.loading = true;
 
                     let request = {
-                        userId: null,
+                        userId: this.$route.params.id,
                         password: this.password
                     };
 
