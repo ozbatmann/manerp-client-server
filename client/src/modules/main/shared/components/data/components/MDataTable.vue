@@ -168,7 +168,7 @@
                         :pagination.sync="pagination"
                         :loading="localLoading"
                         rows-per-page-text="Sayfa başına"
-                        :rows-per-page-items="50"
+                        :rows-per-page-items="[50]"
                         select-all
                         item-key="id"
                         class="m-data-table"
