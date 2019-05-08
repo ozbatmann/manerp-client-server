@@ -114,9 +114,9 @@
                 </v-flex>
                 <v-flex xs6 pr-2>
                     <v-text-field
-                        :disabled="onVoyageDriver"
                         v-validate="'email'"
                         :error-messages="errors.collect('email')"
+                        :disabled="onVoyageDriver"
                         v-model="data.email"
                         :counter="50"
                         maxlength="50"

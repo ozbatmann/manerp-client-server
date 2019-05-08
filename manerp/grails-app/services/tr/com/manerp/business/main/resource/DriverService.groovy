@@ -72,16 +72,15 @@ class DriverService extends BaseService
 
     def delete(Staff driver)
     {
-        if ( driver.userId ) {
-            staffService.deleteStaffWithUserId(driver)
-        } else {
-            driver.delete(flush: true, failOnError: true)
-        }
-
         DriverNotification.createCriteria().list {
             eq('driver', driver)
         }.each {
             it.delete(flush: true, failOnError: true)
+        }
+        if ( driver.userId ) {
+            staffService.deleteStaffWithUserId(driver)
+        } else {
+            driver.delete(flush: true, failOnError: true)
         }
     }
 
@@ -246,6 +245,7 @@ class DriverService extends BaseService
     {
 
         def data = DriverNotification.createCriteria().list {
+            order('dateCreated', 'desc')
             eq('driver', driver)
         }.collect {
             [

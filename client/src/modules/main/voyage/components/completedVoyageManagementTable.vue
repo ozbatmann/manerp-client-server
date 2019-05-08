@@ -8,6 +8,7 @@
             @editItem="editDialog"
             @deleteItem="deleteItem"
             no-import
+            no-delete
         >
         </m-data-table>
 

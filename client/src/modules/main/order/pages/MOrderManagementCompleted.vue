@@ -14,6 +14,7 @@
             :loading="loading"
             @deleteItem="deleteItem"
             @editItem="editDialog"
+            no-delete
         >
         </m-data-table>
     </div>
