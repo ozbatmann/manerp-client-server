@@ -18,7 +18,7 @@ const meta = (title) => {
                 to: { name: routes.onVoyage }
             },
         ],
-        permission: 'driver.show'
+        permission: 'driver:show'
     }
 };
 

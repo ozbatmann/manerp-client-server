@@ -55,7 +55,7 @@ export default {
             state["user"] = value
         },
         SET_TOKEN(state, value) {
-            state["auth-token"] = value
+            state["user"] = value
         }
     }
 }
