@@ -6,16 +6,8 @@
             :loading="loading"
             @editItem="addDialog"
             @deleteItem="deleteItem"
+            no-import
         >
-            <!-- Data table header slot -->
-            <template v-slot:header>
-
-                <!-- Add customer button -->
-                <m-data-table-action
-                    title="araç ekle"
-                    @click="addDialog"
-                ></m-data-table-action>
-            </template>
         </m-data-table>
 
         <m-vehicle-add-edit-form

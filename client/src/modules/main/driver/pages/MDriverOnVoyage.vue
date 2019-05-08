@@ -1,10 +1,10 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <m-data-table
-                :headers="headers"
-                :items="vehicles"
-                :loading="loading"
-                @editItem="editDialog"
+            :headers="headers"
+            :items="drivers"
+            :loading="loading"
+            @editItem="editDialog"
         >
 
         </m-data-table>
@@ -94,13 +94,13 @@
                     }
                 ],
 
-                vehicles: [],
+                drivers: [],
 
                 newItem: null,
 
                 // Data table row click route
                 // to: {
-                //     name: require('@/modules/main/vehicle/route/index').routes.information
+                //     name: require('@/modules/main/driver/route/index').routes.information
                 // },
             }
         },

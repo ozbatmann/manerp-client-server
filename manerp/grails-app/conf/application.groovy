@@ -25,13 +25,14 @@ manerp {
     domain {
         excludedFields = ['sysCompany'] as HashSet
     }
-    rest{
-        manerpPortal{
+    rest {
+        manerpPortal {
             //url = 'http://157.230.125.223/'
             url = 'http://localhost:8091/'
         }
     }
-    auth{
+    auth {
+        url = 'http://localhost:8091/'
         filter {
             enabled = false
             exclude = [
@@ -51,28 +52,28 @@ manerp {
         restMethod {
             synchronizeRedisWithDB = "api/v1/redis/synchronizeRedisWithDB"
 
-            user{
+            user {
                 getAllUserList = "api/v1/rest/getAllUserList"
                 getAllUserListBySearchParam = "api/v1/rest/getAllUserListBySearchParam"
                 addUser = "api/v1/rest/addUser"
                 updateUser = "api/v1/rest/updateUser"
                 deleteUser = "api/v1/rest/deleteUser"
             }
-            role{
+            role {
                 getAllRoleList = "api/v1/rest/getAllRoleList"
                 addRole = "api/v1/rest/addRole"
                 updateRole = "api/v1/rest/updateRole"
                 deleteRole = "api/v1/rest/deleteRole"
             }
-            rolePermission{
+            rolePermission {
                 getAllRolePermissionList = "api/v1/rest/getAllRolePermissionList"
                 addRolePermission = "api/v1/rest/addRolePermission"
                 deleteRolePermission = "api/v1/rest/deleteRolePermission"
             }
-            securitySubjectPermission{
+            securitySubjectPermission {
                 getAllSecuritySubjectPermissionList = "api/v1/rest/getAllSecuritySubjectPermissionList"
             }
-            userOrganizationRole{
+            userOrganizationRole {
                 addUserOrganizationRole = "api/v1/rest/addUserOrganizationRole"
             }
         }
@@ -90,11 +91,11 @@ environments {
         }
         dataSource {
             dbCreate = 'update'
-           url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
-         //   url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
+            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://localhost:5432/manerp'
+            //   url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
             //url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://192.168.1.40:5432/manerp'
         }
-        grails{
+        grails {
             redis {
                 database = System.getenv('REDIS_DB')?.toInteger() ?: 1
                 host = System.getenv('REDIS_HOST') ?: '157.230.125.223'
@@ -116,7 +117,7 @@ environments {
         dataSource {
             dbCreate = 'update'
 //            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
-            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://157.230.125.223:5432/manerp'
+            url = System.getenv('POSTGRESQL_URL') ?: 'jdbc:postgresql://localhost:5432/manerp'
         }
     }
 }
