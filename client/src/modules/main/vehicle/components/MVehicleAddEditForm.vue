@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <m-data-table-add-edit-form
         v-model="showDialog"
-        title="Yeni Araç"
+        :title="onVoyageVehicle ? 'Araç Bilgileri' : 'Yeni Araç'"
         :editing="isEdit"
         @clear="clear"
         @edit="edit"

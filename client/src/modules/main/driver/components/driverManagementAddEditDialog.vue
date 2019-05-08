@@ -234,7 +234,7 @@
                         flat
                     ></v-textarea>
                 </v-flex>
-                <v-flex xs12>
+                <v-flex xs6 pr-2>
                     <v-checkbox
                         v-on:change="isUserChanged"
                         v-model="data.isUser"
@@ -242,12 +242,12 @@
                         label="Sistem Kullanıcısı"
                         name="isUser"
                         color="green accent-2"
-                        class="m-settings__label"
+                        class="m-settings__label mt-2"
                         solo
                         flat
                     ></v-checkbox>
                 </v-flex>
-                <v-flex xs6 pr-2 v-if="data.isUser">
+                <v-flex xs6 pl-2 v-if="data.isUser">
                     <v-text-field
                         :disabled="isEdit && retrievedUsername != null || onVoyageDriver"
                         v-validate="'required'"

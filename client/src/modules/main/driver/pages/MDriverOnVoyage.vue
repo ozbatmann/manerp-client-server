@@ -5,6 +5,8 @@
             :items="drivers"
             :loading="loading"
             @editItem="editDialog"
+            no-import
+            no-delete
         >
 
         </m-data-table>
