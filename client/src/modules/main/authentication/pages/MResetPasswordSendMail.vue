@@ -10,26 +10,26 @@
             <h2 class="mt-5 font-weight-light">E-posta adresinizi girin ve arkanıza yaslanın.</h2>
         </div>
         <v-text-field
-                v-model="email"
-                solo
-                flat
-                placeholder="E-posta adresi"
-                background-color="grey lighten-4"
-                color="black"
-                type="email"
-                required
+            v-model="email"
+            solo
+            flat
+            placeholder="E-posta adresi"
+            background-color="grey lighten-4"
+            color="black"
+            type="email"
+            required
         ></v-text-field>
 
         <v-text-field
-                v-model="emailRepeat"
-                solo
-                flat
-                hide-details
-                placeholder="E-posta adresi tekrar"
-                background-color="grey lighten-4"
-                color="black"
-                type="email"
-                required
+            v-model="emailRepeat"
+            solo
+            flat
+            hide-details
+            placeholder="E-posta adresi tekrar"
+            background-color="grey lighten-4"
+            color="black"
+            type="email"
+            required
         ></v-text-field>
         <v-layout pt-3 column>
             <v-slide-y-transition>
@@ -39,11 +39,11 @@
             </v-slide-y-transition>
             <v-flex>
                 <v-btn
-                        depressed
-                        color="primary-green"
-                        class="white--text mx-0 mt-3"
-                        :loading="loading"
-                        @click="sendResetPasswordRequest"
+                    depressed
+                    color="primary-green"
+                    class="white--text mx-0 mt-3"
+                    :loading="loading"
+                    @click="sendResetPasswordRequest"
                 >
                     GÖNDER
                 </v-btn>
@@ -80,7 +80,16 @@
                 } else if (this.email === this.emailRepeat) {
                     this.loading = true;
 
+                    let request = {
+                        email: this.email
+                    };
                     // Req to server
+                    this.$http.post("api/v1/resetPassword/custom/validateEmail", request).then((result) => {
+                        console.log(result)
+                    }).catch((error) => {
+                        console.error(error);
+                    }).finally(() => {
+                    })
                 } else {
                     this.error = true;
                     this.message = 'Girdiğiniz e-posta adresleri uyuşmuyor';
